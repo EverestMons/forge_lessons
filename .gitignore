@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.DS_Store
+*.db
+*.db-shm
+*.db-wal
+.bellows-worktrees/
+.bellows-cache/
+.vexp/
