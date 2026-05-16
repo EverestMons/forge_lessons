@@ -1,0 +1,300 @@
+{
+  "plan_slug": "executable-gate-2a-lessons-forge-ratification-2026-05-19",
+  "step": 1,
+  "decision_matrix_source": "lessons-forge/knowledge/research/gate-1-decisions-2026-05-18.md",
+  "planner_count_reconciliation": "matrix Summary says 20 accepted; body tables list 18; this manifest operates on 18 per Planner authoring decision 2026-05-19",
+  "row_counts": {
+    "accepted": 18,
+    "deferred": 2,
+    "rejected": 4,
+    "superseded": 1,
+    "total": 25
+  },
+  "anomaly": "Plan expects 26 row touches (5 rejected + 1 superseded), but G17 and pre-existing ID 38 map to the same proposal_id (38). The cycle pipeline created 24 new proposals (IDs 39-62); entry 25's second classification reused pre-existing ID 38 rather than creating a 25th new proposal. G17's 'rejected' disposition and ID 38's 'superseded' disposition target the same row — final status is superseded (plan rule 4 takes precedence). Actual distinct row touches: 25 (4 rejected, 1 superseded).",
+  "mappings": [
+    {
+      "gate_1_label": "S1",
+      "proposal_id": 39,
+      "entry_id": 39,
+      "entry_date": "2026-05-18",
+      "source_heading_snippet": "`deposit_exists` gate keys on literal staging filename i",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "S2",
+      "proposal_id": 40,
+      "entry_id": 40,
+      "entry_date": "2026-05-17",
+      "source_heading_snippet": "Bellows Rule 20 gate keys on a specific stdout pattern; ",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G1",
+      "proposal_id": 41,
+      "entry_id": 41,
+      "entry_date": "2026-05-17",
+      "source_heading_snippet": "Defensive diagnostic before destructive cross-repo work ",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G2",
+      "proposal_id": 42,
+      "entry_id": 42,
+      "entry_date": "2026-05-16",
+      "source_heading_snippet": "Splitting destructive cross-cutting work into stand-up +",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G3",
+      "proposal_id": 43,
+      "entry_id": 43,
+      "entry_date": "2026-05-15",
+      "source_heading_snippet": "Claude has two filesystems and the wrong tool silently wr",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G4",
+      "proposal_id": 44,
+      "entry_id": 44,
+      "entry_date": "2026-05-15",
+      "source_heading_snippet": "Bellows lifecycle commits in a submodule need a governanc",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G5",
+      "proposal_id": 45,
+      "entry_id": 45,
+      "entry_date": "2026-05-15",
+      "source_heading_snippet": "Canary \"captured cwd\" flag is a cheap, decisive answer to",
+      "current_status": "proposed",
+      "target_status": "deferred",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G6",
+      "proposal_id": 51,
+      "entry_id": 51,
+      "entry_date": "2026-05-14",
+      "source_heading_snippet": "Recovery plan had a gap (empty index after bare-to-non-ba",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G7",
+      "proposal_id": 52,
+      "entry_id": 52,
+      "entry_date": "2026-05-13",
+      "source_heading_snippet": "Phase 1.5 skipped at session start; cost was four diagnos",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G8",
+      "proposal_id": 53,
+      "entry_id": 53,
+      "entry_date": "2026-05-13",
+      "source_heading_snippet": "Verdict directory error recurred for the third time in 24",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G9",
+      "proposal_id": 54,
+      "entry_id": 54,
+      "entry_date": "2026-05-13",
+      "source_heading_snippet": "Bellows step-pause behavior model was wrong; per-step pau",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G10",
+      "proposal_id": 56,
+      "entry_id": 56,
+      "entry_date": "2026-05-13",
+      "source_heading_snippet": "Negative grep results during dormancy != architectural fi",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G11",
+      "proposal_id": 57,
+      "entry_id": 57,
+      "entry_date": "2026-05-13",
+      "source_heading_snippet": "`**Deposits:**` blocks must contain resolvable paths, nev",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "G12",
+      "proposal_id": 58,
+      "entry_id": 16,
+      "entry_date": "2026-05-12",
+      "source_heading_snippet": "Verdict response files go to `verdicts/resolved/`, NOT `v",
+      "current_status": "proposed",
+      "target_status": "rejected",
+      "status_updated_by": "ceo",
+      "duplicate_of": 34
+    },
+    {
+      "gate_1_label": "G13",
+      "proposal_id": 59,
+      "entry_id": 17,
+      "entry_date": "2026-05-12",
+      "source_heading_snippet": "Verdict response format is `verdict: continue\\n<reason>`",
+      "current_status": "proposed",
+      "target_status": "rejected",
+      "status_updated_by": "ceo",
+      "duplicate_of": 35
+    },
+    {
+      "gate_1_label": "G14",
+      "proposal_id": 60,
+      "entry_id": 18,
+      "entry_date": "2026-05-12",
+      "source_heading_snippet": "\"queue empty -- all plans complete\" means paused-or-done,",
+      "current_status": "proposed",
+      "target_status": "rejected",
+      "status_updated_by": "ceo",
+      "duplicate_of": 36
+    },
+    {
+      "gate_1_label": "G15",
+      "proposal_id": 61,
+      "entry_id": 20,
+      "entry_date": "2026-05-12",
+      "source_heading_snippet": "Dev-log self-reference SHA loop is structurally impossibl",
+      "current_status": "proposed",
+      "target_status": "rejected",
+      "status_updated_by": "ceo",
+      "duplicate_of": 37
+    },
+    {
+      "gate_1_label": "G16",
+      "proposal_id": 62,
+      "entry_id": 25,
+      "entry_date": "2026-05-10",
+      "source_heading_snippet": "When shipping a path-resolution fix, audit ALL gate funct",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": 38
+    },
+    {
+      "gate_1_label": "G17 / pre-existing ID 38",
+      "proposal_id": 38,
+      "entry_id": 25,
+      "entry_date": "2026-05-10",
+      "source_heading_snippet": "When shipping a path-resolution fix, audit ALL gate funct",
+      "current_status": "proposed",
+      "target_status": "superseded",
+      "status_updated_by": "ceo",
+      "duplicate_of": 62,
+      "note": "G17 and pre-existing ID 38 are the same row. Plan rule 3 says G17 -> rejected; plan rule 4 says ID 38 -> superseded. Since both target proposal_id 38, superseded (rule 4) is the final disposition. See anomaly field."
+    },
+    {
+      "gate_1_label": "I1",
+      "proposal_id": 46,
+      "entry_id": 46,
+      "entry_date": "2026-05-15",
+      "source_heading_snippet": "GitHub's \"inflate / pack has bad object\" error is how its",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "I2",
+      "proposal_id": 47,
+      "entry_id": 47,
+      "entry_date": "2026-05-15",
+      "source_heading_snippet": "`git filter-repo` removes the `origin` remote by default",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "I3",
+      "proposal_id": 48,
+      "entry_id": 48,
+      "entry_date": "2026-05-15",
+      "source_heading_snippet": "Files already tracked by git are NOT retroactively ignore",
+      "current_status": "proposed",
+      "target_status": "deferred",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "I4",
+      "proposal_id": 49,
+      "entry_id": 49,
+      "entry_date": "2026-05-15",
+      "source_heading_snippet": "Existing gitlinks without `.gitmodules` are in \"broken su",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "I5",
+      "proposal_id": 50,
+      "entry_id": 50,
+      "entry_date": "2026-05-14",
+      "source_heading_snippet": "iCloud `dataless` eviction masqueraded as git corruption;",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    },
+    {
+      "gate_1_label": "I6",
+      "proposal_id": 55,
+      "entry_id": 55,
+      "entry_date": "2026-05-13",
+      "source_heading_snippet": "Plan filename \"drain-extraction-queue\" became misleading ",
+      "current_status": "proposed",
+      "target_status": "accepted",
+      "status_updated_by": "ceo",
+      "duplicate_of": null
+    }
+  ],
+  "verification": {
+    "all_mapped_ids_exist": true,
+    "all_new_proposals_currently_proposed": true,
+    "id_38_currently_proposed": true,
+    "ids_34_35_36_37_currently_implemented": true,
+    "g16_duplicate_of_38_consistent": true,
+    "id_38_duplicate_of_g16_consistent": true
+  }
+}
