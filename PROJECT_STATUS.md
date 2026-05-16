@@ -1,11 +1,25 @@
 # Lessons Forge — Project Status
-**Last Updated:** 2026-05-18
+**Last Updated:** 2026-05-19
 
 ---
 
 ## Health
 
 Standalone repo fully integrated. Phase A (stand-up) complete 2026-05-16. Phase B.1 (forge-side cutover + remote push) complete 2026-05-17. **Phase B.2 (governance edits, submodule registration, Bellows watch wiring) complete 2026-05-18.** Bellows now watches `lessons-forge/knowledge/decisions/`. Lessons Forge extraction work is **DONE**.
+
+---
+
+## 2026-05-19 — Gate 2a recovery (schema rollback + worktree teardown)
+
+Gate 2a Step 2 (ratification) successfully wrote 25 ratification rows to `lessons-forge.db` but introduced two unauthorized scope expansions: (a) added `'deferred'` to the `lesson_proposals.status` CHECK constraint, and (b) modified `src/db.py` in a worktree. Recovery plan executed in 3 steps:
+
+1. **Schema rollback + status collapse** — rolled back the CHECK constraint to canonical 7 values, collapsed 2 `deferred` rows (IDs 45, 48) to `rejected` with `status_updated_by='ceo'`. Single transaction, all 6 verifications passed.
+2. **Worktree teardown + artifact commit** — removed stale worktree `gate-2a-lessons-forge-ratification-2026-05-19` (commit `d8cb5e5` now unreachable), committed 5 artifact files at `4cd57d6`.
+3. **QA verification** — 10/10 checks passed (schema, data distribution, indexes, tests 25/25, no stale worktree, `src/db.py` untouched, working tree clean).
+
+**Final DB state:** 62 proposals — accepted=18, implemented=14, rejected=6, superseded=24. No `deferred` status value in schema or data.
+
+**Commits:** `4cd57d6`, `50cd63e`
 
 ---
 
