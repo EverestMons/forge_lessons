@@ -1,11 +1,27 @@
 # Lessons Forge — Project Status
-**Last Updated:** 2026-05-17
+**Last Updated:** 2026-05-18
 
 ---
 
 ## Health
 
-Standalone repo operational. Phase A (stand-up) complete 2026-05-16. Phase B.1 (forge-side cutover + remote push) complete 2026-05-17. Phase B.2 (governance edits, submodule registration, Bellows watch wiring) pending next session. Bellows is NOT yet watching this repo's `knowledge/decisions/`.
+Standalone repo fully integrated. Phase A (stand-up) complete 2026-05-16. Phase B.1 (forge-side cutover + remote push) complete 2026-05-17. **Phase B.2 (governance edits, submodule registration, Bellows watch wiring) complete 2026-05-18.** Bellows now watches `lessons-forge/knowledge/decisions/`. Lessons Forge extraction work is **DONE**.
+
+---
+
+## 2026-05-18 — Phase B.2 governance wiring shipped
+
+**Plans shipped:** 
+1. `executable-lessons-forge-extraction-phase-b2-governance-wiring-2026-05-18` (8 steps, end-to-end, deposited to `bellows/knowledge/decisions/`)
+2. `diagnostic-bellows-watch-canary-lessons-forge-2026-05-18` (canary deposited by Step 8 into `lessons-forge/knowledge/decisions/`, dispatched by the newly-watched daemon, all three flags PASS)
+
+**State changes:**
+- `lessons-forge/` is now a registered submodule of the governance root (`git@github.com:EverestMons/forge_lessons.git`). `.gitmodules` contains all three submodule blocks (anvil, bellows, lessons-forge).
+- Bellows daemon restarted with 9 watched projects (was 8). New entry: `/Users/marklehn/Developer/GitHub/lessons-forge/knowledge/decisions`.
+- Canary findings deposit at `knowledge/research/canary-lessons-forge-bellows-watch-2026-05-18.md` confirms end-to-end dispatch: `cwd` under `.bellows-worktrees/`, `watched_count=9`, `lessons_forge_watched=True`.
+- Canary plan closed cleanly to `knowledge/decisions/Done/`.
+
+**Bellows gate false positive (strike 4):** Step 8 verdict request showed `deposit_exists` gate failure on the literal staging filename `_staging_diagnostic-bellows-watch-canary-lessons-forge-2026-05-18.md` mentioned in step prose. Rule 22 verification confirmed the work was substantively correct — all 8 steps verified clean. Captured to LESSONS.md as the 4th documented Bellows gate false positive; mitigation noted (don't list staging/transient filenames in Deposits blocks). Cross-cutting fix: Bellows backlog candidate for `_staging_*` heuristic in gate extraction.
 
 ---
 
