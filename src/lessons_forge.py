@@ -232,7 +232,7 @@ def detect_duplicates(conn: sqlite3.Connection, entry_ids: list[int],
         conn: SQLite connection with lesson_entries table populated.
         entry_ids: List of lesson_entries.id values to check. May be empty.
         reference_files: List of absolute paths to reference files to scan.
-            Defaults to ["/Users/marklehn/Desktop/GitHub/PLANNER_TEMPLATE.md"]
+            Defaults to ["/Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md"]
             if None.
 
     Returns:
@@ -243,7 +243,7 @@ def detect_duplicates(conn: sqlite3.Connection, entry_ids: list[int],
         return []
 
     if reference_files is None:
-        reference_files = ["/Users/marklehn/Desktop/GitHub/PLANNER_TEMPLATE.md"]
+        reference_files = ["/Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md"]
 
     # Cache reference file contents and structured tag sets (read each file once)
     ref_contents: dict[str, str] = {}
@@ -325,7 +325,7 @@ def detect_duplicates(conn: sqlite3.Connection, entry_ids: list[int],
 
 
 def run_full_lessons_cycle(conn: sqlite3.Connection,
-                           lessons_md_path: str = "/Users/marklehn/Desktop/GitHub/LESSONS.md") -> dict:
+                           lessons_md_path: str = "/Users/marklehn/Developer/GitHub/LESSONS.md") -> dict:
     """
     Execute the deterministic steps of a Lessons Forge cycle.
 
