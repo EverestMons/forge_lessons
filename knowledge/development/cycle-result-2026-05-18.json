@@ -1,0 +1,33 @@
+{
+  "ingested_count": 19,
+  "updated_count": 0,
+  "unchanged_count": 24,
+  "duplicates_marked_count": 0,
+  "needs_classification": [
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    16,
+    17,
+    18,
+    20,
+    25
+  ],
+  "cycle_timestamp": "2026-05-16T14:33:28.286044+00:00"
+}
