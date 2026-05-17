@@ -9,6 +9,18 @@ Standalone repo fully integrated. Phase A (stand-up) complete 2026-05-16. Phase 
 
 ---
 
+## 2026-05-19 — Gate 2b PLANNER_TEMPLATE edits shipped
+
+Applied 16 proposals from cycle 2026-05-18 to `PLANNER_TEMPLATE.md`:
+- **11 governance rules** (Rules 28-38) appended to `## Orchestration Plan Rules`
+- **6 procedures** (new `## Procedures` section) appended after `## Forge Observations`
+
+QA: 7/7 verification checks PASS. No regressions to existing rules.
+
+**Commits:** `e055c82` (governance root — PLANNER_TEMPLATE.md), `42371a8` (lessons-forge — evidence files)
+
+---
+
 ## 2026-05-19 — Gate 2a recovery (schema rollback + worktree teardown)
 
 Gate 2a Step 2 (ratification) successfully wrote 25 ratification rows to `lessons-forge.db` but introduced two unauthorized scope expansions: (a) added `'deferred'` to the `lesson_proposals.status` CHECK constraint, and (b) modified `src/db.py` in a worktree. Recovery plan executed in 3 steps:
