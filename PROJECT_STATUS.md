@@ -9,6 +9,16 @@ Standalone repo fully integrated. Phase A (stand-up) complete 2026-05-16. Phase 
 
 ---
 
+## 2026-05-19 — Gate 2d status advancement (18 accepted → implemented)
+
+Advanced 18 `lesson_proposals` rows from `status='accepted'` to `status='implemented'` — housekeeping for gates 2a, 2b, and 2c which shipped earlier this session. Single transaction, all verifications passed.
+
+**Post-write DB state:** accepted=0, implemented=32, rejected=6, superseded=24, total=62.
+
+**Proposal IDs:** 39-40 (gate 2c), 41-47/49-57/62 (gate 2b).
+
+---
+
 ## 2026-05-19 — Gate 2b PLANNER_TEMPLATE edits shipped
 
 Applied 16 proposals from cycle 2026-05-18 to `PLANNER_TEMPLATE.md`:
