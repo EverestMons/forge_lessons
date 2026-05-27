@@ -9,6 +9,40 @@ Standalone repo fully integrated. Cycle run 2026-05-27 ingested 36 new entries f
 
 ---
 
+## 2026-05-27 — Plan A (Bellows Operational Workarounds subsection) shipped clean
+
+Second half of the 2026-05-27 Gate 1 Phase 2B work landed clean — all three steps verdict-passed end-to-end. Plan B shipped earlier this session as halted-but-shipped; Plan A shipped to Done/ via Bellows's `_consume_verdicts` final-step branch at 17:59:44.
+
+**PLANNER_TEMPLATE edits (v4.55, governance-root commit `d0bf31b`):**
+- New `### Bellows Operational Workarounds` subsection at line 1159 (final subsection of `## Bellows Execution Model`, after `### Restart Discipline`). 12 numbered workarounds (`#### 1.` through `#### 12.`).
+- Source proposals (13 total): 65, 68, 70, 71, 73, 74, 77, 78, 81, 82, 85, 89, 94. SA decisions during blueprint: proposal 82 ships as 1 workaround with 3 labeled sub-points A/B/C (shared worktree-lifecycle theme); proposals 74+85 ship as 1 combined workaround (shared claim-time-cache root cause). Net count: 13 - 1 = 12 workarounds.
+- BACKLOG cross-reference footer on Workaround 2 only (proposal 68 → "Parallel-diagnostic cherry-pick conflicts on shared bookkeeping files at teardown" added 2026-05-22). Workaround 9 (proposal 77) BACKLOG mapping evaluated and omitted by SA — orthogonal concerns. All 12 workarounds carry `Source: proposal N, lesson 2026-05-27` attribution footers (Workaround 3 uses "proposals 74 and 85").
+- Total file growth: 1598 → 1684 lines (+86 insertions, 0 deletions). Version field bumped 4.54 → 4.55 at session-wrap.
+
+**Gate behavior across the three steps:**
+- Step 1 (SA blueprint): all gates PASS, `header_pause` routing. Clean.
+- Step 2 (DEV PLANNER_TEMPLATE edit): `ceo_flags` gate FAIL on "None. All SA-cited anchor lines matched verbatim..." declaration in **Flags for CEO** field. Gate cannot distinguish null-flag prose from actual flag content. Filed as new Bellows BACKLOG entry at top of Open — sibling pattern to the 2026-05-27 `rule_22_verification` (c) enumerative-table FPs and 2026-05-22 hedging-detector domain-term FPs. All three are the same root-cause shape: gate parses field content uniformly without semantic scoping. Override-with-explicit-reasoning continue verdict issued per Rule 22(d).
+- Step 3 (QA verification): all 8 blocking gates PASS, both `rule_22_verification` and `rule_20_self_check` PASS clean. QA report's 10/10 checks PASS with line citations, BACKLOG verbatim-match confirmed, pure-additive insertion verified. Rule 20 canonical Python block ran clean (banner byte-exact in QA report appendix). Terminal-step continue verdict → Bellows auto-moved plan to Done/.
+
+**Deposits:**
+- `PLANNER_TEMPLATE.md` (modified, +86 lines, +1 version-line edit at session-wrap)
+- `lessons-forge/knowledge/research/bellows-operational-workarounds-blueprint-2026-05-27.md` (SA blueprint)
+- `lessons-forge/knowledge/qa/bellows-operational-workarounds-qa-2026-05-27.md` (QA report + Rule 20 appendix)
+- `lessons-forge/knowledge/decisions/Done/executable-planner-template-bellows-operational-workarounds-2026-05-27.md` (plan auto-moved by Bellows)
+- `bellows/knowledge/BACKLOG.md` (new entry at top of Open: `ceo_flags` gate FP on null-declaration content)
+
+**Commits shipped:**
+- lessons-forge: `2c2ffec` (SA blueprint, worktree teardown), `cc22a34` (QA report + Done/ plan auto-move, worktree teardown). Both pushed to origin during worktree teardowns.
+- governance root: `d0bf31b` (PLANNER_TEMPLATE +86 lines from Step 2 DEV, worktree teardown — pushed to local main, not yet origin), + session-wrap commit covering version bump + submodule pointer bumps (this commit).
+- bellows: session-wrap commit covering BACKLOG entry + 3 processed-verdict files.
+
+**Phase 2B complete.** Both Plan A and Plan B shipped. The 33 accepted proposals from the 2026-05-27 cycle now have all governance edits landed; status advancement to `implemented` deferred to Gate 2d-style housekeeping session.
+
+**Lesson surfaced this session (4th candidate for next Forge cycle):**
+- `ceo_flags` gate false positive on "None"-as-declaration. Third FP shape this session in the same root-cause class (uniform field parsing without semantic scoping). When daemon-side fixes ship, the three gates (`ceo_flags`, `rule_22_verification` (c), hedging-detector) should probably share a `_is_null_declaration()` / section-scoping helper rather than three independent fixes.
+
+---
+
 ## 2026-05-27 — Plan B (Plan Authoring Checklist + residual scatter) shipped halted-but-shipped
 
 First of the two Phase 2B plans landed. Substance shipped clean; final-step gate_failure on QA Step 3 (32 failures: 1 real Rule 20 omission + 31 enumerative-table gate FPs) resolved via Planner-side post-hoc Rule 20 block run + new Bellows BACKLOG entry for the gate hazard. Plan moved to `Done/halted-but-shipped-*` per 2026-05-22 final-step gate_failure recovery checklist.

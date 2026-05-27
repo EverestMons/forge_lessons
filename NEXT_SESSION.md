@@ -1,54 +1,66 @@
 # Lessons Forge — Next Session Baton
 
 **Last session:** 2026-05-27
-**Last session focus:** Plan B shipped (`## Plan Authoring Checklist` section + Rules 42-44 + DPE technique + archived narratives). Plan A queued for next session.
+**Last session focus:** Both Phase 2B plans shipped. Plan A (Bellows Operational Workarounds subsection — 12 workarounds) shipped clean; Plan B (Plan Authoring Checklist + residual scatter) shipped halted-but-shipped earlier in the session.
 
 ---
 
 ## In-flight threads (carry forward)
 
-### Plan A — Bellows Operational Workarounds subsection (Plan B's sibling)
-
-Plan A is the second half of the 2026-05-27 Gate 1 Phase 2B work. Scope: new dedicated PLANNER_TEMPLATE subsection under `## Bellows Execution Model` (or as a peer under Orchestration Plan Rules — SA decides during blueprint) collecting 14-15 Bellows operational workaround rules. Each rule cross-referenced to a Bellows BACKLOG entry where applicable. Framed as deprecatable wholesale when daemon fixes ship.
-
-**Source proposals (status='accepted', status_updated_at='2026-05-27' in lessons-forge.db):** 65, 68, 70, 71, 73, 77, 78, 81, 82, 85, 89, 94. Plus proposal **74** folded in from Plan B's residual (SA-decision during Plan B blueprint authoring — "mid-plan communication via verdict text not blueprint edits" overlaps with proposal 85's caching workaround scope, so joint authoring is the right shape).
-
-Final count target: 13 base + 1 folded = 14 rules. Same SA → DEV → QA orchestration via Bellows.
-
-**Pre-blueprint CEO decisions to surface at session start:**
-1. Subsection placement: under `## Bellows Execution Model` (peer to other Bellows-specific subsections) vs new top-level `## Bellows Operational Workarounds`. Current lean: under Bellows Execution Model — it's daemon-specific.
-2. Cross-reference format: each workaround rule footer pointing to BACKLOG entry (e.g., `Workaround for: bellows/knowledge/BACKLOG.md "Orphan-guard renormalization fires on wrong step" (added 2026-05-27)`). Decide on consistent format up front.
-3. Subsection numbering: continuous with Orchestration Plan Rules (would be 45-58) OR independent scope (matches Plan B's checklist choice of independent 1-12). Lean toward independent scope to match Plan B precedent and signal deprecate-wholesale semantics.
+*(none — Phase 2B complete)*
 
 ---
 
-## Lessons surfaced this session (candidates for next Forge cycle)
+## On the horizon (open items, none in-flight)
 
-1. **QA prompt language ambiguity — "Run the block manually" vs canonical block execution.** Plan B's Step 3 QA prompt said "author the canonical QA self-check Python block per Rule 20 with placeholders filled. Include the block in the QA report. Run the block manually (read PLANNER_TEMPLATE.md section by section against blueprint Markdown) and report PASS/FAIL per check." The QA agent interpreted "manually" as "do the verification manually instead of running the block" — built a verbatim-match table for Check 10, omitted the canonical Python block. Rule 20 banner missing, gate fired. Fix shape: revise plan-side QA template to say "Include the canonical Python block verbatim with placeholders filled, run it via `python3`, and capture stdout in the QA report." Remove the word "manually" entirely. Plan-side patch candidate for next session.
+### Status advancement to `implemented` (Gate 2d-style housekeeping)
 
-2. **PLANNER_TEMPLATE version drift between session start and SA dispatch.** Plan B Context expected v4.53 (read at session start). SA at Step 1 read v4.54 (was bumped earlier in same day by a separate plan). SA caught and flagged; no impact. But pattern is worth tracking: when session opens with stale memory of template version, plans Context section can mis-reference. Phase 1.5 should re-verify version line before authoring any Context section that names the version.
+All 33 accepted proposals from cycle 2026-05-27 (IDs 63–98, minus 2 rejected / 1 superseded) are now structurally accounted for via shipped governance edits — Plan A (13 proposals) + Plan B (17 actionable proposals + 3 archived narratives + 1 demoted DPE addition + the 3 already-shipped via Rule 41 supersession). DB rows still carry `status='accepted'` and need advancement to `status='implemented'`.
 
-3. **rule_22_verification (c) enumerative-table FPs — new gate hazard.** Filed as Bellows BACKLOG entry (top of Open as of 2026-05-27). 31 FPs on Step 3 QA. Sibling pattern with 2026-05-22 hedging-detector domain-term FPs. Both gates parse content uniformly without scoping to verification regions. Section-scoping fix (Option a in BACKLOG) is symmetric with 2026-05-24 (c) greenness fix shipped earlier.
+Suggested approach: single housekeeping plan with a Python script that flips `status` to `implemented` and sets `status_updated_at` / `status_updated_by` for all 33 rows in one transaction. Same shape as the 2026-05-19 Gate 2d advancement (18 rows). No SA blueprint needed; this is mechanical DB work.
+
+### 4 lessons captured this session (candidates for next Forge cycle)
+
+1. **QA prompt language ambiguity — "Run the block manually" vs canonical block execution.** From Plan B's Step 3 QA prompt. The QA agent interpreted "manually" as "do verification manually instead of running the block" — built a verbatim-match table for Check 10, omitted the canonical Python block. Fix shape: revise plan-side QA template to say "Include the canonical Python block verbatim with placeholders filled, run via `python3`, capture stdout in the QA report." Remove the word "manually" entirely. Plan A's Step 3 QA prompt avoided this by saying "Run the block via `python3`" directly — and indeed Plan A's QA ran the block correctly first time. The pattern is confirmed.
+
+2. **PLANNER_TEMPLATE version drift between session start and SA dispatch.** Plan B Context expected v4.53 (read at session start). SA at Step 1 read v4.54 (bumped earlier in the day by a separate plan). SA caught and flagged; no impact. Phase 1.5 should re-verify version line before authoring any Context section that names the version.
+
+3. **`rule_22_verification` (c) enumerative-table FPs.** Already filed as Bellows BACKLOG entry. 31 FPs on Plan B Step 3 QA.
+
+4. **`ceo_flags` gate FP on "None"-as-declaration content (NEW this session).** Filed as Bellows BACKLOG entry top-of-Open. Reproduced on Plan A Step 2 DEV — the agent's textbook clean-execution declaration ("None. All SA-cited anchor lines matched verbatim. No blueprint-vs-file mismatches. No prose adjustments needed.") was treated as a flag. Same root-cause shape as the 2026-05-27 enumerative-table FPs (Plan B) and the 2026-05-22 hedging-detector domain-term FPs: gate parses field content uniformly without semantic scoping. **Pattern call-out:** three gate FPs filed this session, all the same root-cause class. When daemon-side fixes ship, the three gates (`ceo_flags`, `rule_22_verification` (c), hedging-detector) should probably share a `_is_null_declaration()` / section-scoping helper rather than three independent fixes — single audit-and-fix session would close all three.
+
+### Forge cycle #14 + canary follow-ups
+
+Still parked from prior sessions: `forge.db` 50MB warning, retire-the-queue decision. Not blocking.
+
+### Forge pre-scan sync workflow before each Mac run
+
+`bash ~/Developer/GitHub/forge/scripts/pre-scan-sync.sh` — run if any Forge work is in scope next session.
 
 ---
 
 ## DB state
 
 `lesson_proposals` table:
-- `status='accepted'`, `status_updated_at='2026-05-27'`: **33 rows** (the Gate 1 accepted set, of which 16 are now structurally accounted for via Plan B). The 17 remaining accepted rows (Plan A scope + the residual 4 actionable rules + DPE technique) are pending status advancement to `implemented`.
-- Status advancement to `implemented` deferred to a later session (Gate 2d-style housekeeping). Plan A will ship first; status advancement when both Plan A and Plan B are fully shipped.
+- `status='accepted'`, `status_updated_at='2026-05-27'`: **33 rows** (all of cycle 2026-05-27's Gate 1 accepted set). Now ALL structurally accounted for via Plan A and Plan B shipped governance edits. Next session should run Gate 2d advancement.
+- `status='implemented'`: 32 rows (unchanged this session).
 
 ---
 
 ## Operational notes for next session
 
-- Daemon currently running at `bellows.py @ b9246d0` (post-2026-05-27 session-wrap; latest BACKLOG entries baked into BACKLOG.md but no code change shipped this session — daemon restart NOT required for next session).
-- All three repos clean at session end. Submodule status: space-prefix on anvil, bellows, lessons-forge.
-- Plan B left v4.54 as the published version. Plan A should NOT bump the version in the plan itself; version bump on session-wrap.
-- Phase 1.5 must include: this baton, plus the current Plan B deposit set (`PLANNER_TEMPLATE.md` Plan Authoring Checklist section, archived-narratives file, Plan B QA report) for orientation context.
+- Daemon at `bellows.py @ b9246d0` (unchanged this session — BACKLOG-only edits, no code changes). No daemon restart required.
+- All three repos clean at session-wrap. Submodule status: space-prefix on anvil, bellows, lessons-forge (confirm during session-wrap commit sequence).
+- PLANNER_TEMPLATE.md at v4.55 after this session's bump (Plan A's substantive content shipped at v4.54; version bump applied at session-wrap).
+- Phase 1.5 next session must include: this baton + PROJECT_STATUS top entry (Plan A shipped) + the 4 lessons captured above. The Plan B + Plan A pair is closed; no in-flight context to carry beyond housekeeping.
 
 ---
 
-## Bellows BACKLOG additions this session (1 entry)
+## Bellows BACKLOG additions this session (3 entries — top of Open)
 
-`rule_22_verification` (c) sub-check false positives on enumerative tables in QA reports. Gate parses every markdown table demanding per-row Status columns; QA reports legitimately contain non-verification enumerative tables. Reproduced on plan-authoring-checklist Step 3 with 31 FPs. Fix shape options: (a) section-scoping (symmetric with 2026-05-24 greenness fix), (b) status-cell heuristic, (c) opt-out marker. Filed at top of `bellows/knowledge/BACKLOG.md` Open section.
+1. **2026-05-27 — `ceo_flags` gate FP on null-declaration content.** Filed during Plan A Step 2 DEV. Fix shape options (a)/(b)/(c) — null-token allowlist suggested first. Sibling-pattern context with entries 2 and 3 below.
+2. **2026-05-27 — `rule_22_verification` (c) FPs on enumerative tables.** Filed during Plan B Step 3 QA. 31 FPs on a single QA report.
+3. **2026-05-27 — Orphan-guard renormalization fires on wrong step.** Filed during Plan B/Plan A planning context (carryover from prior session, not session-new but documented this session).
+4. **2026-05-27 — Hedging-detector FPs on domain terminology.** Same.
+
+The three FP entries (#1, #2, and 2026-05-22 hedging-detector) are siblings worth a coordinated daemon-side fix session — see "4 lessons captured" section above.
