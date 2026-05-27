@@ -9,6 +9,28 @@ Standalone repo fully integrated. Cycle run 2026-05-27 ingested 36 new entries f
 
 ---
 
+## 2026-05-27 — CEO Gate 1 disposition for 36 proposals (cycle 2026-05-27)
+
+All 36 proposals from the 2026-05-27 cycle (IDs 63–98) triaged. Disposition counts: **33 accepted, 2 rejected, 1 superseded, 0 stale, 0 ambiguous.**
+
+**Rejected (2):** proposal 86 (entry 81 — orphan-guard renormalization workaround) and proposal 88 (entry 83 — Rule 22(d) hedging-detector override guidance). Both were medium-confidence Planner-side workarounds for daemon bugs. CEO decision pattern: route the underlying daemon bug to Bellows BACKLOG rather than codify the workaround as governance. Two new Bellows BACKLOG entries shipped this session: orphan-guard step-number predicate gap, and hedging-detector domain-term false positives.
+
+**Superseded (1):** proposal 63 (entry 58 — SA dense-content liveness anchors) — already implemented as Rule 41 in PLANNER_TEMPLATE during the same session that produced the source LESSONS entry.
+
+**Accepted (33):** distributed across two structural clusters identified in cross-batch synthesis plus 7 residual rules. Phase 2B will land via two separate plans:
+- **Plan A — Bellows Operational Workarounds subsection (14 rules):** new dedicated PLANNER_TEMPLATE subsection cross-referenced to Bellows BACKLOG entries; deprecatable wholesale when daemon fixes ship.
+- **Plan B — Plan Authoring Checklist + residual (12 + 7 rules):** new mechanical pre-deposit checklist section, plus residual rules scattered into Diagnostic Prompt Engineering / Phase 1.5 / BACKLOG-authoring / baton-authoring; 3 narratives archived as context.
+
+**DB state post-write:** `proposed=0`, `accepted=33` (this cycle), `rejected=8` (6 prior + 2 this), `superseded=25` (24 prior + 1 this), `implemented=32` (unchanged). `status_updated_by='ceo'`, `status_updated_at='2026-05-27'` on all 36 dispositioned rows.
+
+**Phase 2B staged for next session:** two plans, dispatched separately. Plan A and Plan B both go through normal SA → DEV → QA orchestration via Bellows. Order TBD at next session start.
+
+**Bellows BACKLOG additions this session (2 entries, Planner-direct edits to `/Users/marklehn/Developer/GitHub/bellows/knowledge/BACKLOG.md`):**
+- Orphan-guard renormalization fires on wrong step (small effort, predicate strengthening at `_consume_verdicts` pre-scan site)
+- Hedging-detector false positives on domain terminology in QA verification tables (medium effort, three fix shapes named)
+
+---
+
 ## 2026-05-27 — Cycle run + Phase 2A classifications shipped (recovery sequence)
 
 Ingested 36 new entries (parser saw 36 in current LESSONS.md). All 36 classified across two batches (entries 58-75 in original plan Step 2a, entries 76-93 in batch-2 recovery plan). Distribution across full cycle: 33 governance_rule (91.7%), 3 narrative (8.3%); 0 structural, 0 instrumentation, 0 language. Confidence: 33 high, 3 medium, 0 low, 0 ambiguous. All 33 governance_rule proposals target PLANNER_TEMPLATE.md.
