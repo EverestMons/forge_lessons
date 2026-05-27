@@ -9,6 +9,16 @@ Standalone repo fully integrated. Cycle run 2026-05-27 ingested 36 new entries f
 
 ---
 
+## 2026-05-27 — Gate 2d status advancement (33 accepted → implemented)
+
+Advanced 33 `lesson_proposals` rows from `status='accepted'` to `status='implemented'` — housekeeping for Plan A (Bellows Operational Workarounds, commit `d0bf31b`) and Plan B (Plan Authoring Checklist + residual, commit `e975e05`) which shipped earlier this session. Diagnostic `diagnostic-gate-2d-mapping-v2-2026-05-27` verified all 33 rows before advancement. Single transaction, all verifications passed.
+
+**Post-write DB state:** accepted=0, implemented=65, rejected=8, superseded=25, total=98.
+
+**Proposal IDs:** 64-98 (excluding 63 superseded, 86 rejected, 88 rejected).
+
+---
+
 ## 2026-05-27 — Plan A (Bellows Operational Workarounds subsection) shipped clean
 
 Second half of the 2026-05-27 Gate 1 Phase 2B work landed clean — all three steps verdict-passed end-to-end. Plan B shipped earlier this session as halted-but-shipped; Plan A shipped to Done/ via Bellows's `_consume_verdicts` final-step branch at 17:59:44.
