@@ -1,11 +1,54 @@
 # Lessons Forge — Project Status
-**Last Updated:** 2026-05-19
+**Last Updated:** 2026-05-27
 
 ---
 
 ## Health
 
 Standalone repo fully integrated. Cycle run 2026-05-27 ingested 36 new entries from LESSONS.md (DB had 57 orphan entries from prior LESSONS.md state — zero heading overlap with current content). Phase 2A classifications shipped for all 36 entries across three plans: the original cycle plan (Step 1 + Step 2a, halted at structural failure), the batch 2 recovery plan, and this closeout. Phase 2A complete. Next: CEO Gate 1 review of classifications (separate session).
+
+---
+
+## 2026-05-27 — Plan B (Plan Authoring Checklist + residual scatter) shipped halted-but-shipped
+
+First of the two Phase 2B plans landed. Substance shipped clean; final-step gate_failure on QA Step 3 (32 failures: 1 real Rule 20 omission + 31 enumerative-table gate FPs) resolved via Planner-side post-hoc Rule 20 block run + new Bellows BACKLOG entry for the gate hazard. Plan moved to `Done/halted-but-shipped-*` per 2026-05-22 final-step gate_failure recovery checklist.
+
+**PLANNER_TEMPLATE edits (v4.54, governance root commit `e975e05` + `c420e23`):**
+- New `## Plan Authoring Checklist` section (line 917) with 12 mechanical pre-deposit checks (proposals 66, 67, 69, 75, 79, 80, 84, 90, 91, 92, 95, 98). Independent 1-12 numbering scope (not continuous with Orchestration Plan Rules) to signal lifecycle-moment distinction.
+- Rules 42-44 under `## Orchestration Plan Rules` (proposals 83, 96, 97): BACKLOG defer re-evaluation when manual fallback gets mechanized; baton "On the horizon" cross-check against PROJECT_STATUS Completed; BACKLOG entry framing — scan Closed section before filing "never done".
+- New unnumbered DPE technique "Timing and ordering claim verification" in `### Diagnostic Prompt Engineering` subsection (proposal 76; matches existing DPE convention of bold-paragraph techniques).
+- Total file growth: 1504 → 1598 lines (+94 insertions, 0 deletions).
+
+**Archived narratives file shipped:** `lessons-forge/knowledge/archived-narratives-2026-05-27.md` — 4 proposals (64, 87, 93 originally archive-as-context + 72 demoted by SA in Plan B blueprint as Rule 33 overlap).
+
+**SA dispositions for the two residual SA-decision candidates (per Plan B Decision 2):**
+- Proposal 72 → archived (substantially overlaps Rule 33 "Phase 1.5 enforcement happens FIRST regardless of how narrow the opening question seems").
+- Proposal 74 → folded to Plan A scope (joint-author with proposal 85 — both address how information flows during Bellows-dispatched execution; natural home is the Bellows Operational Workarounds subsection).
+
+**Plan A scope updated:** 12 base proposals + 1 fold-in (74) + 1 prior fold (85 already in scope) → 14 rules total. Plan A queued for next session (see `NEXT_SESSION.md`).
+
+**Gate failure resolution (Step 3):**
+- 1 real failure (rule_20_self_check): QA agent built manual verbatim-match table for Check 10 instead of running the canonical Python block from `RULE_20_SELF_CHECK_BLOCK.md`. Banner string missing, gate fired correctly. Planner ran the block post-hoc (evidence_dir=/tmp/empty-evidence-dir/ since governance-edit plan has no evidence artifacts), block exited 0 with PASSED banner present byte-for-byte. stdout appended to QA report under "Appendix: Canonical Rule 20 Python Self-Check".
+- 31 false positives (rule_22_verification): gate parses every markdown table in QA reports demanding per-row Status columns; QA report's 5 enumerative content tables (heading list, proposal-ID map, Rules 42-44, archived-proposals, 18-row verbatim-match) all triggered. Filed as new Bellows BACKLOG entry — top of Open section, sibling-symmetric with 2026-05-24 (c) greenness section-scoping fix.
+
+**Deposits:**
+- `PLANNER_TEMPLATE.md` (modified, +94 lines)
+- `lessons-forge/knowledge/research/plan-authoring-checklist-blueprint-2026-05-27.md` (SA blueprint)
+- `lessons-forge/knowledge/archived-narratives-2026-05-27.md` (new file)
+- `lessons-forge/knowledge/qa/plan-authoring-checklist-qa-2026-05-27.md` (QA report + Rule 20 appendix)
+- `lessons-forge/knowledge/decisions/Done/halted-but-shipped-executable-planner-template-plan-authoring-checklist-2026-05-27.md`
+- `bellows/knowledge/BACKLOG.md` (new entry top of Open)
+
+**Commits shipped:**
+- bellows: `b9246d0` (BACKLOG entry + 3 archived processed-verdict files)
+- lessons-forge: `e3b0ad9` (SA blueprint, worktree teardown), `28842a5` (DEV+QA + archived narratives, worktree teardown), `738f11c` (QA Rule 20 appendix + Done plan move, session-wrap)
+- governance root: `e975e05` (PLANNER_TEMPLATE edits + lessons-forge submodule bump from worktree teardown), `c420e23` (bellows + lessons-forge submodule pointers session-wrap)
+- All three repos pushed to origin.
+
+**Lessons for next-session Forge cycle (3 candidates):**
+1. QA prompt language: "Run the block manually" interpreted as "do verification manually instead of running the block." Plan-side template should remove "manually" and say "Include the canonical Python block verbatim with placeholders filled, run via `python3`, capture stdout in the QA report."
+2. PLANNER_TEMPLATE version drift between session start and SA dispatch (4.53 → 4.54). Phase 1.5 should re-verify version line before authoring Context sections that name the version.
+3. New gate hazard: rule_22_verification (c) enumerative-table FPs. Sibling pattern with 2026-05-22 hedging-detector domain-term FPs. Both gates parse content uniformly without scoping to verification regions.
 
 ---
 
