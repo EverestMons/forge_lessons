@@ -5,7 +5,30 @@
 
 ## Health
 
-Standalone repo fully integrated. Phase A (stand-up) complete 2026-05-16. Phase B.1 (forge-side cutover + remote push) complete 2026-05-17. **Phase B.2 (governance edits, submodule registration, Bellows watch wiring) complete 2026-05-18.** Bellows now watches `lessons-forge/knowledge/decisions/`. Lessons Forge extraction work is **DONE**.
+Standalone repo fully integrated. Cycle run 2026-05-27 ingested 36 new entries from LESSONS.md (DB had 57 orphan entries from prior LESSONS.md state — zero heading overlap with current content). Phase 2A classifications shipped for all 36 entries across three plans: the original cycle plan (Step 1 + Step 2a, halted at structural failure), the batch 2 recovery plan, and this closeout. Phase 2A complete. Next: CEO Gate 1 review of classifications (separate session).
+
+---
+
+## 2026-05-27 — Cycle run + Phase 2A classifications shipped (recovery sequence)
+
+Ingested 36 new entries (parser saw 36 in current LESSONS.md). All 36 classified across two batches (entries 58-75 in original plan Step 2a, entries 76-93 in batch-2 recovery plan). Distribution across full cycle: 33 governance_rule (91.7%), 3 narrative (8.3%); 0 structural, 0 instrumentation, 0 language. Confidence: 33 high, 3 medium, 0 low, 0 ambiguous. All 33 governance_rule proposals target PLANNER_TEMPLATE.md.
+
+**Cross-batch synthesis (key signals for CEO Gate 1):**
+- 15/36 entries (41.7%) are Bellows operational workarounds — consider dedicated PLANNER_TEMPLATE subsection that can be deprecated when daemon fixes ship
+- 13/36 entries (36.1%) propose plan-authoring pre-write checks — consider consolidated "Plan Authoring Checklist" section
+- 6/36 entries follow the "captured but not internalized" failure mode — strongest signal for mechanical checklists over prose rules
+
+**Plan sequence (three plans for one cycle):**
+1. `Done/executable-lessons-forge-cycle-2026-05-27` (halted) — Step 1 + Step 2a complete; halted at Step 2b due to non-monotonic STEP header labels violating Bellows positional step-parser contract.
+2. `Done/executable-lessons-forge-cycle-batch2-recovery-2026-05-27` — Step 2b recovered (entries 76-93 classified as proposals 81-98).
+3. `Done/executable-lessons-forge-cycle-closeout-2026-05-27` (this plan) — verification + PROJECT_STATUS update.
+
+**Deposits:**
+- `knowledge/research/lessons-forge-cycle-step1-2026-05-27.md`
+- `knowledge/research/lessons-forge-cycle-step2a-classifications-2026-05-27.md`
+- `knowledge/research/lessons-forge-cycle-batch2-recovery-2026-05-27.md`
+
+Pre-cycle DB state: entries=57, proposals=62 (all terminal). Post-cycle: entries=93, proposals=98 (62 terminal + 36 proposed awaiting Gate 1).
 
 ---
 
