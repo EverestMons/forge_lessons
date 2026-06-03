@@ -1,11 +1,32 @@
 # Lessons Forge — Project Status
-**Last Updated:** 2026-05-27
+**Last Updated:** 2026-06-03
 
 ---
 
 ## Health
 
-Standalone repo fully integrated. Cycle run 2026-05-27 ingested 36 new entries from LESSONS.md (DB had 57 orphan entries from prior LESSONS.md state — zero heading overlap with current content). Phase 2A classifications shipped for all 36 entries across three plans: the original cycle plan (Step 1 + Step 2a, halted at structural failure), the batch 2 recovery plan, and this closeout. Phase 2A complete. Next: CEO Gate 1 review of classifications (separate session).
+Standalone repo fully integrated. Cycle run 2026-06-03 ingested 23 new entries (IDs 94-116) from LESSONS.md. All 23 classified (proposals 99-121). Distribution: 21 governance_rule (91.3%), 2 narrative (8.7%). Confidence: 16 high, 7 medium. Next: CEO Gate 1 review of the 23 new proposals.
+
+---
+
+## 2026-06-03 — Cycle run (Steps 2-4 manual, Step 1 landed at 56ddcce)
+
+Ingested 23 new entries (IDs 94-116) in Step 1 (commit 56ddcce). Steps 2-4 run manually (daemon worktree teardown failures). All 23 entries classified in Step 2; report generated in Step 3; QA 4/4 PASS in Step 4.
+
+**Category distribution (this cycle):** governance_rule=21 (91.3%), narrative=2 (8.7%). Zero structural, instrumentation, language.
+**Confidence distribution:** high=16 (69.6%), medium=7 (30.4%). Zero low or ambiguous.
+
+**Cross-batch synthesis (strongest Gate 1 signals):**
+- 11 entries (47.8%) are Bellows operational workarounds — extends the v4.55 subsection
+- 8 entries (34.8%) are plan-authoring discipline rules — extends the v4.55 Plan Authoring Checklist
+- 3 consolidation pairs identified: entries 95+103, 108+110, 98+116
+
+**Post-cycle DB counts:** entries=116, proposals=121. Status: implemented=64, superseded=25, proposed=23, rejected=8, stale=1.
+
+**Deposits:**
+- `knowledge/development/classifications-summary-2026-06-03.md`
+- `reports/lessons-report-2026-06-03.md`
+- `knowledge/qa/cycle-qa-2026-06-03.md`
 
 ---
 
