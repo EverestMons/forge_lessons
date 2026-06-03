@@ -5,7 +5,7 @@
 
 ## Health
 
-Standalone repo fully integrated. Cycle run 2026-06-03 ingested 23 new entries (IDs 94-116) from LESSONS.md. All 23 classified (proposals 99-121). Distribution: 21 governance_rule (91.3%), 2 narrative (8.7%). Confidence: 16 high, 7 medium. Next: CEO Gate 1 review of the 23 new proposals.
+Standalone repo fully integrated. Cycle run 2026-06-03 ingested 23 new entries (IDs 94-116) from LESSONS.md. All 23 classified (proposals 99-121). Distribution: 21 governance_rule (91.3%), 2 narrative (8.7%). Confidence: 16 high, 7 medium. Gate 1 complete (21 accepted, 2 rejected). Next: Gate 2 codification (19 rules + 2 narrative archive).
 
 ---
 
@@ -27,6 +27,20 @@ Ingested 23 new entries (IDs 94-116) in Step 1 (commit 56ddcce). Steps 2-4 run m
 - `knowledge/development/classifications-summary-2026-06-03.md`
 - `reports/lessons-report-2026-06-03.md`
 - `knowledge/qa/cycle-qa-2026-06-03.md`
+
+---
+
+## 2026-06-03 — CEO Gate 1 disposition for 23 proposals (cycle 2026-06-03)
+
+All 23 proposals (IDs 99-121) triaged. Disposition: **21 accepted, 2 rejected, 0 superseded.**
+
+**Rejected (2):** proposal 106 (entry 101 — orphan-guard replay workaround after restart) and proposal 112 (entry 107 — distinct-slug workaround for the `_seen` cache). Both medium-confidence Planner-side workarounds for daemon bugs. CEO pattern (per 2026-05-27 precedent + the rule proposed in 118): route the underlying daemon bug to Bellows BACKLOG rather than codify the workaround. Underlying bugs to confirm-or-file in BACKLOG: orphan-guard step-predicate gap; `_seen` slug-cache non-clear.
+
+**Accepted (21):** 19 governance_rule + 2 narrative (109, 117). Narratives accepted-for-archive (codified to the archived-narratives file at Gate 2, routed by category — matches the 2026-05-27 narrative lifecycle). The 19 governance rules cluster as: 7 plan-authoring (99, 103, 107, 114, 116, 119, 121), 5 Bellows workarounds (100, 104, 105, 108, 110), 2 recovery (113, 115), 3 QA/testing (101, 102, 111), 1 SA (120), 1 Gate 1 routing meta-rule (118). The Gate 2 SA blueprint must dedup against v4.55 (Bellows Operational Workarounds + Plan Authoring Checklist) and resolve the 3 consolidation pairs (95+103, 108+110, 98+116) — several accepts likely overlap already-shipped rules and may supersede at codification.
+
+**DB state post-write:** implemented=64, superseded=25, accepted=21 (this cycle), rejected=10 (8 prior + 2 this), stale=1, total=121. `status_updated_by='ceo'`, `status_updated_at='2026-06-03'` on all 23 rows.
+
+**Gate 2 staged for a later session:** codify the 19 accepted governance rules + archive the 2 narratives. Not yet scheduled.
 
 ---
 
