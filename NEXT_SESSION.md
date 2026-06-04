@@ -1,90 +1,64 @@
 # Lessons Forge — Next Session Baton
 
-**Last session:** 2026-05-27 (continuation)
-**Last session focus:** Gate 2d-style housekeeping — advanced 33 accepted proposals to implemented for cycle 2026-05-27. Diagnostic + executable both shipped clean end-to-end via Bellows.
+**Last session:** 2026-06-03 (Gate 2 codification + Gate 2d)
+**Last session focus:** 2026-06-03 cycle Gate 2 — codified 19 accepted `governance_rule` proposals (15 PLANNER_TEMPLATE edits after 3 merges + 1 fully-subsumed) into v4.59 via a single SA->DEV->QA executable plan; archived 2 narratives; advanced all 21 (19 rules + 2 narratives) to `status='implemented'`. Plan shipped clean end-to-end through Bellows.
 
 ---
 
 ## In-flight threads (carry forward)
 
-*(none — cycle 2026-05-27 housekeeping complete)*
+*(none — 2026-06-03 cycle closed through Gate 2d across DB, governance, and bookkeeping)*
+
+---
+
+## What shipped this session (2026-06-03 Gate 2)
+
+- **PLANNER_TEMPLATE.md v4.58 -> v4.59.** 15 edits from 19 accepted proposals:
+  - Plan Authoring Checklist #13-18 (99; 103+121 merged; 107; 114; 116; 119)
+  - Orchestration Plan Rules #45 (120) and #46 (118 — Gate 1 rejects daemon-bug workarounds -> BACKLOG)
+  - Quality Standards: 2 bullets (101 per-feature substance-check; 102 external wall-clock + `--collect-only`)
+  - Rule 25: terminal-log-primacy caveat paragraph (104)
+  - Bellows Operational Workarounds: strengthen #8 (100+108, defer-all-edits + ~5-10 min cost), strengthen #12 (113+115, R2 Planner-direct close + claim-rename variant), new #13 (105 clean roots), new #14 (111 scope_check Rule 22(d) override); preamble renumbered 1-14
+- **Proposal 110** (verdict responses to resolved/) — FULLY SUBSUMED by existing Rule 25 (L738); advanced to implemented with no edit.
+- **2 narratives archived** to `knowledge/archived-narratives-2026-06-03.md`: 109 (wall-clock calibration ~72 min), 117 (verdict-prefix tolerance).
+- **Dedup baseline correction:** cycle summary said v4.55, but live file was v4.58. 104/113/115 reconciled against v4.57 (vestigial-claim-rename drop + Rule 25 teardown-variant discrimination) rather than duplicated.
 
 ---
 
 ## On the horizon (open items, none in-flight)
 
-### `lessons-forge.db` git tracking disposition
+### Recommended next reliability cut — Bellows teardown Gap 3 (dirty-tree auto-stash)
+The dirty-tree teardown pre-check (`worktree_teardown_dirty_tree`) is the recurring failure source this session referenced. Auto-stash of dirty non-lifecycle files before teardown cherry-pick would remove the manual commit/stash recovery cycle (~5-10 min each, now documented in Workaround #8). Recommended as the next Bellows reliability session.
 
-The DB file is tracked but `*.db` is in `.gitignore` — grandfathered tracking from before the ignore rule. Two paths to resolve:
-- (a) Commit the DB on every state change (current de-facto behavior, was inconsistent across sessions — 2026-05-19 gate 2d did NOT commit; 2026-05-27 gate 2d DID commit).
-- (b) Un-track and treat disk file as state of record. Requires `git rm --cached lessons-forge.db`, a one-time commit, and an operational decision about how fresh clones bootstrap their DB.
+### `lessons-forge.db` git tracking disposition (carried)
+DB is tracked; `*.db` ignore convention exists elsewhere. De-facto behavior remains commit-on-state-change (2026-06-03 Gate 2d committed the advanced DB, consistent with 2026-05-27). Decision still open: keep committing vs `git rm --cached` + bootstrap story. Not blocking. Filed in Bellows BACKLOG (2026-05-27).
 
-Not blocking next session, but worth a decision before another gate 2d or schema migration. Filed as Bellows BACKLOG entry this session.
+### Cross-project (not lessons-forge)
+- **invoice-pulse T0.5.1 reconciliation** — next ungated step in the fuel-bracket extrapolation work.
+- **email-PRO -> assigned-user feature** — gated on the two Windows prod-DB queries in `email-pro-user-lookup-prod-queries-2026-06-03.sql`.
 
-### Verdict filename matching tolerance (vs. README convention)
-
-README at `bellows/verdicts/README.md` specifies verdict response filename strips leading prefix from plan slug:
-- `diagnostic-foo-bar-2026-04-16.md` → `verdict-foo-bar-2026-04-16-step-1.md`
-- `executable-foo-bar-2026-04-16.md` → `verdict-foo-bar-2026-04-16-step-1.md`
-
-Observed this session: Bellows consumed `verdict-diagnostic-gate-2d-mapping-v2-2026-05-27-step-1.md` and `verdict-executable-gate-2d-status-advancement-2026-05-27-step-1.md` correctly — both with the prefix NOT stripped. Either Bellows matching is more tolerant than the README documents, or the consumption succeeded by some other matching path (suffix match on `-step-N`?). Worth a daemon-side investigation to confirm matching logic, then either tighten Planner authoring discipline or update the README to document the observed tolerance.
-
-### 4 lessons captured 2026-05-27 morning session (candidates for next Forge cycle)
-
-Unchanged from prior baton — still candidates for next Forge cycle:
-1. QA prompt language ambiguity — "Run the block manually" vs canonical block execution.
-2. PLANNER_TEMPLATE version drift between session start and SA dispatch.
-3. `rule_22_verification` (c) enumerative-table FPs (filed as Bellows BACKLOG).
-4. `ceo_flags` gate FP on "None"-as-declaration content (filed as Bellows BACKLOG).
-
-### 2 lessons captured this session (continuation; candidates for next Forge cycle)
-
-5. **`Dispatch Mode: standard` rejection on first deposit.** Authored `**Dispatch Mode:** standard` despite Rule 35 specifying `bellows` or `manual_bootstrap`. BACKLOG already carries Rule 35 dispatch-mode hazard (four prior rejections across three days). Pattern: Planner authoring discipline still relies on memory rather than mechanized check. Plan Authoring Checklist item 3 (proposal 79) exists but didn't fire. Either checklist isn't being consulted in session, or its phrasing doesn't make the hazard sharp enough. Lesson shape: PLANNER_TEMPLATE checklist needs an explicit enumerated allowlist at the head of the item, not just a "valid values" reference.
-
-6. **Verdict filename prefix tolerance.** See "On the horizon" above. Two verdict files this session matched against requests despite extra prefix segments. Lesson shape: either Bellows matching is documented incorrectly in README, or the matching logic should be tightened to enforce README spec. Daemon-side investigation needed.
-
-### Forge cycle #14 + canary follow-ups
-
-Still parked from prior sessions: `forge.db` 50MB warning, retire-the-queue decision. Not blocking.
-
-### Forge pre-scan sync workflow before each Mac run
-
-`bash ~/Developer/GitHub/forge/scripts/pre-scan-sync.sh` — run if any Forge work is in scope next session.
+### Forge cycle #14 + canary follow-ups (carried)
+`forge.db` 50MB warning, retire-the-queue decision. Not blocking. Run `bash ~/Developer/GitHub/forge/scripts/pre-scan-sync.sh` before any Mac Forge work.
 
 ---
 
-## DB state
+## DB state (post-Gate-2d 2026-06-03)
 
-`lesson_proposals` table (post-gate-2d 2026-05-27):
-- `status='implemented'`: **65 rows** (32 prior + 33 advanced this cycle).
-- `status='accepted'`: **0 rows** (clean).
-- `status='rejected'`: 8 rows.
-- `status='superseded'`: 25 rows.
-- Total: 98 rows.
+`lesson_proposals` table (ground-truth counts):
+- `status='implemented'`: **85**
+- `status='rejected'`: **10**
+- `status='superseded'`: **25**
+- `status='stale'`: **1**
+- `status='accepted'`: **0** (clean)
+- Total: **121**
+
+This cycle advanced 21 rows (99-121: 19 rules + 2 narratives) to implemented; 106 + 112 stayed rejected (daemon-bug workarounds routed to BACKLOG per new Rule 46). Note: 1 `stale` row sits in the historical 1-98 range (pre-existing; not touched this session) — minor count anomaly vs the 2026-05-27 baton's stated 65-implemented, worth a glance if doing DB archaeology, not blocking.
 
 ---
 
 ## Operational notes for next session
 
-- Daemon at `bellows.py @ b9246d0` (unchanged this session — BACKLOG-only edits, no code changes). No daemon restart required.
-- All three repos clean at session-wrap (anvil, bellows, lessons-forge all space-prefix on `git submodule status`).
-- PLANNER_TEMPLATE.md at v4.55 (unchanged this session).
-- Phase 1.5 next session must include: this baton + PROJECT_STATUS top entry (gate 2d) + the 6 lesson candidates above. Cycle 2026-05-27 closed across DB, governance, and bookkeeping; no in-flight context to carry.
-
----
-
-## Bellows BACKLOG additions this session (2 entries — top of Open)
-
-1. **2026-05-27 — `lessons-forge.db` tracked-but-gitignored disposition.** Decision needed: commit-on-state-change vs un-track. Sibling-class to nothing prior — this is governance hygiene, not a daemon hazard.
-2. **2026-05-27 — Verdict filename prefix tolerance vs README convention.** Daemon-side investigation: confirm verdict-consumer matching logic, then either tighten or update README.
-
----
-
-## Bellows BACKLOG additions from morning session (4 entries — unchanged, still Open)
-
-1. **2026-05-27 — `ceo_flags` gate FP on null-declaration content.** Sibling-class with #2 and the 2026-05-22 hedging-detector entry. All three same root-cause shape (uniform field parsing without semantic scoping). Coordinated daemon-side fix session is the right next step.
-2. **2026-05-27 — `rule_22_verification` (c) FPs on enumerative tables.** Same sibling-class.
-3. **2026-05-27 — Orphan-guard renormalization fires on wrong step.** Carryover from prior session, documented this session.
-4. **2026-05-27 — Hedging-detector FPs on domain terminology.** Same sibling-class as #1 and the 2026-05-27 `rule_22_verification` (c) entry.
-
-Three FP entries (`ceo_flags`, `rule_22_verification` (c), hedging-detector) worth a coordinated daemon-side fix session — single `_is_null_declaration()` / section-scoping helper rather than three independent fixes.
+- Daemon: bellows submodule advanced this session for verdict-artifact commits only (no daemon code change, no restart required).
+- PLANNER_TEMPLATE.md at **v4.59**.
+- Phase 1.5 next session: this baton + PROJECT_STATUS top entry + the on-horizon items above. 2026-06-03 cycle fully closed; no in-flight context to carry.
+- Resolved-this-session (no longer open candidates): `ceo_flags` FP on benign confirmation text (hit again at Step 2 as a false positive; underlying daemon FP still in BACKLOG); verdict-prefix tolerance (archived as narrative 117).
