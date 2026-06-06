@@ -1,11 +1,32 @@
 # Lessons Forge — Project Status
-**Last Updated:** 2026-06-03
+**Last Updated:** 2026-06-06
 
 ---
 
 ## Health
 
-Standalone repo fully integrated. Cycle run 2026-06-03 ingested 23 new entries (IDs 94-116) from LESSONS.md. All 23 classified (proposals 99-121). Distribution: 21 governance_rule (91.3%), 2 narrative (8.7%). Confidence: 16 high, 7 medium. Gate 1 complete (21 accepted, 2 rejected). Next: Gate 2 codification (19 rules + 2 narrative archive).
+Standalone repo fully integrated. Cycle v2 2026-06-06 classified 9 entries (IDs 93, 116, 117-123). New stale-aware helper `get_unclassified_entries(conn)` fixes silent work-list undercount (entries with only `stale` proposals were dropped). 26/26 tests passing. Next: CEO Gate 1 disposition for 9 proposed entries.
+
+---
+
+## 2026-06-06 — Cycle v2 run (re-dispatch after first cycle halted at Step 1)
+
+Re-dispatched after first 2026-06-06 cycle halted — DB-authoritative work-list query (`NOT EXISTS (any proposal)`) silently dropped entries whose only proposal was `stale`. Fixed with new helper `get_unclassified_entries(conn)` in `src/lessons_forge.py` (stale-aware query). Ingested 7 new entries (117-123) + 1 update (116) in first dispatch Step 1. This cycle re-ran ingestion (idempotent), classified all 9 unclassified entries, generated report, QA 4/4 PASS.
+
+**Work list (9 entries):** [93, 116, 117, 118, 119, 120, 121, 122, 123]
+
+**Category distribution (this cycle):** governance_rule=8 (88.9%), structural=1 (11.1%).
+**Confidence distribution:** high=8 (88.9%), medium=1 (11.1%).
+
+**Post-cycle DB counts:** entries=123, proposals=130. Status: implemented=84, superseded=25, rejected=10, proposed=9, stale=2. Category: governance_rule=92, duplicate=19, instrumentation=7, structural=7, narrative=5.
+
+**QA (Step 4):** (a) 26 passed / 0 failed, (b) DB invariants 4/4 zero, (c) no schema drift, (d) Rule 20 PASSED (8 evidence files verified).
+
+**Deposits:**
+- `knowledge/development/cycle-result-v2-2026-06-06.json`
+- `knowledge/development/classifications-summary-v2-2026-06-06.md`
+- `reports/lessons-report-2026-06-06.md`
+- `knowledge/qa/cycle-qa-v2-2026-06-06.md`
 
 ---
 
