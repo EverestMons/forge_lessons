@@ -202,6 +202,32 @@ def insert_proposal(conn: sqlite3.Connection, entry_id: int, category: str,
     return cur.lastrowid
 
 
+def get_unclassified_entries(conn: sqlite3.Connection) -> list[int]:
+    """Return entry IDs that need (re)classification this cycle.
+
+    An entry needs classification if it has NO proposal whose status is
+    anything other than 'stale'. This includes (a) entries with no proposal
+    at all and (b) entries whose only proposal(s) are 'stale' — the state the
+    ingestion update path leaves an edited entry in (old proposal staled, entry
+    requeued). Entries with a 'proposed'/'accepted'/'implemented'/'rejected'/
+    'superseded' proposal are excluded (active or dispositioned).
+
+    This is the canonical work list. Do NOT derive a work list from
+    run_full_lessons_cycle().needs_classification — it over-reports every
+    parsed entry. Do NOT use `NOT EXISTS (any proposal)` — it drops stale-only
+    entries and silently skips re-queued edits.
+    """
+    cur = conn.cursor()
+    rows = cur.execute(
+        "SELECT e.id FROM lesson_entries e "
+        "WHERE NOT EXISTS ("
+        "  SELECT 1 FROM lesson_proposals p "
+        "  WHERE p.entry_id = e.id AND p.status != 'stale'"
+        ") ORDER BY e.id"
+    ).fetchall()
+    return [r[0] for r in rows]
+
+
 _EM_DASH_SEP = " \u2014 "
 
 

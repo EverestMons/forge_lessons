@@ -19,7 +19,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src import db
 from src.lessons_forge import (
     parse_lessons_md, ingest_lesson_entries, insert_proposal,
-    detect_duplicates, run_full_lessons_cycle, generate_lessons_report,
+    get_unclassified_entries, detect_duplicates, run_full_lessons_cycle,
+    generate_lessons_report,
 )
 
 
@@ -385,6 +386,55 @@ def test_ingest_stale_proposals():
     finally:
         os.unlink(path)
         conn.close()
+
+
+# --- get_unclassified_entries tests ---
+
+def test_get_unclassified_entries():
+    """Helper returns entries with no proposal or only stale proposals, excludes implemented."""
+    conn = _setup()
+
+    # Entry 1: no proposal at all
+    conn.execute(
+        "INSERT INTO lesson_entries "
+        "(source_file, source_heading, raw_content, content_hash, ingested_at) "
+        "VALUES ('LESSONS.md', '2026-05-01 — No proposal', 'body1', 'h1', '2026-05-01')"
+    )
+    id_no_proposal = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+    # Entry 2: only a stale proposal
+    conn.execute(
+        "INSERT INTO lesson_entries "
+        "(source_file, source_heading, raw_content, content_hash, ingested_at) "
+        "VALUES ('LESSONS.md', '2026-05-02 — Stale only', 'body2', 'h2', '2026-05-02')"
+    )
+    id_stale_only = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+    conn.execute(
+        "INSERT INTO lesson_proposals "
+        "(entry_id, category, suggested_action, reasoning, confidence, status, proposed_at) "
+        "VALUES (?, 'structural', 'action', 'reason', 'high', 'stale', '2026-05-02')",
+        (id_stale_only,),
+    )
+
+    # Entry 3: has an implemented proposal — should be excluded
+    conn.execute(
+        "INSERT INTO lesson_entries "
+        "(source_file, source_heading, raw_content, content_hash, ingested_at) "
+        "VALUES ('LESSONS.md', '2026-05-03 — Implemented', 'body3', 'h3', '2026-05-03')"
+    )
+    id_implemented = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+    conn.execute(
+        "INSERT INTO lesson_proposals "
+        "(entry_id, category, suggested_action, reasoning, confidence, status, proposed_at) "
+        "VALUES (?, 'governance_rule', 'action', 'reason', 'high', 'implemented', '2026-05-03')",
+        (id_implemented,),
+    )
+
+    result = get_unclassified_entries(conn)
+    assert result == [id_no_proposal, id_stale_only], (
+        f"Expected [{id_no_proposal}, {id_stale_only}], got {result}"
+    )
+    conn.close()
 
 
 # --- insert_proposal tests (Phase 1B Step 2) ---
