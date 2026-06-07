@@ -1,0 +1,52 @@
+diff --git a/PLANNER_TEMPLATE.md b/PLANNER_TEMPLATE.md
+index 2de1923..07ff362 100644
+--- a/PLANNER_TEMPLATE.md
++++ b/PLANNER_TEMPLATE.md
+@@ -956,6 +956,18 @@ During Lessons Forge Gate 1 review, reject medium-confidence proposals flagged i
+ 
+ Source: proposal 118, lesson 2026-06-03
+ 
++### 47. Derive Lessons Forge classification work list from the stale-aware DB helper
++
++Any plan step that consumes `run_full_lessons_cycle()` or independently derives the set of entries needing classification must use `get_unclassified_entries(conn)` — the stale-aware DB helper in `src/lessons_forge.py` — as the authoritative work-list source. Do not loop the `needs_classification` field from `run_full_lessons_cycle()`'s return value verbatim, and do not hand-copy a `NOT EXISTS` query from entry text or session notes. The `needs_classification` field is a convenience summary that may include entries whose only prior proposal has status `stale` (the edit-requeue path); `get_unclassified_entries(conn)` correctly excludes those entries by filtering on `p.status != 'stale'` in its subquery. Deriving the work list from any source other than the helper re-introduces the silent-drop bug class where stale-requeued entries are skipped.
++
++Source: proposal 124, lesson 2026-06-07
++
++### 48. Gate-enforced QA actions require a mandatory top-of-step callout
++
++Any gate-enforced QA action (e.g., the Rule 20 self-check Python block) must have a MANDATORY callout at the TOP of the QA step — before the verification checklist, before the evidence collection, before any other QA work. The callout must: (a) name the gate that enforces the action, (b) quote the byte-exact banner string the gate greps for, (c) state explicitly that the verification table does NOT satisfy the gate, and (d) end with a self-grep instruction so the agent cannot finish the step without confirming the banner appears in its own output. Without this callout, agents routinely complete all other QA checks, produce a clean verification table, and skip the gate-enforced action — the gate FAILS, the plan halts, and a full re-dispatch is required. The callout structure makes the gate-enforced action impossible to overlook by placing it first and making it self-verifying.
++
++Source: proposal 127, lesson 2026-06-07
++
+ ---
+ 
+ ## Plan Authoring Checklist
+@@ -1056,9 +1068,9 @@ Source: proposal 107, lesson 2026-06-03
+ 
+ ### 16. Copy strict convention strings from known-good artifacts
+ 
+-Strict Bellows convention strings — header field names, dispatch mode values, directory names, lifecycle-prefix spellings, `pause_for_verdict` values — must be copied verbatim from a known-good artifact (a recent `Done/` plan, the Bellows README, or the relevant PLANNER_TEMPLATE rule), never authored from memory. Three failures in one session shared this root cause: a header field-line position error, a dispatch-mode typo, and a directory-name misspelling. Each was a machine-checked value that the Planner specified from recall rather than copy-paste.
++Strict Bellows convention strings — header field names, dispatch mode values, directory names, lifecycle-prefix spellings, `pause_for_verdict` values — must be copied verbatim from a known-good artifact (a recent `Done/` plan, the Bellows README, or the relevant PLANNER_TEMPLATE rule), never authored from memory. `pause_for_verdict` is uniquely high-stakes among these strings: an invalid token (e.g., `after_each_step`) is silently treated as no-pause — the daemon runs a multi-step plan straight through to completion with no verdict gates, and no downstream gate catches the misconfiguration. Three failures in one session shared this root cause: a header field-line position error, a dispatch-mode typo, and a directory-name misspelling. Each was a machine-checked value that the Planner specified from recall rather than copy-paste.
+ 
+-Source: proposal 114, lesson 2026-06-03
++Source: proposal 114, lesson 2026-06-03; proposal 126, lesson 2026-06-07
+ 
+ ### 17. Mechanize dispatch-mode validation
+ 
+@@ -1090,7 +1102,7 @@ Source: proposal 119, lesson 2026-06-03
+ - Do NOT write fix prompts that paraphrase diagnostic findings — cite the key findings directly: "The diagnostic found X at file Y. Fix it by..."
+ - Do NOT paste prompts inline in the conversation as the deliverable — every prompt must be deposited as a file first, then give the CEO the bootstrap. No exceptions for small fixes, one-liners, or quick diagnostics.
+ - Do NOT write single-step DEV-only executable plans — every executable must have a separate QA step for deliverable verification (Rule 17). A DEV agent self-verifying its own work is unreliable. The QA step enforces the verification table.
+-- Do NOT write quick fixes or point patches for recurring bug classes. When a bug surfaces that is similar to a prior fix (same code area, same failure mode, same root cause class), the Planner MUST check the knowledge base for prior diagnostics and fixes in that area. If a prior fix exists, the new fix must address the systemic cause — not add another layer of patching. The Planner should ask: "Why didn't the prior fix prevent this?" If the answer is "the prior fix was too narrow," the new plan must be broader. Recurring symptoms demand architectural solutions: centralized sanitization functions, structural refactors, schema-level constraints — not another point fix in another code path. This is the Eluvian process: deep diagnostics, reference to past fixes, structural solutions that compound into reliability.
++- Do NOT write quick fixes or point patches for recurring bug classes. When a bug surfaces that is similar to a prior fix (same code area, same failure mode, same root cause class), the Planner MUST check the knowledge base for prior diagnostics and fixes in that area. If a prior fix exists, the new fix must address the systemic cause — not add another layer of patching. The Planner should ask: "Why didn't the prior fix prevent this?" If the answer is "the prior fix was too narrow," the new plan must be broader. When handed a proposed fix — from a baton, a prior session, or your own first instinct — verify it against the actual root cause and trace downstream effects before building; prefer the cut that removes a failure class over the patch that suppresses one symptom. Recurring symptoms demand architectural solutions: centralized sanitization functions, structural refactors, schema-level constraints — not another point fix in another code path. This is the Eluvian process: deep diagnostics, reference to past fixes, structural solutions that compound into reliability.
+ 
+ ---
+ 
+@@ -1111,6 +1123,7 @@ Source: proposal 119, lesson 2026-06-03
+ - When a plan instructs an agent to commit a database file (or any file that might be in `.gitignore`), the Planner must verify the file's tracking status BEFORE writing the instruction. Possible verifications: read `.gitignore` directly, grep for the filename in `.gitignore`, or include `git ls-files | grep <filename>` in a diagnostic. If the file is ignored, the plan should either (a) instruct the agent to commit the source change alone and document the DB change in the dev log without committing it, or (b) explicitly use `git add -f` to force-add. Choosing without verification creates a recovery situation.
+ - Substance-check QA feature assertions individually via Rule 22 verification — never accept a full-suite pass-count headline as independent verification. A pass-count headline rests on a single long run that cannot be reconstructed from the report; a hung-then-killed and a slow-then-completed run produce the same count. Verify each feature assertion in the QA report by reading the cited evidence file or deposit and confirming the specific claim, not by checking whether the aggregate number is green. (Source: proposal 101, lesson 2026-06-03)
+ - When authoring test-execution instructions for QA or diagnostic steps, use a wall-clock bound external to pytest (e.g., `timeout 600 pytest ...` via shell) plus `--collect-only` for collection-time isolation. `pytest --timeout=N` bounds per-test execution only — it cannot catch hangs during collection/import, session/module-scoped fixture setup, or C-level/non-main-thread blocking. The external wall-clock bound catches all of these. `--collect-only` as a preliminary command isolates collection-time hangs from execution-time behavior, allowing targeted diagnosis. This supplements Rule 21's full-suite output mode (which keeps the run visible) with a hard bound that kills genuinely hung runs. (Source: proposal 102, lesson 2026-06-03)
++- DEV self-verify and Planner review must each run the full pytest suite to a pass/fail result and read the tail output. Never infer green from a collect count, a target-file subset, or a prior step's pass headline. Bellows gates do NOT include suite-green — a plan can close with failing tests if no one runs the suite. This must be enforced by plan authoring: DEV steps include an explicit `pytest tests/` (or equivalent full-suite command) with output-tail verification, and the Planner confirms a fresh full-suite result during Rule 22 review. (Source: proposal 128, lesson 2026-06-07)
+ 
+ ---
+ 
