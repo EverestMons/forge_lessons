@@ -27,3 +27,7 @@ Execute investigation, deposit findings to `knowledge/research/`. Move to Done (
 - Stale `in-progress-` files (>30 min unmodified) may be reclaimed
 
 ---
+
+## Database Files
+
+`lessons-forge.db` is local operational state, untracked as of 2026-06-12 (shop policy). On a fresh clone, recover by copying from an existing machine or regenerating via the pipeline. The `-shm` and `-wal` companions are never committed.
