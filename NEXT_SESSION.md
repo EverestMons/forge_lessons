@@ -49,7 +49,7 @@ Already in bellows BACKLOG (2026-06-06): four latent `BELLOWS_ROOT = Path(__file
 - **email-PRO -> assigned-user feature** — gated on the two Windows prod-DB queries in `email-pro-user-lookup-prod-queries-2026-06-03.sql`.
 
 ### Forge cycle #14 + canary follow-ups [carried]
-Retire-the-queue decision still open. The `forge.db` 50MB warning is **CLOSED by plan 30** (DB-out-of-git policy; shop FORWARD #1 closed-by-plan-30 — forge.db un-tracked and gitignored). Run `bash ~/Developer/GitHub/forge/scripts/pre-scan-sync.sh` before any Mac Forge work.
+Retire-the-queue decision **CLOSED — CEO-ratified retirement 2026-07-02** (signal A from the 2026-05-27 canary; memo at `forge/knowledge/research/queue-retirement-decision-2026-07-02.md`; routine cycles never drain, no further canaries). The `forge.db` 50MB warning is **CLOSED by plan 30** (DB-out-of-git policy; shop FORWARD #1 closed-by-plan-30 — forge.db un-tracked and gitignored). Run `bash ~/Developer/GitHub/forge/scripts/pre-scan-sync.sh` before any Mac Forge work.
 
 ---
 
