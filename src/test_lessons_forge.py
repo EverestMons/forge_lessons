@@ -790,6 +790,76 @@ def test_run_full_lessons_cycle_idempotent():
         conn.close()
 
 
+# --- needs_classification regression tests ---
+
+def test_needs_classification_excludes_dispositioned_entry():
+    """Entry with a pre-existing non-stale proposal (e.g. 'implemented') is
+    excluded from needs_classification on a subsequent cycle run."""
+    conn = _setup()
+    lessons_path = _write_fixture(SYNTHETIC_LESSONS_NO_DUPS)
+    try:
+        result1 = run_full_lessons_cycle(conn, lessons_md_path=lessons_path)
+        conn.commit()
+        assert len(result1["needs_classification"]) == 2
+
+        entry_id = result1["needs_classification"][0]
+        insert_proposal(
+            conn, entry_id=entry_id, category="governance_rule",
+            suggested_action="Add rule", reasoning="Needed",
+            confidence="high", status="implemented",
+        )
+        conn.commit()
+
+        result2 = run_full_lessons_cycle(conn, lessons_md_path=lessons_path)
+        assert entry_id not in result2["needs_classification"]
+        assert len(result2["needs_classification"]) == 1
+    finally:
+        os.unlink(lessons_path)
+        conn.close()
+
+
+def test_needs_classification_includes_stale_only_entry():
+    """Entry whose only proposal has status 'stale' IS included in
+    needs_classification (re-queued-edit path)."""
+    conn = _setup()
+    lessons_path = _write_fixture(SYNTHETIC_LESSONS_NO_DUPS)
+    try:
+        result1 = run_full_lessons_cycle(conn, lessons_md_path=lessons_path)
+        conn.commit()
+
+        entry_id = result1["needs_classification"][0]
+        insert_proposal(
+            conn, entry_id=entry_id, category="structural",
+            suggested_action="Fix it", reasoning="Broken",
+            confidence="high", status="stale",
+        )
+        conn.commit()
+
+        result2 = run_full_lessons_cycle(conn, lessons_md_path=lessons_path)
+        assert entry_id in result2["needs_classification"]
+    finally:
+        os.unlink(lessons_path)
+        conn.close()
+
+
+def test_needs_classification_plus_duplicates_equals_total():
+    """On a fresh DB, needs_classification + duplicates_marked_count == total
+    parsed entries (invariant preserved after delegation to helper)."""
+    conn = _setup()
+    lessons_path = _write_fixture(SYNTHETIC_LESSONS_ONE_DUP)
+    try:
+        result = run_full_lessons_cycle(conn, lessons_md_path=lessons_path)
+        total_parsed = result["ingested_count"]
+        assert total_parsed == 2
+        assert (
+            len(result["needs_classification"]) + result["duplicates_marked_count"]
+            == total_parsed
+        )
+    finally:
+        os.unlink(lessons_path)
+        conn.close()
+
+
 # --- Report generator tests (Phase 1B Step 3) ---
 
 def test_generate_lessons_report_empty():

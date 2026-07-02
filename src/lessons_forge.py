@@ -212,10 +212,11 @@ def get_unclassified_entries(conn: sqlite3.Connection) -> list[int]:
     requeued). Entries with a 'proposed'/'accepted'/'implemented'/'rejected'/
     'superseded' proposal are excluded (active or dispositioned).
 
-    This is the canonical work list. Do NOT derive a work list from
-    run_full_lessons_cycle().needs_classification — it over-reports every
-    parsed entry. Do NOT use `NOT EXISTS (any proposal)` — it drops stale-only
-    entries and silently skips re-queued edits.
+    This is the canonical work list. As of 2026-07-02, run_full_lessons_cycle()
+    delegates its needs_classification field to this helper, so the two are
+    consistent. This helper remains the canonical source (Rule #47).
+    Do NOT use `NOT EXISTS (any proposal)` — it drops stale-only entries and
+    silently skips re-queued edits.
     """
     cur = conn.cursor()
     rows = cur.execute(
@@ -384,7 +385,10 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
           - updated_count: int — entries updated (content changed)
           - unchanged_count: int — entries unchanged (hash match, skipped)
           - duplicates_marked_count: int — new duplicate proposals inserted
-          - needs_classification: list[int] — entry IDs requiring classification
+          - needs_classification: list[int] — entry IDs requiring classification,
+            computed via get_unclassified_entries(conn) after duplicate-proposal
+            insertion. DB-wide (not parse-scoped); matches the canonical Rule #47
+            work list.
           - cycle_timestamp: str — ISO 8601 UTC timestamp of cycle execution
     """
     cycle_timestamp = datetime.now(timezone.utc).isoformat()
@@ -410,7 +414,6 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
 
     # Step 4: insert duplicate proposals with idempotency check
     duplicates_marked_count = 0
-    duplicate_entry_ids = set()
     for match in duplicates:
         eid = match["entry_id"]
         # Idempotency: skip if a duplicate proposal already exists
@@ -419,7 +422,6 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
             (eid,),
         ).fetchone()
         if existing:
-            duplicate_entry_ids.add(eid)
             continue
         insert_proposal(
             conn,
@@ -431,17 +433,8 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
             duplicate_of=None,
         )
         duplicates_marked_count += 1
-        duplicate_entry_ids.add(eid)
 
-    # Compute needs_classification: all entry IDs minus those with duplicate proposals
-    needs_classification = []
-    for eid in candidate_ids:
-        has_dup = conn.execute(
-            "SELECT 1 FROM lesson_proposals WHERE entry_id = ? AND category = 'duplicate'",
-            (eid,),
-        ).fetchone()
-        if not has_dup:
-            needs_classification.append(eid)
+    needs_classification = get_unclassified_entries(conn)
 
     return {
         "ingested_count": ingestion["inserted"],
