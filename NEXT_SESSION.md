@@ -42,14 +42,14 @@ Already in bellows BACKLOG (2026-06-06): four latent `BELLOWS_ROOT = Path(__file
 ### Bellows reliability [carried, not lessons-forge]
 - Teardown Gap 3 (dirty-tree auto-stash) — recurring `worktree_teardown_dirty_tree` source; auto-stash carries unstash-conflict risk, DEFERRED.
 - 16 stale `halted-*` plans sweep (per-file landed-check, no blanket delete).
-- `lessons-forge.db` git-tracking disposition (keep committing vs `git rm --cached` + bootstrap) — filed Bellows BACKLOG 2026-05-27.
+- `lessons-forge.db` git-tracking disposition (keep committing vs `git rm --cached` + bootstrap) — filed Bellows BACKLOG 2026-05-27. **CLOSED by plan 30 (DB-out-of-git policy):** option (b) taken — DB un-tracked in lessons-forge commit `dabb301` + recovery docs; bellows FORWARD row 7 marked closed-by-plan-30. No open decision remains.
 
 ### Cross-project (not lessons-forge) [carried]
 - **invoice-pulse T0.5.1 reconciliation** — next ungated step in fuel-bracket extrapolation.
 - **email-PRO -> assigned-user feature** — gated on the two Windows prod-DB queries in `email-pro-user-lookup-prod-queries-2026-06-03.sql`.
 
 ### Forge cycle #14 + canary follow-ups [carried]
-`forge.db` 50MB warning, retire-the-queue decision. Run `bash ~/Developer/GitHub/forge/scripts/pre-scan-sync.sh` before any Mac Forge work.
+Retire-the-queue decision still open. The `forge.db` 50MB warning is **CLOSED by plan 30** (DB-out-of-git policy; shop FORWARD #1 closed-by-plan-30 — forge.db un-tracked and gitignored). Run `bash ~/Developer/GitHub/forge/scripts/pre-scan-sync.sh` before any Mac Forge work.
 
 ---
 
