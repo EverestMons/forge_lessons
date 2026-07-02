@@ -34,7 +34,7 @@ The 2026-06-06/2026-06-07 cycle is fully resolved end to end. No queued Lessons 
 ## On the horizon (open items, none in-flight)
 
 ### `run_full_lessons_cycle` `needs_classification` over-report refactor (BACKLOG candidate) [carried]
-The consumer-side fix (the helper) is codified and sufficient for correctness. The function still returns every parsed entry in `needs_classification` — the deeper return-shape root (entry 117's "candidate code fix, separate"). File in lessons-forge/Bellows BACKLOG; not blocking.
+The consumer-side fix (the helper) is codified and sufficient for correctness. The function still returns every parsed entry in `needs_classification` — the deeper return-shape root (entry 117's "candidate code fix, separate"). File in lessons-forge/Bellows BACKLOG; not blocking. **CLOSED 2026-07-02:** `needs_classification` now delegates to `get_unclassified_entries(conn)` post-duplicate-insertion; over-report regression test added; Rule #47 remains in force as defense-in-depth.
 
 ### 129 — `__file__`-relative roots marker walk-up [filed, audit-first conversion pending]
 Already in bellows BACKLOG (2026-06-06): four latent `BELLOWS_ROOT = Path(__file__).parent` instances (bellows.py:23, planner.py:11, runner.py:20, verdict.py:13). Convert-with-proof of worktree-reachability, not blanket. Bellows reliability session.
