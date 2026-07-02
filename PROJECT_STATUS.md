@@ -306,3 +306,6 @@ Commits `047476f`, `e1c9825`, `8e618b4`.
 - The first Bellows-dispatched plan to lessons-forge will be the B.2 canary (item 8 above).
 - Until B.2 is complete, any executable touching lessons-forge must still be deposited through forge's `knowledge/decisions/` (only watched project so far).
 - Bellows BACKLOG: `rule_20_self_check` gate false-positive pattern (see LESSONS.md 2026-05-17 entry).
+
+### Plan 116
+`needs_classification` over-report closed 2026-07-02. The producer (`run_full_lessons_cycle`) now delegates its `needs_classification` field to the canonical Rule #47 helper `get_unclassified_entries(conn)`, positioned after duplicate-proposal insertion. Regression-tested with three new tests covering dispositioned-entry exclusion, stale-only re-queue inclusion, and the fresh-DB invariant. Rule #47 remains in force as defense-in-depth.
