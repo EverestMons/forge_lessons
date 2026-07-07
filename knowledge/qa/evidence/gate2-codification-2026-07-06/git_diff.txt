@@ -1,0 +1,93 @@
+# Combined Git Diff — Gate 2 Codification 2026-07-06
+# Generated: 2026-07-07T16:47:06Z
+
+## PLANNER_TEMPLATE.md (governance root)
+
+diff --git a/PLANNER_TEMPLATE.md b/PLANNER_TEMPLATE.md
+index 65822ee..6febcd3 100644
+--- a/PLANNER_TEMPLATE.md
++++ b/PLANNER_TEMPLATE.md
+@@ -995,6 +995,23 @@ When a Bellows verdict request shows ALL gate checks PASS and the Planner's Rule
+ 
+ The CEO is ALWAYS interrupted — no delegated resolution — for: `gate_failure`, `scope_violation`, any unknown or missing pause reason code, a failed Rule 22(b) substance verification, or a genuine judgment fork (competing dispositions, destructive follow-ups, policy questions). Continue-over-failure on a gate failure remains CEO-only, with the false-positive justification documented in the verdict body. This rule delegates CONFIRMATION of verified-clean work; it does not delegate judgment on anything the gates or the Planner flag.
+ 
++### 50. Derive step scope from SA enumeration, not hand-typed lists
++
++Plan-step scope — the allowed-file set and the `**Scope:**` block content — must be derived from upstream enumeration (SA consumer grep output, generator-output inventory, test-infrastructure audit), never from a hand-typed list the Planner reproduces from recall. A hand-typed list diverges from the SA's actual findings and is a guaranteed scope_check false-positive on the first file the SA found but the Planner omitted. Four disciplines compose the derivation:
++
++- **(a) SA-grep derivation.** DEV step allowed-file sets must reference the SA consumer grep output ("scope includes exactly the files enumerated in SA Section N"), not a competing hand-typed list. A divergent hand-typed list is a guaranteed scope_check false-positive.
++- **(b) Test-infrastructure inclusion.** When a step introduces module-level state (paths, singletons, DB connections), the scope enumeration must include test-infrastructure files (conftest.py, fixtures) that isolate that state. Include tests/ with conditional guidance ("only if needed") rather than a narrow test-file list.
++- **(c) Generator-output enumeration.** When a plan step instructs running a generator or builder as verification, declare the generator output files in that step's Deposits or Scope. Enumerate outputs at authoring time by asking "what does this command write to disk?"
++- **(d) Generous test scoping.** Include every test file the change might plausibly touch (tests/test_<each-touched-module>.py) or pre-authorize tests/ with "only if needed" guidance. A wider conditional list costs nothing, while a narrow list that forces the agent to choose between halting and violating scope costs a full rework cycle.
++
++Source: proposals 133, 134, 137, 143, lesson 2026-07-06
++
++### 51. Corrections at verdict time go into plan text, not verdict disposition prose
++
++Corrections discovered during verdict review — typos in a target path, missing QA check dimensions, agent-visible instruction gaps — must be routed into plan text (a follow-up plan, or a pre-resume edit to a fresh-read document the next step consumes), never into verdict disposition prose. Verdict disposition text is a record for humans and the lifecycle ledger, not an instruction channel. Bellows's verdict consumption is mechanical: `_consume_verdicts()` reads the `verdict: continue` or `verdict: stop` line, processes the lifecycle transition, and does not forward the prose body to the next step's bootstrap prompt. The bootstrap is generated from the cached plan content (shadow copy written at claim time). A correction placed in verdict prose goes unexecuted — the next agent never sees it.
++
++Source: proposal 138, lesson 2026-07-06
++
+ ---
+ 
+ ## Lifecycle DB Read Protocol (Planner)
+@@ -1159,6 +1176,30 @@ Before atomic-moving any plan into a watched `decisions/` directory, the Planner
+ 
+ Source: bellows plan 118, FORWARD row 9, 2026-07-02
+ 
++### 25. Regression gates identify time-dependent inputs
++
++When authoring a regression gate that compares pre/post values of a scoring or computation path, identify time-dependent inputs in the path (e.g., `datetime.now()` decay windows, time-based weights, TTL-computed values). If time sensitivity is present, use tolerance-based comparison (±threshold) or snapshot-frozen inputs (pinned timestamps, frozen clock) instead of byte-identical hash checks. A byte-identical gate on a time-dependent path is unsatisfiable on recompute — the value drifts between the snapshot and the verification run, producing guaranteed false failures.
++
++Source: proposal 132, lesson 2026-07-06
++
++### 26. Convention-change plans grep for all occurrences
++
++When a plan redefines a convention — renaming a field, reformatting a header, changing a string pattern — the DEV step must grep for all occurrences of the old convention string rather than relying on a Planner-enumerated site list. The QA step must re-run the same grep and classify every hit as edited or deliberate-survivor (a site that intentionally retains the old form, e.g., a historical reference or backward-compatibility alias). Structural enumeration of the places that define a convention predictably misses the places that quote it — embedded copies, examples, documentation, test fixtures. An occurrence-grep catches both.
++
++Source: proposal 136, lesson 2026-07-06
++
++### 27. Step composition passes the Position A check
++
++Before deposit, verify the plan's step composition against Position A: every executable plan requires at least one QA step executed by a separate agent from the build step. The `qa_steps` header field must name at least one step number. Single-step doc plans and DEV-only plans are not permitted shapes — no gate fires on step composition, so this check must be enforced at plan-authoring time. If the plan has no QA step, add one before deposit.
++
++Source: proposal 139, lesson 2026-07-06
++
++### 28. QA steps for DB-out-of-git projects carry an evidence-source contract
++
++QA steps that verify state in a DB-out-of-git project (where the canonical DB is untracked and lives at a fixed absolute path on the operator's machine) must carry an evidence-source contract in the step prompt. The contract specifies: (a) the canonical absolute-path URI for the DB (e.g., `file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro`), (b) a statement that worktree DB absence is not a substitution reason — the canonical path is an absolute-path URI that resolves from any worktree, and (c) a requirement that each verification row in the QA report declares its DB source (canonical path vs. fresh init). Without this contract, QA agents in worktrees silently substitute a fresh `init_db()` throwaway DB for the canonical DB, marking PASS on evidence that proves nothing about production state.
++
++Source: proposal 145, lesson 2026-07-06
++
+ ---
+ 
+ ## Guardrails
+@@ -1426,6 +1467,12 @@ When `scope_check` (Gate 8) flags evidence files as out-of-scope despite the pla
+ 
+ Source: proposal 111, lesson 2026-06-03
+ 
++#### 15. Post-activation live canary for silent/best-effort daemon write paths
++
++When activating a new daemon write path that uses a silent/best-effort pattern (log-and-continue on write failure), include a mandatory post-activation live canary step: emit a test record via the activated channel, then verify the daemon actually wrote the expected output to the target DB table or file. Green unit tests verify the code path exists; a live canary verifies the end-to-end chain — daemon process, write permissions, DB schema, file paths, and silent-failure recovery. Three distinct bugs in the 2026-07-06 daemon activation were caught only by live canaries that the full green suite missed.
++
++Source: proposal 142, lesson 2026-07-06
++
+ ---
+ 
+ ## Manual Execution Model (RUN EXE / RUN DIAG / Bootstrap)
+
+## forge/agents/FORGE_QA.md (forge repo)
+
+diff --git a/agents/FORGE_QA.md b/agents/FORGE_QA.md
+index a29e83a..88774e9 100644
+--- a/agents/FORGE_QA.md
++++ b/agents/FORGE_QA.md
+@@ -176,6 +176,8 @@ All guardrails are inherited from `COMPANY.md` and `governance/GUARDRAILS.md`.
+ 
+ **Rule 20 canonical block discipline.** The Rule 20 self-check Python block lives at `RULE_20_SELF_CHECK_BLOCK.md` at the governance root. Always read from that file. Never author, paraphrase, or modify the block from memory. If the block is absent or unreadable, halt and report to CEO.
+ 
++**Evidence-source integrity.** The canonical DB path for any Forge QA verification is an absolute-path URI (e.g., `file:/path/to/forge.db?mode=ro`) that resolves from any worktree — worktree DB absence is never a substitution reason. If a QA action specifying a canonical DB check cannot be performed as specified (DB file absent, permissions error, connection failure), report that fact as a verification FAIL with the specific error rather than silently substituting a fresh `init_db()` throwaway DB or alternative evidence source and marking PASS. A PASS on substituted evidence proves nothing about production state and conceals the verification gap from the Planner and CEO.
++
+ ---
+ 
+ ## Rule 20 Self-Check (Canonical Block Reference)
