@@ -324,3 +324,6 @@ Gate 1 routes recorded for cycle 2026-07-06: 13 codify, 2 reference (entries 132
 
 ### Plan 133
 Gate 1 route dispositions verified against the canonical DB: 15/15 proposals routed (13 codify, 2 reference), all matching the CEO disposition table with zero mismatches. No collateral writes detected. Targeted tests (migration idempotence, route-to-pre-existing-DB migration, `set_proposal_route` persistence and validation) all pass.
+
+### Plan 134
+Gate 2 codification for cycle 2026-07-06 verified: 10 edit units (8 authored APPEND-NEW + 2 FULLY SUBSUMED correctly skipped) across 9 PLANNER_TEMPLATE.md insertions (3 insertion points: Orchestration Plan Rules 50–51, Plan Authoring Checklist 25–28, Bellows Operational Workaround 15) and 1 FORGE_QA.md insertion (Evidence-source integrity guardrail). Version 4.70 unchanged. Pending Planner wrap for status advancement, version bump to 4.71, and split commits.
