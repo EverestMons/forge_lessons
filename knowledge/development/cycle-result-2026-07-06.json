@@ -1,0 +1,28 @@
+{
+  "cycle_result": {
+    "ingested_count": 14,
+    "updated_count": 1,
+    "unchanged_count": 65,
+    "duplicates_marked_count": 0,
+    "needs_classification": [123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137],
+    "cycle_timestamp": "2026-07-07T01:22:28.275792+00:00"
+  },
+  "worklist": [123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137],
+  "pragma_columns": [
+    {"cid": 0, "name": "id", "type": "INTEGER", "notnull": 0, "dflt_value": null, "pk": 1},
+    {"cid": 1, "name": "entry_id", "type": "INTEGER", "notnull": 1, "dflt_value": null, "pk": 0},
+    {"cid": 2, "name": "category", "type": "TEXT", "notnull": 1, "dflt_value": null, "pk": 0},
+    {"cid": 3, "name": "subcategory", "type": "TEXT", "notnull": 0, "dflt_value": null, "pk": 0},
+    {"cid": 4, "name": "suggested_action", "type": "TEXT", "notnull": 1, "dflt_value": null, "pk": 0},
+    {"cid": 5, "name": "reasoning", "type": "TEXT", "notnull": 1, "dflt_value": null, "pk": 0},
+    {"cid": 6, "name": "confidence", "type": "TEXT", "notnull": 1, "dflt_value": null, "pk": 0},
+    {"cid": 7, "name": "status", "type": "TEXT", "notnull": 1, "dflt_value": "'proposed'", "pk": 0},
+    {"cid": 8, "name": "target_layer", "type": "TEXT", "notnull": 0, "dflt_value": null, "pk": 0},
+    {"cid": 9, "name": "target_artifact", "type": "TEXT", "notnull": 0, "dflt_value": null, "pk": 0},
+    {"cid": 10, "name": "duplicate_of", "type": "INTEGER", "notnull": 0, "dflt_value": null, "pk": 0},
+    {"cid": 11, "name": "proposed_at", "type": "TEXT", "notnull": 1, "dflt_value": null, "pk": 0},
+    {"cid": 12, "name": "status_updated_at", "type": "TEXT", "notnull": 0, "dflt_value": null, "pk": 0},
+    {"cid": 13, "name": "status_updated_by", "type": "TEXT", "notnull": 0, "dflt_value": null, "pk": 0},
+    {"cid": 14, "name": "route", "type": "TEXT", "notnull": 0, "dflt_value": null, "pk": 0}
+  ]
+}
