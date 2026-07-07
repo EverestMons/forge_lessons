@@ -152,12 +152,16 @@ def ingest_lesson_entries(conn: sqlite3.Connection, entries: list[dict],
     return result
 
 
+_VALID_ROUTES = frozenset(('codify', 'backlog', 'reference'))
+
+
 def insert_proposal(conn: sqlite3.Connection, entry_id: int, category: str,
                     suggested_action: str, reasoning: str, confidence: str,
                     status: str = 'proposed', target_layer: str | None = None,
                     target_artifact: str | None = None,
                     duplicate_of: int | None = None,
-                    subcategory: str | None = None) -> int:
+                    subcategory: str | None = None,
+                    route: str | None = None) -> int:
     """
     Insert a single proposal row into the lesson_proposals table.
 
@@ -190,16 +194,29 @@ def insert_proposal(conn: sqlite3.Connection, entry_id: int, category: str,
             violates CHECK constraints, or if entry_id doesn't reference
             an existing lesson_entries row (FK violation).
     """
+    if route is not None and route not in _VALID_ROUTES:
+        raise ValueError(f"route must be one of {sorted(_VALID_ROUTES)} or None, got {route!r}")
     now = datetime.now(timezone.utc).isoformat()
     cur = conn.execute(
         "INSERT INTO lesson_proposals "
         "(entry_id, category, subcategory, suggested_action, reasoning, "
-        "confidence, status, target_layer, target_artifact, duplicate_of, proposed_at) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "confidence, status, target_layer, target_artifact, duplicate_of, route, proposed_at) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         (entry_id, category, subcategory, suggested_action, reasoning,
-         confidence, status, target_layer, target_artifact, duplicate_of, now),
+         confidence, status, target_layer, target_artifact, duplicate_of, route, now),
     )
     return cur.lastrowid
+
+
+def set_proposal_route(conn: sqlite3.Connection, proposal_id: int,
+                       route: str | None) -> None:
+    """Set the route on an existing proposal (disposition-time capture)."""
+    if route is not None and route not in _VALID_ROUTES:
+        raise ValueError(f"route must be one of {sorted(_VALID_ROUTES)} or None, got {route!r}")
+    conn.execute(
+        "UPDATE lesson_proposals SET route = ? WHERE id = ?",
+        (route, proposal_id),
+    )
 
 
 def get_unclassified_entries(conn: sqlite3.Connection) -> list[int]:
@@ -470,7 +487,7 @@ def generate_lessons_report(conn: sqlite3.Connection, cycle_date: str,
     """
     rows = conn.execute(
         "SELECT p.category, p.suggested_action, p.reasoning, p.confidence, "
-        "p.duplicate_of, e.source_heading, e.entry_date "
+        "p.duplicate_of, e.source_heading, e.entry_date, p.route "
         "FROM lesson_proposals p "
         "JOIN lesson_entries e ON p.entry_id = e.id "
         "WHERE p.status IN ('proposed', 'ambiguous') "
@@ -509,12 +526,14 @@ def generate_lessons_report(conn: sqlite3.Connection, cycle_date: str,
             lines.append(f"## {cat.replace('_', ' ').title()}\n")
             lines.append("")
             for row in grouped[cat]:
-                _, suggested_action, reasoning, confidence, duplicate_of, source_heading, entry_date = row
+                _, suggested_action, reasoning, confidence, duplicate_of, source_heading, entry_date, route = row
                 lines.append(f"### {source_heading}\n")
                 lines.append("")
                 lines.append(f"- **Suggested action:** {suggested_action}")
                 lines.append(f"- **Reasoning:** {reasoning}")
                 lines.append(f"- **Confidence:** {confidence}")
+                if route is not None:
+                    lines.append(f"- **Route:** {route}")
                 if cat == "duplicate" and duplicate_of is not None:
                     lines.append(f"- **Duplicate of:** {duplicate_of}")
                 lines.append("")

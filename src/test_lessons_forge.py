@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src import db
 from src.lessons_forge import (
     parse_lessons_md, ingest_lesson_entries, insert_proposal,
+    set_proposal_route,
     get_unclassified_entries, detect_duplicates, run_full_lessons_cycle,
     generate_lessons_report,
 )
@@ -927,6 +928,181 @@ def test_generate_lessons_report_writes_file():
         assert os.path.isfile(path)
         assert os.path.getsize(path) > 0
         assert os.path.isabs(path)
+    finally:
+        os.unlink(path)
+        os.rmdir(report_dir)
+        conn.close()
+
+
+# --- Route column tests ---
+
+@pytest.mark.parametrize("route_val", ["codify", "backlog", "reference"])
+def test_insert_proposal_with_valid_route(route_val):
+    """Insert with each valid route value persists and reads back."""
+    conn = _setup()
+    entry_id = _seed_entry(conn)
+    pid = insert_proposal(
+        conn, entry_id=entry_id, category="structural",
+        suggested_action="action", reasoning="reason",
+        confidence="high", route=route_val,
+    )
+    row = conn.execute(
+        "SELECT route FROM lesson_proposals WHERE id = ?", (pid,)
+    ).fetchone()
+    assert row[0] == route_val
+    conn.close()
+
+
+def test_insert_proposal_route_none_default():
+    """Insert without route keyword leaves route NULL."""
+    conn = _setup()
+    entry_id = _seed_entry(conn)
+    pid = insert_proposal(
+        conn, entry_id=entry_id, category="structural",
+        suggested_action="action", reasoning="reason",
+        confidence="high",
+    )
+    row = conn.execute(
+        "SELECT route FROM lesson_proposals WHERE id = ?", (pid,)
+    ).fetchone()
+    assert row[0] is None
+    conn.close()
+
+
+def test_insert_proposal_invalid_route_raises():
+    """Invalid route value raises ValueError at the Python layer."""
+    conn = _setup()
+    entry_id = _seed_entry(conn)
+    with pytest.raises(ValueError, match="route must be one of"):
+        insert_proposal(
+            conn, entry_id=entry_id, category="structural",
+            suggested_action="action", reasoning="reason",
+            confidence="high", route="invalid_route",
+        )
+    conn.close()
+
+
+def test_route_check_constraint_rejects_invalid_sql():
+    """Direct SQL INSERT with an invalid route is rejected by the CHECK constraint."""
+    conn = _setup()
+    entry_id = _seed_entry(conn)
+    with pytest.raises(sqlite3.IntegrityError):
+        conn.execute(
+            "INSERT INTO lesson_proposals "
+            "(entry_id, category, suggested_action, reasoning, confidence, route, proposed_at) "
+            "VALUES (?, 'structural', 'action', 'reason', 'high', 'bogus', '2026-07-06')",
+            (entry_id,),
+        )
+    conn.close()
+
+
+def test_migration_idempotence_double_init():
+    """init_db() twice on one DB does not error."""
+    conn = sqlite3.connect(":memory:")
+    db.init_db(conn)
+    db.init_db(conn)
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(lesson_proposals)").fetchall()}
+    assert "route" in cols
+    conn.close()
+
+
+def test_migration_adds_route_to_pre_existing_db():
+    """init_db() against a DB created WITHOUT the route column adds it."""
+    conn = sqlite3.connect(":memory:")
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA foreign_keys=ON")
+    conn.executescript("""
+        CREATE TABLE IF NOT EXISTS lesson_entries (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            source_file     TEXT    NOT NULL,
+            source_heading  TEXT    NOT NULL,
+            entry_date      TEXT,
+            raw_content     TEXT    NOT NULL,
+            content_hash    TEXT    NOT NULL,
+            tags            TEXT,
+            ingested_at     TEXT    NOT NULL,
+            UNIQUE(source_file, source_heading)
+        );
+        CREATE TABLE IF NOT EXISTS lesson_proposals (
+            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+            entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+            category            TEXT    NOT NULL,
+            subcategory         TEXT,
+            suggested_action    TEXT    NOT NULL,
+            reasoning           TEXT    NOT NULL,
+            confidence          TEXT    NOT NULL,
+            status              TEXT    NOT NULL DEFAULT 'proposed',
+            target_layer        TEXT,
+            target_artifact     TEXT,
+            duplicate_of        INTEGER,
+            proposed_at         TEXT    NOT NULL,
+            status_updated_at   TEXT,
+            status_updated_by   TEXT
+        );
+    """)
+    cols_before = {row[1] for row in conn.execute("PRAGMA table_info(lesson_proposals)").fetchall()}
+    assert "route" not in cols_before
+
+    db.init_db(conn)
+    cols_after = {row[1] for row in conn.execute("PRAGMA table_info(lesson_proposals)").fetchall()}
+    assert "route" in cols_after
+    conn.close()
+
+
+def test_set_proposal_route_persists():
+    """set_proposal_route updates the route on an existing proposal."""
+    conn = _setup()
+    entry_id = _seed_entry(conn)
+    pid = insert_proposal(
+        conn, entry_id=entry_id, category="governance_rule",
+        suggested_action="Add rule", reasoning="Needed",
+        confidence="high",
+    )
+    assert conn.execute("SELECT route FROM lesson_proposals WHERE id = ?", (pid,)).fetchone()[0] is None
+
+    set_proposal_route(conn, pid, "codify")
+    assert conn.execute("SELECT route FROM lesson_proposals WHERE id = ?", (pid,)).fetchone()[0] == "codify"
+
+    set_proposal_route(conn, pid, "backlog")
+    assert conn.execute("SELECT route FROM lesson_proposals WHERE id = ?", (pid,)).fetchone()[0] == "backlog"
+
+    set_proposal_route(conn, pid, None)
+    assert conn.execute("SELECT route FROM lesson_proposals WHERE id = ?", (pid,)).fetchone()[0] is None
+    conn.close()
+
+
+def test_set_proposal_route_invalid_raises():
+    """set_proposal_route with an invalid value raises ValueError."""
+    conn = _setup()
+    entry_id = _seed_entry(conn)
+    pid = insert_proposal(
+        conn, entry_id=entry_id, category="structural",
+        suggested_action="action", reasoning="reason",
+        confidence="high",
+    )
+    with pytest.raises(ValueError, match="route must be one of"):
+        set_proposal_route(conn, pid, "not_a_route")
+    conn.close()
+
+
+def test_report_renders_route_where_present():
+    """Report includes route for proposals that have one, omits for NULL."""
+    conn = _setup()
+    report_dir = tempfile.mkdtemp(prefix="test_reports_")
+    e1 = _seed_entry(conn, heading="2026-07-01 — Routed entry")
+    e2 = _seed_entry(conn, heading="2026-07-02 — Unrouted entry")
+    conn.execute("UPDATE lesson_entries SET entry_date = '2026-07-01' WHERE id = ?", (e1,))
+    conn.execute("UPDATE lesson_entries SET entry_date = '2026-07-02' WHERE id = ?", (e2,))
+
+    insert_proposal(conn, e1, "structural", "Fix it", "Broken", "high", route="codify")
+    insert_proposal(conn, e2, "structural", "Fix that", "Also broken", "medium")
+
+    try:
+        path = generate_lessons_report(conn, "2026-07-06-route", output_dir=report_dir)
+        with open(path) as f:
+            content = f.read()
+        assert "- **Route:** codify" in content
+        assert content.count("**Route:**") == 1
     finally:
         os.unlink(path)
         os.rmdir(report_dir)

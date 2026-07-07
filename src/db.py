@@ -41,6 +41,7 @@ def init_db(conn: sqlite3.Connection) -> None:
             target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
             target_artifact     TEXT,
             duplicate_of        INTEGER,
+            route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
             proposed_at         TEXT    NOT NULL,
             status_updated_at   TEXT,
             status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
@@ -53,4 +54,13 @@ def init_db(conn: sqlite3.Connection) -> None:
         CREATE INDEX IF NOT EXISTS idx_lesson_proposals_category
             ON lesson_proposals(category);
     """)
+
+    # Migration: add route column to existing DBs that lack it
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(lesson_proposals)").fetchall()}
+    if "route" not in cols:
+        conn.execute(
+            "ALTER TABLE lesson_proposals ADD COLUMN "
+            "route TEXT CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference'))"
+        )
+
     conn.commit()
