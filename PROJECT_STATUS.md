@@ -321,3 +321,6 @@ Cycle run 2026-07-06 complete: 15 entries ingested (backlog 2026-06-08 through 2
 
 ### Plan 133
 Gate 1 routes recorded for cycle 2026-07-06: 13 codify, 2 reference (entries 132/133 routed reference because their fixes already shipped in plans 62/63). Routes were written via the first live use of `set_proposal_route` (commit `643e9e7`). Gate 2 codification is pending for the 13 codify-routed proposals.
+
+### Plan 133
+Gate 1 route dispositions verified against the canonical DB: 15/15 proposals routed (13 codify, 2 reference), all matching the CEO disposition table with zero mismatches. No collateral writes detected. Targeted tests (migration idempotence, route-to-pre-existing-DB migration, `set_proposal_route` persistence and validation) all pass.
