@@ -330,3 +330,6 @@ Gate 2 codification for cycle 2026-07-06 verified: 10 edit units (8 authored APP
 
 ### Plan 135
 Reference terminal status is live: `'reference'` added to the `lesson_proposals.status` CHECK constraint via guarded table-rebuild migration. Proposals 140 and 141 (cycle 2026-07-06, entries 132/133) updated to `status='reference'`, `status_updated_by='ceo'`, `status_updated_at='2026-07-07'`. The `status='proposed'` backlog is now at 0, restoring its semantic meaning to exactly "awaiting disposition."
+
+### Plan 135
+Reference terminal status verified live on canonical DB: the `lesson_proposals.status` CHECK constraint includes `'reference'`, proposals 140 and 141 carry `status='reference'` with `status_updated_by='ceo'` and `status_updated_at='2026-07-07'`, and `status='proposed'` count is 0. The cycle 2026-07-06 backlog is fully terminal — all 145 proposals have a definitive disposition.
