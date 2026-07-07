@@ -312,3 +312,6 @@ Commits `047476f`, `e1c9825`, `8e618b4`.
 
 ### Plan 128
 Route column shipped 2026-07-06 (plan 128, commit `643e9e7`). The `lesson_proposals` table now captures routing outcomes via a nullable `route TEXT` column constrained to `codify`, `backlog`, or `reference`. Routes can be set at insert time (`insert_proposal(route=...)`) or at disposition time (`set_proposal_route()`). The report surfaces route values where present; historical rows remain NULL by design (pre-route history, no backfill). This closes gap 1 from diagnostic-127's learning-loop routing audit.
+
+### Plan 130
+Route-column verification corrected 2026-07-06. The original QA report (plan 128) presented a fresh-`init_db()` throwaway PRAGMA as canonical-DB evidence without disclosure; this v2 report corrects the record. The canonical DB at `/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db` correctly lacks the `route` column — the guarded migration fires at the next `init_db()` run (cycle start) by design. Nothing writes routes before a cycle, so column absence is expected behavior. The dev deliverable (commit `643e9e7`) is confirmed sound: fresh `init_db()` produces the column with proper CHECK constraint, migration tests pass, and the full suite (40/40) is green.
