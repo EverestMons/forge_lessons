@@ -318,3 +318,6 @@ Route-column verification corrected 2026-07-06. The original QA report (plan 128
 
 ### Plan 131
 Cycle run 2026-07-06 complete: 15 entries ingested (backlog 2026-06-08 through 2026-07-06), 15 classified (governance_rule: 12, structural: 2, instrumentation: 1), route migration fired on canonical DB (plan 128), report deposited at `reports/lessons-report-2026-07-06.md` (128 lines, 15 proposals, zero route lines). Gate 1 disposition pending — CEO assigns routes via `set_proposal_route()`.
+
+### Plan 133
+Gate 1 routes recorded for cycle 2026-07-06: 13 codify, 2 reference (entries 132/133 routed reference because their fixes already shipped in plans 62/63). Routes were written via the first live use of `set_proposal_route` (commit `643e9e7`). Gate 2 codification is pending for the 13 codify-routed proposals.
