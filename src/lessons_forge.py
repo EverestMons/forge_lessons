@@ -179,7 +179,8 @@ def insert_proposal(conn: sqlite3.Connection, entry_id: int, category: str,
         reasoning: Classifier's reasoning for the category assignment.
         confidence: One of: low, medium, high.
         status: Proposal status. Default 'proposed'. One of: proposed,
-                accepted, rejected, ambiguous, stale, superseded, implemented.
+                accepted, rejected, ambiguous, stale, superseded, implemented,
+                reference.
         target_layer: Optional routing layer. One of: structure, governance,
                       language, none. NULL if not determined.
         target_artifact: Optional target file (e.g. "PLANNER_TEMPLATE.md").

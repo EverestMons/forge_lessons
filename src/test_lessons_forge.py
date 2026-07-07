@@ -1107,3 +1107,188 @@ def test_report_renders_route_where_present():
         os.unlink(path)
         os.rmdir(report_dir)
         conn.close()
+
+
+# --- Reference status migration tests ---
+
+def test_reference_status_migration_idempotence():
+    """init_db() twice: reference status CHECK present, no error."""
+    conn = sqlite3.connect(":memory:")
+    db.init_db(conn)
+    db.init_db(conn)
+    schema = conn.execute(
+        "SELECT sql FROM sqlite_master WHERE type='table' AND name='lesson_proposals'"
+    ).fetchone()[0]
+    assert "'reference'" in schema
+    conn.close()
+
+
+def test_reference_status_migration_pre_existing_db():
+    """init_db() against a DB with old status CHECK (no 'reference') rebuilds correctly."""
+    conn = sqlite3.connect(":memory:")
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA foreign_keys=ON")
+    conn.executescript("""
+        CREATE TABLE IF NOT EXISTS lesson_entries (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            source_file     TEXT    NOT NULL,
+            source_heading  TEXT    NOT NULL,
+            entry_date      TEXT,
+            raw_content     TEXT    NOT NULL,
+            content_hash    TEXT    NOT NULL,
+            tags            TEXT,
+            ingested_at     TEXT    NOT NULL,
+            UNIQUE(source_file, source_heading)
+        );
+        CREATE TABLE IF NOT EXISTS lesson_proposals (
+            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+            entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+            category            TEXT    NOT NULL CHECK(category IN ('structural', 'instrumentation', 'governance_rule', 'language', 'narrative', 'duplicate')),
+            subcategory         TEXT,
+            suggested_action    TEXT    NOT NULL,
+            reasoning           TEXT    NOT NULL,
+            confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
+            status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented')),
+            target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
+            target_artifact     TEXT,
+            duplicate_of        INTEGER,
+            route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
+            proposed_at         TEXT    NOT NULL,
+            status_updated_at   TEXT,
+            status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
+        );
+        CREATE INDEX IF NOT EXISTS idx_lesson_proposals_entry ON lesson_proposals(entry_id);
+        CREATE INDEX IF NOT EXISTS idx_lesson_proposals_status ON lesson_proposals(status);
+        CREATE INDEX IF NOT EXISTS idx_lesson_proposals_category ON lesson_proposals(category);
+    """)
+
+    # Seed data to verify preservation
+    conn.execute(
+        "INSERT INTO lesson_entries (source_file, source_heading, raw_content, content_hash, ingested_at) "
+        "VALUES ('LESSONS.md', '2026-07-01 — Test', 'body', 'hash1', '2026-07-01')"
+    )
+    conn.execute(
+        "INSERT INTO lesson_proposals "
+        "(entry_id, category, suggested_action, reasoning, confidence, status, route, proposed_at) "
+        "VALUES (1, 'structural', 'Fix it', 'Broken', 'high', 'implemented', 'codify', '2026-07-01')"
+    )
+    conn.commit()
+
+    # Verify old schema lacks 'reference' in status CHECK
+    schema_before = conn.execute(
+        "SELECT sql FROM sqlite_master WHERE type='table' AND name='lesson_proposals'"
+    ).fetchone()[0]
+    assert "'implemented', 'reference'" not in schema_before
+
+    db.init_db(conn)
+
+    # Verify schema now includes 'reference' in status CHECK
+    schema_after = conn.execute(
+        "SELECT sql FROM sqlite_master WHERE type='table' AND name='lesson_proposals'"
+    ).fetchone()[0]
+    assert "'implemented', 'reference'" in schema_after
+
+    # Verify data preserved
+    row = conn.execute(
+        "SELECT category, status, route FROM lesson_proposals WHERE id = 1"
+    ).fetchone()
+    assert row == ('structural', 'implemented', 'codify')
+
+    conn.close()
+
+
+def test_reference_status_check_accepts_reference():
+    """INSERT with status='reference' succeeds."""
+    conn = _setup()
+    entry_id = _seed_entry(conn)
+    conn.execute(
+        "INSERT INTO lesson_proposals "
+        "(entry_id, category, suggested_action, reasoning, confidence, status, proposed_at) "
+        "VALUES (?, 'structural', 'action', 'reason', 'high', 'reference', '2026-07-07')",
+        (entry_id,),
+    )
+    row = conn.execute(
+        "SELECT status FROM lesson_proposals WHERE entry_id = ?", (entry_id,)
+    ).fetchone()
+    assert row[0] == "reference"
+    conn.close()
+
+
+def test_reference_status_check_still_rejects_invalid():
+    """INSERT with status='bogus' still raises IntegrityError after rebuild."""
+    conn = _setup()
+    entry_id = _seed_entry(conn)
+    with pytest.raises(sqlite3.IntegrityError):
+        conn.execute(
+            "INSERT INTO lesson_proposals "
+            "(entry_id, category, suggested_action, reasoning, confidence, status, proposed_at) "
+            "VALUES (?, 'structural', 'action', 'reason', 'high', 'bogus_status', '2026-07-07')",
+            (entry_id,),
+        )
+    conn.close()
+
+
+def test_reference_status_migration_preserves_row_count():
+    """Table rebuild preserves all rows and data across migration."""
+    conn = sqlite3.connect(":memory:")
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA foreign_keys=ON")
+    conn.executescript("""
+        CREATE TABLE IF NOT EXISTS lesson_entries (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            source_file     TEXT    NOT NULL,
+            source_heading  TEXT    NOT NULL,
+            entry_date      TEXT,
+            raw_content     TEXT    NOT NULL,
+            content_hash    TEXT    NOT NULL,
+            tags            TEXT,
+            ingested_at     TEXT    NOT NULL,
+            UNIQUE(source_file, source_heading)
+        );
+        CREATE TABLE IF NOT EXISTS lesson_proposals (
+            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+            entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+            category            TEXT    NOT NULL CHECK(category IN ('structural', 'instrumentation', 'governance_rule', 'language', 'narrative', 'duplicate')),
+            subcategory         TEXT,
+            suggested_action    TEXT    NOT NULL,
+            reasoning           TEXT    NOT NULL,
+            confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
+            status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented')),
+            target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
+            target_artifact     TEXT,
+            duplicate_of        INTEGER,
+            route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
+            proposed_at         TEXT    NOT NULL,
+            status_updated_at   TEXT,
+            status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
+        );
+    """)
+
+    # Seed multiple rows
+    for i in range(1, 6):
+        conn.execute(
+            "INSERT INTO lesson_entries (source_file, source_heading, raw_content, content_hash, ingested_at) "
+            "VALUES ('LESSONS.md', ?, 'body', ?, '2026-07-01')",
+            (f"2026-07-0{i} — Entry {i}", f"hash{i}"),
+        )
+        conn.execute(
+            "INSERT INTO lesson_proposals "
+            "(entry_id, category, suggested_action, reasoning, confidence, status, proposed_at) "
+            "VALUES (?, 'structural', 'action', 'reason', 'high', 'implemented', '2026-07-01')",
+            (i,),
+        )
+    conn.commit()
+
+    count_before = conn.execute("SELECT COUNT(*) FROM lesson_proposals").fetchone()[0]
+    assert count_before == 5
+
+    db.init_db(conn)
+
+    count_after = conn.execute("SELECT COUNT(*) FROM lesson_proposals").fetchone()[0]
+    assert count_after == 5
+
+    # Verify all IDs preserved
+    ids = [r[0] for r in conn.execute("SELECT id FROM lesson_proposals ORDER BY id").fetchall()]
+    assert ids == [1, 2, 3, 4, 5]
+
+    conn.close()

@@ -37,7 +37,7 @@ def init_db(conn: sqlite3.Connection) -> None:
             suggested_action    TEXT    NOT NULL,
             reasoning           TEXT    NOT NULL,
             confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
-            status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented')),
+            status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented', 'reference')),
             target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
             target_artifact     TEXT,
             duplicate_of        INTEGER,
@@ -62,5 +62,49 @@ def init_db(conn: sqlite3.Connection) -> None:
             "ALTER TABLE lesson_proposals ADD COLUMN "
             "route TEXT CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference'))"
         )
+
+    # Migration: add 'reference' to status CHECK constraint (table rebuild required)
+    schema_sql = conn.execute(
+        "SELECT sql FROM sqlite_master WHERE type='table' AND name='lesson_proposals'"
+    ).fetchone()[0]
+    if "'implemented', 'reference'" not in schema_sql:
+        conn.execute("PRAGMA foreign_keys=OFF")
+        conn.executescript("""
+            CREATE TABLE lesson_proposals_new (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+                category            TEXT    NOT NULL CHECK(category IN ('structural', 'instrumentation', 'governance_rule', 'language', 'narrative', 'duplicate')),
+                subcategory         TEXT,
+                suggested_action    TEXT    NOT NULL,
+                reasoning           TEXT    NOT NULL,
+                confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
+                status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented', 'reference')),
+                target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
+                target_artifact     TEXT,
+                duplicate_of        INTEGER,
+                route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
+                proposed_at         TEXT    NOT NULL,
+                status_updated_at   TEXT,
+                status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
+            );
+
+            INSERT INTO lesson_proposals_new
+                SELECT id, entry_id, category, subcategory, suggested_action, reasoning,
+                       confidence, status, target_layer, target_artifact, duplicate_of,
+                       route, proposed_at, status_updated_at, status_updated_by
+                FROM lesson_proposals;
+
+            DROP TABLE lesson_proposals;
+
+            ALTER TABLE lesson_proposals_new RENAME TO lesson_proposals;
+
+            CREATE INDEX IF NOT EXISTS idx_lesson_proposals_entry
+                ON lesson_proposals(entry_id);
+            CREATE INDEX IF NOT EXISTS idx_lesson_proposals_status
+                ON lesson_proposals(status);
+            CREATE INDEX IF NOT EXISTS idx_lesson_proposals_category
+                ON lesson_proposals(category);
+        """)
+        conn.execute("PRAGMA foreign_keys=ON")
 
     conn.commit()
