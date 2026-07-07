@@ -315,3 +315,6 @@ Route column shipped 2026-07-06 (plan 128, commit `643e9e7`). The `lesson_propos
 
 ### Plan 130
 Route-column verification corrected 2026-07-06. The original QA report (plan 128) presented a fresh-`init_db()` throwaway PRAGMA as canonical-DB evidence without disclosure; this v2 report corrects the record. The canonical DB at `/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db` correctly lacks the `route` column — the guarded migration fires at the next `init_db()` run (cycle start) by design. Nothing writes routes before a cycle, so column absence is expected behavior. The dev deliverable (commit `643e9e7`) is confirmed sound: fresh `init_db()` produces the column with proper CHECK constraint, migration tests pass, and the full suite (40/40) is green.
+
+### Plan 131
+Cycle run 2026-07-06 complete: 15 entries ingested (backlog 2026-06-08 through 2026-07-06), 15 classified (governance_rule: 12, structural: 2, instrumentation: 1), route migration fired on canonical DB (plan 128), report deposited at `reports/lessons-report-2026-07-06.md` (128 lines, 15 proposals, zero route lines). Gate 1 disposition pending — CEO assigns routes via `set_proposal_route()`.
