@@ -327,3 +327,6 @@ Gate 1 route dispositions verified against the canonical DB: 15/15 proposals rou
 
 ### Plan 134
 Gate 2 codification for cycle 2026-07-06 verified: 10 edit units (8 authored APPEND-NEW + 2 FULLY SUBSUMED correctly skipped) across 9 PLANNER_TEMPLATE.md insertions (3 insertion points: Orchestration Plan Rules 50–51, Plan Authoring Checklist 25–28, Bellows Operational Workaround 15) and 1 FORGE_QA.md insertion (Evidence-source integrity guardrail). Version 4.70 unchanged. Pending Planner wrap for status advancement, version bump to 4.71, and split commits.
+
+### Plan 135
+Reference terminal status is live: `'reference'` added to the `lesson_proposals.status` CHECK constraint via guarded table-rebuild migration. Proposals 140 and 141 (cycle 2026-07-06, entries 132/133) updated to `status='reference'`, `status_updated_by='ceo'`, `status_updated_at='2026-07-07'`. The `status='proposed'` backlog is now at 0, restoring its semantic meaning to exactly "awaiting disposition."
