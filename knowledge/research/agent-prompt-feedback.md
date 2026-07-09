@@ -1,5 +1,8 @@
 # Agent Prompt Feedback
 
+- The plan's instruction to strip backticks from tags was not explicit but was necessary — live DB stores tags with backtick delimiters (`` `planner-discipline` ``). Tokenizers processing raw tag fields should account for formatting characters.
+- `date('now', '-N days')` in SQLite works correctly against ISO 8601 timestamps with timezone offsets for lexicographic comparison, but this should be tested explicitly if timestamp formats ever change.
+
 No new prompt feedback generated during this step.
 
 No new prompt feedback generated during this step.
