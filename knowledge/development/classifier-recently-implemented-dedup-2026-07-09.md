@@ -71,7 +71,7 @@ All 45 pre-existing tests remain green. 7 new tests added (52 total).
 
 ## Commit
 
-**Hash:** (pending)
+**Hash:** ad6b37c
 **Message:** `feat(forge): surface recently-implemented-proposal overlaps in classifier review (advisory) [154]`
 
 ---
@@ -94,5 +94,5 @@ All 45 pre-existing tests remain green. 7 new tests added (52 total).
 | **Status** | COMPLETE |
 | **Tests** | 52 passed, 0 failed, 0 regressions |
 | **Task D** | PASS — entries 123/127 both caught (3 overlapping proposals each) |
-| **Commit** | pending |
+| **Commit** | ad6b37c |
 | **Deposits** | `knowledge/development/classifier-recently-implemented-dedup-2026-07-09.md`, `src/lessons_forge.py`, `src/test_lessons_forge.py` |
