@@ -1,5 +1,8 @@
 # Agent Prompt Feedback
 
+- The plan's verification item 1 ("by reading the code AND confirming test #4 exists and passes") is well-structured — requiring both static analysis and dynamic verification prevents false confidence from either alone.
+- The dev-log's Task D validation section (entries 123/127) is clear and actionable for QA cross-reference. Reporting overlapping proposal IDs and match mechanisms provides verifiable evidence without requiring QA to re-run the live-DB query.
+
 - The plan's instruction to strip backticks from tags was not explicit but was necessary — live DB stores tags with backtick delimiters (`` `planner-discipline` ``). Tokenizers processing raw tag fields should account for formatting characters.
 - `date('now', '-N days')` in SQLite works correctly against ISO 8601 timestamps with timezone offsets for lexicographic comparison, but this should be tested explicitly if timestamp formats ever change.
 
