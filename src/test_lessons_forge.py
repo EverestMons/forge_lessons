@@ -20,7 +20,9 @@ from src import db
 from src.lessons_forge import (
     parse_lessons_md, ingest_lesson_entries, insert_proposal,
     set_proposal_route,
-    get_unclassified_entries, detect_duplicates, run_full_lessons_cycle,
+    get_unclassified_entries, detect_duplicates,
+    detect_recently_implemented_overlaps,
+    run_full_lessons_cycle,
     generate_lessons_report,
 )
 
@@ -1291,4 +1293,248 @@ def test_reference_status_migration_preserves_row_count():
     ids = [r[0] for r in conn.execute("SELECT id FROM lesson_proposals ORDER BY id").fetchall()]
     assert ids == [1, 2, 3, 4, 5]
 
+    conn.close()
+
+
+# --- Recently-implemented overlap detection tests ---
+
+
+def _seed_implemented_proposal(conn, entry_id, suggested_action, reasoning,
+                                category="governance_rule",
+                                target_artifact="PLANNER_TEMPLATE.md",
+                                status_updated_at="2026-06-07T00:00:00+00:00"):
+    """Insert an implemented proposal and return its id."""
+    conn.execute(
+        "INSERT INTO lesson_proposals "
+        "(entry_id, category, suggested_action, reasoning, confidence, "
+        "status, status_updated_at, target_artifact, proposed_at) "
+        "VALUES (?, ?, ?, ?, 'high', 'implemented', ?, ?, '2026-06-01')",
+        (entry_id, category, suggested_action, reasoning,
+         status_updated_at, target_artifact),
+    )
+    return conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+
+def test_overlap_recent_match():
+    """Entry whose tags/heading overlap a recently-implemented proposal is surfaced."""
+    conn = _setup()
+    eid = _seed_entry(
+        conn,
+        heading="2026-07-01 — Planner discipline for recurring bugs",
+        tags="planner-discipline, recurring-bug",
+    )
+    impl_eid = _seed_entry(conn, heading="2026-06-01 — Source for impl")
+    _seed_implemented_proposal(
+        conn, impl_eid,
+        "Add recurring-bug guardrail to PLANNER_TEMPLATE planner-discipline section",
+        "Planner discipline section needs recurring-bug guardrail entry",
+    )
+    result = detect_recently_implemented_overlaps(conn, [eid], recency_days=9999)
+    assert len(result) >= 1
+    assert result[0]["entry_id"] == eid
+    assert "overlap_reason" in result[0]
+    assert "implemented_at" in result[0]
+    conn.close()
+
+
+def test_overlap_old_not_surfaced():
+    """Same entry vs OLD implemented proposal (outside recency_days) is NOT surfaced."""
+    conn = _setup()
+    eid = _seed_entry(
+        conn,
+        heading="2026-07-01 — Planner discipline for recurring bugs",
+        tags="planner-discipline, recurring-bug",
+    )
+    impl_eid = _seed_entry(conn, heading="2025-01-01 — Ancient entry")
+    _seed_implemented_proposal(
+        conn, impl_eid,
+        "Add recurring-bug guardrail to PLANNER_TEMPLATE planner-discipline section",
+        "Planner discipline recurring-bug guardrail",
+        status_updated_at="2025-01-01T00:00:00+00:00",
+    )
+    result = detect_recently_implemented_overlaps(conn, [eid], recency_days=1)
+    assert result == []
+    conn.close()
+
+
+def test_overlap_non_overlapping():
+    """Non-overlapping entry is NOT surfaced."""
+    conn = _setup()
+    eid = _seed_entry(
+        conn,
+        heading="2026-07-01 — Unique topic about zebra migration patterns",
+        tags="zebra-migration, wildlife",
+    )
+    impl_eid = _seed_entry(conn, heading="2026-06-01 — Impl entry")
+    _seed_implemented_proposal(
+        conn, impl_eid,
+        "Fix database connection pooling for high-load scenarios",
+        "Connection pool exhaustion under load causes timeouts",
+        category="structural",
+        target_artifact=None,
+    )
+    result = detect_recently_implemented_overlaps(conn, [eid], recency_days=9999)
+    assert result == []
+    conn.close()
+
+
+def test_overlap_advisory_only_no_writes():
+    """Advisory-only guard: calling the function makes ZERO changes to lesson_proposals."""
+    conn = _setup()
+    eid = _seed_entry(
+        conn,
+        heading="2026-07-01 — Planner discipline for recurring bugs",
+        tags="planner-discipline",
+    )
+    impl_eid = _seed_entry(conn, heading="2026-06-01 — Entry for impl")
+    _seed_implemented_proposal(
+        conn, impl_eid,
+        "Add planner-discipline guardrail to template",
+        "Planner discipline needed for recurring issues",
+    )
+
+    count_before = conn.execute(
+        "SELECT COUNT(*) FROM lesson_proposals"
+    ).fetchone()[0]
+    statuses_before = conn.execute(
+        "SELECT id, status FROM lesson_proposals ORDER BY id"
+    ).fetchall()
+
+    detect_recently_implemented_overlaps(conn, [eid], recency_days=9999)
+
+    count_after = conn.execute(
+        "SELECT COUNT(*) FROM lesson_proposals"
+    ).fetchone()[0]
+    statuses_after = conn.execute(
+        "SELECT id, status FROM lesson_proposals ORDER BY id"
+    ).fetchall()
+
+    assert count_before == count_after
+    assert statuses_before == statuses_after
+    conn.close()
+
+
+def test_report_renders_overlap_advisory():
+    """generate_lessons_report renders the overlap advisory line when an overlap exists."""
+    conn = _setup()
+    report_dir = tempfile.mkdtemp(prefix="test_reports_")
+
+    eid = _seed_entry(
+        conn,
+        heading="2026-07-01 — Planner discipline for recurring bugs",
+        tags="planner-discipline, recurring-bug",
+    )
+    conn.execute(
+        "UPDATE lesson_entries SET entry_date = '2026-07-01' WHERE id = ?",
+        (eid,),
+    )
+    insert_proposal(
+        conn, eid, "governance_rule",
+        "Add discipline rule for recurring bugs",
+        "Discipline needed", "high",
+    )
+
+    impl_eid = _seed_entry(conn, heading="2026-06-01 — Impl source")
+    impl_pid = _seed_implemented_proposal(
+        conn, impl_eid,
+        "Add recurring-bug guardrail to PLANNER_TEMPLATE planner-discipline section",
+        "Planner discipline recurring-bug guardrail entry needed",
+    )
+
+    try:
+        path = generate_lessons_report(
+            conn, "2026-07-09-overlap", output_dir=report_dir,
+        )
+        with open(path) as f:
+            content = f.read()
+        assert "⚠️ **Recently-implemented overlap:**" in content
+        assert f"proposal #{impl_pid}" in content
+        assert "verify not already subsumed" in content
+    finally:
+        os.unlink(path)
+        os.rmdir(report_dir)
+        conn.close()
+
+
+def test_report_no_overlap_unchanged():
+    """generate_lessons_report renders unchanged when no overlaps exist."""
+    conn = _setup()
+    report_dir = tempfile.mkdtemp(prefix="test_reports_")
+
+    eid = _seed_entry(conn, heading="2026-07-01 — Unique topic xyz")
+    conn.execute(
+        "UPDATE lesson_entries SET entry_date = '2026-07-01' WHERE id = ?",
+        (eid,),
+    )
+    insert_proposal(
+        conn, eid, "structural",
+        "Fix something unique", "It is broken", "high",
+    )
+
+    try:
+        path = generate_lessons_report(
+            conn, "2026-07-09-nooverlap", output_dir=report_dir,
+        )
+        with open(path) as f:
+            content = f.read()
+        assert "Recently-implemented overlap" not in content
+        assert "### 2026-07-01" in content
+        assert "- **Suggested action:** Fix something unique" in content
+    finally:
+        os.unlink(path)
+        os.rmdir(report_dir)
+        conn.close()
+
+
+def test_overlap_131_135_shape():
+    """Synthetic test mirroring the 131/135 known miss: entries about planner-discipline
+    overlap recently-implemented proposals with word-for-word overlapping suggested_action."""
+    conn = _setup()
+
+    # Entry 123 shape: about not inheriting baton framing
+    eid_123 = _seed_entry(
+        conn,
+        heading="2026-07-06 — Don’t inherit the baton’s framing "
+                "— find root cause and downstream effects",
+        tags="`planner-discipline`",
+    )
+
+    # Implemented proposal that subsumes entry 123 (planner-discipline content)
+    impl_eid_a = _seed_entry(conn, heading="2026-06-01 — Source for subsumer A")
+    _seed_implemented_proposal(
+        conn, impl_eid_a,
+        "Add plan-write-time discipline to PLANNER_TEMPLATE: before writing any "
+        "plan involving housekeeping, re-read recent LESSONS.md entries tagged "
+        "planner-discipline to refresh rules in working memory.",
+        "Entry prescribes a planner-discipline rule about re-reading lessons "
+        "before plan authoring. Root cause tracing and downstream effects are "
+        "addressed by refreshing working memory.",
+    )
+
+    # Entry 127 shape: about not paraphrasing design artifacts
+    eid_127 = _seed_entry(
+        conn,
+        heading="2026-07-06 — Don’t paraphrase a referenced design "
+                "artifact’s technical specifics inline",
+        tags="`planner-discipline`",
+    )
+
+    # Implemented proposal that subsumes entry 127 (planner-discipline content)
+    impl_eid_b = _seed_entry(conn, heading="2026-06-01 — Source for subsumer B")
+    _seed_implemented_proposal(
+        conn, impl_eid_b,
+        "Add PLANNER_TEMPLATE.md plan-authoring rule: all referenced design "
+        "artifacts must be cited by section, not paraphrased inline. "
+        "planner-discipline enforcement for artifact references.",
+        "Entry documents deviation caused by inline paraphrase of blueprint "
+        "technical specifics. The paraphrase contradicted the artifact and won.",
+    )
+
+    result = detect_recently_implemented_overlaps(
+        conn, [eid_123, eid_127], recency_days=9999,
+    )
+
+    matched_eids = {r["entry_id"] for r in result}
+    assert eid_123 in matched_eids, "Entry 123 shape should be caught"
+    assert eid_127 in matched_eids, "Entry 127 shape should be caught"
     conn.close()
