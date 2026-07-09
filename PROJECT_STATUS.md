@@ -1,5 +1,5 @@
 # Lessons Forge — Project Status
-**Last Updated:** 2026-06-06
+**Last Updated:** 2026-07-09
 
 ---
 
@@ -333,3 +333,6 @@ Reference terminal status is live: `'reference'` added to the `lesson_proposals.
 
 ### Plan 135
 Reference terminal status verified live on canonical DB: the `lesson_proposals.status` CHECK constraint includes `'reference'`, proposals 140 and 141 carry `status='reference'` with `status_updated_by='ceo'` and `status_updated_at='2026-07-07'`, and `status='proposed'` count is 0. The cycle 2026-07-06 backlog is fully terminal — all 145 proposals have a definitive disposition.
+
+### Plan 154
+Recently-implemented-proposal overlap detection shipped 2026-07-09 (plan 154, commit `ad6b37c`). New advisory-only function `detect_recently_implemented_overlaps` surfaces entries that may be subsumed by recently-implemented proposals, using keyword-overlap heuristic with tag-match boost (threshold 0.08, recall-oriented). Wired into `run_full_lessons_cycle` (returned as `recently_implemented_overlaps` key) and `generate_lessons_report` (advisory lines rendered inline under affected proposals). Zero DB writes — read-only by contract. Live-DB validation confirms the known 131/135 misses (entries 123/127) are caught. QA 5/5 PASS, 52 tests (45 pre-plan + 7 new), 0 regressions.
