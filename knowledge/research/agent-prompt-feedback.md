@@ -2,6 +2,10 @@
 
 | File | Agent | Feedback |
 |---|---|---|
+| executable-208.md | Lessons Forge QA | The plan's QA step is well-structured: 9 verification claims with explicit queries and expected values make the checks mechanical. The Rule 52 self-discipline requirement ("this is the Gate that codified it — do not be its first violation") is a strong forcing function for the QA agent to grep-before-asserting. The evidence-source rule (canonical DB path + read-only mode) prevents accidental writes during QA. |
+
+| File | Agent | Feedback |
+|---|---|---|
 | executable-208.md | Forge Developer | The plan correctly anticipated the table name discrepancy — the schema uses `lesson_proposals` while the plan text refers to `proposals`. The plan's instruction to verify the API before writing SQL prevented a silent failure. The blast-radius verification pattern (before/after distribution + recency query) is thorough and mechanical. |
 
 | File | Agent | Feedback |
