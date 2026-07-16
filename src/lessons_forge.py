@@ -26,6 +26,28 @@ _DATED_HEADING_RE = re.compile(r"^## (20\d\d.+)")
 _ARCHIVED_HEADING_RE = re.compile(r"^## Archived")
 _TAG_LINE_RE = re.compile(r"^\*\*Tags?:\*\*\s*(.+)", re.IGNORECASE)
 
+_TRAILING_SEPARATOR_RE = re.compile(r"^[ \t]*-{3,}[ \t]*$")
+
+_TERMINAL_STATUSES = frozenset(('implemented', 'rejected', 'superseded', 'reference'))
+
+
+def _normalize_for_hash(raw_content: str) -> str:
+    """Strip trailing whitespace and markdown separators for stable hashing.
+
+    Appending entries to LESSONS.md attaches a ``---`` separator to the
+    *previous* entry's body. That trailing separator is semantically
+    meaningless but flips the SHA-256 hash, causing the ingest update path
+    to fire and stale downstream proposals on a whitespace-only delta.
+    This helper strips those trailing artifacts so the hash is invariant
+    to them. The *stored* ``raw_content`` remains verbatim.
+    """
+    lines = raw_content.splitlines()
+    while lines and (
+        not lines[-1].strip() or _TRAILING_SEPARATOR_RE.match(lines[-1])
+    ):
+        lines.pop()
+    return "\n".join(lines)
+
 
 def parse_lessons_md(path: str) -> list[dict]:
     """
@@ -63,7 +85,9 @@ def parse_lessons_md(path: str) -> list[dict]:
             candidate = current_heading[:10]
             if re.match(r"^\d{4}-\d{2}-\d{2}$", candidate):
                 entry_date = candidate
-        content_hash = hashlib.sha256(raw_content.encode("utf-8")).hexdigest()
+        content_hash = hashlib.sha256(
+            _normalize_for_hash(raw_content).encode("utf-8")
+        ).hexdigest()
         entries.append({
             "source_heading": current_heading,
             "entry_date": entry_date,
@@ -106,7 +130,10 @@ def ingest_lesson_entries(conn: sqlite3.Connection, entries: list[dict],
         Dict with keys: inserted, updated, unchanged, stale_proposals_marked.
     """
     now = datetime.now(timezone.utc).isoformat()
-    result = {"inserted": 0, "updated": 0, "unchanged": 0, "stale_proposals_marked": 0}
+    result = {
+        "inserted": 0, "updated": 0, "unchanged": 0,
+        "stale_proposals_marked": 0, "terminal_proposals_flagged": [],
+    }
 
     for entry in entries:
         row = conn.execute(
@@ -140,12 +167,29 @@ def ingest_lesson_entries(conn: sqlite3.Connection, entries: list[dict],
             )
             result["updated"] += 1
 
-            # Mark downstream proposals as stale
+            # Flag terminal-status proposals instead of staling them
+            terminal_rows = conn.execute(
+                "SELECT id, status FROM lesson_proposals "
+                "WHERE entry_id = ? AND status IN ({})".format(
+                    ",".join("?" for _ in _TERMINAL_STATUSES)
+                ),
+                (entry_id, *sorted(_TERMINAL_STATUSES)),
+            ).fetchall()
+            for pid, pstatus in terminal_rows:
+                result["terminal_proposals_flagged"].append({
+                    "entry_id": entry_id,
+                    "proposal_id": pid,
+                    "status": pstatus,
+                })
+
+            # Mark only non-terminal, non-stale proposals as stale
+            placeholders = ",".join("?" for _ in _TERMINAL_STATUSES)
             cur = conn.execute(
                 "UPDATE lesson_proposals SET status = 'stale', "
                 "status_updated_at = ?, status_updated_by = 'auto' "
-                "WHERE entry_id = ? AND status != 'stale'",
-                (now, entry_id),
+                "WHERE entry_id = ? AND status != 'stale' "
+                "AND status NOT IN ({})".format(placeholders),
+                (now, entry_id, *sorted(_TERMINAL_STATUSES)),
             )
             result["stale_proposals_marked"] += cur.rowcount
 
@@ -602,6 +646,7 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
         "duplicates_marked_count": duplicates_marked_count,
         "needs_classification": needs_classification,
         "recently_implemented_overlaps": recently_implemented_overlaps,
+        "terminal_proposals_flagged": ingestion["terminal_proposals_flagged"],
         "cycle_timestamp": cycle_timestamp,
     }
 

@@ -24,6 +24,8 @@ from src.lessons_forge import (
     detect_recently_implemented_overlaps,
     run_full_lessons_cycle,
     generate_lessons_report,
+    _normalize_for_hash,
+    _TERMINAL_STATUSES,
 )
 
 
@@ -1538,3 +1540,192 @@ def test_overlap_131_135_shape():
     assert eid_123 in matched_eids, "Entry 123 shape should be caught"
     assert eid_127 in matched_eids, "Entry 127 shape should be caught"
     conn.close()
+
+
+# --- Hash normalization tests (plan 204) ---
+
+
+def test_hash_trailing_separator_invariant():
+    """Regression: body with and without trailing separator produces identical hash."""
+    body = "**Source:** Unit test.\n\n**Lesson:** Plans should be small.\n\n**Tag:** planner-discipline\n"
+    body_with_sep = body + "\n---\n\n"
+    assert _normalize_for_hash(body) == _normalize_for_hash(body_with_sep)
+
+    import hashlib
+    h1 = hashlib.sha256(_normalize_for_hash(body).encode("utf-8")).hexdigest()
+    h2 = hashlib.sha256(_normalize_for_hash(body_with_sep).encode("utf-8")).hexdigest()
+    assert h1 == h2
+
+
+def test_hash_substantive_edit_changes_hash():
+    """A real content edit still produces a different hash."""
+    body_a = "**Lesson:** Plans should be small.\n"
+    body_b = "**Lesson:** Plans should be large and ambitious.\n"
+    assert _normalize_for_hash(body_a) != _normalize_for_hash(body_b)
+
+
+def test_raw_content_stored_verbatim_with_separator():
+    """Normalization does not leak into stored raw_content."""
+    body_with_sep = (
+        "\n**Source:** Unit test.\n\n**Lesson:** Plans should be small.\n"
+        "\n**Tag:** planner-discipline\n\n---\n\n"
+    )
+    md = (
+        "# Lessons\n\n"
+        "## 2026-04-10 — Test entry\n"
+        + body_with_sep
+        + "## Archived entries\n"
+    )
+    path = _write_fixture(md)
+    try:
+        entries = parse_lessons_md(path)
+        assert len(entries) == 1
+        assert entries[0]["raw_content"].rstrip().endswith("---"), (
+            "raw_content must retain the trailing separator verbatim"
+        )
+    finally:
+        os.unlink(path)
+
+
+@pytest.mark.parametrize("terminal_status", sorted(_TERMINAL_STATUSES))
+def test_terminal_status_guard(terminal_status):
+    """Entry with a genuinely changed body and a terminal-status proposal:
+    proposal stays in its terminal status and appears in terminal_proposals_flagged."""
+    conn = _setup()
+    path = _write_fixture(SYNTHETIC_LESSONS)
+    try:
+        entries = parse_lessons_md(path)
+        ingest_lesson_entries(conn, entries)
+        conn.commit()
+
+        entry_id = conn.execute(
+            "SELECT id FROM lesson_entries WHERE source_heading = ?",
+            (entries[0]["source_heading"],),
+        ).fetchone()[0]
+
+        pid = insert_proposal(
+            conn, entry_id=entry_id, category="governance_rule",
+            suggested_action="Add rule", reasoning="Needed",
+            confidence="high", status=terminal_status,
+        )
+        conn.commit()
+
+        entries[0]["raw_content"] = "Genuinely different content for guard test.\n"
+        import hashlib
+        entries[0]["content_hash"] = hashlib.sha256(
+            _normalize_for_hash(entries[0]["raw_content"]).encode("utf-8")
+        ).hexdigest()
+
+        result = ingest_lesson_entries(conn, entries)
+        assert result["updated"] == 1
+        assert result["stale_proposals_marked"] == 0
+
+        status_after = conn.execute(
+            "SELECT status FROM lesson_proposals WHERE id = ?", (pid,)
+        ).fetchone()[0]
+        assert status_after == terminal_status
+
+        flagged = result["terminal_proposals_flagged"]
+        assert len(flagged) == 1
+        assert flagged[0]["entry_id"] == entry_id
+        assert flagged[0]["proposal_id"] == pid
+        assert flagged[0]["status"] == terminal_status
+    finally:
+        os.unlink(path)
+        conn.close()
+
+
+def test_nonterminal_still_stales():
+    """A genuine body change with a 'proposed' proposal still marks it stale."""
+    conn = _setup()
+    path = _write_fixture(SYNTHETIC_LESSONS)
+    try:
+        entries = parse_lessons_md(path)
+        ingest_lesson_entries(conn, entries)
+        conn.commit()
+
+        entry_id = conn.execute(
+            "SELECT id FROM lesson_entries WHERE source_heading = ?",
+            (entries[0]["source_heading"],),
+        ).fetchone()[0]
+
+        insert_proposal(
+            conn, entry_id=entry_id, category="structural",
+            suggested_action="Fix it", reasoning="Broken",
+            confidence="high", status="proposed",
+        )
+        conn.commit()
+
+        entries[0]["raw_content"] = "Changed content for stale test.\n"
+        import hashlib
+        entries[0]["content_hash"] = hashlib.sha256(
+            _normalize_for_hash(entries[0]["raw_content"]).encode("utf-8")
+        ).hexdigest()
+
+        result = ingest_lesson_entries(conn, entries)
+        assert result["updated"] == 1
+        assert result["stale_proposals_marked"] == 1
+        assert result["terminal_proposals_flagged"] == []
+
+        status = conn.execute(
+            "SELECT status FROM lesson_proposals WHERE entry_id = ?",
+            (entry_id,),
+        ).fetchone()[0]
+        assert status == "stale"
+    finally:
+        os.unlink(path)
+        conn.close()
+
+
+def test_trailing_separator_only_delta_zero_stales():
+    """The catastrophic case: re-ingesting entries whose only delta is a
+    trailing separator marks zero proposals stale and reports updated == 0."""
+    body_core = (
+        "\n**Source:** Unit test.\n\n**Lesson:** Plans should be small.\n"
+        "\n**Tag:** planner-discipline\n"
+    )
+    md_v1 = (
+        "# Lessons\n\n"
+        "## 2026-04-10 — Test entry\n"
+        + body_core + "\n"
+        + "## Archived entries\n"
+    )
+    md_v2 = (
+        "# Lessons\n\n"
+        "## 2026-04-10 — Test entry\n"
+        + body_core + "\n---\n\n"
+        + "## Archived entries\n"
+    )
+
+    conn = _setup()
+    path = _write_fixture(md_v1)
+    try:
+        entries_v1 = parse_lessons_md(path)
+        ingest_lesson_entries(conn, entries_v1)
+        conn.commit()
+
+        entry_id = conn.execute(
+            "SELECT id FROM lesson_entries WHERE source_heading = ?",
+            (entries_v1[0]["source_heading"],),
+        ).fetchone()[0]
+
+        insert_proposal(
+            conn, entry_id=entry_id, category="governance_rule",
+            suggested_action="Add rule", reasoning="Needed",
+            confidence="high", status="implemented",
+        )
+        conn.commit()
+    finally:
+        os.unlink(path)
+
+    path2 = _write_fixture(md_v2)
+    try:
+        entries_v2 = parse_lessons_md(path2)
+        result = ingest_lesson_entries(conn, entries_v2)
+        assert result["updated"] == 0, "Trailing separator should NOT trigger an update"
+        assert result["stale_proposals_marked"] == 0
+        assert result["terminal_proposals_flagged"] == []
+        assert result["unchanged"] == 1
+    finally:
+        os.unlink(path2)
+        conn.close()
