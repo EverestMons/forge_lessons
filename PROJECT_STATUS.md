@@ -342,3 +342,6 @@ Root cause of the duplicate-proposal loop fixed: whitespace-only hash flips from
 
 ### Plan 206
 Gate 1 2026-07-16 complete: 3 proposals dispositioned — 2 codify (147, 148), 1 reference (146); proposals 98/121/130 left stale per CEO decision; plan-154 advisory retirement queued separately; Gate 2 codification pending.
+
+### Plan 207
+Plan-154 recently-implemented-overlap advisory retired per CEO decision 2026-07-16 on first-production-run evidence: 4/4 false positives at Gate 1, missed the true candidate (entry 139), and its motivating case (proposal 131 duplication) proved a downstream symptom of the whitespace-hash bug fixed by plan 204. Suite 61 → 55 (7 plan-154 tests removed, 1 replacement `test_report_renders_proposal_details` added to preserve report-rendering coverage). The 2026-07-16 report retained as the historical Gate 1 artifact with all 14 advisory lines intact.
