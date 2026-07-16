@@ -2,6 +2,10 @@
 
 | File | Agent | Feedback |
 |---|---|---|
+| executable-208.md | Forge Developer | The plan correctly anticipated the table name discrepancy — the schema uses `lesson_proposals` while the plan text refers to `proposals`. The plan's instruction to verify the API before writing SQL prevented a silent failure. The blast-radius verification pattern (before/after distribution + recency query) is thorough and mechanical. |
+
+| File | Agent | Feedback |
+|---|---|---|
 | PLANNER_TEMPLATE.md | Forge Developer | The plan's pre-edit verification section is exemplary — having 4 explicit claim/query/expected triples made the verify-before-edit discipline trivially mechanical. The plan also dogfoods its own Rule 52 by requiring re-verification of all Planner-claimed line numbers. |
 
 No prompt feedback this step.
