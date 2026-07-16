@@ -339,3 +339,6 @@ Recently-implemented-proposal overlap detection shipped 2026-07-09 (plan 154, co
 
 ### Plan 204
 Root cause of the duplicate-proposal loop fixed: whitespace-only hash flips from trailing markdown separators no longer stale proposals (`_normalize_for_hash` strips trailing separators before hashing). Terminal statuses (implemented, rejected, superseded, reference) are independently guarded from stale demotion. 83 entry hashes backfilled to normalized form without touching any proposal. Proposal 145 (entry 137) restored to `implemented`. Corpus integrity verified: `implemented=97, stale=3` matches pre-corruption baseline. Work list is exactly `[138, 139, 140]` — the three genuine new entries from cycle 203, ready for re-dispatch. Proposals 98/121/130 audit complete (Step 2 Task E) — pending CEO Gate 1 decision.
+
+### Plan 206
+Gate 1 2026-07-16 complete: 3 proposals dispositioned — 2 codify (147, 148), 1 reference (146); proposals 98/121/130 left stale per CEO decision; plan-154 advisory retirement queued separately; Gate 2 codification pending.
