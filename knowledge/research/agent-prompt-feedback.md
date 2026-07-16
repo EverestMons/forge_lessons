@@ -1,5 +1,8 @@
 # Agent Prompt Feedback
 
+- Plan Step 2 check 3 states "SELECT COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL returns 3" — actual count is 18 (15 from 2026-07-06 cycle + 3 new). The Step 1 dev log already flagged this same discrepancy. The plan's phrasing should have said "delta is exactly +3" rather than "returns 3." Consistent with the Step 1 prompt feedback about the route-count expectation.
+- The expected status distribution in the plan is correct and matches the actual DB state.
+
 None — execution followed plan precisely.
 
 The plan specified `status_updated_by='ceo-plan-203-recovery'` for the proposal 145 restore, but the `lesson_proposals` table has a CHECK constraint restricting `status_updated_by` to `('planner', 'ceo', 'auto', NULL)`. Used `'ceo'` instead — the semantically closest valid value for CEO-directed recovery. The plan's `stale_proposals_marked` key was expected in `run_full_lessons_cycle`'s return dict but isn't surfaced there (it's only in `ingest_lesson_entries`'s return); however, `updated_count == 0` proves no stale path fired.
