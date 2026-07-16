@@ -1,7 +1,7 @@
 # Lessons Forge — Next Session Baton
 
-**Last session:** 2026-07-16 (cycle + corpus-integrity root-cause fix + Gate 1 + advisory retirement — plans 203 / 204 / 205 / 206 / 207)
-**Last session focus:** A routine 3-entry cycle (plan 203) halted at its Step 1 verdict on a **corpus-integrity bug that had silently corrupted every prior cycle**. Plan 204 fixed the root cause; 205 completed the cycle; 206 dispositioned Gate 1; 207 retired the plan-154 advisory whose justification the root-cause fix dissolved. **The arc is closed — no lessons-forge work is in flight.**
+**Last session:** 2026-07-16 (cycle + corpus-integrity root-cause fix + Gate 1 + advisory retirement + Gate 2 — plans 203 / 204 / 205 / 206 / 207 / 208)
+**Last session focus:** A routine 3-entry cycle (plan 203) halted at its Step 1 verdict on a **corpus-integrity bug that had silently corrupted every prior cycle**. Plan 204 fixed the root cause; 205 completed the cycle; 206 dispositioned Gate 1; 207 retired the plan-154 advisory whose justification the root-cause fix dissolved. 208 codified the results into PLANNER_TEMPLATE **v4.74**. **The arc is closed end-to-end — `proposed` is 0 and no lessons-forge work is in flight.**
 
 ---
 
@@ -32,9 +32,13 @@
 - **Plan 206 (Gate 1 route disposition, closed):** proposals 146→`reference`, 147→`codify`, 148→`codify`. Routes only — statuses stayed `proposed` (Gate 2 owns transitions). Blast radius exactly +3 (15→18; the other 15 are plan 133's 2026-07-06 routes).
 - **Plan 207 (advisory retirement, closed):** removed `detect_recently_implemented_overlaps`, `_tokenize_for_overlap`, both call sites, the report rendering, and 7 tests. **Plan 204's guard survived the excision from its own function** (`terminal_proposals_flagged` / `_TERMINAL_STATUSES` / `_normalize_for_hash` all intact); `detect_duplicates` untouched. Suite **61 → 55** (7 removed, 1 preserved: `test_report_no_overlap_unchanged`'s per-proposal rendering assertions were the suite's ONLY such coverage — kept as `test_report_renders_proposal_details`).
 
+- **Plan 208 (Gate 2 codification, closed):** PLANNER_TEMPLATE **v4.73 → v4.74**. **Rule 52** (from proposal 147, CEO-widened): re-verify any claim inherited from a generated artifact before it informs a disposition/routing/plan-shape — an explicit **sibling to Rule 39**, which protects an *edit* while 52 protects a *decision* (the FORGE_QA.md case involved no edit, so 39 would never have fired). **Checklist #16 refined** (proposal 148's residue): known-good is necessary but not sufficient — a degenerate exemplar cannot teach which reading of a convention is meant. **148's qa_steps clause REJECTED as already-covered** (`:407`, blame evidence — the 131/135 precedent). Statuses: 147/148 `implemented`, 146 `reference`.
+
 ## DB state (verified 2026-07-16, canonical read-only)
 
-`lesson_entries`: **140**. `lesson_proposals`: **148** — implemented 97, superseded 28, rejected 15, **proposed 3**, stale 3, reference 2. Routes: 18 non-NULL (15 from the 07-06 Gate 1 + 146/147/148). Full suite: **55 passed** (was 61 pre-207). Work list `get_unclassified_entries()`: `[]`.
+`lesson_entries`: **140**. `lesson_proposals`: **148** — implemented **99**, superseded 28, rejected 15, **proposed 0** (the 2026-07-16 cycle is fully dispositioned), stale 3, reference **3**. Routes: 18 non-NULL (15 from the 07-06 Gate 1 + 146/147/148). Full suite: **55 passed** (was 61 pre-207). Work list `get_unclassified_entries()`: `[]`.
+
+**⭐ Plan 204's fix is PROVEN IN PRODUCTION (2026-07-16, at wrap).** Appending the new `2026-07-16: Never state a bare expected number` lesson to LESSONS.md gave entry 140 a trailing `\n\n---\n\n` — the exact trigger of the bug. Verified post-append: entry 140's hash is **STABLE** and **0 entries flipped**. Under the old code this append would have staled **proposal 148** — the rule codified an hour earlier, demoted by the bug it was written alongside. The loop is dead.
 
 ---
 
@@ -54,24 +58,21 @@
 
 ---
 
-## CEO Gate 2 agenda (nothing below is decided)
+## Gate 2 — DONE 2026-07-16 (plan 208, closed). PLANNER_TEMPLATE now **v4.74**.
 
-1. **Codify proposals 147 + 148** into PLANNER_TEMPLATE (currently **v4.71**). Status transitions (`proposed` → `implemented`/`superseded`) happen here, not at Gate 1. Proposal 146 is `route=reference` — give it an honest terminal state per the plan-135 precedent (`status='reference'`), do NOT codify it.
-2. **⚠️ Correction that MUST survive into Gate 2:** the plan-205 classification summary cites `_parse_session_limit_reset`, which **does not exist**. The real function is **`_parse_session_reset`** (`bellows/runner.py:36`). Substance right, identifier fabricated — do not let the wrong name shape a codification decision. (Itself a mild instance of entry 139's failure mode, produced *while classifying entry 139*.)
-3. **Entry 139's rule may be too narrow** — as written it targets claims that *inform a disposition*, but item 2 above is a **supporting-evidence** claim that was wrong while the disposition was right. Consider whether the codified rule should reach cited identifiers, not just disposition-driving claims.
-4. **⭐ NEW rule candidate — never state a bare expected number in plan text.** Four Planner-predicted numbers were wrong across this session's plans (a CHECK-constraint value, a stale suite baseline, a route count, and test arithmetic). **All four were caught only because each prediction was paired with an explicit "verify, don't assume — report the actual numbers" clause and halt-and-explain on mismatch.** In plan 207 the predicted 54 would have been the *worse* outcome: hitting it required silently dropping the suite's only per-proposal report-rendering coverage. The agents reconciled reality against the text every time and routed the deltas to Prompt Feedback. Candidate for the Plan Authoring Checklist.
-5. **Entry 140 has a second half** — the `plan_lint` qa_steps cross-check (see In-flight below). Proposal 148 codifies the discipline rule only.
+Nothing is owed from the 2026-07-16 cycle. `proposed` is 0. Both codify-routed proposals landed; 146 has its honest terminal `reference` status.
+
+**One lesson awaits the next cycle:** `2026-07-16: Never state a bare expected number in plan text [planner-discipline]` is in LESSONS.md, un-ingested — routed through the corpus per CEO decision rather than codified directly at Gate 2 (Gate 2 codifies what Gate 1 routed; it is not a side door). Evidence: 4/4 Planner-predicted numbers wrong across plans 203-207, all caught only by the paired verify-and-explain clause. **The next cycle ingests exactly this one entry.**
 
 ## In-flight threads (carry forward)
 
 ### plan_lint qa_steps cross-check [NEXT UP — still not started]
 Warn when a QA-labeled step is absent from the `qa_steps` list, or when `qa_steps` names a non-QA step. `qa_steps` is a step-number list (gates.py:724), not a count. Entry 140 is the source lesson; proposal 148 is its classification. No lint logic exists yet. Small; deposit as a Bellows plan.
 
-### Session-end-suite evidence-file convention [CEO decision, still open]
-Template ~line 593 prescribes `session-YYYY-MM-DD/pytest_session_end.txt` but no such file has ever been written. Decide the convention or drop the rule. Suite results keep landing in batons instead.
-
-### Carried from Gate 2 ratification
-- **Workaround #3 factual tension:** verdict reasoning does NOT reach agents — the Workaround text implies it can. Diagnostic-first before correcting.
+### ✅ RESOLVED — two threads this baton carried were ALREADY DEAD (corrected 2026-07-16 at wrap)
+Both were closed on 2026-07-09 and had been propagated as "open" for a week. Caught by re-reading the live template — **the exact failure Rule 52 now names**, committed by the Planner while writing this baton:
+- **~~Workaround #3 factual tension~~** — **corrected in v4.73** (2026-07-09). Verdict prose reaches only the ledger/humans, never an agent; Workaround #3 now aligns with Rule 51. Nothing owed.
+- **~~Session-end-suite evidence-file convention~~** — **retired in v4.72** (2026-07-09, CEO decision). The `pytest_session_end.txt` convention is gone; session-end suite state lives in the wrap baton, sourced from the last full-suite plan run. Nothing owed.
 - **FORGE_QA dispatch wiring [verify when relevant]:** confirm lessons-forge QA dispatches actually read `forge/agents/FORGE_QA.md`. (The file EXISTS — re-disk-verified this session. The old "does not exist" flag was stale for three weeks and is dead.)
 
 ---
@@ -83,5 +84,5 @@ Template ~line 593 prescribes `session-YYYY-MM-DD/pytest_session_end.txt` but no
 - LESSONS.md parses to **83** entries while `lesson_entries` holds **140** — expected, not a defect: `parse_lessons_md` stops at `^## Archived`.
 - `status_updated_by` has a CHECK constraint: only `planner` / `ceo` / `auto` (or NULL). A plan asking for anything else will fail — plan 204's text got this wrong and the agent correctly substituted `ceo`.
 - `qa_steps` is a **list of QA step numbers**, not a count (`qa_steps: 3` for a 3-step plan whose step 3 is QA).
-- PLANNER_TEMPLATE remains at **v4.71** — untouched this session (no Gate 2 ran).
+- PLANNER_TEMPLATE is at **v4.74** — Gate 2 (plan 208) bumped it from v4.73 this session. (v4.72/v4.73 landed 2026-07-09 between cycles; this baton claimed v4.71 for a week — verify the live header, do not trust this line.)
 - `timeout` is unavailable on macOS; use `python3 -m pytest` directly.
