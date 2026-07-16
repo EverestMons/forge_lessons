@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+No prompt feedback this step.
+
 - Plan Step 2 check 3 states "SELECT COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL returns 3" — actual count is 18 (15 from 2026-07-06 cycle + 3 new). The Step 1 dev log already flagged this same discrepancy. The plan's phrasing should have said "delta is exactly +3" rather than "returns 3." Consistent with the Step 1 prompt feedback about the route-count expectation.
 - The expected status distribution in the plan is correct and matches the actual DB state.
 
