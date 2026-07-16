@@ -413,142 +413,6 @@ def detect_duplicates(conn: sqlite3.Connection, entry_ids: list[int],
     return matches
 
 
-_OVERLAP_STOP = frozenset({
-    'the', 'and', 'for', 'are', 'but', 'not', 'you', 'all', 'can',
-    'has', 'had', 'have', 'was', 'were', 'been', 'will', 'may',
-    'shall', 'should', 'would', 'could', 'must', 'need',
-    'that', 'this', 'what', 'with', 'when', 'from', 'into',
-    'they', 'them', 'than', 'their', 'there', 'these', 'those',
-    'which', 'where', 'while', 'about', 'after', 'before',
-    'between', 'does', 'doing', 'during', 'each', 'every',
-    'more', 'most', 'other', 'some', 'such', 'only', 'also',
-    'just', 'very', 'already', 'being', 'add', 'new', 'any',
-})
-
-_OVERLAP_WORD_RE = re.compile(r'[a-z]{3,}')
-
-
-def _tokenize_for_overlap(text: str) -> set[str]:
-    """Extract lowercase keyword tokens (3+ alpha chars, stop-words removed)."""
-    return {w for w in _OVERLAP_WORD_RE.findall(text.lower())
-            if w not in _OVERLAP_STOP}
-
-
-def detect_recently_implemented_overlaps(
-    conn: sqlite3.Connection,
-    entry_ids: list[int],
-    recency_days: int = 45,
-) -> list[dict]:
-    """
-    Detect entries overlapping recently-implemented proposals (advisory-only).
-
-    For each entry_id, computes keyword overlap between the entry's heading/tags
-    and each recently-implemented proposal's suggested_action/reasoning/category/
-    target_artifact. Returns matches above a recall-oriented threshold.
-
-    Read-only: never writes to the DB.
-
-    Args:
-        conn: SQLite connection with lesson_entries and lesson_proposals tables.
-        entry_ids: List of lesson_entries.id values to check. May be empty.
-        recency_days: How far back to look for implemented proposals (default 45).
-
-    Returns:
-        List of dicts, one per match:
-          {"entry_id": int, "proposal_id": int, "implemented_at": str,
-           "overlap_reason": str}
-    """
-    if not entry_ids:
-        return []
-
-    impl_rows = conn.execute(
-        "SELECT id, suggested_action, reasoning, category, target_artifact, "
-        "status_updated_at FROM lesson_proposals "
-        "WHERE status = 'implemented' "
-        "AND status_updated_at >= date('now', '-' || ? || ' days')",
-        (recency_days,),
-    ).fetchall()
-
-    if not impl_rows:
-        return []
-
-    impl_data = []
-    for pid, sa, reasoning, cat, ta, impl_at in impl_rows:
-        kw = _tokenize_for_overlap(sa or '')
-        kw |= _tokenize_for_overlap(reasoning or '')
-        if cat:
-            kw |= _tokenize_for_overlap(cat)
-        if ta:
-            kw |= _tokenize_for_overlap(ta)
-        full_text = ' '.join(filter(None, [sa, reasoning, cat, ta])).lower()
-        impl_data.append((pid, kw, full_text, impl_at))
-
-    results: list[dict] = []
-
-    for eid in entry_ids:
-        row = conn.execute(
-            "SELECT source_heading, tags FROM lesson_entries WHERE id = ?",
-            (eid,),
-        ).fetchone()
-        if row is None:
-            continue
-
-        source_heading, tags = row
-
-        entry_kw: set[str] = set()
-        entry_tags: list[str] = []
-        if tags:
-            for t in tags.split(','):
-                t_clean = t.strip().lower().strip('`')
-                if t_clean:
-                    entry_tags.append(t_clean)
-                    entry_kw |= _tokenize_for_overlap(t_clean)
-        if _EM_DASH_SEP in source_heading:
-            heading_text = source_heading.split(_EM_DASH_SEP, 1)[1]
-        else:
-            heading_text = source_heading
-        entry_kw |= _tokenize_for_overlap(heading_text)
-
-        if not entry_kw:
-            continue
-
-        for pid, prop_kw, prop_full_text, impl_at in impl_data:
-            if not prop_kw:
-                continue
-
-            intersection = entry_kw & prop_kw
-            if not intersection:
-                continue
-
-            union = entry_kw | prop_kw
-            jaccard = len(intersection) / len(union)
-
-            tag_hits = [t for t in entry_tags if t in prop_full_text]
-            score = jaccard
-            if tag_hits:
-                score = max(score, 0.15)
-
-            if score < 0.08:
-                continue
-
-            parts: list[str] = []
-            if tag_hits:
-                parts.append(f"tag overlap: {', '.join(tag_hits[:3])}")
-            kw_sample = sorted(intersection)[:5]
-            if kw_sample:
-                parts.append(f"keyword overlap: {', '.join(kw_sample)}")
-            reason = '; '.join(parts) if parts else f"jaccard={jaccard:.2f}"
-
-            results.append({
-                "entry_id": eid,
-                "proposal_id": pid,
-                "implemented_at": impl_at or "unknown",
-                "overlap_reason": reason,
-            })
-
-    return results
-
-
 def run_full_lessons_cycle(conn: sqlite3.Connection,
                            lessons_md_path: str = "/Users/marklehn/Developer/GitHub/LESSONS.md") -> dict:
     """
@@ -587,6 +451,8 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
             computed via get_unclassified_entries(conn) after duplicate-proposal
             insertion. DB-wide (not parse-scoped); matches the canonical Rule #47
             work list.
+          - terminal_proposals_flagged: list[dict] — terminal-status proposals
+            whose parent entry changed (flagged, not staled)
           - cycle_timestamp: str — ISO 8601 UTC timestamp of cycle execution
     """
     cycle_timestamp = datetime.now(timezone.utc).isoformat()
@@ -632,11 +498,6 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
         )
         duplicates_marked_count += 1
 
-    # Step 5: detect recently-implemented overlaps (advisory-only, read-only)
-    recently_implemented_overlaps = detect_recently_implemented_overlaps(
-        conn, candidate_ids,
-    )
-
     needs_classification = get_unclassified_entries(conn)
 
     return {
@@ -645,7 +506,6 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
         "unchanged_count": ingestion["unchanged"],
         "duplicates_marked_count": duplicates_marked_count,
         "needs_classification": needs_classification,
-        "recently_implemented_overlaps": recently_implemented_overlaps,
         "terminal_proposals_flagged": ingestion["terminal_proposals_flagged"],
         "cycle_timestamp": cycle_timestamp,
     }
@@ -681,12 +541,6 @@ def generate_lessons_report(conn: sqlite3.Connection, cycle_date: str,
         "WHERE p.status IN ('proposed', 'ambiguous') "
         "ORDER BY p.category, e.entry_date DESC",
     ).fetchall()
-
-    overlap_map: dict[int, list[dict]] = {}
-    if rows:
-        entry_ids_set = list({r[-1] for r in rows})
-        for ov in detect_recently_implemented_overlaps(conn, entry_ids_set):
-            overlap_map.setdefault(ov["entry_id"], []).append(ov)
 
     lines: list[str] = []
     lines.append(f"# Lessons Report \u2014 {cycle_date}\n")
@@ -730,14 +584,6 @@ def generate_lessons_report(conn: sqlite3.Connection, cycle_date: str,
                     lines.append(f"- **Route:** {route}")
                 if cat == "duplicate" and duplicate_of is not None:
                     lines.append(f"- **Duplicate of:** {duplicate_of}")
-                for ov in overlap_map.get(entry_id, []):
-                    lines.append(
-                        f"- ⚠️ **Recently-implemented overlap:** "
-                        f"proposal #{ov['proposal_id']} "
-                        f"(implemented {ov['implemented_at']}) "
-                        f"— {ov['overlap_reason']} "
-                        f"— verify not already subsumed before codifying."
-                    )
                 lines.append("")
 
     content = "\n".join(lines)
