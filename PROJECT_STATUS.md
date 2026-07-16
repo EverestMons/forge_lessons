@@ -345,3 +345,6 @@ Gate 1 2026-07-16 complete: 3 proposals dispositioned — 2 codify (147, 148), 1
 
 ### Plan 207
 Plan-154 recently-implemented-overlap advisory retired per CEO decision 2026-07-16 on first-production-run evidence: 4/4 false positives at Gate 1, missed the true candidate (entry 139), and its motivating case (proposal 131 duplication) proved a downstream symptom of the whitespace-hash bug fixed by plan 204. Suite 61 → 55 (7 plan-154 tests removed, 1 replacement `test_report_renders_proposal_details` added to preserve report-rendering coverage). The 2026-07-16 report retained as the historical Gate 1 artifact with all 14 advisory lines intact.
+
+### Plan 208
+Gate 2 of the 2026-07-16 cycle is complete: PLANNER_TEMPLATE v4.73→v4.74. Rule 52 (re-verify inherited claims before dispositions and routing decisions) codified from proposal 147 as a sibling to Rule 39, covering decision-time where Rule 39 covers edit-time. Checklist #16 refined with the degenerate-exemplar discipline from proposal 148's residue — its qa_steps semantics clause was rejected as already-covered (`:407`), with only the known-good-but-degenerate gap codified. Proposal 146 dispositioned to `reference` (no edit; fix already shipped). All three proposals (146/147/148) now carry terminal statuses; `proposed` count is 0 — the 2026-07-16 cycle is fully closed.
