@@ -1,73 +1,46 @@
-# Dev Log — Cycle Run Step 1 (2026-07-16)
-**Plan:** 203 — Lessons Forge Cycle Run 2026-07-16
-**Step:** 1 (DEV)
-**Operator:** Forge Developer
+# Dev Log — Cycle Run Step 1, Classification (2026-07-16)
+**Plan:** 205 — Lessons Forge Cycle Re-dispatch 2026-07-16
+**Step:** 1 (Lessons Agent — Classification)
+**Operator:** Forge Lessons Agent
 **DB:** canonical `/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db`
 
 ---
 
-## Part A — Cycle Execution
+## Context
 
-Called `run_full_lessons_cycle(conn)` against canonical DB. Results:
+Re-dispatch of plan 203, which halted at Step 1 verdict on a corpus-integrity finding (entry 137 stale-proposal regression). Plan 204 fixed the root cause (hash normalization). This plan picks up at classification — ingestion was already completed by plan 203's Step 1.
 
-| Metric | Value |
-|---|---|
-| ingested_count | 3 |
-| updated_count | 1 |
-| unchanged_count | 79 |
-| duplicates_marked_count | 0 |
-| cycle_timestamp | 2026-07-16T13:15:46.807553+00:00 |
+## Work List Derivation
 
-**Ingestion count is 3** — matches the plan expectation (the three 2026-07-07 LESSONS.md entries). One pre-existing entry was updated (content hash changed).
+Called `get_unclassified_entries(conn)` directly (Rule #47). Returned exactly `[138, 139, 140]` — matches plan expectation. Entry 137 is correctly ABSENT (proposal 145 restored to `implemented` by plan 204 fix). No deviation, no halt needed.
 
-## Part B — Authoritative Work List
+## Classification Summary
 
-`get_unclassified_entries(conn)` returned **4 entries**, not the expected 3:
+| Entry | Category | Confidence | Proposal ID | Target |
+|---|---|---|---|---|
+| 138 | structural | high | 146 | bellows/runner.py |
+| 139 | governance_rule | high | 147 | PLANNER_TEMPLATE.md |
+| 140 | governance_rule | high | 148 | PLANNER_TEMPLATE.md |
 
-| ID | Heading | Date |
-|---|---|---|
-| 137 | 2026-07-06: DB-out-of-git projects need an evidence-source contract in QA steps — per-row DB-source statement [tag: planner-discipline] | 2026-07-06 |
-| 138 | 2026-07-07: Session-limit 429 defeats runner retry-once — pause-and-hold needed [tag: bellows] | 2026-07-07 |
-| 139 | 2026-07-07: Classifier file-existence claims must be disk-verified before disposition [tag: planner-discipline] | 2026-07-07 |
-| 140 | 2026-07-07: qa_steps header is a step-number list, not a count — copied convention from a degenerate example [tag: planner-discipline] | 2026-07-07 |
+All proposals inserted with `route=None`, `status='proposed'`.
 
-**Entry 137 note:** This entry was ingested in a prior cycle (dated 2026-07-06) and has one proposal (id=145, category=governance_rule, status=stale, confidence=high). Because its only proposal has status `stale`, `get_unclassified_entries` correctly includes it — it needs reclassification. The CEO pre-flight stated `get_unclassified_entries` returned `[]` pre-ingest; the discrepancy is that entry 137's proposal was marked stale between the pre-flight session and this execution (likely via a disposition action in the intervening period). This is not an error — it is a legitimate fourth work item.
+## Disk Verification Log
 
-## Part C — Dedup Advisory (Read-Only)
+- **FORGE_QA.md** (entry 139 claim): verified EXISTS at `/Users/marklehn/Developer/GitHub/forge/agents/FORGE_QA.md` via `find`. Not present under lessons-forge/agents/ (correct — it's in the forge repo).
+- **bellows/runner.py session-limit fix** (entry 138 claim): verified SHIPPED. Functions `_check_session_limit`, `_parse_session_limit_reset` found in `/Users/marklehn/Developer/GitHub/bellows/runner.py` via `grep`. Full session-limit detection and park-with-resume infrastructure exists.
 
-### Total Overlap Count
+## Overlap Advisory (Read-Only)
 
-`recently_implemented_overlaps`: **353 entries** (computed DB-wide over all ~140 parsed entries). This is expected per the plan — the function runs over all candidate IDs, not just new ones. The breadth is noted for a future plan, not actioned here.
+`detect_recently_implemented_overlaps(conn, [138, 139, 140])` returned 14 hits:
+- Entry 138: 10 hits, all `tag overlap: bellows; keyword overlap: bellows` (tag-equality degeneration)
+- Entry 139: 2 hits (proposals 127, 128), tag-equality on `planner-discipline`
+- Entry 140: 2 hits (proposals 127, 128), tag-equality on `planner-discipline`
 
-### Work-List Overlap Slice (16 hits)
+Per CEO Context: known noisy, degenerate to tag equality. None informative. All three entries classified regardless.
 
-**Entry 137** (DB-out-of-git evidence-source contract) — 2 overlaps:
-- proposal 127 (governance_rule, implemented 2026-06-08): tag overlap: planner-discipline; keyword overlap: discipline, planner
-- proposal 128 (governance_rule, implemented 2026-06-08): tag overlap: planner-discipline; keyword overlap: discipline, planner
+## Post-Classification Verification
 
-**Entry 138** (Session-limit 429 defeats retry-once) — 10 overlaps:
-- proposal 100 (governance_rule, implemented 2026-06-03): tag overlap: bellows; keyword overlap: bellows
-- proposal 105 (governance_rule, implemented 2026-06-03): tag overlap: bellows; keyword overlap: bellows
-- proposal 108 (governance_rule, implemented 2026-06-03): tag overlap: bellows; keyword overlap: bellows
-- proposal 110 (governance_rule, implemented 2026-06-03): tag overlap: bellows; keyword overlap: bellows
-- proposal 114 (governance_rule, implemented 2026-06-03): tag overlap: bellows; keyword overlap: bellows
-- proposal 117 (narrative, implemented 2026-06-03): tag overlap: bellows; keyword overlap: bellows
-- proposal 118 (governance_rule, implemented 2026-06-03): tag overlap: bellows; keyword overlap: bellows
-- proposal 119 (governance_rule, implemented 2026-06-03): tag overlap: bellows; keyword overlap: bellows
-- proposal 128 (governance_rule, implemented 2026-06-08): tag overlap: bellows; keyword overlap: bellows
-- proposal 129 (structural, implemented 2026-06-08): tag overlap: bellows; keyword overlap: bellows
-
-**Entry 139** (Classifier file-existence disk-verification) — 2 overlaps:
-- proposal 127 (governance_rule, implemented 2026-06-08): tag overlap: planner-discipline; keyword overlap: discipline, planner
-- proposal 128 (governance_rule, implemented 2026-06-08): tag overlap: planner-discipline; keyword overlap: discipline, file, planner
-
-**Entry 140** (qa_steps header is a list, not a count) — 2 overlaps:
-- proposal 127 (governance_rule, implemented 2026-06-08): tag overlap: planner-discipline; keyword overlap: discipline, planner
-- proposal 128 (governance_rule, implemented 2026-06-08): tag overlap: planner-discipline; keyword overlap: discipline, planner
-
-**Observation:** All planner-discipline entries (137, 139, 140) overlap with the same two proposals (127, 128) via tag matching. Entry 138 (bellows) overlaps broadly with bellows-tagged implemented proposals — 10 hits, all driven by the single `bellows` tag. These are recall-oriented keyword/tag matches, not semantic subsumption signals. Step 2 classifier should assess genuine subsumption vs adjacency per the plan.
-
-**No action taken.** No proposals inserted, no statuses mutated, no product code modified.
+`get_unclassified_entries(conn)` returns `[]` — all entries now have non-stale proposals.
 
 ---
 
@@ -75,32 +48,30 @@ Called `run_full_lessons_cycle(conn)` against canonical DB. Results:
 
 #### Prompt Feedback
 
-No prompt feedback this step. Imports, DB path, and cycle function all worked as documented. The `get_unclassified_entries` returning 4 instead of 3 is a legitimate state change (entry 137 stale proposal), not a prompt or tooling issue.
+Plan 205's Step 1 instructions were clear and well-structured. The explicit warnings about (a) not treating ingested_count==0 as failure, (b) disk-verifying filesystem claims for entry 139, and (c) the overlap advisory's known noise level all saved investigation time. The absolute DB path requirement and "canonical Python file-write pattern — no heredoc" directive worked without issue.
+
+One note: the plan references `knowledge/development/dev-log-cycle-step-1-2026-07-16.md` as a deposit path, which already existed from plan 203's Step 1 (ingestion). This plan's Step 1 (classification) overwrites it. If deposit-path collision across re-dispatched plans is undesirable, consider date-suffixing or plan-numbering the deposit filename.
 
 ---
 
 ## Output Receipt
 
 **Status:** Complete
-**Plan:** 203
-**Step:** 1 (DEV)
+**Plan:** 205
+**Step:** 1 (Lessons Agent — Classification)
 **Date:** 2026-07-16
-**Operator:** Forge Developer
+**Operator:** Forge Lessons Agent
 
 **Work Performed:**
-- Ran `run_full_lessons_cycle(conn)` — ingested 3 new entries (IDs 138, 139, 140), updated 1
-- Derived work list via `get_unclassified_entries(conn)` — 4 entries (IDs 137, 138, 139, 140)
-- Recorded dedup advisory: 353 total overlaps (DB-wide), 16 for work-list entries
+- Derived work list via `get_unclassified_entries(conn)`: [138, 139, 140] (exact match)
+- Classified 3 entries: 1 structural, 2 governance_rule (all high confidence)
+- Inserted proposals 146, 147, 148 — all `route=None`, `status='proposed'`
+- Disk-verified: FORGE_QA.md exists (entry 139); bellows session-limit fix shipped (entry 138)
+- Recorded overlap advisory: 14 hits, all tag-equality noise, none informative
+- Post-classification: `get_unclassified_entries(conn)` returns `[]`
 
-**Work List for Step 2:**
-- 137: DB-out-of-git evidence-source contract [planner-discipline]
-- 138: Session-limit 429 defeats retry-once [bellows]
-- 139: Classifier file-existence disk-verification [planner-discipline]
-- 140: qa_steps header is a list, not a count [planner-discipline]
-
-**Files Created:**
-- `knowledge/development/cycle-result-2026-07-16.json`
+**Deposits:**
+- `knowledge/development/classifications-summary-2026-07-16.md`
 - `knowledge/development/dev-log-cycle-step-1-2026-07-16.md`
 
-**Flags:**
-- Work list has 4 entries (not 3): entry 137 has a stale proposal and needs reclassification. Not an error — flagged for Planner review at verdict pause.
+**Flags:** None.
