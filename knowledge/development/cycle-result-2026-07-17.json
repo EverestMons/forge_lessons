@@ -1,0 +1,34 @@
+{
+  "cycle_result": {
+    "ingested_count": 6,
+    "updated_count": 0,
+    "unchanged_count": 83,
+    "duplicates_marked_count": 0,
+    "needs_classification": [
+      141,
+      142,
+      143,
+      144,
+      145,
+      146
+    ],
+    "terminal_proposals_flagged": [],
+    "cycle_timestamp": "2026-07-18T15:18:07.563085+00:00"
+  },
+  "worklist": [
+    141,
+    142,
+    143,
+    144,
+    145,
+    146
+  ],
+  "worklist_headings": {
+    "141": "2026-07-16: Never state a bare expected number in plan text \u2014 pair every prediction with verify-and-explain [tag: planner-discipline]",
+    "142": "2026-07-16: High-stakes executables get a drafting cycle \u2014 draft off-queue, analyze under named lenses, fold, repeat to diminishing returns [tag: planner-discipline]",
+    "143": "2026-07-17: A worktree QA step cannot verify a live-DB migration \u2014 it fresh-builds and calls it \"migrated\" [tag: qa-discipline]",
+    "144": "2026-07-17: Drafting cycle pass 4 \u2014 scan the draft against the project's own record; imagination misses what memory catches [tag: planner-discipline]",
+    "145": "2026-07-17: A region-scoped metric computed unscoped poisons the verdict \u2014 the config-2 phantom gap [tag: planner-discipline]",
+    "146": "2026-07-17: A CURRENT_SCHEMA_VERSION bump always breaks version-pinned assertions \u2014 fix them in the SAME DEV step, preserve migration preconditions [tag: planner-discipline]"
+  }
+}
