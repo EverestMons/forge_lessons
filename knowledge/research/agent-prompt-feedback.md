@@ -1,5 +1,10 @@
 # Agent Prompt Feedback
 
+| Feedback | Source |
+|---|---|
+| The plan's CEO Context section embedding the tiered trigger criteria (floor / escalate / full-cycle) with explicit rationale made blueprinting the Drafting Cycle section straightforward — the exact governance shape was decided at plan authoring, not left for SA to infer. | Plan 228, Step 1 |
+| Specifying "highest Rule = 52, highest Checklist = 28" in CEO Context eliminated a potential anchoring error — without it SA would have had to scan and count, risking off-by-one on item numbering. | Plan 228, Step 1 |
+
 No issues. All verification rows passed on the first run. The R2 recovery left main in a clean state consistent with the canonical DB.
 
 | File | Agent | Feedback |
