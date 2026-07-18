@@ -2,6 +2,11 @@
 
 | Feedback | Source |
 |---|---|
+| The blueprint's exact-anchor-line specification (line numbers + surrounding text) made faithful application a single-pass operation — zero ambiguity on insertion points, no scanning required. | Plan 228, Step 2 |
+| Specifying the expected before/after distribution delta ("proposed 6→0, implemented 99→105") with a halt-on-mismatch clause made verification mechanical and caught-nothing a high-confidence signal rather than an absence of checking. | Plan 228, Step 2 |
+
+| Feedback | Source |
+|---|---|
 | The plan's CEO Context section embedding the tiered trigger criteria (floor / escalate / full-cycle) with explicit rationale made blueprinting the Drafting Cycle section straightforward — the exact governance shape was decided at plan authoring, not left for SA to infer. | Plan 228, Step 1 |
 | Specifying "highest Rule = 52, highest Checklist = 28" in CEO Context eliminated a potential anchoring error — without it SA would have had to scan and count, risking off-by-one on item numbering. | Plan 228, Step 1 |
 
