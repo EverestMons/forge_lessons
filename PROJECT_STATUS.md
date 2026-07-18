@@ -348,3 +348,6 @@ Plan-154 recently-implemented-overlap advisory retired per CEO decision 2026-07-
 
 ### Plan 208
 Gate 2 of the 2026-07-16 cycle is complete: PLANNER_TEMPLATE v4.73→v4.74. Rule 52 (re-verify inherited claims before dispositions and routing decisions) codified from proposal 147 as a sibling to Rule 39, covering decision-time where Rule 39 covers edit-time. Checklist #16 refined with the degenerate-exemplar discipline from proposal 148's residue — its qa_steps semantics clause was rejected as already-covered (`:407`), with only the known-good-but-degenerate gap codified. Proposal 146 dispositioned to `reference` (no edit; fix already shipped). All three proposals (146/147/148) now carry terminal statuses; `proposed` count is 0 — the 2026-07-16 cycle is fully closed.
+
+### Plan 226
+Cycle 2026-07-17 complete via R2-recovered QA (plan 226). Six lessons ingested (IDs 141–146) including the drafting-cycle pair (entries 142/144); all six classified as governance_rule (proposals 149–154); 204-fix signal held at batch scale (updated_count 0, stale count steady at 3); teardown collision from plan 225 R2-recovered by Planner; report landed on main at `302e508`; 55 tests passing; canonical DB: 146 entries, 154 proposals, 6 proposed. Gate 1 route disposition pending — the drafting-cycle pair is one Gate from PLANNER_TEMPLATE codification.
