@@ -351,3 +351,6 @@ Gate 2 of the 2026-07-16 cycle is complete: PLANNER_TEMPLATE v4.73→v4.74. Rule
 
 ### Plan 226
 Cycle 2026-07-17 complete via R2-recovered QA (plan 226). Six lessons ingested (IDs 141–146) including the drafting-cycle pair (entries 142/144); all six classified as governance_rule (proposals 149–154); 204-fix signal held at batch scale (updated_count 0, stale count steady at 3); teardown collision from plan 225 R2-recovered by Planner; report landed on main at `302e508`; 55 tests passing; canonical DB: 146 entries, 154 proposals, 6 proposed. Gate 1 route disposition pending — the drafting-cycle pair is one Gate from PLANNER_TEMPLATE codification.
+
+### Plan 228
+- 2026-07-18: **Gate 2 codification, 2026-07-17 cycle complete.** PLANNER_TEMPLATE v4.75 — the Drafting Cycle codified as a tiered named process (mandatory integration-vs-record floor, escalation triggers, full four-lens cycle with diminishing-returns stop) + Rule 53 (region-scoped metrics end-to-end) + Checklist 29/30/31 (bare-number predictions, schema/migration QA rows, schema-version bumps). Six proposals (149–154) implemented; `proposed` now 0. The Drafting Cycle is standing governance.
