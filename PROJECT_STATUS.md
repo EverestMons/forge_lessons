@@ -354,3 +354,6 @@ Cycle 2026-07-17 complete via R2-recovered QA (plan 226). Six lessons ingested (
 
 ### Plan 228
 - 2026-07-18: **Gate 2 codification, 2026-07-17 cycle complete.** PLANNER_TEMPLATE v4.75 — the Drafting Cycle codified as a tiered named process (mandatory integration-vs-record floor, escalation triggers, full four-lens cycle with diminishing-returns stop) + Rule 53 (region-scoped metrics end-to-end) + Checklist 29/30/31 (bare-number predictions, schema/migration QA rows, schema-version bumps). Six proposals (149–154) implemented; `proposed` now 0. The Drafting Cycle is standing governance.
+
+### Plan 243
+Cycle 2026-07-20 complete: the 07-19/07-20 batch (5 entries) ingested and classified as governance_rule/high (proposals 155–159), lessons report deposited, corpus integrity held (plan-204 hash-trap passed, plan-207 retirement intact, no schema drift, PLANNER_TEMPLATE.md unchanged). Gate 1 route disposition pending, including the Drafting-Cycle amendment cluster (proposals 157–159 targeting `## The Drafting Cycle` in PLANNER_TEMPLATE.md) and the three-way diminishing-returns/iterate-to-dry/one-pass-per-lens tension surfaced in the classifications summary.
