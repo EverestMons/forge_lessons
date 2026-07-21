@@ -357,3 +357,6 @@ Cycle 2026-07-17 complete via R2-recovered QA (plan 226). Six lessons ingested (
 
 ### Plan 243
 Cycle 2026-07-20 complete: the 07-19/07-20 batch (5 entries) ingested and classified as governance_rule/high (proposals 155–159), lessons report deposited, corpus integrity held (plan-204 hash-trap passed, plan-207 retirement intact, no schema drift, PLANNER_TEMPLATE.md unchanged). Gate 1 route disposition pending, including the Drafting-Cycle amendment cluster (proposals 157–159 targeting `## The Drafting Cycle` in PLANNER_TEMPLATE.md) and the three-way diminishing-returns/iterate-to-dry/one-pass-per-lens tension surfaced in the classifications summary.
+
+### Plan 247
+Cycle 2026-07-21 complete: the twelve-entry 07-20/07-21 batch (entries 152–163, proposals 160–171) ingested and classified, report deposited, corpus integrity held. Gate 1 route disposition pending, including the Drafting-Cycle cluster (proposals 160–165: conflict-serializability, skip-rules, fix-sweep-siblings, open-lens-set, walk-the-list, vacuous-git), the already-codified walk-the-list entry (proposal 164, entry 156), and the open conflict-serializability lens-placement question (proposal 160, entry 152).
