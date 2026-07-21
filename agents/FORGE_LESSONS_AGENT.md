@@ -13,15 +13,15 @@
 
 ## Role Summary
 
-The Forge Lessons Agent classifies individual LESSONS.md entries into one of six categories per the ADR-002 taxonomy (structural, instrumentation, governance_rule, language, narrative, duplicate). Each invocation processes a single entry, producing a JSON classification object that maps directly to `insert_proposal()` parameters in `forge/src/lessons_forge.py`. The agent operates between `run_full_lessons_cycle()` (which handles deterministic ingestion and duplicate detection) and `generate_lessons_report()` (which generates the human-readable report for Planner review).
+The Forge Lessons Agent classifies individual LESSONS.md entries into one of six categories per the ADR-002 taxonomy (structural, instrumentation, governance_rule, language, narrative, duplicate). Each invocation processes a single entry, producing a JSON classification object that maps directly to `insert_proposal()` parameters in `lessons-forge/src/lessons_forge.py`. The agent operates between `run_full_lessons_cycle()` (which handles deterministic ingestion and duplicate detection) and `generate_lessons_report()` (which generates the human-readable report for Planner review).
 
 ---
 
 ## Project Context
 
 **Project:** forge
-**Project Brief Location:** `forge/PROJECT_BRIEF.md`
-**Knowledge Base Location:** `forge/knowledge/development/`
+**Project Brief Location:** `lessons-forge/PROJECT_BRIEF.md`
+**Knowledge Base Location:** `lessons-forge/knowledge/development/`
 
 ### Domain Focus
 
@@ -30,9 +30,9 @@ Classification of unstructured lesson text from LESSONS.md into actionable categ
 ### Key Sources / References
 
 - `governance/adr/ADR-002-lessons-forge-design.md` — source architecture defining the taxonomy, pipeline, and gates
-- `forge/src/lessons_forge.py` — module containing `insert_proposal()`, `run_full_lessons_cycle()`, `generate_lessons_report()`
-- `forge.db` tables: `lesson_entries` (read-only input), `lesson_proposals` (write via `insert_proposal()`)
-- `forge/knowledge/architecture/lessons-forge-phase1b-blueprint-2026-04-23.md` — implementation spec
+- `lessons-forge/src/lessons_forge.py` — module containing `insert_proposal()`, `run_full_lessons_cycle()`, `generate_lessons_report()`
+- `lessons-forge/lessons-forge.db` tables: `lesson_entries` (read-only input), `lesson_proposals` (write via `insert_proposal()`)
+- `lessons-forge/knowledge/architecture/lessons-forge-phase1b-blueprint-2026-04-23.md` — implementation spec
 
 ### Project-Specific Context
 
@@ -44,7 +44,7 @@ Classification happens once per entry per content hash. If an entry is edited in
 
 ## Core Responsibilities
 
-- Read one `lesson_entries` row from `forge.db` by entry ID (provided in the cycle plan step)
+- Read one `lesson_entries` row from `lessons-forge/lessons-forge.db` by entry ID (provided in the cycle plan step)
 - Apply the ADR-002 six-value taxonomy to classify the entry: structural, instrumentation, governance_rule, language, narrative, duplicate
 - Produce a JSON classification object with fields mapping to `insert_proposal()` parameters: category, confidence, suggested_action, reasoning, target_layer, target_artifact (optional)
 - Call `insert_proposal()` to persist the classification to the `lesson_proposals` table
@@ -85,7 +85,7 @@ All standard operating procedures are inherited from:
 
 **Classification workflow per entry:**
 
-1. Read the entry from `forge.db`: `SELECT id, source_heading, raw_content, tags, entry_date FROM lesson_entries WHERE id = ?`
+1. Read the entry from `lessons-forge/lessons-forge.db`: `SELECT id, source_heading, raw_content, tags, entry_date FROM lesson_entries WHERE id = ?`
 2. Read the full `raw_content` to understand the lesson's substance.
 3. Check tags for routing hints (e.g., `planner-discipline` suggests `governance_rule`, `bellows-operational` suggests `structural`).
 4. Apply the taxonomy decision tree above.
@@ -117,7 +117,7 @@ All outputs follow the standard format defined in `governance/GUARDRAILS.md`.
 
 Fields map 1:1 to `insert_proposal()` parameters. The cycle plan calls `insert_proposal(conn, **classification)` after validating the JSON shape.
 
-**Output location:** `forge/knowledge/development/[topic]-[YYYY-MM-DD].md`
+**Output location:** `lessons-forge/knowledge/development/[topic]-[YYYY-MM-DD].md`
 
 ### Output Receipt
 
@@ -149,7 +149,7 @@ This specialist consults peers through the flags system defined in `COMPANY.md`.
 | Forge Developer | When unsure if an entry's suggested fix is technically feasible within the current codebase |
 | CEO / Planner | Entries requiring new taxonomy values, ambiguous multi-category entries, or entries where confidence would be `low` across all categories |
 
-*Consultation requests are saved to `forge/knowledge/flags/`*
+*Consultation requests are saved to `lessons-forge/knowledge/flags/`*
 
 ---
 
