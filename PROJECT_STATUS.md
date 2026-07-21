@@ -360,3 +360,6 @@ Cycle 2026-07-20 complete: the 07-19/07-20 batch (5 entries) ingested and classi
 
 ### Plan 247
 Cycle 2026-07-21 complete: the twelve-entry 07-20/07-21 batch (entries 152–163, proposals 160–171) ingested and classified, report deposited, corpus integrity held. Gate 1 route disposition pending, including the Drafting-Cycle cluster (proposals 160–165: conflict-serializability, skip-rules, fix-sweep-siblings, open-lens-set, walk-the-list, vacuous-git), the already-codified walk-the-list entry (proposal 164, entry 156), and the open conflict-serializability lens-placement question (proposal 160, entry 152).
+
+### Plan 248
+Gate 1 complete for cycle 2026-07-21 (plan 248): 9 proposals routed `codify`, 1 routed `reference`, 2 routed `backlog`. The nine codify proposals (160/162/163/165/166/167/168/170/171) are Gate-2-bound and remain `status='proposed'`. Proposals 161, 164, and 169 are terminal at `status='reference'` with `status_updated_by='ceo'`. Gate 2 owes the conflict-serializability FORM decision (proposal 160: named lens vs. ACID Isolation widening) and the paired-codification strategy (163+170, 165+167).
