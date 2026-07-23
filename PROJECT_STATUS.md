@@ -363,3 +363,6 @@ Cycle 2026-07-21 complete: the twelve-entry 07-20/07-21 batch (entries 152–163
 
 ### Plan 248
 Gate 1 complete for cycle 2026-07-21 (plan 248): 9 proposals routed `codify`, 1 routed `reference`, 2 routed `backlog`. The nine codify proposals (160/162/163/165/166/167/168/170/171) are Gate-2-bound and remain `status='proposed'`. Proposals 161, 164, and 169 are terminal at `status='reference'` with `status_updated_by='ceo'`. Gate 2 owes the conflict-serializability FORM decision (proposal 160: named lens vs. ACID Isolation widening) and the paired-codification strategy (163+170, 165+167).
+
+### Plan 258
+Gate 1 complete for cycle 2026-07-22 — 14 codify / 1 reference / 0 backlog. The fourteen codify proposals remain `proposed` (Gate-2-bound). Proposal 183 ("read the record before deriving") is terminal at `reference` — the rule is already codified in the Drafting Cycle's integration-vs-record pass. Gate 2 owes the execute-before-deposit cluster [172/173/178/179], the halted-triage pair [174/175], the #26 extension [178], the path-role split [184], and the conformance pass [185].
