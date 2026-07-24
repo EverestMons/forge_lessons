@@ -1,0 +1,34 @@
+All queries run against canonical DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+--- Entry 178 content_hash (hash-trap target) ---
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT id, content_hash FROM lesson_entries WHERE id = 178;"
+178|c2b5b22e3355618a736abc042734b4caacf3ff1ffce760ec510f54540f750dca
+
+Hash UNCHANGED from pre-cycle baseline (Step 1 dev log records same hash).
+
+--- Stale count comparison ---
+
+Pre-cycle baseline (Step 1 dev log): stale = 3
+Current:
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" -header -column "SELECT status, COUNT(*) AS cnt FROM lesson_proposals GROUP BY status ORDER BY status;"
+status       cnt
+-----------  ---
+implemented  133
+proposed     4
+reference    7
+rejected     15
+stale        3
+superseded   28
+
+Stale NOT grown (3 → 3). Only delta from baseline: +4 proposed (this cycle's batch).
+
+--- Terminal status movement check ---
+
+No proposal moved off a terminal status. Step 1 recorded:
+  updated_count = 0
+  terminal_proposals_flagged = []
+
+--- 204 fix assessment ---
+
+updated_count == 0 AND terminal_proposals_flagged empty AND entry 178 hash unchanged AND stale not grown → 204 fix HELD.

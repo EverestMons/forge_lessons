@@ -1,0 +1,47 @@
+All queries run against canonical DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+--- Scoped proposals (entry_id > 178) ---
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" -header -column "SELECT id, entry_id, status, category, confidence, target_layer, target_artifact, route FROM lesson_proposals WHERE entry_id > 178 ORDER BY id;"
+id   entry_id  status    category         confidence  target_layer  target_artifact    route
+---  --------  --------  ---------------  ----------  ------------  -----------------  -----
+187  179       proposed  governance_rule  high        governance    DRAFTING_CYCLE.md
+188  180       proposed  governance_rule  high        governance    DRAFTING_CYCLE.md
+189  181       proposed  governance_rule  high        governance    DRAFTING_CYCLE.md
+190  182       proposed  governance_rule  high        governance    DRAFTING_CYCLE.md
+
+Scoped count: 4 (expected 4) — PASS
+
+--- Dangling FK check ---
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 178 AND entry_id NOT IN (SELECT id FROM lesson_entries);"
+0
+
+--- Invalid category check ---
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 178 AND category NOT IN ('structural','instrumentation','governance_rule','language','narrative','duplicate');"
+0
+
+--- Invalid confidence check ---
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 178 AND confidence NOT IN ('low','medium','high');"
+0
+
+--- Route NULL check ---
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 178 AND route IS NOT NULL;"
+0
+
+--- Target fields SET check (non-ambiguous) ---
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 178 AND (target_layer IS NULL OR target_artifact IS NULL) AND status != 'ambiguous';"
+0
+
+--- governance_rule → governance + DRAFTING_CYCLE.md check ---
+
+All 4 proposals are governance_rule with target_layer='governance' and target_artifact='DRAFTING_CYCLE.md' (confirmed from scoped query above). No structural proposals in batch (so the structural→structure pairing check is vacuously PASS).
+
+--- Cross-check proposals id > 186 ---
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_proposals WHERE id > 186;"
+4
