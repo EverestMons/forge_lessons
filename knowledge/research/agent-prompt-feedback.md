@@ -1,5 +1,10 @@
 # Agent Prompt Feedback
 
+- The blueprint's edit-application order (M1 first, E5 before E4 since both are in §4) avoided line-number drift between edits — each anchor was still unique when its turn came.
+- The surgical date-swap approach for M1 (scoping the Edit anchor to the version+date substring, not the whole line) worked cleanly — the trailing clause survived without needing to be reproduced.
+- The C0 precondition check immediately before the write, separate from Step 1's SA confirmation, is well-placed — it catches a concurrent status change between SA and DEV.
+- The `.backup` method for the restore point is the right choice over `cp` for a WAL-mode DB.
+
 The Step 2 verification matrix was well-structured with clear pass/fail criteria and DB-source requirements. The vacuous-pass warning on Check 7 (PLANNER_TEMPLATE.md via root repo git, not worktree) correctly prevented a false pass — running `git -C` against the root repo is the right approach. The before-snapshot reconciliation in Check 4 (requiring cross-reference to Step 1's A0 deposit) ensures resume-invariant verification rather than assuming fresh-run deltas.
 
 The plan's Task A00 backup command, Task A0 precondition checks, and single-transaction discipline for Task A + Task A2 were well-structured and executed cleanly. The explicit quiescence check (two reads a moment apart) and the parameterised WHERE clause requirement for Task A2 are good safety guards. The backup-to-main-tree instruction correctly prevents worktree teardown data loss.
