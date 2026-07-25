@@ -1,5 +1,10 @@
 # Agent Prompt Feedback
 
+- The plan's instruction to cross-check E4's doc text against the shipped `plan_lint.py` code (Row 5) was load-bearing — it verifies the doc describes the ACTUAL mechanism, not the superseded edit-map design.
+- The E5 three-case structure (standalone / folded / SA-omitted) made QA row 6 mechanical: identify which case the SA chose, then verify accordingly.
+- The "own working tree" instruction for Row 11 (`git status --porcelain -- src/`) correctly avoids the vacuous `-C <main>` trap on a worktree run.
+- The evidence-file structure (db-invariants.txt for rows 9–10, doc-integrity.txt for rows 0/0b/1–8) cleanly maps the Rule 20 block's required_evidence_files to the verification rows.
+
 - The blueprint's edit-application order (M1 first, E5 before E4 since both are in §4) avoided line-number drift between edits — each anchor was still unique when its turn came.
 - The surgical date-swap approach for M1 (scoping the Edit anchor to the version+date substring, not the whole line) worked cleanly — the trailing clause survived without needing to be reproduced.
 - The C0 precondition check immediately before the write, separate from Step 1's SA confirmation, is well-placed — it catches a concurrent status change between SA and DEV.
