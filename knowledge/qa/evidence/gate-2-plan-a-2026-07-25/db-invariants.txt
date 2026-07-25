@@ -1,0 +1,20 @@
+## Row 9 — Per-ID Status Read-Back (canonical DB: /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db)
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT id, status, status_updated_at, status_updated_by FROM lesson_proposals WHERE id IN (187,188,189,190) ORDER BY id"
+187|implemented|2026-07-25 21:26:20|ceo
+188|implemented|2026-07-25 21:26:20|ceo
+189|implemented|2026-07-25 21:26:20|ceo
+190|implemented|2026-07-25 21:26:20|ceo
+
+Byte-compared against Step-2 dev-log block: MATCH.
+
+## Row 10 — Full Status Distribution (canonical DB: /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db)
+
+$ sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT status, COUNT(*) FROM lesson_proposals GROUP BY status ORDER BY status"
+implemented|137
+reference|7
+rejected|15
+stale|3
+superseded|28
+
+proposed count: 0 — the four were the last.

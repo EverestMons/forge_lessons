@@ -1,0 +1,108 @@
+## Row 0 — Doc Integrity (shasum)
+
+$ shasum -a 256 /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+d8f17394c08d7dc72e550df133baba28ae897f1faf89ab2d5c78ab7efcd111ea  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+
+Step-2 dev-log hash: d8f17394c08d7dc72e550df133baba28ae897f1faf89ab2d5c78ab7efcd111ea
+Result: MATCH.
+
+## Row 0b — Independent Diff Cross-Check
+
+$ git -C /Users/marklehn/Developer/GitHub diff -- DRAFTING_CYCLE.md
+diff --git a/DRAFTING_CYCLE.md b/DRAFTING_CYCLE.md
+index 77ed74d..6b145f1 100644
+--- a/DRAFTING_CYCLE.md
++++ b/DRAFTING_CYCLE.md
+@@ -2,7 +2,7 @@
+
+-**Version:** 1.0 (2026-07-23). Amended only through the Iteration Protocol (§6).
++**Version:** 1.1 (2026-07-25). Amended only through the Iteration Protocol (§6).
+
+@@ -47,7 +47,7 @@ (§2.2 Sub-questions line — E1 2.4 appended)
+@@ -65,7 +65,7 @@ (§2.5 Sub-questions line — E2 5.5 appended)
+@@ -79,6 +79,7 @@ (§2.7 — E3 sequential-fold bullet inserted after "Sketch one real block")
+@@ -119,10 +120,10 @@ (§4 — E5 cycle_tier extension + E4 closing-check replacement)
+@@ -153,4 +154,5 @@ (History — M2 v1.1 row inserted before 1.0 row)
+
+7 hunks total: M1, E1, E2, E3, E5, E4, M2. All intended.
+No collateral changes on any untouched line. No non-ASCII corruption.
+
+## Row 1 — Version 1.1 Full Line
+
+$ grep -n 'Version:' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+5:**Version:** 1.1 (2026-07-25). Amended only through the Iteration Protocol (§6).
+
+Full line intact: trailing "Amended only through the Iteration Protocol (§6)." PRESERVED.
+
+## Row 2 — E1: Sub-question 2.4 in §2.2 Destruction
+
+$ grep -n '(2.4)' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+50:- **Sub-questions:** (2.1) what breaks if this ships? (2.2) does any step relax an existing guard, threshold, or assertion? (2.3) is any destructive operation's blast radius bounded and proven *ours* before it runs? (2.4) **for a diagnostic** (read-only, non-mutating): aim Destruction at the downstream plans the diagnostic's findings authorize — a finding a later plan builds on without re-verification (per T-7 / Rule 27) can license a guard-relaxing or destructive change; does any finding over-claim certainty a downstream plan would act on? The skip-condition ("pure-additive plan touching no existing behaviour") does not license skipping Destruction for a diagnostic — a diagnostic is not pure-additive in effect, because its findings authorize downstream change.
+
+Pre-existing sub-questions 2.1/2.2/2.3 intact on the same line. 2.4 is a sub-question of Destruction (not a new lens). Addresses diagnostic-mode / read-only plans.
+
+## Row 3 — E2: Sub-question 5.5 in §2.5 ACID
+
+$ grep -n '(5.5)' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+68:- **Sub-questions:** (5.1) **Atomicity** — the state set if this half-completes; is every member acceptable? (5.2) **Consistency** — which invariant closes each gap, and is it stated or accidental? (5.3) **Isolation** — for a multi-step schedule (steps separated by verdict gates of arbitrary wall-clock time over shared stores), enumerate each step's reads/writes; find the between-step windows where a concurrent actor can interleave a conflicting R-W / W-R / W-W; require an explicit guard (pin, byte-match, locked txn) per window. (5.4) **Durability** — what survives a crash, and is the surviving record enough to reconstruct what happened? (5.5) **for a diagnostic** (single-step, read-only): Isolation (5.3) is structurally empty (no multi-step schedule to analyze) and Atomicity/Durability degenerate to triviality; aim ACID at the findings as a set — do two findings contradict (Consistency), and is the findings artifact enough to reconstruct the diagnostic's basis for a later author (Durability as record)?
+
+Pre-existing sub-questions 5.1/5.2/5.3/5.4 intact on the same line. 5.5 is a sub-question of ACID (not a new lens). Addresses diagnostic-mode ACID.
+
+## Row 4 — E3: §2.7 Sequential-Fold Bullet
+
+$ grep -n 'Sequential-fold rule' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+82:- **Sequential-fold rule (extends §2.7 "Parallelism" and §2.6 "cumulation lives in the draft").** Run each lens against the draft **as folded by all prior lenses in this walk** — never analyze all lenses against one draft and batch the folds (a batched fork is never seen by the later lenses). The rationalization "this pass is just confirmation, so cumulation doesn't matter here" is a self-check target: it is the same false reasoning that applies to an expected-dry confirming walk (you do not know it is dry until you have run it lens-by-lens).
+
+Cross-references §2.7 "Parallelism" and §2.6 "cumulation lives in the draft" as EXTENSION; does not restate or contradict them.
+
+## Row 5 — E4: §4 Last-Lens-Line Check
+
+$ grep -n 'last lens result line' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+126:- the check finds the **last lens result line** (the last `- <Lens>: …` line in the Drafting Cycle block before the `**Closing:**` line) and reads its whole-line status: it WARNs iff that line contains a fold-token (`fold`) but not `dry` — reading the structured last lens line, not keyword-matching the closing prose. The closing-line prose check is retained only as a legacy fallback when no structured lens line is parseable.
+
+$ grep -c 'the \*\*closing\*\* line asserts' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+0
+
+Old wording GONE. New text matches shipped plan_lint.py (git -C /Users/marklehn/Developer/GitHub/bellows show HEAD:scripts/plan_lint.py):
+- lens_line_re matches ^- <Lens>: lines (weak spots, destruction, vulnerabilit, integration, acid)
+- Iterates region before **Closing:** to find last matching line (last_lens_line)
+- ll_lower = last_lens_line.lower(); has_fold = 'fold' in ll_lower; has_dry = 'dry' in ll_lower
+- WARNs iff has_fold and not has_dry
+- Falls back to closing-line prose when last_lens_line is None
+Doc text matches shipped code: PASS.
+
+## Row 6 — E5: Collapsed T0 Acceptance (case (b): folded into cycle_tier bullet)
+
+$ grep -n 'collapsed T0' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+123:- the plan header declares `**cycle_tier:** T{0,1,2}` (the collapsed T0 form — `**cycle_tier:** T0 (no trigger); …` — is also accepted; the parser matches word-boundary, not end-of-string);
+
+SA choice case (b): folded into cycle_tier bullet. The collapsed T0 form is described as accepted.
+
+§3 T0 example UNCHANGED:
+$ grep -n 'cycle_tier.*T0.*no trigger' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+115:For **T0** the block collapses to a single line in the header context: `**cycle_tier:** T0 (no trigger); integration-vs-record pass: <result>.`
+
+Line 115 (original :114, shifted +1 by E3 insertion). Content unchanged from v1.0.
+
+## Row 7 — Count Phrases
+
+$ grep -n 'full five-lens walk' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+29:- **T1 — Standard cycle.** Any of T-1, T-3, T-4, T-7, T-8 fires → run the **full five-lens walk** (§2.1–§2.5).
+
+$ grep -n 'five lenses \*\*cold\*\*' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+73:After the sequential walk goes dry, rotate the **reviewer**, not the lens: run the five lenses **cold** — fresh-context readers given only the artifact plus repo read access, **sequentially** (a concurrent cold run is a panel pass, not a walk — cumulation lives in the draft, so sequential preserves it). Author-verify cold findings; a cold reader can misread deliberate design as a defect.
+
+$ grep -n 'all five for T1/T2' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+124:- for **T1+**: a `## Drafting Cycle` block is present, with one result line per **required** lens (all five for T1/T2, ACID included);
+
+All three read "five". Lines 29, 73, 124 — unaltered.
+
+## Row 8 — Changelog Row M2
+
+$ grep -n '1\.1 (2026-07-25):' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+157:- **1.1 (2026-07-25):** Codified proposals 187–190. §2.2: sub-question 2.4 (diagnostic-mode Destruction residue — aim the lens at downstream plans the diagnostic's findings authorize; the skip-condition does not license skipping Destruction for a diagnostic). §2.5: sub-question 5.5 (diagnostic-mode ACID residue — for a single-step read-only plan, aim ACID at the findings as a set). §2.7: sequential-fold rule (explicit no-batch clause extending the existing cumulation principles at §2.7 "Parallelism" and §2.6 "cumulation lives in the draft"). §4: closing check now reads the last lens result line's whole-line status, not the closing prose; collapsed T0 header form accepted. Paired with Plan B (277, bellows) which shipped the corresponding `plan_lint.py` edits for 189/N5 (last-lens-line check) and 190/N6 (`^T([012])\b` regex). **The lens count deliberately stays five** — 2.4 and 5.5 are sub-questions of existing lenses 2 and 5, not new lenses.
+
+$ grep -n '1\.0 (2026-07-23):' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+158:- **1.0 (2026-07-23):** Extracted and restructured from `PLANNER_TEMPLATE.md §The Drafting Cycle` (v4.79) into a mechanical system ...
+
+v1.1 row on :157 names: four proposals (187-190), units changed (§2.2 2.4, §2.5 5.5, §2.7 sequential-fold, §4 last-lens-line + collapsed-T0), Plan-B pairing (277, bellows), lens-count-stays-five. v1.0 row intact on :158 (never rewritten).
