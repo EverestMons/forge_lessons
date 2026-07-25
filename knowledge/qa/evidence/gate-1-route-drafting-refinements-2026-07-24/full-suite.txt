@@ -1,0 +1,13 @@
+=== Row 7: src/ untouched and suite green ===
+Source: git status --porcelain -- src/
+(empty — no uncommitted src/ changes)
+
+Source: python3 -m pytest src/ -q
+.......................................................                  [100%]
+55 passed in 0.13s
+
+Baseline: python3 -m pytest src/ --collect-only -q
+55 tests collected in 0.01s
+
+Reconciliation: most recent prior QA (retire-154-advisory-qa-2026-07-16.md) recorded 55 tests.
+55 (now) == 55 (prior) — count unchanged, no tests added or removed.

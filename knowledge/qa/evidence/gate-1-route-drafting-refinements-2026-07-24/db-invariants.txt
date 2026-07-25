@@ -1,0 +1,42 @@
+=== Row 1+2: All four routes applied, all still status='proposed' ===
+Source: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT id, entry_id, status, route FROM lesson_proposals WHERE id BETWEEN 187 AND 190 ORDER BY id;"
+
+187|179|proposed|codify
+188|180|proposed|codify
+189|181|proposed|codify
+190|182|proposed|codify
+
+=== Row 3: Status distribution byte-identical to Step-1 A0 before-snapshot ===
+Source: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT status, COUNT(*) FROM lesson_proposals GROUP BY status ORDER BY COUNT(*) DESC;"
+
+implemented|133
+superseded|28
+rejected|15
+reference|7
+proposed|4
+stale|3
+
+Total: 190 (unchanged)
+
+=== Row 4: Blast radius ===
+Source: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+Total proposals: 190
+Route-NOT-NULL: 60 (rose by 4 from Step-1 A0 before-count of 56)
+Outside-range (id NOT BETWEEN 187 AND 190) route-NOT-NULL: 56 (unchanged from Step-1 A0 before-value of 56)
+
+=== Row 5: get_unclassified_entries unchanged ===
+Source: python3 — get_unclassified_entries(conn) with conn to canonical DB (ro)
+
+[]
+
+Unchanged from Step-1 A0 before-snapshot ([]).
+
+=== Row 6: Doctrine files unchanged ===
+Source: git -C /Users/marklehn/Developer/GitHub diff --exit-code -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md
+exit_code_root=0
+
+Source: git -C /Users/marklehn/Developer/GitHub/bellows diff --exit-code -- scripts/plan_lint.py
+exit_code_bellows=0
+
+All exit codes 0 — no diff on DRAFTING_CYCLE.md, PLANNER_TEMPLATE.md, or plan_lint.py.
