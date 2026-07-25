@@ -366,3 +366,6 @@ Gate 1 complete for cycle 2026-07-21 (plan 248): 9 proposals routed `codify`, 1 
 
 ### Plan 258
 Gate 1 complete for cycle 2026-07-22 — 14 codify / 1 reference / 0 backlog. The fourteen codify proposals remain `proposed` (Gate-2-bound). Proposal 183 ("read the record before deriving") is terminal at `reference` — the rule is already codified in the Drafting Cycle's integration-vs-record pass. Gate 2 owes the execute-before-deposit cluster [172/173/178/179], the halted-triage pair [174/175], the #26 extension [178], the path-role split [184], and the conformance pass [185].
+
+### Plan 278
+Gate 2 Plan A complete — DRAFTING_CYCLE.md **v1.1**, proposals 187–190 implemented. The two diagnostic-mode sub-questions (2.4 in §2.2 Destruction, 5.5 in §2.5 ACID), the §2.7 sequential-fold rule, and the §4 last-lens-line closing check + collapsed-T0 acceptance are now codified. The lens count deliberately stays five. `proposed` is now 0 — the four were the last proposed entries. The DRAFTING_CYCLE.md hardening arc is COMPLETE.
