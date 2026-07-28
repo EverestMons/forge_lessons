@@ -1,0 +1,37 @@
+Invariant checks on canonical DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+Scope: WHERE entry_id > 182 (E0=182 from Step 1 receipt)
+
+Scoped count:
+SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 182;
+2
+
+Scoped proposals:
+SELECT id, entry_id, category, confidence, route, status, target_layer, target_artifact FROM lesson_proposals WHERE entry_id > 182 ORDER BY id;
+191|183|governance_rule|high||proposed|governance|DRAFTING_CYCLE.md
+192|184|governance_rule|high||proposed|governance|PLANNER_TEMPLATE.md
+
+Dangling FK:
+SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 182 AND entry_id NOT IN (SELECT id FROM lesson_entries);
+0
+
+Invalid category:
+SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 182 AND category NOT IN ('structural','instrumentation','governance_rule','language','narrative','duplicate');
+0
+
+Invalid confidence:
+SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 182 AND confidence NOT IN ('low','medium','high');
+0
+
+Non-NULL route:
+SELECT COUNT(*) FROM lesson_proposals WHERE entry_id > 182 AND route IS NOT NULL;
+0
+
+Cross-check (proposals with id > 190 = P0):
+SELECT COUNT(*) FROM lesson_proposals WHERE id > 190;
+2
+
+Category assertion: both governance_rule (PASS)
+Target layer assertion: both governance (PASS)
+Target artifact membership: DRAFTING_CYCLE.md, PLANNER_TEMPLATE.md — both in {DRAFTING_CYCLE.md, PLANNER_TEMPLATE.md} (PASS)
+No ambiguous proposals in batch.

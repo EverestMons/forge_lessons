@@ -1,0 +1,27 @@
+Hash-trap watch (plan-204 fix verification) on canonical DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+Entry 182 content_hash:
+SELECT id, content_hash FROM lesson_entries WHERE id = 182;
+182|75bf99cd741474217e3b800c3513ddc62b029620b683cff8382aad223d75de52
+
+Expected: 75bf99cd741474217e3b800c3513ddc62b029620b683cff8382aad223d75de52
+Actual:   75bf99cd741474217e3b800c3513ddc62b029620b683cff8382aad223d75de52
+MATCH — hash-trap target unchanged.
+
+Pre-cycle baseline (from Step 1 dev log):
+  implemented=137, reference=7, rejected=15, stale=3, superseded=28 (total=190)
+
+Current status distribution:
+SELECT status, COUNT(*) FROM lesson_proposals GROUP BY status ORDER BY status;
+implemented|137
+proposed|2
+reference|7
+rejected|15
+stale|3
+superseded|28
+
+Delta: +2 proposed (this cycle's batch). All terminal statuses unchanged.
+stale count: 3 (unchanged from baseline — not grown).
+No proposal moved off a terminal status.
+
+Step 1 recorded: updated_count=0, terminal_proposals_flagged=[]
