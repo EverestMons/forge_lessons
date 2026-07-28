@@ -1,5 +1,9 @@
 # Agent Prompt Feedback
 
+- The plan's detailed gate structure (G1–G6) with explicit fresh/resume disambiguation was effective — each gate had a clear measured value and pass/fail criterion.
+- The split-target guidance with explicit licence-to-disagree (VA1) was well-calibrated: both entries' raw_content independently supported the scout's placement, so no divergence to record, but the explicit invitation to verify independently prevented blind anchoring.
+- The backup verification requirement (DA1/CA1) with integrity_check + count-match was straightforward to execute and provides a genuine restore-point guarantee.
+
 - The plan's instruction to cross-check E4's doc text against the shipped `plan_lint.py` code (Row 5) was load-bearing — it verifies the doc describes the ACTUAL mechanism, not the superseded edit-map design.
 - The E5 three-case structure (standalone / folded / SA-omitted) made QA row 6 mechanical: identify which case the SA chose, then verify accordingly.
 - The "own working tree" instruction for Row 11 (`git status --porcelain -- src/`) correctly avoids the vacuous `-C <main>` trap on a worktree run.
