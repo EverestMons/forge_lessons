@@ -369,3 +369,6 @@ Gate 1 complete for cycle 2026-07-22 — 14 codify / 1 reference / 0 backlog. Th
 
 ### Plan 278
 Gate 2 Plan A complete — DRAFTING_CYCLE.md **v1.1**, proposals 187–190 implemented. The two diagnostic-mode sub-questions (2.4 in §2.2 Destruction, 5.5 in §2.5 ACID), the §2.7 sequential-fold rule, and the §4 last-lens-line closing check + collapsed-T0 acceptance are now codified. The lens count deliberately stays five. `proposed` is now 0 — the four were the last proposed entries. The DRAFTING_CYCLE.md hardening arc is COMPLETE.
+
+### Plan 282
+Gate 1 complete for the planner-discipline authoring-refinements cycle 2026-07-27 — 2 codify / 0 reference / 0 backlog. Both remain `proposed` and Gate-2-bound. Gate 2 owes the newest-same-class clone-diff + proven-clone tier qualification in `DRAFTING_CYCLE.md` [191] and the Rule-20-form-by-plan-class rule + evidence-file precondition in `PLANNER_TEMPLATE.md` [192].
