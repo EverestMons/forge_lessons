@@ -1,0 +1,81 @@
+Row 1 — Both routes applied, identity matches disposition table
+DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+Query: SELECT id, entry_id, status, category, route, target_artifact FROM lesson_proposals WHERE id BETWEEN 191 AND 192 ORDER BY id;
+191|183|proposed|governance_rule|codify|DRAFTING_CYCLE.md
+192|184|proposed|governance_rule|codify|PLANNER_TEMPLATE.md
+
+Row 2 — Both still status='proposed'
+(covered by row 1 output above — both show status=proposed)
+
+Row 3 — Status distribution byte-identical to Step-1 A0 before-snapshot
+DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+Query: SELECT status, COUNT(*) FROM lesson_proposals GROUP BY status ORDER BY COUNT(*) DESC;
+implemented|137
+superseded|28
+rejected|15
+reference|7
+stale|3
+proposed|2
+
+Step-1 before-snapshot item (1):
+implemented|137
+superseded|28
+rejected|15
+reference|7
+stale|3
+proposed|2
+
+Row 4 — Blast radius
+DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+Total proposals:
+Query: SELECT COUNT(*) FROM lesson_proposals;
+192
+
+Total route-NOT-NULL (anchored to before-item (2) = 60):
+Query: SELECT COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL;
+62
+
+Outside-range route-NOT-NULL (anchored to before-item (4) = 60):
+Query: SELECT COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL AND id NOT BETWEEN 191 AND 192;
+60
+
+Row 5 — get_unclassified_entries unchanged from before-snapshot item (3) = []
+DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+get_unclassified_entries(conn)
+[]
+
+Row 6 — Doctrine files unchanged
+
+Row 6(a) — working-tree + index state:
+Command: git -C /Users/marklehn/Developer/GitHub status --porcelain -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md
+PORCELAIN-EXIT=0
+(no output — empty, as required)
+
+Row 6(b) — content pins:
+Command: shasum -a 256 /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+d8f17394c08d7dc72e550df133baba28ae897f1faf89ab2d5c78ab7efcd111ea  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+49b726447498d0c5375c1986e3beca2d7bd435dd49ee98d452e171482d3cbe96  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+
+Authoring pins:
+DRAFTING_CYCLE.md  -> d8f17394c08d7dc72e550df133baba28ae897f1faf89ab2d5c78ab7efcd111ea — MATCH
+PLANNER_TEMPLATE.md -> 49b726447498d0c5375c1986e3beca2d7bd435dd49ee98d452e171482d3cbe96 — MATCH
+
+Row 6(c) — root HEAD:
+Command: git -C /Users/marklehn/Developer/GitHub rev-parse --short HEAD
+5a7a1db
+Authoring value: 8de8253
+Note: mismatch — unrelated root commits between authoring and QA (legitimate). Pins in (b) are the gate, and both match.
+
+Row 6b — Deliverable verification
+
+Step-1 deposit: knowledge/development/gate-1-route-authoring-refinements-2026-07-28.md
+
+(i) File exists on disk: YES
+(ii) Current content committed:
+Command: git log --oneline -1 -- knowledge/development/gate-1-route-authoring-refinements-2026-07-28.md
+d61bc7f [282] Step 1: Gate 1 route disposition — set route='codify' on proposals 191, 192
+Command: git status --porcelain -- knowledge/development/gate-1-route-authoring-refinements-2026-07-28.md
+(empty — current content is committed)
+(iii) Restore point recorded: YES — /Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-forge-pre-gate1-authoring-20260729T040148Z.db
+(iv) Task-B/Task-C read-backs present: YES — deposit contains B1, B2, B3, C(1), C(2), C(3) read-backs with raw output
