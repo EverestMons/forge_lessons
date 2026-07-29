@@ -1,0 +1,52 @@
+=== ROW 4: The 204 fix held ===
+
+Pre-cycle stale baseline (from Step 1 Receipt, gate G4): 3 (proposals 98, 121, 130)
+
+Current stale count:
+3
+98|93|stale
+121|116|stale
+130|123|stale
+
+Stale count unchanged: 3 == 3. PASS.
+
+Entry 184 content_hash:
+184|f2cf892c30e3544e36b4c1e76766f52497ac3770918ee9fba3820fd398e103a2
+
+Matches baseline: f2cf892c30e3544e36b4c1e76766f52497ac3770918ee9fba3820fd398e103a2. PASS.
+
+Ingest dict (from Receipt item 1, fresh dispatch):
+ingested_count: 8
+updated_count: 0
+unchanged_count: 127
+duplicates_marked_count: 0
+needs_classification: [185, 186, 187, 188, 189, 190, 191, 192]
+terminal_proposals_flagged: []
+
+updated_count == 0, terminal_proposals_flagged empty. PASS.
+
+No proposal moved off a terminal status:
+implemented: 137 (unchanged from baseline)
+rejected: 15 (unchanged from baseline)
+superseded: 28 (unchanged from baseline)
+reference: 7 (unchanged from baseline)
+
+=== ROW 4b: Pre-existing proposals survived ===
+
+Before-capture (NT from Step 1 Receipt, fresh dispatch):
+191|183|proposed|codify|DRAFTING_CYCLE.md|553e9493df9bc289af7bdca4013eee328c4673e857f19d805104eaeba97412a2
+192|184|proposed|codify|PLANNER_TEMPLATE.md|f2cf892c30e3544e36b4c1e76766f52497ac3770918ee9fba3820fd398e103a2
+
+Current state (queried by id):
+191|183|proposed|codify|DRAFTING_CYCLE.md|553e9493df9bc289af7bdca4013eee328c4673e857f19d805104eaeba97412a2
+192|184|proposed|codify|PLANNER_TEMPLATE.md|f2cf892c30e3544e36b4c1e76766f52497ac3770918ee9fba3820fd398e103a2
+
+Field-wise comparison:
+Proposal 191: status=proposed (unchanged), route=codify (unchanged), target_artifact=DRAFTING_CYCLE.md (unchanged), content_hash=553e9493... (unchanged). PASS.
+Proposal 192: status=proposed (unchanged), route=codify (unchanged), target_artifact=PLANNER_TEMPLATE.md (unchanged), content_hash=f2cf892c... (unchanged). PASS.
+
+Entry parent hashes:
+183|553e9493df9bc289af7bdca4013eee328c4673e857f19d805104eaeba97412a2 (matches baseline)
+184|f2cf892c30e3544e36b4c1e76766f52497ac3770918ee9fba3820fd398e103a2 (matches baseline)
+
+Both NT ids present, both unchanged, both parent hashes match. PASS.

@@ -1,0 +1,167 @@
+=== ROW 0: Deliverable verification ===
+
+Step 1 deposits:
+--- classifications-cycle-2026-07-29.md ---
+git log: 265d502 [283] Step 1: classify 8 session-12 entries (proposals 193-200), corpus integrity verified
+git status --porcelain: (empty)
+PORCELAIN-EXIT=0
+
+--- dev-log-cycle-step-1-2026-07-29.md ---
+git log: 265d502 [283] Step 1: classify 8 session-12 entries (proposals 193-200), corpus integrity verified
+git status --porcelain: (empty)
+PORCELAIN-EXIT=0
+
+Step 2 deposits:
+--- reports/lessons-report-2026-07-29.md ---
+git log: bf98f3b [283] Step 2: generate lessons report (10 surfaced, 2 route lines, 0 overlap)
+git status --porcelain: (empty)
+PORCELAIN-EXIT=0
+
+--- knowledge/development/dev-log-cycle-step-2-2026-07-29.md ---
+git log: bf98f3b [283] Step 2: generate lessons report (10 surfaced, 2 route lines, 0 overlap)
+git status --porcelain: (empty)
+PORCELAIN-EXIT=0
+
+All 4 deposit files exist, committed, clean porcelain. PASS.
+
+=== ROW 2: get_unclassified_entries ===
+
+get_unclassified_entries: []
+
+No Deferred entries heading in Step 1 deposits. PASS.
+
+=== ROW 3: Invariants (entry_id > 184) ===
+
+Scout disposition line count: 8 lines in Step 1 Receipt section "Scout dispositions" (proposals 193-200). Matches proposal count. PASS.
+
+Proposals (entry_id > 184):
+193|185|proposed|governance_rule||governance|PLANNER_TEMPLATE.md|high
+194|186|proposed|governance_rule||governance|DRAFTING_CYCLE.md|high
+195|187|proposed|governance_rule||governance|DRAFTING_CYCLE.md|high
+196|188|proposed|governance_rule||governance|PLANNER_TEMPLATE.md|high
+197|189|proposed|governance_rule||governance|DRAFTING_CYCLE.md|high
+198|190|proposed|instrumentation||governance|DRAFTING_CYCLE.md|high
+199|191|proposed|instrumentation||governance|RULE_20_SELF_CHECK_BLOCK.md|high
+200|192|proposed|governance_rule||governance|DRAFTING_CYCLE.md|high
+
+Scoped count: 8. PASS.
+Cross-check (id > 192): 8. Matches. PASS.
+Dangling: 0 (all entry_ids exist). PASS.
+Invalid category: 0. PASS.
+Invalid confidence: 0 (all high). PASS.
+All route IS NULL: yes (all empty). PASS.
+All status IN (proposed, ambiguous): all proposed. PASS.
+All target_layer = governance: yes. PASS.
+All target_artifact in {PLANNER_TEMPLATE.md, DRAFTING_CYCLE.md, RULE_20_SELF_CHECK_BLOCK.md}: yes. PASS.
+No ambiguous proposals. PASS.
+
+Category by tag:
+Tags for entry_id > 184:
+185|`planner-discipline`|'`planner-discipline`'
+186|`planner-discipline`|'`planner-discipline`'
+187|`planner-discipline`|'`planner-discipline`'
+188|`planner-discipline`|'`planner-discipline`'
+189|`bellows-integration`|'`bellows-integration`'
+190|`bellows-integration`|'`bellows-integration`'
+191|`bellows-integration`|'`bellows-integration`'
+192|`planner-discipline`|'`planner-discipline`'
+
+planner-discipline entries (185,186,187,188,192): all governance_rule. PASS.
+bellows-integration entries (189,190,191):
+  entry 189 (proposal 197): governance_rule — in {governance_rule, instrumentation}. PASS.
+  entry 190 (proposal 198): instrumentation — in {governance_rule, instrumentation}. PASS.
+  entry 191 (proposal 199): instrumentation — in {governance_rule, instrumentation}. PASS.
+
+Scout disposition check:
+All 8 lines present, all agreed. All target_artifacts within the three-artifact set. No divergence recorded. PASS.
+
+=== ROW 5: Report verification ===
+
+Report exists: yes (reports/lessons-report-2026-07-29.md)
+Report Total proposals line: **Total proposals:** 10
+
+NT from Step 1 Receipt (fresh dispatch): {191, 192}
+Live re-read of NT ids:
+  proposal 191: status=proposed (still non-terminal)
+  proposal 192: status=proposed (still non-terminal)
+Expected surfaced: 8 + 2 = 10.
+
+Report headings (10):
+1. 2026-07-28: A fold lands... → entry 185, proposal 193 (entry_id > 184)
+2. 2026-07-28: Review attention follows CHURN... → entry 186, proposal 194 (entry_id > 184)
+3. 2026-07-28: The granularity of a verification... → entry 187, proposal 195 (entry_id > 184)
+4. 2026-07-28: READ the cited rule... → entry 188, proposal 196 (entry_id > 184)
+5. 2026-07-28: DRAFTING_CYCLE.md §3's "compact"... → entry 189, proposal 197 (entry_id > 184)
+6. 2026-07-28: I recorded four lens passes... → entry 192, proposal 200 (entry_id > 184)
+7. 2026-07-27: When cloning a plan... → entry 183, proposal 191 (NT)
+8. 2026-07-27: Choose the QA Rule 20 self-check FORM... → entry 184, proposal 192 (NT)
+9. 2026-07-28: plan_lint's §4... → entry 190, proposal 198 (entry_id > 184)
+10. 2026-07-28: An honest QA failure... → entry 191, proposal 199 (entry_id > 184)
+
+All 8 cycle proposals (entry_id > 184) present. Both NT proposals present (still non-terminal). No unexpected proposals. 10 == 8 + 2. PASS.
+
+Route lines: 2
+Line 66: - **Route:** codify → proposal 191 (entry_id 183, NT)
+Line 74: - **Route:** codify → proposal 192 (entry_id 184, NT)
+Both correlate to NT proposals (entry_id <= 184). No route line on entry_id > 184. PASS.
+
+Recently-implemented overlap lines: 0
+detect_recently_implemented_overlaps absent from src/. PASS.
+
+=== ROW 7: Gate-2 target artifacts unchanged ===
+
+Porcelain check:
+git -C /Users/marklehn/Developer/GitHub status --porcelain -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md RULE_20_SELF_CHECK_BLOCK.md
+(empty output)
+PORCELAIN-EXIT=0
+
+Root HEAD: 881ec60
+
+Doctrine pins (from Step 1 Receipt item 10):
+d8f17394c08d7dc72e550df133baba28ae897f1faf89ab2d5c78ab7efcd111ea  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+49b726447498d0c5375c1986e3beca2d7bd435dd49ee98d452e171482d3cbe96  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+c90ffb4bea0063e994f4b85e56df80c1653de59cb0124a1bbd982df9d52f8711  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+
+Current measurement:
+d8f17394c08d7dc72e550df133baba28ae897f1faf89ab2d5c78ab7efcd111ea  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+49b726447498d0c5375c1986e3beca2d7bd435dd49ee98d452e171482d3cbe96  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+c90ffb4bea0063e994f4b85e56df80c1653de59cb0124a1bbd982df9d52f8711  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+
+Pin comparison: DRAFTING_CYCLE.md match. PLANNER_TEMPLATE.md match. RULE_20_SELF_CHECK_BLOCK.md match. PASS.
+
+git log 881ec60..HEAD -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md RULE_20_SELF_CHECK_BLOCK.md:
+(no commits — HEAD is 881ec60)
+
+=== ROW 8: Post-cycle DB counts ===
+
+Total lesson_entries: 192 (expected 184 + 8 = 192). PASS.
+Total lesson_proposals: 200 (expected 192 + 8 = 200). PASS.
+
+Proposals by status:
+implemented|137
+proposed|10
+reference|7
+rejected|15
+stale|3
+superseded|28
+
+Proposals by category:
+duplicate|19
+governance_rule|156
+instrumentation|10
+narrative|5
+structural|10
+
+=== ROW 9: Classification depth spot-check ===
+
+SequenceMatcher longest common substring (canonicalized), threshold >= 40 chars:
+proposal 193 | entry 185 | longest_match=146 | PASS
+proposal 194 | entry 186 | longest_match=112 | PASS
+proposal 195 | entry 187 | longest_match=156 | PASS
+proposal 196 | entry 188 | longest_match=114 | PASS
+proposal 197 | entry 189 | longest_match=198 | PASS
+proposal 198 | entry 190 | longest_match=100 | PASS
+proposal 199 | entry 191 | longest_match=94 | PASS
+proposal 200 | entry 192 | longest_match=208 | PASS
+
+All 8 proposals PASS (all >= 40 chars). Range: 94-208. PASS.
