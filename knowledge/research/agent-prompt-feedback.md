@@ -1,5 +1,8 @@
 # Agent Prompt Feedback
 
+- The plan's rewritten halt conditions (10 proposals not 2, 2 route lines not 0) correctly matched the measured state. The live re-read of NT ids before computing the expectation was straightforward since Gate 2 had not shipped.
+- The route-line attribution via DB join was necessary since the report prints neither proposal id nor entry_id — the heading correlation worked cleanly.
+
 - The plan's detailed Step 1a-bis parent-hash guard and detect_duplicates pre-check were valuable for confirming ingest safety before mutation.
 - The three-probe dispatch-state determination (HEAD, working tree, preserved branches) cleanly resolved to FRESH.
 - The scout disposition agreement across all 8 entries reflects thorough pre-authoring analysis by the Planner.
