@@ -1,5 +1,9 @@
 # Agent Prompt Feedback
 
+- The plan's detailed Step 1a-bis parent-hash guard and detect_duplicates pre-check were valuable for confirming ingest safety before mutation.
+- The three-probe dispatch-state determination (HEAD, working tree, preserved branches) cleanly resolved to FRESH.
+- The scout disposition agreement across all 8 entries reflects thorough pre-authoring analysis by the Planner.
+
 No feedback items.
 
 No feedback items.
