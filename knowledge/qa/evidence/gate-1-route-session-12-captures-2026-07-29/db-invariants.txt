@@ -1,0 +1,84 @@
+ROW-0:
+Deliverable: knowledge/development/gate-1-route-session-12-captures-2026-07-29.md
+git log --oneline -1: 967f0a5 [284] Step 1: route 8 session-12 proposals (193-200) to codify, all verifications pass
+git status --porcelain: (empty — no uncommitted changes)
+Receipt item (iii) — backup path and verification: PRESENT
+  Path: /Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-forge-pre-gate1-284-20260730T001726Z.db
+  PRAGMA integrity_check: ok
+  Backup counts: lesson_entries 192, lesson_proposals 200 (match live)
+Receipt item (iv) — Step 1 B/C read-backs: PRESENT (B1, B2, B3, C2, C3, C4 all reported with raw output)
+
+ROW-1:
+SELECT id, entry_id, status, route, category, confidence, target_artifact FROM lesson_proposals WHERE id BETWEEN 193 AND 200 ORDER BY id
+193|185|proposed|codify|governance_rule|high|PLANNER_TEMPLATE.md
+194|186|proposed|codify|governance_rule|high|DRAFTING_CYCLE.md
+195|187|proposed|codify|governance_rule|high|DRAFTING_CYCLE.md
+196|188|proposed|codify|governance_rule|high|PLANNER_TEMPLATE.md
+197|189|proposed|codify|governance_rule|high|DRAFTING_CYCLE.md
+198|190|proposed|codify|instrumentation|high|DRAFTING_CYCLE.md
+199|191|proposed|codify|instrumentation|high|RULE_20_SELF_CHECK_BLOCK.md
+200|192|proposed|codify|governance_rule|high|DRAFTING_CYCLE.md
+
+ROW-2:
+(a) All 8 targets (193-200) status='proposed' — confirmed from row 1 query above.
+(b) Full status distribution:
+SELECT status, COUNT(*) FROM lesson_proposals GROUP BY status ORDER BY COUNT(*) DESC
+implemented|137
+superseded|28
+rejected|15
+proposed|10
+reference|7
+stale|3
+Before-item (1) from Step 1 Receipt:
+implemented|137
+superseded|28
+rejected|15
+proposed|10
+reference|7
+stale|3
+Result: byte-identical.
+
+ROW-3:
+SELECT 'total_route_not_null', COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL UNION ALL SELECT 'outside_range_route_not_null', COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL AND id NOT BETWEEN 193 AND 200
+total_route_not_null|70
+outside_range_route_not_null|62
+Same-instant identity: 70 == 62 + 8. PASS.
+Rise over before-item (2) [62]: 70 - 62 = 8 (within bound <= 8).
+
+ROW-4:
+SELECT COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL AND id NOT BETWEEN 193 AND 200
+62
+Before-item (4) from Step 1 Receipt: 62
+Result: unchanged.
+
+ROW-5:
+SELECT id, status, route, target_artifact FROM lesson_proposals WHERE id IN (191,192)
+191|proposed|codify|DRAFTING_CYCLE.md
+192|proposed|codify|PLANNER_TEMPLATE.md
+Before-item (4b) from Step 1 Receipt:
+191|proposed|codify|DRAFTING_CYCLE.md
+192|proposed|codify|PLANNER_TEMPLATE.md
+Result: unchanged.
+
+ROW-5b:
+get_unclassified_entries(conn) via read-only connection:
+[]
+Before-item (3) from Step 1 Receipt: []
+Result: unchanged.
+
+ROW-7:
+git -C /Users/marklehn/Developer/GitHub status --porcelain -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md RULE_20_SELF_CHECK_BLOCK.md
+(empty)
+PORCELAIN-EXIT=0
+
+shasum -a 256:
+d8f17394c08d7dc72e550df133baba28ae897f1faf89ab2d5c78ab7efcd111ea  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+49b726447498d0c5375c1986e3beca2d7bd435dd49ee98d452e171482d3cbe96  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+c90ffb4bea0063e994f4b85e56df80c1653de59cb0124a1bbd982df9d52f8711  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+
+Authoring pins (first 16 hex chars):
+DRAFTING_CYCLE.md: d8f17394c08d7dc7 — measured d8f17394c08d7dc7 — MATCH
+PLANNER_TEMPLATE.md: 49b726447498d0c5 — measured 49b726447498d0c5 — MATCH
+RULE_20_SELF_CHECK_BLOCK.md: c90ffb4bea0063e9 — measured c90ffb4bea0063e9 — MATCH
+
+Root HEAD: 881ec60 (matches authoring value)
