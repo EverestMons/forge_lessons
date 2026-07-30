@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+- **(SA, plan 287, Step 1):** The diagnostic map's line-number-to-text associations should be verified at the point of use rather than trusted — the map associated `:82` with "Sketch one real block." when line 82 in the live file is actually the Sequential-fold rule. Line numbers drift between authoring and execution; quoted unique strings do not.
+
 - The plan's rewritten halt conditions (10 proposals not 2, 2 route lines not 0) correctly matched the measured state. The live re-read of NT ids before computing the expectation was straightforward since Gate 2 had not shipped.
 - The route-line attribution via DB join was necessary since the report prints neither proposal id nor entry_id — the heading correlation worked cleanly.
 
