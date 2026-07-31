@@ -1,0 +1,20 @@
+=== Row 4: Hash-trap and stale check ===
+
+POST_STALE_COUNT=3
+PRE_STALE_COUNT=3 (from Step 1 receipt)
+Stale count unchanged: 3 -> 3
+
+ENTRY_192_HASH=23fb7a1e5b7b62f975339733aca57434cf947f1b214a1b5592588835de5a80c7
+Expected: 23fb7a1e5b7b62f975339733aca57434cf947f1b214a1b5592588835de5a80c7
+Match: YES
+
+First-dispatch ingest dict (from Step 1 receipt):
+  ingested_count: 6
+  updated_count: 0
+  unchanged_count: 135
+  duplicates_marked_count: 0
+  terminal_proposals_flagged: []
+
+TERMINAL_MOVED=0
+
+PROPOSALS_EXAMINED=206

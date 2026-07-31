@@ -1,0 +1,132 @@
+=== Row 0: Deliverable verification ===
+
+--- knowledge/development/classifications-cycle-2026-07-30.md ---
+git log: f0b6ca7 [288] Step 1: ingest + classify 6 entries (193-198 → proposals 201-206)
+git status porcelain: []
+ROW0-PORCELAIN-EXIT=0
+
+--- knowledge/development/dev-log-cycle-step-1-2026-07-30.md ---
+git log: f0b6ca7 [288] Step 1: ingest + classify 6 entries (193-198 → proposals 201-206)
+git status porcelain: []
+ROW0-PORCELAIN-EXIT=0
+
+--- knowledge/development/dev-log-cycle-step-2-2026-07-30.md ---
+git log: aa481f7 [288] Step 2: generate lessons report (6 proposals, 0 route lines)
+git status porcelain: []
+ROW0-PORCELAIN-EXIT=0
+
+--- reports/lessons-report-2026-07-30.md ---
+git log: aa481f7 [288] Step 2: generate lessons report (6 proposals, 0 route lines)
+git status porcelain: []
+ROW0-PORCELAIN-EXIT=0
+
+=== Row 2: Unclassified entries ===
+
+get_unclassified_entries=[]
+
+=== Row 3: Invariants (scoped to proposals 201-206) ===
+
+SCOPED_COUNT=6
+DANGLING=0
+PROPOSAL|201|entry=193|status=proposed|cat=governance_rule|conf=high|route=NULL|layer=governance|artifact=PLANNER_TEMPLATE.md
+PROPOSAL|202|entry=194|status=proposed|cat=governance_rule|conf=high|route=NULL|layer=governance|artifact=DRAFTING_CYCLE.md
+PROPOSAL|203|entry=195|status=proposed|cat=governance_rule|conf=high|route=NULL|layer=governance|artifact=PLANNER_TEMPLATE.md
+PROPOSAL|204|entry=196|status=proposed|cat=governance_rule|conf=high|route=NULL|layer=governance|artifact=DRAFTING_CYCLE.md
+PROPOSAL|205|entry=197|status=proposed|cat=governance_rule|conf=high|route=NULL|layer=governance|artifact=PLANNER_TEMPLATE.md
+PROPOSAL|206|entry=198|status=proposed|cat=governance_rule|conf=high|route=NULL|layer=governance|artifact=DRAFTING_CYCLE.md
+
+Tag partition:
+PLANNER_DISCIPLINE_COUNT=4
+  entry 194: category=governance_rule
+  entry 195: category=governance_rule
+  entry 196: category=governance_rule
+  entry 197: category=governance_rule
+BELLOWS_INTEGRATION_COUNT=2
+  entry 193: category=governance_rule
+  entry 198: category=governance_rule
+
+Target artifact membership:
+  proposal 201: target_artifact=PLANNER_TEMPLATE.md
+  proposal 202: target_artifact=DRAFTING_CYCLE.md
+  proposal 203: target_artifact=PLANNER_TEMPLATE.md
+  proposal 204: target_artifact=DRAFTING_CYCLE.md
+  proposal 205: target_artifact=PLANNER_TEMPLATE.md
+  proposal 206: target_artifact=DRAFTING_CYCLE.md
+All in {PLANNER_TEMPLATE.md, DRAFTING_CYCLE.md} — within 3-artifact bound
+
+Scout disposition lines in Step 1 Receipt: 6 (grep -Fc exit 0)
+
+=== Row 5: Report verification ===
+
+Total proposals line: **Total proposals:** 6
+Heading count (### ): 6 (exit 0)
+Route line count: 0 (exit 1 — zero matches, expected)
+Recently-implemented overlap count: 0 (exit 1 — zero matches, expected)
+
+Surfaced proposals (heading -> id correlation):
+  SURFACED|201|entry=193|status=proposed|heading=2026-07-29: An artifact a step COPIES at run time has an authoring-vs-runtime dr
+  SURFACED|202|entry=194|status=proposed|heading=2026-07-30: When one region keeps getting re-folded, the answer is usually DELET
+  SURFACED|203|entry=195|status=proposed|heading=2026-07-30: Verify a guard's NECESSITY against the runtime, not only its correct
+  SURFACED|204|entry=196|status=proposed|heading=2026-07-30: Check what a command PRINTS on success versus failure, not just what
+  SURFACED|205|entry=197|status=proposed|heading=2026-07-30: A fix applied at the site where it was found will be re-created else
+  SURFACED|206|entry=198|status=proposed|heading=2026-07-30: The final step's gate span absorbs the Drafting Cycle block, so a ga
+Total surfaced: 6
+All 6 are within this cycle set (201-206): YES
+Foreign proposals (entry_id <= 192): NONE
+
+Step 1 NT_COUNT (pre-ingest): 0
+Expected surfaced: 0 + 6 = 6
+Actual surfaced: 6 — MATCH
+
+=== Row 7: Doctrine pins ===
+
+7a: Porcelain check:
+  PORCELAIN-EXIT=0 (empty output — no uncommitted changes)
+
+7b: Shasum comparison:
+  LIVE: 3951bcf8bc2d9e5f85cf39241ec215e1831cdf07f3cb258bb455b09fab0baaf0  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+  LIVE: 0c53222fbacdc89cb44899d2df400093a41bed52bdab12d41879ea6fee383e04  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+  LIVE: 3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+
+  RECORDED (Step 1 Receipt item 10):
+  3951bcf8bc2d9e5f85cf39241ec215e1831cdf07f3cb258bb455b09fab0baaf0  DRAFTING_CYCLE.md
+  0c53222fbacdc89cb44899d2df400093a41bed52bdab12d41879ea6fee383e04  PLANNER_TEMPLATE.md
+  3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644  RULE_20_SELF_CHECK_BLOCK.md
+
+  DRAFTING_CYCLE.md: MATCH
+  PLANNER_TEMPLATE.md: MATCH
+  RULE_20_SELF_CHECK_BLOCK.md: MATCH
+
+=== Row 8: Post-cycle DB counts ===
+
+ENTRIES_IN_SET=6
+PROPOSALS_IN_SET=6
+TOTAL_ENTRIES=198
+TOTAL_PROPOSALS=206
+Expected entries: 192 + 6 = 198 — MATCH
+Expected proposals: 200 + 6 = 206 — MATCH
+
+FOREIGN_NT=0
+FOREIGN_ENTRIES=0
+
+STATUS|implemented=147
+STATUS|proposed=6
+STATUS|reference=7
+STATUS|rejected=15
+STATUS|stale=3
+STATUS|superseded=28
+
+CATEGORY|duplicate=19
+CATEGORY|governance_rule=162
+CATEGORY|instrumentation=10
+CATEGORY|narrative=5
+CATEGORY|structural=10
+
+=== Row 9: Classification depth spot-check ===
+
+proposal=201 entry=193 longest_match=101 PASS
+proposal=202 entry=194 longest_match=86 PASS
+proposal=203 entry=195 longest_match=105 PASS
+proposal=204 entry=196 longest_match=82 PASS
+proposal=205 entry=197 longest_match=115 PASS
+proposal=206 entry=198 longest_match=62 PASS
