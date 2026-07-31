@@ -56,3 +56,15 @@ category=structural count=10
 
 **Total lesson_entries:** 192
 **Total lesson_proposals:** 200
+
+## Ingest Dict (first dispatch)
+
+```
+ingested_count: 6
+updated_count: 0
+unchanged_count: 135
+duplicates_marked_count: 0
+needs_classification: [193, 194, 195, 196, 197, 198]
+terminal_proposals_flagged: []
+cycle_timestamp: 2026-07-31T17:54:17.077111+00:00
+```
