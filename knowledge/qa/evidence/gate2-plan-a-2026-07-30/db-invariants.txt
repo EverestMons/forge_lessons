@@ -1,0 +1,31 @@
+=== PER-ID READ-BACK ===
+sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+SELECT id, status, route, status_updated_at, status_updated_by FROM lesson_proposals WHERE id BETWEEN 191 AND 200 ORDER BY id;
+
+191|implemented|codify|2026-07-30T23:47:27Z|ceo
+192|implemented|codify|2026-07-30T23:47:27Z|ceo
+193|implemented|codify|2026-07-30T23:47:27Z|ceo
+194|implemented|codify|2026-07-30T23:47:27Z|ceo
+195|implemented|codify|2026-07-30T23:47:27Z|ceo
+196|implemented|codify|2026-07-30T23:47:27Z|ceo
+197|implemented|codify|2026-07-30T23:47:27Z|ceo
+198|implemented|codify|2026-07-30T23:47:27Z|ceo
+199|implemented|codify|2026-07-30T23:47:27Z|ceo
+200|implemented|codify|2026-07-30T23:47:27Z|ceo
+
+=== TIMESTAMP FORMAT GLOB ===
+SELECT count(*) FROM lesson_proposals WHERE id BETWEEN 191 AND 200
+AND status_updated_at GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]Z';
+Result: 10
+
+=== PROPOSED COUNTS ===
+HARD: SELECT count(*) FROM lesson_proposals WHERE status='proposed' AND id BETWEEN 191 AND 200;
+Result: 0
+
+RECONCILE: SELECT count(*) FROM lesson_proposals WHERE status='proposed' AND id NOT BETWEEN 191 AND 200;
+Result: 0
+
+=== BACKUP ===
+Path: /Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-forge-pre-gate2-flip-20260730T234713Z.db
+Size: 909312 bytes
+Read-back (immutable=1): SELECT count(*) ... WHERE id BETWEEN 191 AND 200 AND status='proposed' = 10

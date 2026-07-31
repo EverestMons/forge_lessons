@@ -1,0 +1,72 @@
+=== DOC INTEGRITY — SHA-256 COMPARISON ===
+
+Post-edit SHA-256 (from live files):
+3951bcf8bc2d9e5f85cf39241ec215e1831cdf07f3cb258bb455b09fab0baaf0  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+0c53222fbacdc89cb44899d2df400093a41bed52bdab12d41879ea6fee383e04  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+
+Dev-log post-edit pins:
+DRAFTING_CYCLE.md:    3951bcf8bc2d9e5f85cf39241ec215e1831cdf07f3cb258bb455b09fab0baaf0
+PLANNER_TEMPLATE.md:  0c53222fbacdc89cb44899d2df400093a41bed52bdab12d41879ea6fee383e04
+RULE_20_SELF_CHECK_BLOCK.md: 3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644
+
+Result: ALL THREE MATCH
+
+Working tree status (git status --porcelain -- <three files>):
+(empty = clean)
+
+=== DOCTRINE DRIFT CHECK ===
+git log 3c327e3..HEAD -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md RULE_20_SELF_CHECK_BLOCK.md:
+(empty = no drift since DOC_SHA)
+
+=== LENS COUNT GUARD ===
+29:- **T1 -- Standard cycle.** Any of T-1, T-3, T-4, T-7, T-8 fires -> run the **full five-lens walk**
+73:run the five lenses **cold**
+132:all five for T1/T2, ACID included
+
+=== MUST-SURVIVE CLAUSES ===
+**Landing posture -- warn-first (deliberate).**: 1
+The gate reads structure, not truth: 1
+merely QUOTE the pattern: 1
+Worked example -- convention changes.: 1
+Grep the plan file for every step identified as QA: 1
+no agent-discretion language: 1
+
+=== VERSION LINES ===
+DRAFTING_CYCLE.md:5: **Version:** 1.2 (2026-07-30). Amended only through the Iteration Protocol (section 6).
+PLANNER_TEMPLATE.md:5: **Version:** 4.81
+PLANNER_TEMPLATE.md:6: **Last Updated:** 2026-07-30 (v4.81)
+RULE_20_SELF_CHECK_BLOCK.md: NO **Version:** line (count=0, per CEO Decision 1)
+
+=== RULE 20 PYTHON BLOCK BYTE-IDENTITY ===
+Before (from git show 3c327e3^:RULE_20_SELF_CHECK_BLOCK.md): 3044 bytes
+After (from live file): 3044 bytes
+diff: empty (exit=0) -- byte-identical
+
+=== APPROACH PATH ADJACENCY ===
+45:## Canonical Python Block
+47:Copy the block below verbatim. Replace ONLY the four placeholder lines...
+49:```python
+(consecutive, nothing inserted between them)
+
+=== PLAN_LINT LIVENESS ===
+git -C /Users/marklehn/Developer/GitHub/bellows diff a59200b..HEAD --stat -- scripts/plan_lint.py:
+(empty output, exit=0 -- SHA reachable and file unchanged)
+
+=== BLUEPRINT SHA-256 ===
+Committed blueprint: 7108258217c8f850810a8058ea7197d4106a0fcf6d4026b24e03f9e21aefb5e0
+Dev-log records:      7108258217c8f850810a8058ea7197d4106a0fcf6d4026b24e03f9e21aefb5e0
+Match: identical
+
+=== DOC COMMIT VERIFICATION ===
+git log --oneline 3c327e3^..HEAD -- <three files>:
+3c327e3 [287] Step 2: codify proposals 191-200 into three doctrine files
+(exactly one commit)
+
+Diffstat from DOC_SHA:
+3 files changed, 55 insertions(+), 10 deletions(-)
+
+=== ORDERING ===
+DOC_SHA commit date: 2026-07-30T18:46:27-05:00 (= 2026-07-30T23:46:27Z)
+Flip timestamp (status_updated_at): 2026-07-30T23:47:27Z
+Commit precedes flip by 60 seconds.
