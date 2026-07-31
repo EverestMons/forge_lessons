@@ -375,3 +375,6 @@ Gate 1 complete for the planner-discipline authoring-refinements cycle 2026-07-2
 
 ### Plan 287
 Gate 2 complete: ten proposals (191-200) codified across three doctrine files and flipped to `implemented`. `DRAFTING_CYCLE.md` v1.2, `PLANNER_TEMPLATE.md` v4.81. `proposed` = 0 within ids 191-200.
+
+### Plan 288
+Cycle 2026-07-30 complete — the 6-entry session-13/14 batch (entries 193-198, proposals 201-206) ingested, classified (all governance_rule, targets split 3-3 across PLANNER_TEMPLATE.md and DRAFTING_CYCLE.md), and reported. Corpus integrity held: stale count unchanged at 3, entry 192 hash stable, no schema drift. The non-terminal baseline was confirmed empty at G1; this cycle's 6 proposals are the only non-terminal rows at close. Gate 1 route disposition pending for the 6.
