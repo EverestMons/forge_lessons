@@ -2,6 +2,8 @@
 
 None — all plan instructions were followed without ambiguity or contradiction requiring deviation.
 
+None — all plan instructions were followed without ambiguity or contradiction requiring deviation.
+
 - **(QA, plan 287, Step 3):** The `grep -F` discipline for literal bold-marker anchors is essential on the ugrep shim — without `-F`, patterns starting with `**` silently error and produce empty stdout that reads as "not found" having verified nothing. Confirmed during must-survive clause verification.
 
 - **(DEV, plan 287, Step 2):** The `grep -F` discipline for literal-string anchors on a ugrep shim is load-bearing — every bold-marker anchor (`**Version:**`, `**Landing posture…**`) errors silently without `-F`, producing an empty stdout that reads as "not found → PASS" having verified nothing. This was tested and confirmed during execution.
