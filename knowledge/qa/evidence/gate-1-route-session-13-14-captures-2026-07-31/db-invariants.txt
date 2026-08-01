@@ -1,0 +1,191 @@
+ROW-0:
+Deliverable verification — Step 1 deposit
+
+git log --oneline -1 -- knowledge/development/gate-1-route-session-13-14-captures-2026-07-31.md
+7c9733d [289] Step 1: route 6 session-13/14 proposals to codify (201-206)
+
+git status --porcelain -- knowledge/development/gate-1-route-session-13-14-captures-2026-07-31.md
+(empty — no uncommitted changes)
+
+Receipt item 0 (A0-pre set-identity): PRESENT — raw SELECT output showing 201-206
+Receipt item 5 (B1/B2/B3/C1/C2 read-backs): PRESENT — all six sub-checks recorded
+Receipt item 6 (restore point): PRESENT — path, integrity_check ok, counts 198|206
+Receipt item 7 (Files Created or Modified): PRESENT — one file listed
+Receipt item 8 (flags and HALT conditions): PRESENT — no HALT conditions, all tasks clean
+
+Row 0(v) Forward Register check (run against own QA report):
+grep -F '#### Forward Register' knowledge/qa/gate-1-route-qa-2026-07-31.md; echo "GREP-EXIT=$?"
+#### Forward Register
+GREP-EXIT=0
+
+Forward Register bullet count (items starting with '- ('):
+grep '^- (' knowledge/qa/gate-1-route-qa-2026-07-31.md | wc -l
+6
+
+Evidence file self-greps:
+grep -c '^ROW-' knowledge/qa/evidence/gate-1-route-session-13-14-captures-2026-07-31/db-invariants.txt
+7
+wc -l knowledge/qa/evidence/gate-1-route-session-13-14-captures-2026-07-31/db-invariants.txt
+178
+Spot-checked ROW-1 and ROW-4: both followed by actual command output.
+
+grep -F '55 passed' knowledge/qa/evidence/gate-1-route-session-13-14-captures-2026-07-31/pytest_targeted.txt; echo "GREP-EXIT=$?"
+============================== 55 passed in 0.13s ==============================
+GREP-EXIT=0
+
+ROW-1:
+All 6 routed — SELECT id, entry_id, status, route, category, confidence, target_artifact FROM lesson_proposals WHERE id BETWEEN 201 AND 206 ORDER BY id;
+DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+201|193|proposed|codify|governance_rule|high|PLANNER_TEMPLATE.md
+202|194|proposed|codify|governance_rule|high|DRAFTING_CYCLE.md
+203|195|proposed|codify|governance_rule|high|PLANNER_TEMPLATE.md
+204|196|proposed|codify|governance_rule|high|DRAFTING_CYCLE.md
+205|197|proposed|codify|governance_rule|high|PLANNER_TEMPLATE.md
+206|198|proposed|codify|governance_rule|high|DRAFTING_CYCLE.md
+
+6 rows. All route=codify, status=proposed, category=governance_rule, confidence=high.
+Per-row target_artifact: 201/203/205 = PLANNER_TEMPLATE.md, 202/204/206 = DRAFTING_CYCLE.md.
+id-to-entry_id mapping: 201->193, 202->194, 203->195, 204->196, 205->197, 206->198 (contiguous, correct).
+
+ROW-2:
+No status moved — full distribution
+DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+SELECT status, COUNT(*) FROM lesson_proposals GROUP BY status ORDER BY COUNT(*) DESC;
+implemented|147
+superseded|28
+rejected|15
+reference|7
+proposed|6
+stale|3
+
+Byte-identical to Step 1 before-item (1).
+
+Single-statement set-identity check:
+SELECT (SELECT COUNT(*) FROM lesson_proposals WHERE status='proposed'), (SELECT COUNT(*) FROM lesson_proposals WHERE status='proposed' AND id BETWEEN 201 AND 206);
+6|6
+
+Both values are 6. The proposed set is exactly the six targets.
+
+ROW-3:
+Blast radius total — same-instant identity
+DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+SELECT (SELECT COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL), (SELECT COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL AND id NOT BETWEEN 201 AND 206);
+76|70
+
+Identity: 76 == 70 + 6. HOLDS.
+Rise over before-item (2): 76 - 70 = 6 (within bound of <= 6).
+
+ROW-4:
+Blast radius outside range
+DB: sqlite3 "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro"
+
+4(a) — count:
+SELECT COUNT(*) FROM lesson_proposals WHERE route IS NOT NULL AND id NOT BETWEEN 201 AND 206;
+70
+
+Equals before-item (4) = 70. UNCHANGED.
+
+4(b) — row image:
+SELECT id||':'||route FROM lesson_proposals WHERE route IS NOT NULL AND id NOT BETWEEN 201 AND 206 ORDER BY id;
+131:codify
+132:codify
+133:codify
+134:codify
+135:codify
+136:codify
+137:codify
+138:codify
+139:codify
+140:reference
+141:reference
+142:codify
+143:codify
+144:codify
+145:codify
+146:reference
+147:codify
+148:codify
+149:codify
+150:codify
+151:codify
+152:codify
+153:codify
+154:codify
+155:codify
+156:codify
+157:codify
+158:codify
+159:codify
+160:codify
+161:backlog
+162:codify
+163:codify
+164:reference
+165:codify
+166:codify
+167:codify
+168:codify
+169:backlog
+170:codify
+171:codify
+172:codify
+173:codify
+174:codify
+175:codify
+176:codify
+177:codify
+178:codify
+179:codify
+180:codify
+181:codify
+182:codify
+183:reference
+184:codify
+185:codify
+186:codify
+187:codify
+188:codify
+189:codify
+190:codify
+191:codify
+192:codify
+193:codify
+194:codify
+195:codify
+196:codify
+197:codify
+198:codify
+199:codify
+200:codify
+
+70 rows. Byte-identical to before-item (4b). UNCHANGED.
+
+ROW-5:
+Classification unchanged
+DB: sqlite3.connect("file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro", uri=True)
+
+get_unclassified_entries(conn) = []
+Unchanged from before-item (3) = [].
+Read-only handle used successfully (no fallback needed).
+
+ROW-7:
+Doctrine files unchanged
+
+git -C /Users/marklehn/Developer/GitHub status --porcelain -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md RULE_20_SELF_CHECK_BLOCK.md; echo "PORCELAIN-EXIT=$?"
+PORCELAIN-EXIT=0
+(empty output — no uncommitted changes)
+
+shasum -a 256:
+3951bcf8bc2d9e5f85cf39241ec215e1831cdf07f3cb258bb455b09fab0baaf0  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+0c53222fbacdc89cb44899d2df400093a41bed52bdab12d41879ea6fee383e04  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+
+Leading-16 comparison:
+DRAFTING_CYCLE.md:         3951bcf8bc2d9e5f == 3951bcf8bc2d9e5f MATCH
+PLANNER_TEMPLATE.md:       0c53222fbacdc89c == 0c53222fbacdc89c MATCH
+RULE_20_SELF_CHECK_BLOCK.md: 3accbce0c8d2b445 == 3accbce0c8d2b445 MATCH
+
+Root HEAD: d430234 (matches authoring value d430234).
