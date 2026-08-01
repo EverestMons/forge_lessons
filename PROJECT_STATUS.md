@@ -378,3 +378,6 @@ Gate 2 complete: ten proposals (191-200) codified across three doctrine files an
 
 ### Plan 288
 Cycle 2026-07-30 complete — the 6-entry session-13/14 batch (entries 193-198, proposals 201-206) ingested, classified (all governance_rule, targets split 3-3 across PLANNER_TEMPLATE.md and DRAFTING_CYCLE.md), and reported. Corpus integrity held: stale count unchanged at 3, entry 192 hash stable, no schema drift. The non-terminal baseline was confirmed empty at G1; this cycle's 6 proposals are the only non-terminal rows at close. Gate 1 route disposition pending for the 6.
+
+### Plan 289
+Gate 1 complete for the session-13/14 batch (entries 193-198, proposals 201-206): 6 codify / 0 backlog / 0 reference. All 6 remain `status='proposed'` and are Gate-2-bound.
