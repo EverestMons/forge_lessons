@@ -1,5 +1,8 @@
 # Agent Prompt Feedback
 
+**Agent:** QA (Step 3, Plan 291)
+**Plan:** 291 — Gate 2 Plan A: codify proposals 201–206
+
 **Agent:** DEV (Step 2, Plan 291)
 **Plan:** 291 — Gate 2 Plan A: codify proposals 201–206
 
