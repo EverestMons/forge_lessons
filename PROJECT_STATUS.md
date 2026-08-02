@@ -381,3 +381,6 @@ Cycle 2026-07-30 complete — the 6-entry session-13/14 batch (entries 193-198, 
 
 ### Plan 289
 Gate 1 complete for the session-13/14 batch (entries 193-198, proposals 201-206): 6 codify / 0 backlog / 0 reference. All 6 remain `status='proposed'` and are Gate-2-bound.
+
+### Plan 291
+Gate 2 complete — six proposals (201–206) codified across two doctrine files: `DRAFTING_CYCLE.md` v1.3, `PLANNER_TEMPLATE.md` v4.82. All six flipped to `implemented`. `proposed` = 0 WITHIN ids 201–206.
