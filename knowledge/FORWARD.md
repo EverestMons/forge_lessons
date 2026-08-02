@@ -21,3 +21,4 @@
 
 | # | Added | Item | Type | Plan-id link | Status |
 |---|---|---|---|---|---|
+| 1 | 2026-08-02 | gates.py:449 per-step span regex — the final step's span runs to end-of-file and absorbs the trailing Drafting Cycle block; recorded by Gate 2 plan 291, which codified proposal 206 into §3 but is governance-only and not chartered to edit the gate; §4's enforced behaviour is unchanged by that amendment. | deferred-work | — | open |
