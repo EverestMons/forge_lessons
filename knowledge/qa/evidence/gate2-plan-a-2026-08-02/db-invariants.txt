@@ -1,0 +1,47 @@
+=== DB Invariants Evidence (Plan 291 QA) ===
+
+--- 8. Per-id read-back ---
+201|implemented|codify|2026-08-02T18:17:33Z|ceo
+202|implemented|codify|2026-08-02T18:17:33Z|ceo
+203|implemented|codify|2026-08-02T18:17:33Z|ceo
+204|implemented|codify|2026-08-02T18:17:33Z|ceo
+205|implemented|codify|2026-08-02T18:17:33Z|ceo
+206|implemented|codify|2026-08-02T18:17:33Z|ceo
+
+--- 8. Timestamp FORMAT (GLOB) ---
+6
+(expected 6)
+
+--- 8. Hard assertion ---
+proposed in 201-206:
+0
+(expected 0)
+
+--- 8. Reconcile ---
+proposed outside 201-206:
+0
+(expected 0, was 0 at authoring)
+
+--- 8. changes() check ---
+Dev-log records SELECT changes() returned: 6 (catastrophic-signature check passed)
+Dev-log records exit code: 0
+
+--- 8b. A0 state ---
+Dev-log records: State (1) — FRESH RUN
+Evidence: both pre-edit pins matched, porcelain empty, no prior [291] commits, flip bit = 6
+Task F used git diff (uncommitted at that point) — consistent with state (1)
+
+--- 8b. Exactly one doc commit ---
+7b0427c [291] Step 2: codify proposals 201–206 into DRAFTING_CYCLE.md v1.3 and PLANNER_TEMPLATE.md v4.82
+(exactly one commit)
+
+--- 8c. Pre-flip gate ---
+Dev-log carries Task G1 six-condition checklist with evidence per condition (section (2) of dev-log)
+
+--- 10. Backup ---
+-rw-r--r--@ 1 marklehn  staff  937984 Aug  2 13:17 /Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-forge-pre-gate2-291-20260802T181720Z.db
+
+Read-back from backup:
+6
+(expected 6 — pre-flip snapshot)
+Dev-log states: newly taken (fresh run), evidence: find exit 0, empty output
