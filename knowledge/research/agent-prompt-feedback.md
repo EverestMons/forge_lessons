@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+The plan was clear and executable as written. The A00 single-match guard, A0-pre per-row checks, and the total_changes delta assertions all worked as documented. The C8 command discipline (`;` never `&&`) was followed throughout.
+
 None — plan instructions were clear and execution was unambiguous.
 
 None — plan instructions were clear and the execution sequence was unambiguous.
