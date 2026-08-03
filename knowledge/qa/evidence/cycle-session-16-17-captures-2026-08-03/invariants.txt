@@ -1,0 +1,190 @@
+=== Row 0: Deliverable verification ===
+
+Step 1 committed deposits:
+  knowledge/development/classifications-cycle-2026-08-03.md:
+    git log: 6943e77 [296] Step 1: ingest 16 entries + classify all 16 (session 16/17 batch)
+    ROW0-PORCELAIN-EXIT=0
+  knowledge/development/dev-log-cycle-step-1-2026-08-03.md:
+    git log: 6943e77 [296] Step 1: ingest 16 entries + classify all 16 (session 16/17 batch)
+    ROW0-PORCELAIN-EXIT=0
+
+Step 2 committed deposits:
+  reports/lessons-report-2026-08-03.md:
+    git log: 8f03ab8 [296] Step 2: deposit lessons report + dev log (16 proposals surfaced, 0 routes, 0 overlaps)
+    ROW0-PORCELAIN-EXIT=0
+  knowledge/development/dev-log-cycle-step-2-2026-08-03.md:
+    git log: 8f03ab8 [296] Step 2: deposit lessons report + dev log (16 proposals surfaced, 0 routes, 0 overlaps)
+    ROW0-PORCELAIN-EXIT=0
+
+Step 2 untracked cross-check (copy-aside):
+0
+COPYASIDE-GREP-EXIT=1
+(0 with exit 1 = expected normal-path result: no prior report existed)
+
+Step 1 untracked cross-check (backup):
+2
+BACKUP-GREP-EXIT=0
+
+=== Row 2: get_unclassified_entries ===
+Result: []
+Length: 0
+
+=== Row 3: Invariants on the 16 proposals ===
+
+Scoped count:
+SCOPED_COUNT=16
+
+Full proposal detail:
+proposal_id  entry_id  status    route  target_artifact              target_layer  category         confidence
+-----------  --------  --------  -----  ---------------------------  ------------  ---------------  ----------
+207          199       proposed         DRAFTING_CYCLE.md            governance    governance_rule  high      
+208          200       proposed         DRAFTING_CYCLE.md            governance    governance_rule  high      
+209          201       proposed         PLANNER_TEMPLATE.md          governance    governance_rule  high      
+210          202       proposed         DRAFTING_CYCLE.md            governance    governance_rule  high      
+211          203       proposed         RULE_20_SELF_CHECK_BLOCK.md  governance    governance_rule  high      
+212          204       proposed         DRAFTING_CYCLE.md            governance    governance_rule  high      
+213          205       proposed         DRAFTING_CYCLE.md            governance    governance_rule  high      
+214          206       proposed         DRAFTING_CYCLE.md            governance    governance_rule  high      
+215          207       proposed         DRAFTING_CYCLE.md            governance    governance_rule  high      
+216          208       proposed         DRAFTING_CYCLE.md            governance    governance_rule  high      
+217          209       proposed         DRAFTING_CYCLE.md            governance    governance_rule  high      
+218          210       proposed         PLANNER_TEMPLATE.md          governance    governance_rule  high      
+219          211       proposed         PLANNER_TEMPLATE.md          governance    governance_rule  high      
+220          212       proposed         PLANNER_TEMPLATE.md          governance    governance_rule  high      
+221          213       proposed         PLANNER_TEMPLATE.md          governance    governance_rule  high      
+222          214       proposed         PLANNER_TEMPLATE.md          governance    instrumentation  high      
+
+Dangling entry_id:
+DANGLING=0
+
+Foreign non-terminal proposals:
+FOREIGN=0
+
+Foreign entries beyond E0:
+FOREIGN_ENTRIES=0
+
+Disposition count:
+16
+DISPOSITION-COUNT-EXIT=0
+
+Tag counts:
+PLANNER_DISC_COUNT=5
+BELLOWS_INT_COUNT=7
+DRAFTING_CYCLE_COUNT=2
+VERIFICATION_COUNT=1
+PROCESS_DISC_COUNT=1
+
+Tag-category mapping:
+entry=199 tag=`planner-discipline` proposal=207 category=governance_rule status=proposed
+entry=200 tag=`planner-discipline` proposal=208 category=governance_rule status=proposed
+entry=201 tag=`bellows-integration` proposal=209 category=governance_rule status=proposed
+entry=202 tag=`planner-discipline` proposal=210 category=governance_rule status=proposed
+entry=203 tag=`bellows-integration` proposal=211 category=governance_rule status=proposed
+entry=204 tag=`bellows-integration` proposal=212 category=governance_rule status=proposed
+entry=205 tag=`planner-discipline` proposal=213 category=governance_rule status=proposed
+entry=206 tag=`planner-discipline` proposal=214 category=governance_rule status=proposed
+entry=207 tag=`bellows-integration` proposal=215 category=governance_rule status=proposed
+entry=208 tag=`drafting-cycle` proposal=216 category=governance_rule status=proposed
+entry=209 tag=`drafting-cycle` proposal=217 category=governance_rule status=proposed
+entry=210 tag=`verification` proposal=218 category=governance_rule status=proposed
+entry=211 tag=`bellows-integration` proposal=219 category=governance_rule status=proposed
+entry=212 tag=`bellows-integration` proposal=220 category=governance_rule status=proposed
+entry=213 tag=`bellows-integration` proposal=221 category=governance_rule status=proposed
+entry=214 tag=`process-discipline` proposal=222 category=instrumentation status=proposed
+
+=== Row 5: Report verification ===
+
+Total proposals line:
+**Total proposals:** 16
+TOTAL-GREP-EXIT=0
+
+Heading count:
+16
+HEADING-COUNT-EXIT=0
+
+Route lines:
+0
+ROUTE-GREP-EXIT=1
+
+Recently-implemented overlap:
+0
+OVERLAP-GREP-EXIT=1
+
+detect_recently_implemented_overlaps in src:
+0
+FUNC-GREP-EXIT=1
+
+=== Row 7: Doctrine files unchanged ===
+
+7a — Porcelain check:
+PORCELAIN-EXIT=0
+
+7b — Doctrine pin comparison:
+Live hashes:
+2d5cf9ab7c3a87ed825a1e1edcafea9a9b2598f30b29a7e48868558874a18ee0  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+e8289d50f28711fdbf7c5319d812c229d3e7d2e255fc77f7ce868c19c01b6783  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+
+Recorded pins (Receipt item 10):
+2d5cf9ab7c3a87ed825a1e1edcafea9a9b2598f30b29a7e48868558874a18ee0  DRAFTING_CYCLE.md
+e8289d50f28711fdbf7c5319d812c229d3e7d2e255fc77f7ce868c19c01b6783  PLANNER_TEMPLATE.md
+3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644  RULE_20_SELF_CHECK_BLOCK.md
+
+Pairwise verdicts:
+  DRAFTING_CYCLE.md: 2d5cf9ab == 2d5cf9ab MATCH
+  PLANNER_TEMPLATE.md: e8289d50 == e8289d50 MATCH
+  RULE_20_SELF_CHECK_BLOCK.md: 3accbce0 == 3accbce0 MATCH
+
+Commit log since authoring:
+LOG-EXIT=0
+(empty = no commits touching these files)
+
+=== Row 8: Post-cycle DB counts ===
+
+Owned delta:
+ENTRY_OWNED=16
+PROPOSAL_OWNED=16
+
+Totals:
+TOTAL_ENTRIES=214
+TOTAL_PROPOSALS=222
+(Expected: 198+16=214 entries, 206+16=222 proposals)
+
+Status distribution:
+  implemented: 153
+  proposed: 16
+  reference: 7
+  rejected: 15
+  stale: 3
+  superseded: 28
+
+Category distribution:
+  duplicate: 19
+  governance_rule: 177
+  instrumentation: 11
+  narrative: 5
+  structural: 10
+
+=== Row 9: Classification depth spot-check ===
+
+proposal=207 match_len=89 reasoning_len=496 ratio=0.1794 PASS
+proposal=208 match_len=133 reasoning_len=492 ratio=0.2703 PASS
+proposal=209 match_len=139 reasoning_len=502 ratio=0.2769 PASS
+proposal=210 match_len=215 reasoning_len=574 ratio=0.3746 PASS
+proposal=211 match_len=321 reasoning_len=499 ratio=0.6433 PASS
+proposal=212 match_len=133 reasoning_len=519 ratio=0.2563 PASS
+proposal=213 match_len=143 reasoning_len=515 ratio=0.2777 PASS
+proposal=214 match_len=191 reasoning_len=525 ratio=0.3638 PASS
+proposal=215 match_len=53 reasoning_len=507 ratio=0.1045 PASS
+proposal=216 match_len=210 reasoning_len=572 ratio=0.3671 PASS
+proposal=217 match_len=183 reasoning_len=670 ratio=0.2731 PASS
+proposal=218 match_len=134 reasoning_len=647 ratio=0.2071 PASS
+proposal=219 match_len=215 reasoning_len=500 ratio=0.4300 PASS
+proposal=220 match_len=183 reasoning_len=524 ratio=0.3492 PASS
+proposal=221 match_len=48 reasoning_len=539 ratio=0.0891 PASS
+proposal=222 match_len=138 reasoning_len=643 ratio=0.2146 PASS
+
+Calibration range from plan 288 batch: len 391-493, match 62-115, ratio 0.13-0.26
+This batch: len 492-670, match 48-321, ratio 0.09-0.64
+All 16 proposals pass both bounds (floor >= 40, ceiling < 0.80).
+No monotone decline observed in match lengths.

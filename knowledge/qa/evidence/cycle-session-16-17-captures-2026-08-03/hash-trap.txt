@@ -1,0 +1,43 @@
+=== Row 4: Hash-trap check ===
+
+Pre-cycle stale baseline (from Step 1 Receipt item 3): 3
+Stale proposal ids: (98, entry_id=93), (121, entry_id=116), (130, entry_id=123)
+
+STALE_NOW=3
+
+Entry-198 sentinel hash:
+ENTRY198_HASH=28e19e1b7dc460f37f49c4d35ec52150e96e01ee6cc718aa4f4a30e18d906fc7
+Expected: 28e19e1b7dc460f37f49c4d35ec52150e96e01ee6cc718aa4f4a30e18d906fc7
+
+Receipt first-dispatch ingest dict:
+  updated_count: 0
+  terminal_proposals_flagged: []
+
+=== Status distribution (before, from Receipt item 3) ===
+  implemented: 153
+  reference: 7
+  rejected: 15
+  stale: 3
+  superseded: 28
+  proposed: (absent)
+
+=== Status distribution (after, live) ===
+  implemented: 153
+  proposed: 16
+  reference: 7
+  rejected: 15
+  stale: 3
+  superseded: 28
+
+Delta analysis (this cycle's 16 subtracted):
+  implemented: 153 -> 153 (unchanged)
+  reference: 7 -> 7 (unchanged)
+  rejected: 15 -> 15 (unchanged)
+  stale: 3 -> 3 (unchanged)
+  superseded: 28 -> 28 (unchanged)
+  proposed: (absent) -> 16 (this cycle's 16 proposals)
+
+Terminal-off check:
+TERMINAL_OFF=0
+
+Proposals examined: 222
