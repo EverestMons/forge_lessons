@@ -384,3 +384,6 @@ Gate 1 complete for the session-13/14 batch (entries 193-198, proposals 201-206)
 
 ### Plan 291
 Gate 2 complete — six proposals (201–206) codified across two doctrine files: `DRAFTING_CYCLE.md` v1.3, `PLANNER_TEMPLATE.md` v4.82. All six flipped to `implemented`. `proposed` = 0 WITHIN ids 201–206.
+
+### Plan 296
+Cycle 2026-08-03 complete: the 16-entry session-16/17 batch (entries 199–214, proposals 207–222) ingested, classified, and reported. All 10 QA verification rows passed. Corpus integrity held — stale count unchanged (3), entry-198 hash stable, no schema drift, no doctrine changes, no foreign proposals. This cycle's sixteen proposals are the only non-terminal rows this plan owns at close. Gate 1 route disposition pending for the sixteen.
