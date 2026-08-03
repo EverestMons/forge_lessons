@@ -26,6 +26,17 @@ e8289d50f28711fdbf7c5319d812c229d3e7d2e255fc77f7ce868c19c01b6783  /Users/markleh
 3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
 ```
 
+#### Ingest dict (first dispatch)
+```
+ingested_count: 16
+updated_count: 0
+unchanged_count: 141
+duplicates_marked_count: 0
+needs_classification: [199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214]
+terminal_proposals_flagged: []
+cycle_timestamp: 2026-08-03T16:13:21.295544+00:00
+```
+
 #### Pre-cycle baseline
 Proposals by status: implemented=153, reference=7, rejected=15, stale=3, superseded=28
 Proposals by category: duplicate=19, governance_rule=162, instrumentation=10, narrative=5, structural=10
