@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+- The plan was clear and executable. All verification rows passed on the first measurement. Receipt item 0b correctly declared a fresh run (k=0), and all before-items were present, enabling normal adjudication on every row.
+
 The plan was clear and executable as written. The A00 single-match guard, A0-pre per-row checks, and the total_changes delta assertions all worked as documented. The C8 command discipline (`;` never `&&`) was followed throughout.
 
 None — plan instructions were clear and execution was unambiguous.
