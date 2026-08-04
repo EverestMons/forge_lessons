@@ -387,3 +387,6 @@ Gate 2 complete — six proposals (201–206) codified across two doctrine files
 
 ### Plan 296
 Cycle 2026-08-03 complete: the 16-entry session-16/17 batch (entries 199–214, proposals 207–222) ingested, classified, and reported. All 10 QA verification rows passed. Corpus integrity held — stale count unchanged (3), entry-198 hash stable, no schema drift, no doctrine changes, no foreign proposals. This cycle's sixteen proposals are the only non-terminal rows this plan owns at close. Gate 1 route disposition pending for the sixteen.
+
+### Plan 297
+- Gate 1 complete for entries 199-214 (proposals 207-222): 16 codify / 0 backlog / 0 reference. All sixteen remain status=proposed and are Gate-2-bound.
