@@ -1,0 +1,32 @@
+=== Row 23: Per-id readback 207-222 ===
+207|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+208|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+209|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+210|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+211|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+212|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+213|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+214|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+215|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+216|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+217|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+218|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+219|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+220|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+221|implemented|2026-08-04T03:56:19Z|ceo|governance_rule
+222|implemented|2026-08-04T03:56:19Z|ceo|instrumentation
+
+=== Row 23: Count matching all criteria ===
+16
+
+=== Row 24: Outside-range blast radius ===
+Backup path:
+/Users/marklehn/Developer/GitHub/lessons-forge/pre-298-20260803_225515.db
+Row image comparison (backup vs live):
+IDENTICAL — no foreign row changed
+
+=== Row 25: Category ===
+governance_rule count (expect 15):
+15
+Non-governance_rule:
+222|instrumentation
