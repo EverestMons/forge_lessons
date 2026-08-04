@@ -27,3 +27,5 @@
 | 4 | 2026-08-03 | - detect_duplicates returns [] on a failed reference read, so a read failure is indistinguishable from "no duplicates". | deferred-work | — | open |
 | 5 | 2026-08-03 | - run_full_lessons_cycle drops the staled-proposal count. | deferred-work | — | open |
 | 6 | 2026-08-03 | - Row 2 of this register is a parser artifact recording zero items and should be superseded. | deferred-work | — | open |
+| 7 | 2026-08-03 | - `PLANNER_TEMPLATE.md` Rule 55 — a recorded PID goes stale across a daemon restart, so `ps -p` on a stale record reports a live process as dead; the positive confirmation must resolve, and the record be re-established when it does not. Measured 2026-08-03: recorded pid 86216 dead, live daemon 96240. Those PIDs are a point-in-time observation and are evidence, not current state — any liveness check must be re-run now, never inherited from this line. | deferred-work | — | open |
+| 8 | 2026-08-03 | - `sanitize_items` retains a literal leading `- ` on appended rows, so rows after the first render inconsistently with row 1. | deferred-work | — | open |
