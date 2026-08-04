@@ -1,0 +1,26 @@
+DB: N/A (filesystem check)
+
+--- PORCELAIN ---
+Command: git -C /Users/marklehn/Developer/GitHub status --porcelain -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md RULE_20_SELF_CHECK_BLOCK.md
+Output: (empty)
+PORCELAIN-EXIT=0
+
+--- LIVE PINS (re-measured now) ---
+Command: shasum -a 256 /Users/marklehn/Developer/GitHub/{DRAFTING_CYCLE.md,PLANNER_TEMPLATE.md,RULE_20_SELF_CHECK_BLOCK.md}
+2d5cf9ab7c3a87ed825a1e1edcafea9a9b2598f30b29a7e48868558874a18ee0  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+e8289d50f28711fdbf7c5319d812c229d3e7d2e255fc77f7ce868c19c01b6783  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+SHA-EXIT=0
+Lines: 3
+
+--- RECEIPT ITEM 5 PINS ---
+2d5cf9ab7c3a87ed825a1e1edcafea9a9b2598f30b29a7e48868558874a18ee0  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+e8289d50f28711fdbf7c5319d812c229d3e7d2e255fc77f7ce868c19c01b6783  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+3accbce0c8d2b44586edc6c5f95582f775d0bce14276966b7ca90724e0ca5644  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+
+--- PAIRWISE COMPARISON (by 12-hex prefix) ---
+DRAFTING_CYCLE.md:    live=2d5cf9ab7c3a  receipt=2d5cf9ab7c3a  MATCH
+PLANNER_TEMPLATE.md:  live=e8289d50f287  receipt=e8289d50f287  MATCH
+RULE_20_SELF_CHECK_BLOCK.md: live=3accbce0c8d2  receipt=3accbce0c8d2  MATCH
+
+Verdict: all three doctrine files unchanged

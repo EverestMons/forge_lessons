@@ -1,0 +1,24 @@
+--- git log (src/) ---
+Command: git -C /Users/marklehn/Developer/GitHub/lessons-forge log -5 --format='%H %cI %s' -- src/
+1dc1c3c323c2020be8bc265a8339f84d0524b912 2026-07-16T09:52:03-05:00 revert(forge): retire plan-154 recently-implemented-overlap advisory [207]
+eb90935cff2d323f5814b33d8d18d15ea9bcac70 2026-07-16T08:29:24-05:00 fix: normalize hash input to prevent whitespace-only separator flips + guard terminal statuses [204]
+ad6b37c6097649a26b04df9096c5cf775c72583f 2026-07-09T12:22:59-05:00 feat(forge): surface recently-implemented-proposal overlaps in classifier review (advisory) [154]
+cf5d31bcc30d9850b23800fa9a03246e85b409e6 2026-07-07T11:57:54-05:00 feat: Add 'reference' terminal status to lesson_proposals CHECK constraint [135]
+643e9e7770cfb92de571c3a871d429218ef8b7ec 2026-07-06T19:42:57-05:00 feat(lessons-forge): route column on lesson_proposals — routing outcome capture [128]
+SRCLOG-EXIT=0
+
+Newest src/ commit: 2026-07-16T09:52:03-05:00
+
+--- Step 1 dev-log commit timestamp ---
+Command: git -C /Users/marklehn/Developer/GitHub/lessons-forge log -1 --format=%cI -- knowledge/development/gate-1-route-207-222-captures-2026-08-03.md
+2026-08-03T18:43:03-05:00
+DEVLOG-EXIT=0
+
+Verdict: newest src/ commit (2026-07-16) PREDATES Step 1 commit (2026-08-03)
+
+--- git status --porcelain (src/) ---
+Command: git -C /Users/marklehn/Developer/GitHub/lessons-forge status --porcelain -- src/
+Output: (empty)
+SRCPORC-EXIT=0
+
+Verdict: src/ untouched

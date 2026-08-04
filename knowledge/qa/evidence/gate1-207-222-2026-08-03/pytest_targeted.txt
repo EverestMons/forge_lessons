@@ -1,0 +1,6 @@
+Command: python3 -m pytest src/test_lessons_forge.py -q
+Working directory: /Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/297
+
+.......................................................                  [100%]
+55 passed in 0.13s
+PYTEST-EXIT=0

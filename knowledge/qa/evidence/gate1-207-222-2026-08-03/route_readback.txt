@@ -1,0 +1,19 @@
+DB: file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro
+Query: SELECT id, entry_id, status, route, category, confidence, target_layer, target_artifact, status_updated_by, status_updated_at FROM lesson_proposals WHERE id BETWEEN 207 AND 222 ORDER BY id;
+
+207|199|proposed|codify|governance_rule|high|governance|DRAFTING_CYCLE.md||
+208|200|proposed|codify|governance_rule|high|governance|DRAFTING_CYCLE.md||
+209|201|proposed|codify|governance_rule|high|governance|PLANNER_TEMPLATE.md||
+210|202|proposed|codify|governance_rule|high|governance|DRAFTING_CYCLE.md||
+211|203|proposed|codify|governance_rule|high|governance|RULE_20_SELF_CHECK_BLOCK.md||
+212|204|proposed|codify|governance_rule|high|governance|DRAFTING_CYCLE.md||
+213|205|proposed|codify|governance_rule|high|governance|DRAFTING_CYCLE.md||
+214|206|proposed|codify|governance_rule|high|governance|DRAFTING_CYCLE.md||
+215|207|proposed|codify|governance_rule|high|governance|DRAFTING_CYCLE.md||
+216|208|proposed|codify|governance_rule|high|governance|DRAFTING_CYCLE.md||
+217|209|proposed|codify|governance_rule|high|governance|DRAFTING_CYCLE.md||
+218|210|proposed|codify|governance_rule|high|governance|PLANNER_TEMPLATE.md||
+219|211|proposed|codify|governance_rule|high|governance|PLANNER_TEMPLATE.md||
+220|212|proposed|codify|governance_rule|high|governance|PLANNER_TEMPLATE.md||
+221|213|proposed|codify|governance_rule|high|governance|PLANNER_TEMPLATE.md||
+222|214|proposed|codify|instrumentation|high|governance|PLANNER_TEMPLATE.md||

@@ -1,0 +1,9 @@
+DB: file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro
+
+--- BEFORE (from Receipt item 3 / prewrite deposit) ---
+[]
+
+--- AFTER (live re-measurement via get_unclassified_entries) ---
+[]
+
+Verdict: unchanged

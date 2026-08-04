@@ -1,0 +1,14 @@
+FILE=/Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/297/knowledge/qa/gate1-207-222-qa-report-2026-08-03.md
+LU=True FW=True NONBLANK=4 BULLETS=4 DAEMON-ROWS=4
+WRAP-CHECK=PASS
+   ROW: - generate_lessons_report (src/lessons_forge.py:593) writes with no explicit encoding= — verified at authoring, the line is with open(output_path, "w") as f:.
+   ROW: - detect_duplicates returns [] on a failed reference read, so a read failure is indistinguishable from "no duplicates".
+   ROW: - run_full_lessons_cycle drops the staled-proposal count.
+   ROW: - Row 2 of this register is a parser artifact recording zero items and should be superseded.
+FILE=/Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/297/knowledge/qa/gate1-207-222-qa-report-2026-08-03.md
+LU=True FW=True NONBLANK=4 BULLETS=4 DAEMON-ROWS=4
+WRAP-CHECK=PASS
+   ROW: - generate_lessons_report (src/lessons_forge.py:593) writes with no explicit encoding= — verified at authoring, the line is with open(output_path, "w") as f:.
+   ROW: - detect_duplicates returns [] on a failed reference read, so a read failure is indistinguishable from "no duplicates".
+   ROW: - run_full_lessons_cycle drops the staled-proposal count.
+   ROW: - Row 2 of this register is a parser artifact recording zero items and should be superseded.
