@@ -23,3 +23,7 @@
 |---|---|---|---|---|---|
 | 1 | 2026-08-02 | gates.py:449 per-step span regex — the final step's span runs to end-of-file and absorbs the trailing Drafting Cycle block; recorded by Gate 2 plan 291, which codified proposal 206 into §3 but is governance-only and not chartered to edit the gate; §4's enforced behaviour is unchanged by that amendment. | deferred-work | — | open |
 | 2 | 2026-08-03 | (Three items listed above under Forward Register section.) | deferred-work | — | open |
+| 3 | 2026-08-03 | - generate_lessons_report (src/lessons_forge.py:593) writes with no explicit encoding= — verified at authoring, the line is with open(output_path, "w") as f:. | deferred-work | — | open |
+| 4 | 2026-08-03 | - detect_duplicates returns [] on a failed reference read, so a read failure is indistinguishable from "no duplicates". | deferred-work | — | open |
+| 5 | 2026-08-03 | - run_full_lessons_cycle drops the staled-proposal count. | deferred-work | — | open |
+| 6 | 2026-08-03 | - Row 2 of this register is a parser artifact recording zero items and should be superseded. | deferred-work | — | open |
