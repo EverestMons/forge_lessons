@@ -1,0 +1,289 @@
+=== ROW 0: Deliverable verification ===
+
+Step 1 committed deposits:
+  knowledge/development/dev-log-cycle-step-1-2026-08-07.md
+    git log: 3c9ae6a [311] cycle-run 2026-08-07 — Step 1 complete: 51 entries ingested (215–265), all gates PASS, no classification (shape b — Steps 2–4 own it)
+    porcelain: empty, ROW0-PORCELAIN-EXIT=0
+
+Step 2 committed deposits:
+  knowledge/development/dev-log-cycle-step-2-2026-08-07.md
+    git log: 716d348 [311] cycle-run 2026-08-07 — Step 2 complete: tranche A classified (17 entries 215–231 → proposals 223–239), all governance_rule, all gates PASS, reasoning depth 100–206 / 0.155–0.361
+    porcelain: empty, ROW0-PORCELAIN-EXIT=0
+  knowledge/development/classifications-cycle-2026-08-07-part1.md
+    git log: 716d348 [311] cycle-run 2026-08-07 — Step 2 complete
+    porcelain: empty, ROW0-PORCELAIN-EXIT=0
+
+Step 3 committed deposits:
+  knowledge/development/dev-log-cycle-step-3-2026-08-07.md
+    git log: 763125b [311] cycle-run 2026-08-07 — Step 3 complete: tranche B classified (17 entries 232–248 → proposals 240–256), all governance_rule, all gates PASS, reasoning depth 59–188 / 0.102–0.303
+    porcelain: empty, ROW0-PORCELAIN-EXIT=0
+  knowledge/development/classifications-cycle-2026-08-07-part2.md
+    git log: 763125b [311] cycle-run 2026-08-07 — Step 3 complete
+    porcelain: empty, ROW0-PORCELAIN-EXIT=0
+
+Step 4 committed deposits:
+  knowledge/development/dev-log-cycle-step-4-2026-08-07.md
+    git log: 1cb7713 [311] cycle-run 2026-08-07 — Step 4 complete: tranche C classified (17 entries 249–265 → proposals 257–273), all governance_rule, all gates PASS, reasoning depth 91–266 / 0.145–0.439
+    porcelain: empty, ROW0-PORCELAIN-EXIT=0
+  knowledge/development/classifications-cycle-2026-08-07-part3.md
+    git log: 1cb7713 [311] cycle-run 2026-08-07 — Step 4 complete
+    porcelain: empty, ROW0-PORCELAIN-EXIT=0
+
+Step 5 committed deposits:
+  reports/lessons-report-2026-08-07.md
+    git log: 37bdeb2 [311] cycle-run 2026-08-07 — Step 5 complete: report generated (51 proposals surfaced, 0 route lines, 0 overlap lines, 372 lines)
+    porcelain: empty, ROW0-PORCELAIN-EXIT=0
+  knowledge/development/dev-log-cycle-step-5-2026-08-07.md
+    git log: 37bdeb2 [311] cycle-run 2026-08-07 — Step 5 complete
+    porcelain: empty, ROW0-PORCELAIN-EXIT=0
+
+Untracked artifact cross-check:
+  Step 1 backup: /Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-forge-pre-cycle-311-20260808T015514Z.db — EXISTS (1003520 bytes)
+  Step 5 copy-aside: grep -Fc -- 'copy-aside (pre-regen):' step-5 dev log → 0, COPY-ASIDE-GREP-EXIT=1 (expected: normal path, no pre-existing report to copy aside)
+
+All committed deposits verified: committed and porcelain-clean.
+
+=== ROW 2: Unclassified entries ===
+
+get_unclassified_entries(conn) = []
+UNCLASSIFIED=0
+No deferred entries (no G6 candidate section in Step 1 Receipt).
+
+=== ROW 3: Invariants over 51 recorded proposal ids ===
+
+Proposal id list validated: 51 integer values (223-273), none blank/NULL.
+Entry id list validated: 51 integer values (215-265), none blank/NULL.
+
+Dangling entry_id: DANGLING=0
+
+Route check: all 51 proposals have route IS NULL — expected (all inserts left route NULL).
+FOREIGN=0 (no non-terminal proposals with entry_id <= 214)
+
+Status check: all 51 proposals status='proposed', 0 ambiguous, 0 stale (no terminal flips).
+
+Target layer: all 51 target_layer='governance'.
+
+Target artifact distribution:
+  DRAFTING_CYCLE.md: 30
+  PLANNER_TEMPLATE.md: 21
+  Both resolve: git cat-file -e HEAD:DRAFTING_CYCLE.md EXIT=0, git cat-file -e HEAD:PLANNER_TEMPLATE.md EXIT=0
+  All within membership bound {PLANNER_TEMPLATE.md, DRAFTING_CYCLE.md, RULE_20_SELF_CHECK_BLOCK.md}.
+  No diverged disposition lines recorded (all 51 'agreed').
+
+Category bound (by tag, backtick-exact equality):
+  Tag `planner-discipline`: 19 proposals, all governance_rule — IN ARM (arm: governance_rule). Matched: 19.
+  Tag `bellows-integration`: 4 proposals, all governance_rule — IN ARM (arm: {governance_rule, instrumentation}). Matched: 4.
+  Tag `verification`: 13 proposals, all governance_rule — IN ARM (arm: {governance_rule, instrumentation, structural, narrative}). Matched: 13.
+  Tag `drafting-cycle`: 4 proposals, all governance_rule — IN ARM (arm: {governance_rule, instrumentation, structural, narrative}). Matched: 4.
+  Tag `drafting`: 4 proposals, all governance_rule — IN ARM (arm: {governance_rule, instrumentation, structural, narrative}). Matched: 4.
+  Tag `instrumentation`: 3 proposals, all governance_rule — IN ARM (arm: {governance_rule, instrumentation, structural, narrative}). Matched: 3.
+  Tag `mechanics`: 2 proposals, all governance_rule — IN ARM (arm: {governance_rule, instrumentation, structural, narrative}). Matched: 2.
+  Tag `design`: 2 proposals, all governance_rule — IN ARM (arm: {governance_rule, instrumentation, structural, narrative}). Matched: 2.
+  Total by tag: 19+4+13+4+4+3+2+2 = 51. Scoped count = 51.
+  Tag counts vs expected: 19/13/4/4/4/3/2/2 — all match exactly.
+  No language or duplicate categories assigned.
+  No ambiguous proposals to exempt.
+
+Precedent-poor five (24 proposals: verification 13, drafting 4, instrumentation 3, mechanics 2, design 2):
+  All 24 carry 'reason:' text in their disposition lines quoting specific raw_content and justifying the governance_rule category (each describes why the fix is a documentary rule change, not a tooling change, procedural mechanism, or narrative observation).
+
+Disposition line counts (line-anchored: startswith '- proposal '):
+  Step 2 (tranche A): 17
+  Step 3 (tranche B): 17
+  Step 4 (tranche C): 17
+  TOTAL: 51 (matches created count of 51)
+
+Blind spot declared: this row enforces membership + recorded divergence; cannot detect in-set SWAPs. Gate 1's read.
+
+=== ROW 5: Report verification ===
+
+Report exists: reports/lessons-report-2026-08-07.md (372 lines)
+Total proposals line: **Total proposals:** 51
+
+HARD: all 51 recorded proposals surfaced (heading attribution via DB join, bound parameters):
+  SURFACED=51/51
+
+Heading-to-id mapping:
+  proposal=223 entry=215: 2026-08-03: The register append succeeded, recorded a pointer, and lost every item — a channel can f
+  proposal=224 entry=216: 2026-08-03: A ledger constraint that ENUMERATES decays as oscillation, not staleness [tag: drafting-
+  proposal=225 entry=217: 2026-08-03: A rule authored in the VERIFIER is a rule the producer never reads [tag: planner-discipl
+  proposal=226 entry=218: 2026-08-03: A plan's claim about what a gate enforces is a claim to verify, not to inherit [tag: bel
+  proposal=227 entry=219: 2026-08-03: "The newest same-class plan" is a measurement, not something you recall [tag: planner-di
+  proposal=228 entry=220: 2026-08-03: A self-check that reads the DEPOSIT cannot verify a channel that parses the TRANSCRIPT [
+  proposal=229 entry=221: 2026-08-03: items-in equals items-out, and the item still arrives truncated [tag: verification]
+  proposal=230 entry=222: 2026-08-03: Machinery added to close a durability gap clobbered the artifact it protected, on the ex
+  proposal=231 entry=223: 2026-08-03: Renaming an excuse launders it past the rule that already forbids it [tag: planner-disci
+  proposal=232 entry=224: 2026-08-03: Six adversarial passes found the content defects; the one-command conformance check woul
+  proposal=233 entry=225: 2026-08-03: A walk aimed at the last fold is not a walk — coverage is the convergence signal, not a 
+  proposal=234 entry=226: 2026-08-03: Delete the check, not its label — and verify by the check's absence [tag: planner-discip
+  proposal=235 entry=227: 2026-08-03: A structural cut is an edit, and it has its own defect class [tag: planner-discipline]
+  proposal=236 entry=228: 2026-08-03: In a block parsed subsection by subsection, the LAST subsection is the exposed one [tag:
+  proposal=237 entry=229: 2026-08-03: A pipe masks the exit code, and it caught four independent readers in one session [tag: 
+  proposal=238 entry=230: 2026-08-03: A repair can break what it repaired, at the same severity, in the same region [tag: plan
+  proposal=239 entry=231: 2026-08-03: Two gates over the same list pull in opposite directions — required versus tolerated [ta
+  proposal=240 entry=232: 2026-08-03: A pin whose extraction method is unstated is unreproducible, and it fails closed on the 
+  proposal=241 entry=233: 2026-08-03: The sweep fails at maximum context — the fix and the missed sibling get written in the s
+  proposal=242 entry=234: 2026-08-03: An independent referent sourced from the actor's own record is not independent [tag: ver
+  proposal=243 entry=235: 2026-08-03: A backup must sit adjacent to the write it inverts, or it is not an inverse [tag: planne
+  proposal=244 entry=236: 2026-08-03: A zero-difference result needs an inverse control before it means anything [tag: verific
+  proposal=245 entry=237: 2026-08-03: The conformance pass catches what adversarial review structurally cannot [tag: planner-d
+  proposal=246 entry=238: 2026-08-04: A falling finding-count measures where the reader was sent — proven by removing the aim 
+  proposal=247 entry=239: 2026-08-04: Ten consecutive ACID passes each found a defect created by the culmination immediately b
+  proposal=248 entry=240: 2026-08-04: A retraction that names its own scope can still be incomplete, and a consumer sweep that
+  proposal=249 entry=241: 2026-08-04: A guard can be safe by accident — executing the real check distinguishes design from luc
+  proposal=250 entry=242: 2026-08-04: A measurement must be taken by the method the plan mandates, or it is a prediction [tag:
+  proposal=251 entry=243: 2026-08-05: Naive probes degrade as an artifact accumulates its own retraction history [tag: verific
+  proposal=252 entry=244: 2026-08-05: A closing line written before the cycle's last phase is wrong by construction [tag: plan
+  proposal=253 entry=245: 2026-08-05: An overloaded token appears in prose far more often than in its real position — first-ma
+  proposal=254 entry=246: 2026-08-05: Copying a guard from a parent plan is not the same as copying its history [tag: planner-
+  proposal=255 entry=247: 2026-08-06: A success criterion must declare its polarity — and three individually-correct patches m
+  proposal=256 entry=248: 2026-08-06: The error that FLATTERS your own argument is the one no gate catches [tag: planner-disci
+  proposal=257 entry=249: 2026-08-06: A recorded lesson does not bind the author who recorded it — measured four times in one 
+  proposal=258 entry=250: 2026-08-06: The Cycle Log is the LEAST-examined region precisely because it is rewritten every phase
+  proposal=259 entry=251: 2026-08-06: The dry condition is unreachable by construction — four consecutive plans have closed wi
+  proposal=260 entry=252: 2026-08-06: An UN-walked plan lints CLEAN while a fully-walked one WARNs — measured on one artifact 
+  proposal=261 entry=253: 2026-08-06: The negative-result standard was adopted for agents that morning and never applied to my
+  proposal=262 entry=254: 2026-08-07: A conformance probe must match the REPRESENTATION, not the spec's prose [tag: verificati
+  proposal=263 entry=255: 2026-08-07: A fix can break its own DESCRIPTION — re-verify the describing sentence after the fold [
+  proposal=264 entry=256: 2026-08-07: A directional insert on a PREFIX anchor lands on the wrong side and passes the line-coun
+  proposal=265 entry=257: 2026-08-07: Commit scoping lives on the COMMIT, not the add [tag: mechanics]
+  proposal=266 entry=258: 2026-08-07: Line numbers cited inside shipped code are load-bearing couplings for every doc edit [ta
+  proposal=267 entry=259: 2026-08-07: A parent deposit can carry a DIRECTIVE to a future plan — sweep for them when authoring 
+  proposal=268 entry=260: 2026-08-07: A threshold clause written at a POLE silently drops the mid-band [tag: design]
+  proposal=269 entry=261: 2026-08-07: A recovery branch must produce everything the downstream consumers read [tag: design]
+  proposal=270 entry=262: 2026-08-07: `grep -c` counts LINES — an intra-line duplicate is invisible to it [tag: verification]
+  proposal=271 entry=263: 2026-08-07: The closing record is pass-unexamined BY CONSTRUCTION [tag: drafting]
+  proposal=272 entry=264: 2026-08-07: A foreign constraint id cited by bare number binds to the LOCAL ledger [tag: drafting]
+  proposal=273 entry=265: 2026-08-07: A true record invisible to the checker's grammar reads as false — write records in the c
+
+Pre-ingest NT_COUNT from Step 1 Receipt (NT label, not NT-now): NT_COUNT=0
+Derived expected: 0 + 51 = 51. Actual: 51. Match.
+
+Route lines: grep -Fc -- '- **Route:**' → 0, ROUTE-GREP-EXIT=1 (exit 1 = zero matches, expected)
+Overlap lines: grep -Fc -- 'Recently-implemented overlap:' → 0, OVERLAP-GREP-EXIT=1 (exit 1 = zero matches, expected)
+detect_recently_implemented_overlaps: grep -rF in src/ → exit 1 (still absent, expected)
+
+No foreign surfaced proposals (all 51 within our recorded ids).
+
+=== ROW 7: Doctrine unchanged ===
+
+7a (this-window guard):
+  git -C /Users/marklehn/Developer/GitHub status --porcelain -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md RULE_20_SELF_CHECK_BLOCK.md
+  Output: (empty)
+  PORCELAIN-EXIT=0
+  Both conditions met: empty output AND exit 0.
+
+7b (drift since authoring):
+  Live:
+    7cc27a3aac5b71393d09ab8d9690f27cf295dbadfb61912d1c3f9411c6aa42a3  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+    807f6cd91065c78bce5b422cbf4e2f9d026d7cbda144597d040c7ffb05bdd6d1  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+    d291b7b2cecf5e4e018a49674f383cb97c2d74d0d8659d134e44e3c70ae133a0  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+  Recorded (Step 1 Receipt item 10):
+    7cc27a3aac5b71393d09ab8d9690f27cf295dbadfb61912d1c3f9411c6aa42a3  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+    807f6cd91065c78bce5b422cbf4e2f9d026d7cbda144597d040c7ffb05bdd6d1  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+    d291b7b2cecf5e4e018a49674f383cb97c2d74d0d8659d134e44e3c70ae133a0  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
+  Pairwise verdicts:
+    DRAFTING_CYCLE.md: MATCH
+    PLANNER_TEMPLATE.md: MATCH
+    RULE_20_SELF_CHECK_BLOCK.md: MATCH
+  All three unchanged.
+
+=== ROW 8: Post-cycle DB counts ===
+
+HARD (by recorded id lists):
+  Entries IN our 51 entry ids (215-265): 51
+  Proposals IN our 51 proposal ids (223-273): 51
+
+RECONCILE totals:
+  Total entries: 265 (derivation: 214 + 51 = 265 — matches)
+  Total proposals: 273 (derivation: 222 + 51 = 273 — matches)
+
+Status distribution (post-cycle):
+  accepted|0
+  ambiguous|0
+  duplicate|0
+  implemented|169
+  proposed|51
+  reference|7
+  rejected|15
+  stale|3
+  superseded|28
+
+Category distribution (post-cycle):
+  governance_rule|228 (177 pre-existing + 51 this cycle)
+  duplicate|19
+  instrumentation|11
+  structural|10
+  narrative|5
+
+No foreign in-window entries or proposals detected.
+
+=== ROW 9: Classification depth ===
+
+Algorithm: canon() (curly to straight, strip *_ and backticks, collapse whitespace, lowercase) + SequenceMatcher(None, a, b, autojunk=False) longest match.
+PASS per proposal iff match >= 40 chars AND match < 80% of canon(reasoning) length.
+
+Proposal | Entry | Match | Ratio
+---------|-------|-------|------
+223      | 215   | 103   | 0.174
+224      | 216   | 138   | 0.240
+225      | 217   | 169   | 0.307
+226      | 218   | 206   | 0.358
+227      | 219   | 153   | 0.285
+228      | 220   | 155   | 0.281
+229      | 221   | 112   | 0.155
+230      | 222   | 182   | 0.318
+231      | 223   | 171   | 0.337
+232      | 224   | 154   | 0.262
+233      | 225   | 179   | 0.361
+234      | 226   | 100   | 0.183
+235      | 227   | 161   | 0.282
+236      | 228   | 156   | 0.277
+237      | 229   | 143   | 0.230
+238      | 230   | 180   | 0.323
+239      | 231   | 153   | 0.221
+240      | 232   | 118   | 0.184
+241      | 233   | 147   | 0.215
+242      | 234   | 188   | 0.277
+243      | 235   | 143   | 0.259
+244      | 236   | 59    | 0.102
+245      | 237   | 99    | 0.161
+246      | 238   | 87    | 0.151
+247      | 239   | 60    | 0.102
+248      | 240   | 127   | 0.224
+249      | 241   | 169   | 0.288
+250      | 242   | 64    | 0.120
+251      | 243   | 70    | 0.118
+252      | 244   | 132   | 0.196
+253      | 245   | 81    | 0.135
+254      | 246   | 119   | 0.206
+255      | 247   | 81    | 0.153
+256      | 248   | 155   | 0.303
+257      | 249   | 91    | 0.145
+258      | 250   | 188   | 0.309
+259      | 251   | 227   | 0.358
+260      | 252   | 120   | 0.193
+261      | 253   | 126   | 0.198
+262      | 254   | 175   | 0.306
+263      | 255   | 152   | 0.234
+264      | 256   | 166   | 0.303
+265      | 257   | 266   | 0.439
+266      | 258   | 177   | 0.301
+267      | 259   | 141   | 0.211
+268      | 260   | 116   | 0.184
+269      | 261   | 194   | 0.320
+270      | 262   | 203   | 0.323
+271      | 263   | 208   | 0.364
+272      | 264   | 226   | 0.411
+273      | 265   | 223   | 0.377
+
+All 51 PASS (floor >= 40, ceiling < 0.80).
+
+Per-tranche distributions:
+  Tranche A (223-239): match 100-206, ratio 0.155-0.361
+  Tranche B (240-256): match 59-188, ratio 0.102-0.303
+  Tranche C (257-273): match 91-266, ratio 0.145-0.439
+
+Inter-tranche comparison: no cliff. Tranche B's floor (59) is the batch minimum; tranche C's ceiling (266/0.439) is the batch maximum. The distributions overlap substantially. No monotone decline across tranches — tranche C's match range exceeds both A and B at the top, and its floor exceeds B's. The shape-(b) split did not produce a tail-decay pattern.
+
+Calibration: 296's sixteen (proposals 207-222) measured 48-321 / 0.089-0.643. This batch's 51: 59-266 / 0.102-0.439. Floor margin: the observed minimum match is 59 against the 40-char floor (narrower than 296's 48, but still clearing).

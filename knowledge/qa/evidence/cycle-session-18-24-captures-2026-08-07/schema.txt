@@ -1,0 +1,41 @@
+=== ROW 6: Schema comparison ===
+
+lesson_entries schema (live DB .schema):
+
+CREATE TABLE lesson_entries (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            source_file     TEXT    NOT NULL,
+            source_heading  TEXT    NOT NULL,
+            entry_date      TEXT,
+            raw_content     TEXT    NOT NULL,
+            content_hash    TEXT    NOT NULL,
+            tags            TEXT,
+            ingested_at     TEXT    NOT NULL,
+            UNIQUE(source_file, source_heading)
+        );
+
+lesson_proposals schema (live DB .schema):
+
+CREATE TABLE IF NOT EXISTS "lesson_proposals" (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+                category            TEXT    NOT NULL CHECK(category IN ('structural', 'instrumentation', 'governance_rule', 'language', 'narrative', 'duplicate')),
+                subcategory         TEXT,
+                suggested_action    TEXT    NOT NULL,
+                reasoning           TEXT    NOT NULL,
+                confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
+                status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented', 'reference')),
+                target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
+                target_artifact     TEXT,
+                duplicate_of        INTEGER,
+                route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
+                proposed_at         TEXT    NOT NULL,
+                status_updated_at   TEXT,
+                status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
+            );
+
+DDL comparison (src/db.py):
+  lesson_entries: columns match (id, source_file, source_heading, entry_date, raw_content, content_hash, tags, ingested_at), UNIQUE constraint present, all CHECK constraints match.
+  lesson_proposals: columns match (id, entry_id, category, subcategory, suggested_action, reasoning, confidence, status, target_layer, target_artifact, duplicate_of, route, proposed_at, status_updated_at, status_updated_by), all CHECK constraints match, FK present, DEFAULT 'proposed' present.
+  Cosmetic difference: live schema uses IF NOT EXISTS and quoted table name "lesson_proposals" (artifact of RENAME migration in db.py). This is NOT semantic drift.
+  No schema drift detected.

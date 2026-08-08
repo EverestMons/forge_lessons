@@ -1,0 +1,52 @@
+=== ROW 4: Plan-204 fix (hash-trap sentinel) ===
+
+Baseline from Step 1 Receipt:
+  ingested_count: 51
+  updated_count: 0
+  unchanged_count: 157
+  duplicates_marked_count: 0
+  terminal_proposals_flagged: []
+
+Entry 214 sentinel hash:
+  Recorded: 0017ec873912a6c75e3fb61f50b02813a3216c2c26356a02bcdf77d278987ae2
+  Live:     0017ec873912a6c75e3fb61f50b02813a3216c2c26356a02bcdf77d278987ae2
+  Match: YES
+
+Status distribution BEFORE (from Step 1 Receipt baseline, zero-emitting):
+  accepted|0
+  ambiguous|0
+  duplicate|0
+  implemented|169
+  proposed|0
+  reference|7
+  rejected|15
+  stale|3
+  superseded|28
+
+Status distribution AFTER (live, zero-emitting):
+  accepted|0
+  ambiguous|0
+  duplicate|0
+  implemented|169
+  proposed|51
+  reference|7
+  rejected|15
+  stale|3
+  superseded|28
+
+Delta analysis:
+  implemented: 169 -> 169 (unchanged)
+  superseded: 28 -> 28 (unchanged)
+  rejected: 15 -> 15 (unchanged)
+  reference: 7 -> 7 (unchanged)
+  stale: 3 -> 3 (unchanged)
+  proposed: 0 -> 51 (this cycle's 51 classified proposals)
+  ambiguous: 0 -> 0 (no ambiguous proposals)
+  proposed + ambiguous = 51 (matches classified count)
+  No ambiguous ids to name.
+
+Stale count: before=3, after=3 (unchanged)
+updated_count=0 (from ingest dict)
+terminal_proposals_flagged=[] (from ingest dict)
+
+Proposals examined: 273 total (222 pre-existing + 51 this cycle)
