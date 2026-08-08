@@ -393,3 +393,6 @@ Cycle 2026-08-03 complete: the 16-entry session-16/17 batch (entries 199–214, 
 
 ### Plan 311
 Cycle 2026-08-07 Step 5 complete — the whole-corpus lessons report deposited (`reports/lessons-report-2026-08-07.md`, 372 lines, 51 proposals surfaced). All 51 of this cycle's proposals (223–273) verified surfaced, zero stale, zero foreign, zero route lines, zero overlap lines. Corpus integrity held through the report generation window.
+
+### Plan 311
+Cycle 2026-08-07 complete — the 51-entry session-18-24 batch ingested (Step 1) + classified across three tranches (Steps 2-4), report deposited (Step 5), QA passed 10/10 (Step 6). All 51 proposals are governance_rule with targets resolving to DRAFTING_CYCLE.md (30) and PLANNER_TEMPLATE.md (21). Corpus integrity held: sentinel hash unchanged, stale count stable at 3, no terminal status departures, no schema drift, no doctrine changes. Row 9 per-tranche depth distributions (A: 100-206/0.155-0.361, B: 59-188/0.102-0.303, C: 91-266/0.145-0.439) show no inter-tranche cliff — shape-(b) calibration data. Non-terminal baseline confirmed empty at G1; this cycle's 51 the only non-terminal rows this plan owns at close. Gate 1 pending for the 51.
