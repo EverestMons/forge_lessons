@@ -390,3 +390,6 @@ Cycle 2026-08-03 complete: the 16-entry session-16/17 batch (entries 199–214, 
 
 ### Plan 297
 - Gate 1 complete for entries 199-214 (proposals 207-222): 16 codify / 0 backlog / 0 reference. All sixteen remain status=proposed and are Gate-2-bound.
+
+### Plan 311
+Cycle 2026-08-07 Step 5 complete — the whole-corpus lessons report deposited (`reports/lessons-report-2026-08-07.md`, 372 lines, 51 proposals surfaced). All 51 of this cycle's proposals (223–273) verified surfaced, zero stale, zero foreign, zero route lines, zero overlap lines. Corpus integrity held through the report generation window.
