@@ -2,6 +2,8 @@
 
 None.
 
+None.
+
 No prompt feedback for this step.
 
 - The plan was clear and executable. All verification rows passed on the first measurement. Receipt item 0b correctly declared a fresh run (k=0), and all before-items were present, enabling normal adjudication on every row.
