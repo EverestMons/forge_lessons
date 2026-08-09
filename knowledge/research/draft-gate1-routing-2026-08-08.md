@@ -149,4 +149,4 @@ Close with `### Status` (**Complete**), `### Deposits`, `### Ledger Updates` wit
 
 **Conflicts:** none yet. Constraints append at the END as earned, never inserted above an existing entry.
 
-**Closing:** NOT REACHED — walk 1 four-lens portion complete and folded (13 folds + 1 verified-clean); ACID owed apart. Not dry, not claimed dry. (The prior form of this line — "no lens has read" — survived three lens passes and was caught by the SHIPPED (h) check during a lens-4 lint probe: the mechanization catching its author, again.)
+**Closing:** NOT REACHED — walk 1 four-lens portion complete and folded (13 folds + 1 verified-clean); ACID owed apart. Not dry, not claimed dry. (The prior form of this line still asserted zero lens coverage after three passes and was caught by the SHIPPED (h) check during a lens-4 lint probe; the first retraction wording here then re-tripped (h) by QUOTING the caught phrase — the 305-measured retraction-text class, resolved by describing it instead. Two shipped-check catches on one line.)
