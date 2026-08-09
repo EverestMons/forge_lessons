@@ -49,7 +49,7 @@ Read the plan at knowledge/decisions/in-progress-executable-<id>.md (the daemon 
 >
 > **Task A0 — PIN THE PRE-STATE; the write is licensed by it and ONLY it.**
 > 1. `sqlite3 lessons-forge.db "SELECT COUNT(*) FROM lesson_proposals WHERE status='proposed';"` — **must print exactly 51. Any other number → HALT** (a concurrent cycle or session touched the batch; do not improvise a reconciliation).
-> 2. `sqlite3 lessons-forge.db "SELECT GROUP_CONCAT(id) FROM (SELECT id FROM lesson_proposals WHERE status='proposed' ORDER BY id);"` — **must equal the contiguous 223..273. Any gap or stranger → HALT.**
+> 2. `sqlite3 lessons-forge.db "SELECT COUNT(*), MIN(id), MAX(id) FROM lesson_proposals WHERE status='proposed';"` — **must print exactly `51|223|273`: with ids unique (PK), 51 rows spanning 223–273 inclusive IS the contiguity proof, order-independent (lens 1: GROUP_CONCAT ordering is idiom, not spec).** Any other triple → **HALT.** Print the GROUP_CONCAT id list too, as display for the dev log, never as the gate.
 > 3. **Dump the FULL disposition table to the pre-image:** `sqlite3 lessons-forge.db "SELECT id, status, COALESCE(route,'-'), COALESCE(status_updated_by,'-') FROM lesson_proposals ORDER BY id;" > knowledge/development/gate1-pre-dump-2026-08-08.txt` — **this file is the untouched-population proof's left side; deposit it.**
 >
 > **Task B — ONE transaction, two UPDATEs, in-transaction verification before COMMIT.** Canonical Python (`sqlite3` module, `BEGIN IMMEDIATE`), NO heredoc:
@@ -60,22 +60,22 @@ Read the plan at knowledge/decisions/in-progress-executable-<id>.md (the daemon 
 >
 > **Task C — post-image + the untouched-population proof (a count is not a value guard):**
 > 1. Dump the same full table to `knowledge/development/gate1-post-dump-2026-08-08.txt` (same SELECT, same ORDER BY).
-> 2. `diff` pre vs post: **the diff must show EXACTLY the 51 rows for ids 223–273 changing as specified and ZERO lines for any other id.** Paste the RAW diff (it is ~51 lines) in the dev log. **A single foreign line → this is the wrong-write proof → HALT and report; do NOT attempt a compensating write.**
+> 2. `diff` pre vs post: **the diff must show EXACTLY the 51 rows for ids 223–273 changing as specified — as PAIRED old/new lines (~102 changed lines plus markers, unified form) — and ZERO lines for any other id (lens 1: "51 lines" would misread the paired form as a failure).** Paste the RAW diff in the dev log. **A single foreign line → the wrong-write proof → HALT and report; do NOT attempt a compensating write.**
 >
-> **Run the targeted tests only** (any test module matching the proposals/DB layer): `python3 -m pytest tests/ -k "proposal or forge or db" --tb=short -q 2>&1 | cat` — paste RAW tail. Full suite is Step 2's.
+> **No test run in this step — deliberate, stated (lens 1, from 311's measured precedent):** this plan changes NO code; its writes are DB rows and markdown. The repo's suite is the single module `src/test_lessons_forge.py`, and Step 2 runs it whole. A DEV test run here would measure nothing this step touched.
 >
 > **Scope:**
-> - `lessons-forge.db`
 > - `knowledge/development/gate1-routing-dev-log-2026-08-08.md`
 > - `knowledge/development/gate1-pre-dump-2026-08-08.txt`
 > - `knowledge/development/gate1-post-dump-2026-08-08.txt`
 >
-> **Deposit the dev log** with: both dumps' paths + line counts, the transaction script text, both rowcounts, the in-transaction post numbers, the RAW pre/post diff, the RAW targeted-test tail. **Commit with the pathspec on the COMMIT naming exactly the four Scope files; post-commit assertion `git show --name-only --format= HEAD` printing exactly those four.** `#### Prompt Feedback` in `### Ledger Updates`.
+> ⚠️ **`lessons-forge.db` is deliberately ABSENT from Scope and from the commit: the DB is UNTRACKED by shop policy (plan 30, commit `dabb301` un-tracked it) — `git add`ing it would re-track it AGAINST that policy (lens 1, probe-confirmed). The DB mutation's evidence IS the dump pair; the dumps commit, the DB never does.**
+>
+> **Deposit the dev log** with: both dumps' paths + line counts, the transaction script text, both rowcounts, the in-transaction post numbers, the RAW pre/post diff. **Commit with the pathspec on the COMMIT naming exactly the three Scope files; post-commit assertion `git show --name-only --format= HEAD` printing exactly those three.** `#### Prompt Feedback` in `### Ledger Updates`.
 >
 > **STOP. Do NOT proceed to Step 2. Wait for CEO verdict.**
 
 **Deposits:**
-- `lessons-forge/lessons-forge.db`
 - `lessons-forge/knowledge/development/gate1-routing-dev-log-2026-08-08.md`
 - `lessons-forge/knowledge/development/gate1-pre-dump-2026-08-08.txt`
 - `lessons-forge/knowledge/development/gate1-post-dump-2026-08-08.txt`
@@ -85,11 +85,11 @@ Read the plan at knowledge/decisions/in-progress-executable-<id>.md (the daemon 
 
 ## STEP 2 — QA
 
-> **Task Q0 — RE-PIN:** `git -C /Users/marklehn/Developer/GitHub/lessons-forge log -1 --oneline -- lessons-forge.db` — the newest commit touching the DB must be Step 1's; a foreign commit → **HALT.**
+> **Task Q0 — RE-PIN (the DB is untracked, so the pin is CONTENT, not git — lens 1):** (1) `git -C /Users/marklehn/Developer/GitHub/lessons-forge log -1 --oneline -- knowledge/development/gate1-routing-dev-log-2026-08-08.md knowledge/development/gate1-pre-dump-2026-08-08.txt knowledge/development/gate1-post-dump-2026-08-08.txt` — the newest commit touching any evidence file must be Step 1's; foreign → **HALT.** (2) `sqlite3 -readonly lessons-forge.db "SELECT COUNT(*) FROM lesson_proposals WHERE status='proposed';"` — **must print 0** (the post-state; a nonzero here means a verdict-window write re-opened the batch → HALT).
 
 1. **Read-only re-verification, from the DB not the dev log** (`sqlite3 -readonly`): (a) `proposed` = 0; (b) the accepted/codify id list in 223–273, `GROUP_CONCAT`, equals the CODIFY-44 list **byte-for-byte**; (c) the reference/backlog id list equals 233,238,246,247,258,259,271 **byte-for-byte**; (d) every one of the 51 rows carries `status_updated_by='ceo'` and a same-day `status_updated_at`. **Paste each query WITH its raw output.**
 2. **Untouched-population proof, independently re-derived:** re-dump the full table (same SELECT/ORDER BY) → `knowledge/qa/gate1-qa-dump-2026-08-08.txt`; `diff` against the Step-1 PRE-dump: the only differing lines are the 51. **This re-derives Task C from the QA side — do not reuse Step 1's diff.**
-3. **Full lessons-forge suite** → `knowledge/qa/full-suite.txt` (RAW, ≥ last 200 lines incl. the summary line — never a summary).
+3. **The suite:** `python3 -m pytest src/ --tb=short -q 2>&1 | cat` → `knowledge/qa/full-suite.txt` (RAW, whole output incl. the summary line — never a summary). **Rule 21 justification, re-verified not inherited (311's form): the repo's suite is the single module `src/test_lessons_forge.py`, so this run is simultaneously targeted and full — the sixth data point of the CEO-tracked single-module precedent; report the collected count against 311's measured 55, actual over expected.**
 4. **QA Receipt with the canonical Rule 20 self-check block**, one verification row per item above.
    - `required_evidence_files`: `[gate1-qa-dump-2026-08-08.txt, full-suite.txt]`
    - ⚠️ Deposit both BEFORE running the block — it `sys.exit(1)`s if any is missing or empty.
@@ -115,7 +115,7 @@ Close with `### Status` (**Complete**), `### Deposits`, `### Ledger Updates` wit
 
 ## Method + boundaries
 
-- **The DB is the CANONICAL corpus store (T-2).** The write surface is exactly two UPDATE statements over 51 pinned rows; **no INSERT, no DELETE, no schema touch, no `lesson_entries` touch.** If anything beyond the two lists needs writing, HALT — the routing decisions are the CEO's and this plan carries all of them.
+- **The DB is the CANONICAL corpus store (T-2) and it is UNTRACKED by shop policy (plan 30, `dabb301`)** — no step stages or commits it; its mutation is evidenced by the committed dump pair and re-derived at QA. The write surface is exactly two UPDATE statements over 51 pinned rows; **no INSERT, no DELETE, no schema touch, no `lesson_entries` touch.** If anything beyond the two lists needs writing, HALT — the routing decisions are the CEO's and this plan carries all of them.
 - **No re-dating: deposit basenames embed 2026-08-08; a later run keeps the authored date** (the resume-glob UTC lesson; the deposit gate matches basenames).
 - **Lint the FINAL text before the cp to `knowledge/decisions/`** — the daemon claims within seconds.
 - **HALT ROUTING — inputs each step reads; missing/unreadable → HALT:** Step 1: `lessons-forge.db`, the specialist file. Step 2: `lessons-forge.db`, the Step-1 dev log + PRE-dump (the diff's left side), `/Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md`.
@@ -136,7 +136,7 @@ Close with `### Status` (**Complete**), `### Deposits`, `### Ledger Updates` wit
 
 **Walks:** none yet — v0 draft; no lens has run. Phases one per turn under CEO direction; ACID apart.
 
-- Weak spots:          not run.
+- Weak spots:          w1 4 folded, all probe-confirmed (1.2 the DB is UNTRACKED by plan-30 policy — removed from Scope/Deposits/commit, Q0 re-based to content pins + evidence-file git pin, the git-log-on-DB check would have FALSE-HALTED every run and the commit would have RE-TRACKED against policy; 1.1 the targeted `-k` collected ZERO tests — DEV test run dropped with stated reason, QA runs `pytest src/` with 311's measured single-module Rule-21 justification, sixth data point; 1.1 contiguity proof re-based to COUNT/MIN/MAX arithmetic, order-independent; 1.1 diff expectation stated as paired lines ~102).
 - Destruction:         not run.
 - Vulnerabilities:     not run.
 - Integration-record:  not run.
