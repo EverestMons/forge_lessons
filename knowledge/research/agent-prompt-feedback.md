@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+- The `-readonly` flag on `sqlite3` fails with SQLITE_CANTOPEN (error 14) when opening a `.backup`-produced copy of a WAL-mode database, because `-readonly` cannot create the required shared-memory file. The backup restorability assert succeeded using a read-only SELECT without the flag. Future plans that assert against WAL-mode backup copies should note this mechanism limit.
+
 No prompt feedback.
 
 No prompt feedback.
