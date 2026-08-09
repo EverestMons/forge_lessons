@@ -76,7 +76,7 @@ Read the plan at knowledge/decisions/in-progress-executable-<id>.md (the daemon 
 >
 > ⚠️ **`lessons-forge.db` is deliberately ABSENT from Scope and from the commit: the DB is UNTRACKED by shop policy (plan 30, commit `dabb301` un-tracked it) — `git add`ing it would re-track it AGAINST that policy (lens 1, probe-confirmed). The DB mutation's evidence IS the dump pair; the dumps commit, the DB never does.**
 >
-> **Deposit the dev log** with: both dumps' paths + line counts, the transaction script text, both rowcounts, the in-transaction post numbers, the RAW pre/post diff. **Commit with the pathspec on the COMMIT naming exactly the three Scope files; post-commit assertion `git show --name-only --format= HEAD` printing exactly those three.** `#### Prompt Feedback` in `### Ledger Updates`.
+> **Deposit the dev log** with: both dumps' paths + line counts, the transaction script text, both rowcounts, the in-transaction post numbers, **the transaction timestamp value verbatim (QA 1(d)'s comparator — c1: it was mandated above but missing from this content list, the producing-step handshake class of proposal 225, sitting in the very batch this plan routes)**, the RAW pre/post diff. **Commit with the pathspec on the COMMIT naming exactly the three Scope files; post-commit assertion `git show --name-only --format= HEAD` printing exactly those three.** `#### Prompt Feedback` in `### Ledger Updates`.
 >
 > **STOP. Do NOT proceed to Step 2. Wait for CEO verdict.**
 
@@ -150,4 +150,6 @@ Close with `### Status` (**Complete**), `### Deposits`, `### Ledger Updates` wit
 
 **Conflicts:** none yet. Constraints append at the END as earned, never inserted above an existing entry.
 
-**Closing:** NOT REACHED — walk 1 four-lens portion complete and folded (13 folds + 1 verified-clean); ACID owed apart. Not dry, not claimed dry. (The prior form of this line still asserted zero lens coverage after three passes and was caught by the SHIPPED (h) check during a lens-4 lint probe; the first retraction wording here then re-tripped (h) by QUOTING the caught phrase — the 305-measured retraction-text class, resolved by describing it instead. Two shipped-check catches on one line.)
+**Confirming:** c1 (four lenses, from the bytes, rotated to payload lists / Receipt / header / Method) — 1 folded (the dev-log content list omitted the transaction timestamp its own mandate created two bullets above — proposal 225's producing-step handshake class, live in the plan routing that proposal; all other regions dry, incl. both retraction-wording sites and the tier line's parseability).
+
+**Closing:** NOT REACHED — walk 1 (18 folds + 1 verified-clean) then c1 folded 1, so the cycle is not dry and is NOT CLAIMED dry. Owed: the ACID confirming read apart (aC), then a further confirming pass with the §5 conformance run before the close. (The prior form of this line still asserted zero lens coverage after three passes and was caught by the SHIPPED (h) check during a lens-4 lint probe; the first retraction wording here then re-tripped (h) by QUOTING the caught phrase — the 305-measured retraction-text class, resolved by describing it instead. Two shipped-check catches on one line.)
