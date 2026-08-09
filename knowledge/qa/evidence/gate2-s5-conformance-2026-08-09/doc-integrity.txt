@@ -1,0 +1,66 @@
+== Row 1: DOC INTEGRITY ==
+
+Doctrine commit discovered independently:
+$ git -C /Users/marklehn/Developer/GitHub log --format='%H %s' -20 -- DRAFTING_CYCLE.md
+0fb567ac57d7eee29a7bcc65b6e47a7f8649470d [330] gate2(gate2-s5-conformance-2026-08-09): §5 conformance scheduling (232+245) — doctrine 1.7 -> 1.8
+
+Commit SHA (from committed content):
+$ git -C /Users/marklehn/Developer/GitHub show 0fb567ac57d7eee29a7bcc65b6e47a7f8649470d:DRAFTING_CYCLE.md | shasum -a 256
+d901ab8532430c745531f7d3d55d411b5051951b3f85610f1da7718cace19685  -
+
+Live file SHA:
+$ shasum -a 256 /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+d901ab8532430c745531f7d3d55d411b5051951b3f85610f1da7718cace19685  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+
+Dev-log DOC_SHA: d901ab8532430c745531f7d3d55d411b5051951b3f85610f1da7718cace19685
+
+Three-way agreement: YES (commit == live == dev-log)
+
+Porcelain:
+$ git -C /Users/marklehn/Developer/GitHub status --porcelain -- DRAFTING_CYCLE.md
+(empty — clean)
+
+Name-only:
+$ git -C /Users/marklehn/Developer/GitHub show 0fb567ac57d7eee29a7bcc65b6e47a7f8649470d --name-only --format=
+DRAFTING_CYCLE.md
+
+== Row 2: E1 POST-CONDITION (C11) ==
+
+$ grep -cF "Once the plan's shape is stable and before the closing walk," /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+0 (old opening clause ABSENT)
+
+$ grep -cF "(Proposals 232 + 245, codified 2026-08-09.)" /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+1 (E1-unique codified tag PRESENT)
+
+$ grep -cF "Record the linter's exit code in the plan, with the phase at which it last ran" /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+1 (E1-unique recording obligation PRESENT)
+
+$ grep -cF "before the cold panel on T2" /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+1 (E1-unique scheduling clause PRESENT)
+
+$ grep -cF "never for the first time at deposit" /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+2 (E1 + E3 — both sites)
+
+$ grep -cF "the value is the few that are not and that no lens is looking for." /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+1 (preserved middle byte-intact)
+
+== Row 3: NUMSTAT vs PLAN PIN ==
+
+$ git -C /Users/marklehn/Developer/GitHub diff 0fb567ac57d7eee29a7bcc65b6e47a7f8649470d^ 0fb567ac57d7eee29a7bcc65b6e47a7f8649470d --numstat -- DRAFTING_CYCLE.md
+3	2	DRAFTING_CYCLE.md
+
+Matches plan pin (3 added / 2 deleted).
+
+== Row 4: VERSION + CHANGELOG INTEGRITY ==
+
+$ grep -cF '**Version:** 1.8 (2026-08-09). Amended only through the Iteration Protocol' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+1
+
+$ grep -cF '1.7 (2026-08-08)' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+1 (down from 2 — History row only, intact)
+
+$ grep -cF 'runs under the live doctrine' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+1 (E3 tail probe — earnable, confirms History row landed whole)
+
+$ awk '/^## History/{f=1;next} f&&/^## /{f=0} f&&/^- /{n++} END{print n+0}' /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+9 (baseline 8 + 1 new = 9)

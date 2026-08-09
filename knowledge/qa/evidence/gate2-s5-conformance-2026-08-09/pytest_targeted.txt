@@ -1,0 +1,14 @@
+== Row 7: TARGETED TESTS ==
+
+Premise re-check (Rule 21):
+$ find /Users/marklehn/Developer/GitHub/lessons-forge/src -name 'test_*.py'
+/Users/marklehn/Developer/GitHub/lessons-forge/src/test_lessons_forge.py
+
+Exactly one test module — "targeted = full" premise holds.
+
+Test run:
+$ cd /Users/marklehn/Developer/GitHub/lessons-forge && python3 -m pytest src/test_lessons_forge.py -q
+.......................................................                  [100%]
+55 passed in 0.09s
+
+55 passed / 0 failed / 0 skipped. Matches baseline (55 passed / 0 skipped, measured 2026-08-09). Zero regressions.

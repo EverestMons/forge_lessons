@@ -1,0 +1,33 @@
+== Row 5: FLIP READ-BACK ==
+
+$ sqlite3 -bail -readonly "/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db" ".timeout 5000" "SELECT id||'|'||status||'|'||status_updated_by||'|'||status_updated_at||'|'||category FROM lesson_proposals WHERE id IN (232,245) ORDER BY id;"
+232|implemented|ceo|2026-08-09T17:04:06Z|governance_rule
+245|implemented|ceo|2026-08-09T17:04:06Z|governance_rule
+
+Both rows: status=implemented, status_updated_by=ceo, category=governance_rule (preserved).
+Timestamp 2026-08-09T17:04:06Z GLOB-matches 20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]Z.
+Timestamp differs from pinned Gate-1 value 2026-08-09T01:20:01Z.
+Exactly 2 rows.
+
+== Row 6: BLAST RADIUS — VALUE-LEVEL, INDEPENDENTLY RE-DERIVED ==
+
+$ sqlite3 -bail -readonly "/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db" ".timeout 5000" "SELECT id||'|'||category||'|'||status||'|'||COALESCE(route,'')||'|'||COALESCE(status_updated_at,'')||'|'||COALESCE(status_updated_by,'') FROM lesson_proposals WHERE id <= 273 AND id NOT IN (232,245) ORDER BY id;" > /tmp/qa-outside-range-rerun.txt
+lines=271
+
+$ diff <deposited outside-range-ids.txt> /tmp/qa-outside-range-rerun.txt
+(no differences — diff exit=0)
+
+271 lines in both files, zero differing lines. No concurrent activity in the verdict window for ids <= 273 excluding 232, 245.
+
+== Row 9: CONSUMER SEMANTICS ==
+
+(a) Source quote — /Users/marklehn/Developer/GitHub/lessons-forge/src/lessons_forge.py:31:
+_TERMINAL_STATUSES = frozenset(('implemented', 'rejected', 'superseded', 'reference'))
+
+Confirmed: 'implemented' IS in _TERMINAL_STATUSES; 'accepted' is NOT.
+
+(b) get_unclassified_entries against the canonical DB (read-only):
+$ python3 -c "import sqlite3, sys; sys.path.insert(0, 'src'); from lessons_forge import get_unclassified_entries; conn = sqlite3.connect('file:lessons-forge.db?mode=ro', uri=True); result = get_unclassified_entries(conn); print('Work list entries:', len(result)); [print(r) for r in result]; conn.close()"
+Work list entries: 0
+
+Entries 224 and 237 are ABSENT from the work list — they were dispositioned before the flip and remain dispositioned after it. The flip did not re-queue its own entries.
