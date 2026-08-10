@@ -747,6 +747,10 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 > - "do not re-raise the ordering item, it is already open" → moot once nothing is emitted, and the dependency is recorded at the tranche map;
 > - the rows 9/10 duplicate note → carried as a Planner reconciliation item.
 >
+> ⚠️ **The trim is DOCTRINE-CONFORMANT, not merely a judgement call — verified against the template rather than asserted.** `PLANNER_TEMPLATE.md` §Ledger Updates rule (2): *if there is no entry to report, omit the corresponding subsection entirely.* Omission is a named, permitted outcome, so this step emitting nothing is a legitimate shape and not a deviation needing a waiver.
+>
+> ⚠️⚠️ **The one clause a reader should check is rule (1), and it does NOT bite:** it says *agents* do not write `knowledge/FORWARD.md` directly, because the channel is daemon-owned. The item here is recorded by the **Planner** at wrap under Rule 42 — the shop's standing route when this channel is unreliable, and a different actor from the one rule (1) binds. **Rule (1) is also independent corroboration of walk 4's finding that the QA agent could never have observed its own append: the template forbids it the access that check required.**
+>
 > ⚠️ **What this trim does NOT claim:** that the channel is broken and should be avoided generally. It claims only that *this* plan's single incidental item does not justify the surface, and it says so where a later reader can disagree with the premise rather than inherit it.
 >
 > `#### Prompt Feedback`.
