@@ -645,7 +645,7 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 > - `knowledge/development/classifications-cycle-2026-08-10-part3.md`
 > - `knowledge/development/dev-log-cycle-step-4-2026-08-10.md`
 >
-> **The classification CONTRACT is Step 2's, restated inline exactly as Step 3 restates it (C14) — all twelve numbered items bind here, with these deltas:**
+> **The classification CONTRACT is Step 2's, restated inline exactly as Step 3 restates it (C14) — **all THIRTEEN numbered items bind here** (twelve until walk 7 added flag (G)'s producer as the thirteenth; the count is stated because a stale one silently narrows what binds), with these deltas:**
 > - Anchor lines expected **13**.
 > - Self-report `NT-post-tranche-C`: the 42 `accepted|codify` intact **plus all 41 of this cycle's proposals and nothing else.**
 > - ⚠️⚠️ **FLAG (G)'s PRODUCER binds here too (C14), and this tranche carries FIVE of its nine core entries — 297, 301, 302, 305, 306, every one of them already holding an open FORWARD row.** Every disposition line carries `| remedy: mechanism | owner: <named owner or "unnamed">` or `| remedy: discipline` *(observed by Step 6 row 3)*; where the remedy is a mechanism, `suggested_action` states it and its owner. **These five are the batch's whole recurrence argument: noticed, recorded, never built.**
