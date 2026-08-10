@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+Step 1 executed cleanly on first dispatch. The 42-row Gate-2 queue (accepted|codify) survived intact through the ingest, verified by G1's composition check (pre-ingest) and by G4's post-ingest stale-count hold. The `would_update=0` guard at Step 1a-bis provided the load-bearing assurance before mutation. The batch fingerprint matched exactly, confirming the 41 entries are the ones scouted at authoring. No classification was performed — `get_unclassified_entries()` returning 41 is the correct closing state for Plan B.
+
 (none)
 
 - The `-readonly` flag on `sqlite3` fails with SQLITE_CANTOPEN (error 14) when opening a `.backup`-produced copy of a WAL-mode database, because `-readonly` cannot create the required shared-memory file. The backup restorability assert succeeded using a read-only SELECT without the flag. Future plans that assert against WAL-mode backup copies should note this mechanism limit.
