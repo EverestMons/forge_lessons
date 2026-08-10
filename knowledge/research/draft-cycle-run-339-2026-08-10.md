@@ -797,14 +797,24 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 
 ⚠️⚠️ **EVERY walk-5 finding is downstream of lens 1's cut.** That is the honest reading: the deletion was correct and its blast radius was under-estimated, so walk 5 is not measuring the artifact — it is measuring one edit. **A confirming walk over the whole artifact is owed before any close.**
 
+**Walk 6 — strictly sequential; opened with the full mechanical battery over every touched region:** 3 findings — **3 fold-introduced (100%); 1 instruction-changing, 2 record.**
+- Weak spots:          w6 1 folded (1.1 walk 5's deletion note listed its retained items as four `-` bullets, inside the step region where bullet-shaped content becomes register rows — **caught by re-running the bullet count, not by reading**).
+- Destruction:         w6 1 folded (2.2 the verification probe for that fold returned 0 and read as content loss; the probe omitted the backticks the target carries — a false absence ON the verification step, batch entry 303's class, second instance this cycle).
+- Vulnerabilities:     w6 dry — bullet count over the region 0, no gate-matching string outside Step 6, WARN set unchanged at 19.
+- Integration-record:  w6 1 folded (4.1 the walk register was two walks behind this log — 35 rows against 20 per-lens claims — in a cycle whose own batch carries the lesson that the committed register is the load-bearing copy).
+- ACID:                **w6 dry** — first dry lens of the cycle; no cross-requirement conflict survived walk 5's joint resolutions.
+
 | walk | findings | fold-introduced | **instruction-changing** | record/commentary |
 |---|---|---|---|---|
 | 1 | 13 (+1 record-decay) | 4 (31%) | 9 | 5 |
 | 2, 3 | — | — | — | **batched; not counted toward the bar** |
 | 4 | 6 | 3 (50%) | 4 | 2 |
 | 5 | 5 | 5 (100%) | 4 | 1 |
+| 6 | 3 | 3 (100%) | **1** | 2 |
 
-⚠️ **The origin ratio has climbed to 100% while the instruction surface has held flat at 4 for two walks. By §2's origin condition walk 5 is pure noise floor; by the surface signal it is not converged.** The two readings still disagree — the same collision batch entry 300 records — and on this cycle the SURFACE reading is the one that kept finding real defects.
+⚠️ **The origin ratio reached 100% at walk 5 while the instruction surface held flat at 4 — by §2's origin condition that walk was pure noise floor, by the surface signal it was not converged. Walk 6 is the first walk where the two agree.** Instruction-changing findings across the counted walks: **9 → 4 → 4 → 1.** That is the curve §2's origin split could not show, and on this cycle the surface reading is the one that kept finding real defects.
+
+⚠️⚠️ **THE BAR IS NOT YET MET, and the failing condition is precise: walk 6 returned ONE instruction-changing finding (w6-1), so the record-class-only condition fails and the walk re-opens.** The origin condition is met at 100%. **Walk 7 is owed** — a full sequential walk over the whole artifact, and the first one with a real chance of closing, since walk 6 folded one instruction and two records and its ACID and Vulnerabilities lenses both came back dry.
 **Panel status (T2):** not convened. ⚠️ This line is deliberately phrased so §4's cold-panel check cannot match it: the check is line-anchored on a bolded or dashed keyword opener, and the canonical form satisfies it by wording alone while the panel has not run. **Both the keyword and the canonical form are DESCRIBED, not reproduced** — §3's prohibition is reflexive, and an earlier draft of this very sentence reproduced the form it warns about, inside the block where the rule binds hardest. The WARN is earned until the panel completes; it clears by running the panel, never by wording.
 **Conflicts:** C20 opened at walk 1's ACID pass and joint-resolved in one move (QA rows 4 vs 10). C18/C19 opened at authoring. No conflict required escalation.
 **Closing:** not reached. Walk 2 returned **12 findings — 8 fold-introduced, 4 pre-existing (67%)** — so the origin condition is met, **but four were instruction-changing and one of those was HIGH**, so the record-class condition is not. ⚠️ **The bar is unmet and the walk re-opens; a ratio-only reading would have closed here.** Walk 3 owed.
