@@ -13,7 +13,7 @@ Cycle run only: ingest the 41 un-ingested `LESSONS.md` entries and classify them
 
 ### ⚠️⚠️ CEO DECISION TAKEN (2026-08-10, at authoring): SHAPE (b), carried from plan 311 — ingest as ONE Step-1 transaction, classification SPLIT across THREE steps (~14 each) with verdict gates between, report and QA following.
 
-Carried rather than re-decided, on 311's own measured result: the three-tranche split **held classification quality with no inter-tranche cliff at 3.2× the record batch** (entry 6 of THIS batch is that measurement, and this plan is its first consumer). At 41 the split is well inside the validated range. Consequences the plan must carry, named here rather than discovered:
+Carried rather than re-decided, on 311's own measured result: the three-tranche split **held classification quality with no inter-tranche cliff at 3.2× the record batch** (batch position 6 — entry 271 — is that measurement, and this plan is its first consumer). At 41 the split is well inside the validated range. Consequences the plan must carry, named here rather than discovered:
 
 1. **The created-proposal anchor is created in THREE pieces** — each classification step records its own tranche list; Step 6 reads the union and fails closed if any tranche's list is missing.
 2. **The isolation window is FIVE verdict gates wide** — see the inverted G1 below; unlike 311, this window is **not** empty of staleable rows.
@@ -21,7 +21,7 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 ⚠️ **`Test Scope: targeted` — the justification is re-verified here, not inherited.** Measured this session: `find . -name "test_*.py"` returns exactly ONE file, `src/test_lessons_forge.py`, so `python3 -m pytest src/` is simultaneously the targeted run and the full run. Rule 21 requires a written justification for `targeted`; this is it. The contract-change carve-out does not fire — this plan changes no code. **`--collect-only` measured 55 tests at authoring** — report the actual. ⚠️ **TRACKING (CEO, 2026-07-31, continued through 288 / 296 / 311): `targeted` on a single-module repo is a precedent under observation; this is the sixth data point.** Falsified by: a defect reaching `Done/` that a broader run would have caught.
 
-**Clone lineage — measured, not recalled.** Direct clone of **311** (`Done/executable-311.md`), which is also the newest same-class plan: the cycle-class set in `Done/` by plan id — 247 → 257 → 274 → 281 → 283 → 288 → 296 → **311**. The newest plan of ANY class on this corpus is **330** (Gate 2, DRAFTING_CYCLE v1.7 → v1.8); its machinery is a different class (doctrine edit, not cycle run), and the diff obligation against it stands for the cold panel.
+**Clone lineage — measured, not recalled.** Direct clone of **311** (`Done/executable-311.md`), which is also the newest same-class plan: the cycle-class set in `Done/` by plan id — plan 247 → plan 257 → plan 274 → plan 281 → plan 283 → plan 288 → plan 296 → **plan 311** (each namespaced: six of these eight numerals fall inside the 232–314 collision band this plan declares below, and bare they would read as proposal ids). The newest plan of ANY class on this corpus is **330** (Gate 2, DRAFTING_CYCLE v1.7 → v1.8); its machinery is a different class (doctrine edit, not cycle run), and the diff obligation against it stands for the cold panel.
 
 ---
 
@@ -29,7 +29,7 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 **1. ⚠️⚠️ `NT` IS NOT EMPTY. `NT_COUNT = 42`, and 311's central safety premise is VOID.**
 
-311 stated the ingest was *"non-destructive by construction"* because the non-terminal set was empty. It is not empty here, and the composition is the worst available:
+311 stated the ingest was *"non-destructive by construction"* because the non-terminal set was empty. It is not empty here, and every one of its rows is queued Gate-2 work:
 
 | status | route | target_artifact | count | in `NT`? |
 |---|---|---|---|---|
@@ -86,7 +86,7 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 **7. THE EM-DASH ASYMMETRY IS 24-OF-41.** `detect_duplicates` splits headings on the literal SPACE-EM-DASH-SPACE (`_EM_DASH_SEP`, `src/lessons_forge.py:294`), whole-heading fallback when absent. Measured: **24 of 41 headings carry the separator; 17 do NOT** — for those the detector tests the entire dated heading. Report the asymmetry, not a uniform "no hits."
 
-**8. ELEVEN HEADINGS ARE SHELL-HOSTILE** (measured — batch positions 3, 5, 12, 15, 16, 19, 21, 25, 26, 32, 35): apostrophes, a double quote, and literal backticks. Bind headings as query parameters everywhere; never interpolate one into a shell string.
+**8. ELEVEN HEADINGS ARE SHELL-HOSTILE** (measured — **entries 268, 270, 277, 280, 281, 284, 286, 290, 291, 297, 300**, i.e. batch positions 3, 5, 12, 15, 16, 19, 21, 25, 26, 32, 35): apostrophes, a double quote, and literal backticks. ⚠️ Given as **entry ids** because every step cites them that way; the positions are shown alongside only so the two forms can be reconciled without arithmetic. Bind headings as query parameters everywhere; never interpolate one into a shell string.
 
 **9. THE BACKUP GLOB POPULATION IS NINE, NOT EIGHT.** `data/backups/lessons-forge-pre-cycle-*.db` matches **9** files at authoring. The count is not the guard; the id token is — this cycle's backup is `lessons-forge-pre-cycle-339-<UTC-stamp>.db` and any resume glob matches on `-339-`. ⚠️ **Derive the date from the actual filename at resume, never from a hardcoded local date** — a `date -u` stamp rolls to the next day after ~18:00 local.
 
@@ -96,7 +96,7 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 - **`lesson_entries.id` 266–306** — THIS batch's 41 entries (after ingest).
 - **`lesson_proposals.id` 274–314** — THIS batch's 41 proposals (after classification).
-- **`lesson_proposals.id` 232–273** — PRE-EXISTING and **NOT terminal**: these are the 42 `accepted|codify` rows of the queued Gate-2 batch. ⚠️ **Leave untouched. They are the rows finding 1 puts at risk.**
+- **`lesson_proposals.id` 223–273, NON-CONTIGUOUS** — PRE-EXISTING and **NOT terminal**: the 42 `accepted|codify` rows of the queued Gate-2 batch. ⚠️⚠️ **The span is NOT a range and must never be used as one.** Measured at authoring: the 42 run 223–273 with **nine ids inside that span excluded** — `232`, `245` (`implemented`, flipped by plan 330's §5 pair) and `233`, `238`, `246`, `247`, `258`, `259`, `271` (the seven cluster-A rows, still `reference|backlog`). **A range operand of 232–273 — which an earlier draft of this line carried — under-protects proposals 223–231 and over-claims those nine.** ⚠️ **Every operand touching these rows is the RECORDED ID LIST from Step 1 Receipt item 5, never a BETWEEN.**
 - ⚠️⚠️ **EVERY NUMERAL IN 274–306 NAMES BOTH A NEW ENTRY AND A NEW PROPOSAL — both this plan's own, and they are NOT paired.** The pairing is `entry 266+k → proposal 274+k` (offset **+8**), so entry 274 pairs with proposal 282, not proposal 274. **Never write a bare number in 232–314 without its namespace.** Foreign ids are namespaced too: "311's C9", "entry 266", "proposal 274", "FORWARD 53".
 - File-position counts are a further namespace: `parse_lessons_md` sees **249** `##` entries in `LESSONS.md`; the corpus row count is **265**. 208 of the 249 parsed match DB rows, and the **57 unmatched DB rows are orphans** from reworded headings, all classified — which is why `get_unclassified_entries()` is `[]` pre-cycle. Measured: NO `## Archived` heading exists, so the parser's archived-stop branch never fires. **249 and 265 are both correct and neither is the other's baseline.**
 
@@ -117,7 +117,6 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 | `stale` — a THIRD partition, never summed into `NT` | **3** (proposals 98, 121, 130) | G1 (`STALE_BASE`) |
 | **`would-UPDATE` (the real safety property)** | **0** over 249 parsed | G1 — **HALT on any non-zero**, this is the gate finding 1 turns on |
 | whole-corpus dry run through `parse_lessons_md` | **41 would-INGEST / 0 would-UPDATE / 208 unchanged**, over 249 parsed | Step 1a-bis (pre-ingest, HALTs) |
-| `stale` count | **3** (proposals 98, 121, 130) | G1 (`STALE_BASE`) |
 | `E0` / `P0` | **265 / 273**, `sqlite_sequence` agreement, no gap | Step 1a |
 | entry-265 sentinel hash | `c30fdaff…` | Step 1a-bis item 2 |
 | status distribution | implemented 171 · superseded 28 · rejected 15 · **accepted 42** · reference 14 · stale 3 (**no `proposed` row — `GROUP BY` omits empty buckets**) | Step 1a baseline; Step 6 |
@@ -209,12 +208,12 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 ### Residual risk register
 
-- **Best verified — the measured baseline.** Every number above was produced this session by running the real code against live canonical, read-only: the 41/0/208 dry run, `E0=265`/`P0=273` with `sqlite_sequence` agreement, `NT_COUNT=42` with its full composition and the separate `STALE_COUNT=3`, `_TERMINAL_STATUSES` read as shipped, `STALE_COUNT=3`, `DUP_COUNT=19`, entry-265's hash, the three pins, the 12-value tag distribution with exact-match precedent, the 24/41 em-dash and 0/41 Family asymmetries, 55 collected tests, the status distribution.
+- **Best verified — the measured baseline.** Every number above was produced this session by running the real code against live canonical, read-only: the 41/0/208 dry run, `E0=265`/`P0=273` with `sqlite_sequence` agreement, `NT_COUNT=42` with its full composition and the separate `STALE_COUNT=3`, `_TERMINAL_STATUSES` read as shipped, `DUP_COUNT=19`, entry-265's hash, the three pins, the 12-value tag distribution with exact-match precedent, the 24/41 em-dash and 0/41 Family asymmetries, 55 collected tests, the status distribution.
 - **Least verified — the scout.** Heading-and-remedy depth, declared above. 311's scout was body-level. Gate 1 owes each of the 41 a body read.
 - **⚠️ Explicitly NOT verified.** Whether the 41 scouted placements are correct — Gate 1/2's question. Whether classification quality holds across three agents (entry 271 says it did at 51; this is the confirming instance, not the establishing one). Whether the `would-UPDATE = 0` property survives to dispatch — **G1 is the only thing standing between a hash flip and 42 staled proposals**, and that branch has never executed on a non-empty `NT`.
 - **The `NT`-non-empty branch is genuinely new machinery.** 311 and 296 both ran with `NT` empty. Every guard in this plan that reasons about the queued Gate-2 batch is unexercised.
 
-**Scope discipline:** cycle run only. Routes stay `NULL` at insert. **Do NOT edit `DRAFTING_CYCLE.md`, `PLANNER_TEMPLATE.md`, `RULE_20_SELF_CHECK_BLOCK.md`, `bellows/scripts/plan_lint.py`, or `bellows/gates.py`.** **Do NOT touch proposals 232–273** (the queued Gate-2 batch — `accepted|codify`, unprotected by `_TERMINAL_STATUSES`). **Do NOT touch proposals 98/121/130** (`stale`, settled 2026-07-16). **⚠️⚠️ Do NOT append to `LESSONS.md` while this plan is deposited-but-un-run** — the batch is pinned by the Step-1a-bis fingerprint, and finding 2 is what that prohibition looks like when it is ignored.
+**Scope discipline:** cycle run only. Routes stay `NULL` at insert. **Do NOT edit `DRAFTING_CYCLE.md`, `PLANNER_TEMPLATE.md`, `RULE_20_SELF_CHECK_BLOCK.md`, `bellows/scripts/plan_lint.py`, or `bellows/gates.py`.** **Do NOT touch the 42 `accepted|codify` proposals** (the queued Gate-2 batch, unprotected by `_TERMINAL_STATUSES`) — **identified by the predicate `status='accepted' AND route='codify'` and by Step 1 Receipt item 5's recorded id list, NOT by an id range: they span 223–273 non-contiguously, with nine ids inside that span belonging to other statuses.** **Do NOT touch proposals 98/121/130** (`stale`, settled 2026-07-16). **⚠️⚠️ Do NOT append to `LESSONS.md` while this plan is deposited-but-un-run** — the batch is pinned by the Step-1a-bis fingerprint, and finding 2 is what that prohibition looks like when it is ignored.
 
 ⚠️⚠️ **THIS COLLIDES WITH THE SESSION-WRAP RITUAL, AND THE COLLISION IS LIVE FOR THE SESSION THAT DEPOSITS THIS PLAN.** The shop's wrap appends the session's lessons to `LESSONS.md`. This plan's fingerprint HALTs on exactly that. The two are incompatible for as long as the plan sits deposited-but-un-run, and the prohibition binds the *depositing* session, not some future one. **Resolution, decided at authoring rather than discovered at G1:** either (a) dispatch 339 to completion before any wrap-time append, or (b) append first and **re-run the fingerprint, re-token the tranche map, and re-scout the added entries before depositing.** ⚠️ **What is NOT available is depositing and then appending** — the plan would halt at Step 1a-bis having already been claimed, and the correction would cost a stop plus a re-deposit under a fresh id.
 
@@ -224,13 +223,12 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 **Authoring self-check (§5 — the conformance pass, run at shape-stability, before the adversarial passes close).** `plan_lint.py` RUN against draft v1 at the **drafting path `lessons-forge/knowledge/research/`, whose `project_root` resolves identically to the deposit path** (both sit under `lessons-forge/knowledge/`), so the declared state is the deposit state. **Exit 0; last run at walk 1's culmination.**
 
-⚠️ **A clean exit is NOT evidence check (f) ran — and 311's instruction to "confirm the §4 lines appear in stdout" is UNSATISFIABLE, because (f) prints only on WARN and emits nothing on a conformant plan** (source read, `scripts/plan_lint.py:166-270`). **Discharged instead by a constructed positive control, run at walk 1: a copy of this draft with its `**Closing:**` line removed produced `WARN: Drafting Cycle block has no **Closing:** line`, proving (f) executes.** Do not replace that control with a re-read of the exit code.
+⚠️ **A clean exit is NOT evidence check (f) ran — and 311's instruction to "confirm the §4 lines appear in stdout" is UNSATISFIABLE, because (f) prints only on WARN and emits nothing on a conformant plan** (source read, `scripts/plan_lint.py:166-270`). **Discharged instead by a constructed positive control, run at walk 1: a copy of this draft with its closing line removed produced the expected missing-closing-line WARN, proving (f) executes. ⚠️ The WARN text is DESCRIBED rather than reproduced, per §3's reflexive rule.** Do not replace that control with a re-read of the exit code.
 
 **The earned WARN set is NINETEEN, in four classes:**
 1. **(2) the known-benign steps-mention-tests class** (Steps 1 and 6) — do NOT add test files to their scope to silence them.
 2. **(15) `(p) WARN: C<n> has no backtick-quoted command or check: token`.** Check (p) shipped after 311, so this class is unexamined by the clone origin. It is **earned and correct**: a Conflict Ledger constraint with no check token is a constraint nothing can observe, which is the record-without-prevent asymmetry §2.8 names. Constraints carrying a concrete check token do not warn (C9, C11, C18, C19); the fifteen that do are prose invariants inherited from 311's ledger.
-3. **(1) `T2 plan missing cold-panel line`** — **earned, and it appeared BECAUSE of a walk-1 fold.** Draft v1's line read `**Cold panel (T2):** not yet convened`, which satisfies §4's structural check by wording while the panel has not run. Re-phrasing it so the check cannot match moved the WARN set 17 → 18, and **the delta was verified by diffing the before and after WARN sets, not by re-reading the count** — the comparison §3 mandates, run in the direction that catches a silencing. It clears only by convening the panel.
-
+3. **(1) `T2 plan missing cold-panel line`** — **earned, and it appeared BECAUSE of a walk-1 fold.** Draft v1's line opened with the bolded keyword the check keys on, followed by a not-yet-convened note — which satisfies §4's structural check by wording while the panel has not run. **The offending form is DESCRIBED, not reproduced**: quoting it here would place a line-anchorable match in the plan's own prose, which is the defect batch entry 301 records. Re-phrasing it so the check cannot match moved the WARN set 17 → 18, and **the delta was verified by diffing the before and after WARN sets, not by re-reading the count** — the comparison §3 mandates, run in the direction that catches a silencing. It clears only by convening the panel.
 4. **(1) `Drafting Cycle closing indicates fold as last event, not a dry lens pass`** — **earned and correct while the last event is a fold**, which is §3's healthy direction during an open cycle. It clears only on a dry confirming pass, never by rewording the Closing line.
 
 ⚠️⚠️ **The earned-set figure in this paragraph is a record that decays FASTER than the artifact, and it was measured decaying TWICE inside walk 1 alone:** written at 17, corrected to 18 when the panel-line fold surfaced a WARN, then corrected to 19 when the walk's own folds made the closing line report a fold. **Both corrections came from re-running the linter and DIFFING the WARN set, and neither would have been visible by re-reading the number.** Any later fold touching the Cycle Log, the ledger, a step's test mentions, or the Closing line re-runs the linter and re-diffs before this figure is trusted.
@@ -430,7 +428,7 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 > 2. The G1–G6 gate table.
 > 3. The pre-cycle baseline (zero-emitting status distribution, category distribution, entry count, sentinel hash, `STALE_COUNT`).
 > 4. `E0`/`P0`.
-> 5. The `NT` capture (+`NT-original`/`NT-now` labels on a resume; `NT-original` is the before-anchor downstream readers take) — **including the explicit list of the 42 `accepted|codify` ids, which Step 6 row 3a reads.**
+> 5. The `NT` capture (+`NT-original`/`NT-now` labels on a resume; `NT-original` is the before-anchor downstream readers take) — **including the explicit list of the 42 `accepted|codify` ids** — captured by the predicate `status='accepted' AND route='codify'`, never by a range. **This list is the sole operand for the `Q2_INTACT` check at Steps 2, 3, 4 and 5 and for QA row 10; nothing else in the plan can reconstruct it after the ingest.**
 > 6. The 41-line ingested-entry list.
 > 7. The absolute backup path(s), labelled `pristine (pre-cycle)` (+ `this-dispatch (mid-cycle)` on resume).
 > 8. `#### Files Created or Modified` split into `##### Committed deposits` / `##### Untracked artifacts` (the `.backup` + DB mutation are gitignored main-tree writes; one unsplit list rewards concealment).
@@ -480,7 +478,7 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 >    - RESUME → the operand is derived from the committed MANIFEST, because the created-proposal anchor lines land in the Receipt at step END and do not exist on a mid-tranche resume: `SELECT 'STALE_IN_MINE=' || COUNT(*) FROM lesson_proposals WHERE entry_id IN (<the manifest's entry ids>) AND status='stale';` — non-zero → HALT.
 > 3. **⚠️⚠️ THE GATE-2 QUEUE CHECK — new in this plan, at EVERY classification step.** `SELECT 'Q2_INTACT=' || COUNT(*) FROM lesson_proposals WHERE status='accepted' AND route='codify';` — expected **42**. ⚠️ **This runs at every tranche because the window is five verdict gates wide and the rows are unprotected by `_TERMINAL_STATUSES`; a single whole-corpus `STALE_COUNT` check cannot distinguish which rows moved.**
 >
->    ⚠️⚠️ **BELOW 42 IS NOT AUTOMATICALLY A HALT — a legitimate in-window Gate-2 codification is a PERMITTED outcome and C5 forbids failing it.** Adjudicate causally, exactly as Step 6 row 10 does, against Step 1's Receipt item 5 id list:
+>    ⚠️⚠️ **BELOW 42 IS NOT AUTOMATICALLY A HALT — a legitimate in-window Gate-2 codification is a PERMITTED outcome and C5 forbids failing it.** ⚠️ **Step 1 Receipt item 5 missing, truncated or unparseable → HALT (`unverifiable`), with NO predicate fallback** — a live `WHERE status='accepted' AND route='codify'` re-read cannot detect a row that has already left the set, which is the entire failure this check exists to catch (C9's no-fallback rule, and the reason item 5 is recorded pre-ingest). Otherwise adjudicate causally, exactly as Step 6 row 10 does, against that id list:
 >    - Every missing id now `implemented`, with its `route` still `codify`, **its `status_updated_at` LATER than the `cycle_timestamp` Step 1 recorded, and `status_updated_by='ceo'`** → **record + CONTINUE**, naming the ids and the plan; carry the adjusted expectation forward to the later steps so they do not re-halt on the same movement.
 >
 >      ⚠️ **The three extra conjuncts are load-bearing and were added when this branch was re-read by the Destruction lens that follows the lens which wrote it.** The first draft of this carve-out asked only for "a Gate-2 plan visible in `knowledge/decisions/` or `Done/`" — **`Done/` holds several historical Gate-2 codifications (298, 330 among them), so that condition is satisfiable by HISTORY and would wave through exactly the corruption this check exists to catch.** The timestamp comparison is what makes the movement in-window; the actor field is what makes it deliberate.
@@ -748,10 +746,24 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 - Vulnerabilities:     w1 2 folded — 1 pre-existing, 1 fold-introduced (3.4 a count-pinned batch admits any 41 while the scout is positional → content fingerprint, failing input constructed; 3.2 walk-0's row 10 had no fail-closed branch).
 - Integration-record:  w1 1 folded — 1 pre-existing (4.2 the batch pin collides with the session-wrap ritual, and it binds the DEPOSITING session).
 - ACID:                w1 1 folded — 1 fold-introduced (5.2 QA rows 4 and 10 contradicted on the permitted outcome; joint-resolved as C20, not patched on either side).
-**Record-decay findings, counted separately (§3):** 1 — the earned-WARN figure was written at 17 and corrected to 18 in the same walk that changed it.
+**Record-decay findings, counted separately (§3):** w1 1 — the earned-WARN figure was written at 17 and corrected to 18 in the same walk that changed it.
+- Weak spots:          w2 3 folded — 2 pre-existing, 1 fold-introduced (1.1 an unswept "worst available" contradicting walk 1's own severity pricing; 1.1 eight bare plan ids inside the band the plan's own rule namespaces; 1.1 "entry 6" naming a batch position).
+- Destruction:         w2 dry — no new harm surface; walk 1's severity pricing and backup-corollary folds re-read against the steps and held.
+- Vulnerabilities:     w2 3 folded — 3 fold-introduced (3.2 the self-check paragraph quoted a gate WARN string; 3.2 item 3 reproduced the line form the check anchors on; 3.4 the shell-hostile list keyed by position where every step keys by id).
+- Integration-record:  w2 4 folded — 1 pre-existing, 3 fold-introduced (4.1 **the 42 span 223–273 NON-CONTIGUOUSLY, not 232–273** — the do-not-touch line under-protected nine rows and over-claimed nine others; 4.1 a duplicated `stale` row; 4.1 a doubled `STALE_COUNT`; 4.1 a stale `row 3a` cross-reference to a row that was renumbered to 10).
+- ACID:                w2 2 folded — 2 fold-introduced (5.4 the `Q2_INTACT` pre-flights had no fail-closed branch for a missing Receipt item 5, and a live predicate re-read cannot substitute; 5.2 one cosmetic list break).
 **Panel status (T2):** not convened. ⚠️ This line is deliberately phrased so that §4's cold-panel check CANNOT match it — the check keys on a line opening `**Cold…` or `- Cold…`, and a line reading `**Cold panel (T2):** not yet convened` satisfies the check while the panel has not run. The WARN is earned until the panel completes; it is cleared by running the panel, never by wording.
 **Conflicts:** C20 opened at walk 1's ACID pass and joint-resolved in one move (QA rows 4 vs 10). C18/C19 opened at authoring. No conflict required escalation.
-**Closing:** not reached — walk 1 folded 13 findings across five lenses (4 of 13 fold-introduced) plus 1 record-decay finding; the bar requires a walk returning record-class-only findings and this walk returned instruction-changing ones at every lens. Walk 2 owed.
+**Closing:** not reached. Walk 2 returned **12 findings — 9 fold-introduced, 3 pre-existing (75%)** — so the origin condition is met, **but four were instruction-changing and one of those was HIGH**, so the record-class condition is not. ⚠️ **The bar is unmet and the walk re-opens; a ratio-only reading would have closed here.** Walk 3 owed.
+
+⚠️ **Both signals reported, per batch entry 300 (FORWARD 53), which argues the origin split cannot distinguish converging from circling:**
+
+| walk | findings | fold-introduced | **instruction-changing** | record/commentary |
+|---|---|---|---|---|
+| 1 | 13 (+1 record-decay) | 4 (31%) | 9 | 5 |
+| 2 | 12 | 9 (75%) | **4** | 8 |
+
+**The origin ratio more than doubled while the instruction surface more than halved.** Read by origin alone, walk 2 looks like the noise floor §2 warns about; read by surface, it is the artifact converging while its record has not. The two readings point opposite ways on the same data — which is precisely the collision entry 300 records, observed here on this cycle rather than argued.
 
 ---
 
