@@ -202,6 +202,32 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 **(F) THE BATCH DESCRIBES THIS PLAN — entries 269, 271, 291, 306.** Four entries prescribe practices this plan itself executes (deposit-time id re-tokening, the tranche split, citation-by-date-and-fragment, tasks as ordered sub-items). ⚠️ **A classifier that notices this must not soften the classification to match the plan**, and the Planner must not read the plan's conformance as evidence for the proposal.
 
+**(G) ⚠️⚠️ MECHANISM-SHAPED ENTRIES — the flag that decides whether this batch changes anything.**
+
+**The governing argument is the batch's own: entry 293 — *a class folded twice across different artifacts is a mechanization candidate, not a lesson candidate.*** Gate 1's default disposition is `codify`, and codification produces PROSE in a doctrine file. **This plan's own drafting cycle is the evidence that prose is not enough:** §2.7's sequential-fold rule has been codified since v1.1, states its own failure mode, and explicitly names the rationalization ("this pass is just confirmation, so cumulation doesn't matter here") as a self-check target — **and this cycle violated it at walks 2 and 3 anyway, having cited it, and it was caught by the CEO rather than by the cycle.** A rule that names its own excuse and still does not bind is not a coverage problem, and routing more of the same to `codify` will reproduce it.
+
+⚠️ **NO COUNT IS ASSERTED HERE, DELIBERATELY.** The Planner derived this set three times by three instruments and got **12, then 16, then 22** — keyword matching over the remedy text is not a classifier, and a stated figure would hand Gate 1 a precision that does not exist (batch entry 279: never trust a narrated count; entry 303: a composed probe is a hypothesis). **The TEST is the deliverable, not the tally.**
+
+**The test, applied per entry on a body read:** *does the entry's own `How to apply:` name a concrete observable — a specific check, a named file or parser, a QA assert, or a structural convention a tool can evaluate — or does it name a discipline a human must remember?* The second is `codify`. **The first is a build candidate and routing it to `codify` converts a mechanism into a sentence.**
+
+**The defensible core — entries whose remedy names a specific mechanism AND an owner. Gate 1 draws the real boundary; these are the ones it should not have to discover:**
+
+| entry | the mechanism its own remedy names | owner | existing row |
+|---|---|---|---|
+| 283 | one mechanical QA assert per element of a compound output | authoring + QA | — |
+| 286 | lint at the deposit-path resolution, not the drafting path | bellows | — |
+| 291 | cite by date + title fragment so the citation is `grep -F`-able | authoring + lint | — |
+| 293 | **the meta-rule: route a twice-folded class to the build queue** | Gate 1 itself | — |
+| 297 | compare the `steps` table against commits and deposits at every gate | bellows | **FORWARD 46** |
+| 301 | re-run the gate and diff the WARN set after any record edit | bellows `plan_lint` | **FORWARD 50** |
+| 302 | each mandate names its QA item inline; construct the violation and confirm it fails | authoring + lint | **FORWARD 52** |
+| 305 | bound the last step's gate span at a trailing record section | bellows `_extract_step_text` | **FORWARD 45** |
+| 306 | a check counting instruction-bearing sentences per task block | `plan_lint` | **FORWARD 54** |
+
+⚠️⚠️ **FIVE of these already have FORWARD rows, which means they have been NOTICED and not BUILT.** That is the recurrence loop stated as a measurement rather than a worry: the shop records the class, codifies a rule about it, and the class returns. **If Gate 1 routes these five to `codify`, they will have been recorded twice and built zero times.**
+
+⚠️ **What flag (G) does NOT claim:** that `codify` is the wrong disposition for the rest. Most of the 41 are genuinely rules. It claims only that the mechanism-shaped ones need the routing decision made *deliberately*, with the owner named, rather than absorbed into a doctrine amendment because that is the default path.
+
 **Cluster synthesis for Gate 1:** *"41 entries from sessions 24–33 — 10 `drafting-cycle`, 10 `verification`, 5 `process-discipline`, 3 each `bellows-integration` / `instrumentation` / `instruction-design`, 2 `planner-discipline`, and one each of five further tags; a FIVE-entry cluster bearing on a §2 clause its own FORWARD row calls self-contradictory; SIX entries mapping one-to-one onto open FORWARD rows; FIVE Rule 46 splits; FOUR partial-codification measurements; and TWELVE classifications on precedent-poor tags."* Do NOT skip or downgrade any.
 
 **Do NOT dedup against `DRAFTING_CYCLE.md`, `PLANNER_TEMPLATE.md`, or `RULE_20_SELF_CHECK_BLOCK.md` during classification.** Gate 1 dedups against live doctrine; the flag-(D) measurements are handed to it, not enforced here.
