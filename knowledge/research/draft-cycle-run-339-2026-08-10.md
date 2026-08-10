@@ -102,6 +102,8 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 **⚠️⚠️ THE ASSUMPTION EVERY ID-BEARING TABLE BELOW RESTS ON, stated because it is load-bearing and was verified rather than assumed.** The scout table, the tranche map, the cluster lists (A)–(F), and the shell-hostile list all bind a *substance* to a *predicted entry id*. That binding is sound only if `lesson_entries.id` is assigned in `parse_lessons_md` file order. **Verified by source read at authoring (`src/lessons_forge.py:138-153`): `ingest_lesson_entries` iterates `for entry in entries` — the parser's list, in file order — and INSERTs each new one in that order, so with `AUTOINCREMENT` the k-th un-ingested entry receives id `E0 + k`.** ⚠️ Note the consequence that is easy to miss: **the 41 are NOT contiguous in the file.** The six 2026-08-07 stragglers sit *earlier* than the 2026-08-08→10 block, so they take ids 266–271 and land in tranche A. ⚠️ **This is a derivation, not a gate: every step keys on `get_unclassified_entries` and on `source_heading`, never on a predicted id. If a disposition and its heading disagree, the HEADING wins and the mismatch is reported.**
 
+⚠️ **THE TRANCHE BOUNDARIES ALSO DEPEND ON ORDERING, and that dependency was unstated until walk 4.** "The FIRST 14 ids the work list returns" is a bound only if the list is ascending. **Verified by source read (`src/lessons_forge.py:284-290`): the query carries `ORDER BY e.id`.** ⚠️ **The guarantee is in the SQL and NOT in the docstring** — which is precisely the open register item below, so this plan depends on a contract that is real but undocumented, and a refactor dropping the clause would break every tranche boundary with no test objecting.
+
 **Tranche map (expectation, not gate — `get_unclassified_entries` is authoritative at each step):**
 - **Tranche A (Step 2):** first 14 of the work list — expected entries 266–279 → proposals 274–287.
 - **Tranche B (Step 3):** next 14 — expected entries 280–293 → proposals 288–301.
@@ -724,9 +726,14 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 > `#### Project Status` — milestone SCOPED to this cycle's 41: cycle 2026-08-10 complete — the 41-entry session-24→33 batch ingested (Step 1) + classified across three tranches (Steps 2–4), report deposited, corpus integrity held, **the 42-row Gate-2 queue verified intact at close (row 10)**, row 9's per-tranche depth distributions recorded, Gate 1 pending for the 41.
 >
 > `#### Forward Register` — ⚠️ write this block INSIDE `### Ledger Updates` **IN YOUR FINAL MESSAGE OUTPUT — the daemon's parser reads the TRANSCRIPT (`_all_assistant_text`), never a deposited file, and within the transcript it reads `lu_body` ONLY** (a block one heading too high is silently discarded), one item per bullet line, no bullet wrapping onto a second physical line (a wrapped continuation is never joined), described not quoted, with a terminating blank line after the last bullet (the last subsection is the exposed one). **ONE item — and because the splitter falls back to FIRST-LINE-ONLY on a block with fewer than two bullets, the bullet is the FIRST line of the block body, all prose AFTER it:**
-> 1. `_TERMINAL_STATUSES` omits `accepted`, so an ingest can silently stale a routed-but-not-yet-codified proposal; this cycle carried 42 such rows and guarded them procedurally at three steps — worth deciding whether the guard belongs in the code instead.
+> 1. `_TERMINAL_STATUSES` omits `accepted`, so an ingest can silently stale a routed-but-not-yet-codified proposal; this cycle carried 42 such rows and guarded them procedurally at four steps — worth deciding whether the guard belongs in the code instead.
 >
-> After the bullet + its terminating blank line: **state the register's before-count read from your worktree snapshot and record that you read it there.** Reconcile-note any difference, don't halt.
+> After the bullet + its terminating blank line:
+>
+> 1. **State the register's before-count read from your worktree snapshot and record that you read it there.** Planner measured **10 rows** at authoring. Reconcile-note any difference, don't halt.
+> 2. ⚠️ **Do NOT re-raise the `get_unclassified_entries` ordering item — it is ALREADY OPEN as rows 9 and 10.** This plan depends on that contract (see the tranche map) and cites it rather than duplicating it.
+> 3. ⚠️⚠️ **Rows 9 and 10 are BYTE-IDENTICAL DUPLICATES, both written by plan 311's own step 6 through this same channel.** Record that as a reconciliation note for the Planner — it is live register debt and the known dup-append failure mode, observed rather than theorised.
+> 4. ⚠️⚠️ **MANDATE WITH ITS OBSERVER (batch entry 302's rule, applied to this plan's own instruction): after the append, re-read the register and confirm it gained EXACTLY ONE row.** Print the before and after counts and the new row's text. **Two rows added, or zero, is a channel failure to report — not to silently accept.** This check exists because the failure it looks for is documented two rows above it in the very file being written.
 >
 > `#### Prompt Feedback`.
 >
@@ -749,19 +756,19 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 **Record-decay findings, counted separately (§3):** w1 1 — the earned-WARN figure was written at 17 and corrected to 18 in the same walk that changed it.
 - Weak spots:          w2 3 folded — 2 pre-existing, 1 fold-introduced (1.1 an unswept "worst available" contradicting walk 1's own severity pricing; 1.1 eight bare plan ids inside the band the plan's own rule namespaces; 1.1 "entry 6" naming a batch position).
 - Destruction:         w2 dry — no new harm surface; walk 1's severity pricing and backup-corollary folds re-read against the steps and held.
-- Vulnerabilities:     w2 3 folded — 3 fold-introduced (3.2 the self-check paragraph quoted a gate WARN string; 3.2 item 3 reproduced the line form the check anchors on; 3.4 the shell-hostile list keyed by position where every step keys by id).
+- Vulnerabilities:     w2 3 folded — 2 fold-introduced, 1 pre-existing (3.2 the self-check paragraph quoted a gate WARN string; 3.2 item 3 reproduced the line form the check anchors on; 3.4 the shell-hostile list keyed by position where every step keys by id).
 - Integration-record:  w2 4 folded — 1 pre-existing, 3 fold-introduced (4.1 **the 42 span 223–273 NON-CONTIGUOUSLY, not 232–273** — the do-not-touch line under-protected nine rows and over-claimed nine others; 4.1 a duplicated `stale` row; 4.1 a doubled `STALE_COUNT`; 4.1 a stale `row 3a` cross-reference to a row that was renumbered to 10).
 - ACID:                w2 2 folded — 2 fold-introduced (5.4 the `Q2_INTACT` pre-flights had no fail-closed branch for a missing Receipt item 5, and a live predicate re-read cannot substitute; 5.2 one cosmetic list break).
-**Panel status (T2):** not convened. ⚠️ This line is deliberately phrased so that §4's cold-panel check CANNOT match it — the check keys on a line opening `**Cold…` or `- Cold…`, and a line reading `**Cold panel (T2):** not yet convened` satisfies the check while the panel has not run. The WARN is earned until the panel completes; it is cleared by running the panel, never by wording.
+**Panel status (T2):** not convened. ⚠️ This line is deliberately phrased so §4's cold-panel check cannot match it: the check is line-anchored on a bolded or dashed keyword opener, and the canonical form satisfies it by wording alone while the panel has not run. **Both the keyword and the canonical form are DESCRIBED, not reproduced** — §3's prohibition is reflexive, and an earlier draft of this very sentence reproduced the form it warns about, inside the block where the rule binds hardest. The WARN is earned until the panel completes; it clears by running the panel, never by wording.
 **Conflicts:** C20 opened at walk 1's ACID pass and joint-resolved in one move (QA rows 4 vs 10). C18/C19 opened at authoring. No conflict required escalation.
-**Closing:** not reached. Walk 2 returned **12 findings — 9 fold-introduced, 3 pre-existing (75%)** — so the origin condition is met, **but four were instruction-changing and one of those was HIGH**, so the record-class condition is not. ⚠️ **The bar is unmet and the walk re-opens; a ratio-only reading would have closed here.** Walk 3 owed.
+**Closing:** not reached. Walk 2 returned **12 findings — 8 fold-introduced, 4 pre-existing (67%)** — so the origin condition is met, **but four were instruction-changing and one of those was HIGH**, so the record-class condition is not. ⚠️ **The bar is unmet and the walk re-opens; a ratio-only reading would have closed here.** Walk 3 owed.
 
 ⚠️ **Both signals reported, per batch entry 300 (FORWARD 53), which argues the origin split cannot distinguish converging from circling:**
 
 | walk | findings | fold-introduced | **instruction-changing** | record/commentary |
 |---|---|---|---|---|
 | 1 | 13 (+1 record-decay) | 4 (31%) | 9 | 5 |
-| 2 | 12 | 9 (75%) | **4** | 8 |
+| 2 | 12 | 8 (67%) | **4** | 8 |
 
 **The origin ratio more than doubled while the instruction surface more than halved.** Read by origin alone, walk 2 looks like the noise floor §2 warns about; read by surface, it is the artifact converging while its record has not. The two readings point opposite ways on the same data — which is precisely the collision entry 300 records, observed here on this cycle rather than argued.
 
