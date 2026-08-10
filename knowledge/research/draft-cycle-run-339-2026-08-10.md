@@ -223,6 +223,17 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 **No diagnostic precedes this plan, deliberately** (247→296→311 lineage practice): every unknown was measured inline against live data at authoring. **✅ `LESSONS.md` is committed and porcelain-clean** — root HEAD `ad3c2d7` at authoring.
 
+### ⚠️ Planner obligations at the verdict gates — this plan's THIRD actor, given a home
+
+**Steps address agents. These are addressed to the Planner, and until walk 4 they were scattered inside step prompts the Planner writes and the agent reads** — the mirror of C14's defect, a rule living in the wrong actor's text. Each gate between steps, before writing a verdict:
+
+- **Compare the `steps` table against the commit and deposit counts** before issuing any verdict. ⚠️ **This is batch entry 297's own remedy, and the plan that INGESTS that lesson was not applying it** — `pause_for_verdict: always` is a header contract the runtime does not police, and plan 336 executed three steps in one dispatch while the daemon recorded one. A step count disagreeing with the commits or deposits means the boundaries were not honoured, and the verdict is where that gets caught.
+- **Reconcile the Gate-2 queue** at every gate, not only at QA: the recorded 42 ids against `status='accepted' AND route='codify'`, adjudicated by row 10's causal test. This plan's headline risk is invisible to every step-scoped check.
+- **After Step 6, re-read `lessons-forge/knowledge/FORWARD.md` in the MAIN tree** and confirm it gained exactly one row whose text matches what the QA agent recorded. The agent structurally cannot do this (see the Forward Register note in Step 6); rows 9 and 10 are what it looks like when nobody does.
+- **Re-verify, never inherit,** any precondition this plan measured at authoring that the verdict turns on.
+
+---
+
 **Authoring self-check (§5 — the conformance pass, run at shape-stability, before the adversarial passes close).** `plan_lint.py` RUN against draft v1 at the **drafting path `lessons-forge/knowledge/research/`, whose `project_root` resolves identically to the deposit path** (both sit under `lessons-forge/knowledge/`), so the declared state is the deposit state. **Exit 0; last run at walk 1's culmination.**
 
 ⚠️ **A clean exit is NOT evidence check (f) ran — and 311's instruction to "confirm the §4 lines appear in stdout" is UNSATISFIABLE, because (f) prints only on WARN and emits nothing on a conformant plan** (source read, `scripts/plan_lint.py:166-270`). **Discharged instead by a constructed positive control, run at walk 1: a copy of this draft with its closing line removed produced the expected missing-closing-line WARN, proving (f) executes. ⚠️ The WARN text is DESCRIBED rather than reproduced, per §3's reflexive rule.** Do not replace that control with a re-read of the exit code.
