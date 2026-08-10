@@ -790,18 +790,31 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 - ACID:                w4 1 folded — 1 fold-introduced (5.2 / §2.8: the Gate-2 guard has been folded five times, every patch correct; answered by naming the root defect as a code omission and enumerating the five compensating sites once).
 
 ⚠️ **THREE of walk 4's six findings were damage from lens 1's single fold, each found by a different later lens on different evidence.** That is the sequential-fold rule's whole return, and it is the measurement walks 2 and 3 forfeited by batching.
+
+**Walk 5 — strictly sequential:** 5 findings — **5 fold-introduced (100%), 0 pre-existing; 4 instruction-changing, 1 record.**
+- Weak spots:          w5 1 folded (§2.8 deletion resolution: the Forward Register block had been folded four times in walk 4 with every patch correct — the block is CUT, per-item subsumption established, item routed to the Planner).
+- Destruction:         w5 1 folded (2.2 **the cut falsified a retained obligation's wording** — a Planner check still read "confirm it gained exactly one row" for a row that can never appear. The retained-material checklist passed; the DIFF REVIEW is what caught it).
+- Vulnerabilities:     w5 1 folded (3.4 the replacement check's degenerate case — an agent emitting a block from habit — would be misdiagnosed as a foreign in-window writer; diagnosis order named).
+- Integration-record:  w5 1 folded (4.1 the trim rested on the Planner's judgement; `PLANNER_TEMPLATE.md` rule (2) permits omission outright, and rule (1) independently corroborates walk 4's finding that the agent could never observe its own append).
+- ACID:                w5 1 folded (5.2 two Planner obligations added by different lenses of this walk invalidate each other; ordering is the joint resolution — C20's second instance).
+
+⚠️⚠️ **EVERY walk-5 finding is downstream of lens 1's cut.** That is the honest reading: the deletion was correct and its blast radius was under-estimated, so walk 5 is not measuring the artifact — it is measuring one edit. **A confirming walk over the whole artifact is owed before any close.**
+
+| walk | findings | fold-introduced | **instruction-changing** | record/commentary |
+|---|---|---|---|---|
+| 1 | 13 (+1 record-decay) | 4 (31%) | 9 | 5 |
+| 2, 3 | — | — | — | **batched; not counted toward the bar** |
+| 4 | 6 | 3 (50%) | 4 | 2 |
+| 5 | 5 | 5 (100%) | 4 | 1 |
+
+⚠️ **The origin ratio has climbed to 100% while the instruction surface has held flat at 4 for two walks. By §2's origin condition walk 5 is pure noise floor; by the surface signal it is not converged.** The two readings still disagree — the same collision batch entry 300 records — and on this cycle the SURFACE reading is the one that kept finding real defects.
 **Panel status (T2):** not convened. ⚠️ This line is deliberately phrased so §4's cold-panel check cannot match it: the check is line-anchored on a bolded or dashed keyword opener, and the canonical form satisfies it by wording alone while the panel has not run. **Both the keyword and the canonical form are DESCRIBED, not reproduced** — §3's prohibition is reflexive, and an earlier draft of this very sentence reproduced the form it warns about, inside the block where the rule binds hardest. The WARN is earned until the panel completes; it clears by running the panel, never by wording.
 **Conflicts:** C20 opened at walk 1's ACID pass and joint-resolved in one move (QA rows 4 vs 10). C18/C19 opened at authoring. No conflict required escalation.
 **Closing:** not reached. Walk 2 returned **12 findings — 8 fold-introduced, 4 pre-existing (67%)** — so the origin condition is met, **but four were instruction-changing and one of those was HIGH**, so the record-class condition is not. ⚠️ **The bar is unmet and the walk re-opens; a ratio-only reading would have closed here.** Walk 3 owed.
 
 ⚠️ **Both signals reported, per batch entry 300 (FORWARD 53), which argues the origin split cannot distinguish converging from circling:**
 
-| walk | findings | fold-introduced | **instruction-changing** | record/commentary |
-|---|---|---|---|---|
-| 1 | 13 (+1 record-decay) | 4 (31%) | 9 | 5 |
-| 2 | 12 | 8 (67%) | **4** | 8 |
-
-**The origin ratio more than doubled while the instruction surface more than halved.** Read by origin alone, walk 2 looks like the noise floor §2 warns about; read by surface, it is the artifact converging while its record has not. The two readings point opposite ways on the same data — which is precisely the collision entry 300 records, observed here on this cycle rather than argued.
+**The full walk-by-walk table is below, after the walk-5 lines.** Read by origin alone, walk 2 looks like the noise floor §2 warns about; read by surface, it is the artifact converging while its record has not. The two readings point opposite ways on the same data — which is precisely the collision entry 300 records, observed here on this cycle rather than argued.
 
 ---
 
