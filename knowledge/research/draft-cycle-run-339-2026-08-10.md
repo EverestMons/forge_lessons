@@ -844,10 +844,23 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 | 4 | 6 | 3 (50%) | 4 | 2 |
 | 5 | 5 | 5 (100%) | 4 | 1 |
 | 6 | 3 | 3 (100%) | **1** | 2 |
+| — | **flag (G) added — a structural culmination; entry 294 says this RESETS the curve** | | | |
+| 7 | 7 | 6 (86%) | 4 | 3 |
 
 ⚠️ **The origin ratio reached 100% at walk 5 while the instruction surface held flat at 4 — by §2's origin condition that walk was pure noise floor, by the surface signal it was not converged. Walk 6 is the first walk where the two agree.** Instruction-changing findings across the counted walks: **9 → 4 → 4 → 1.** That is the curve §2's origin split could not show, and on this cycle the surface reading is the one that kept finding real defects.
 
-⚠️⚠️ **THE BAR IS NOT YET MET, and the failing condition is precise: walk 6 returned ONE instruction-changing finding (w6-1), so the record-class-only condition fails and the walk re-opens.** The origin condition is met at 100%. **Walk 7 is owed** — a full sequential walk over the whole artifact, and the first one with a real chance of closing, since walk 6 folded one instruction and two records and its ACID and Vulnerabilities lenses both came back dry.
+**Walk 7 — strictly sequential, covering flag (G):** 7 findings — **6 fold-introduced (86%); 4 instruction-changing, 3 record.**
+- Weak spots:          w7 3 folded (1.2 **flag (G) had NO producer** — the steps instruct on flag (A) four times and on (G) zero; 1.1 the cluster synthesis did not carry (G); 1.3 entry 293 is circular and must be decided first).
+- Destruction:         w7 1 folded — **HIGH** (2.2 the producer bound Step 2 alone, and **not one of flag (G)'s nine core entries is in tranche A** — four in B, five in C — so it would have produced the signal for zero of the entries the flag exists for).
+- Vulnerabilities:     w7 1 folded (3.2 the producer had no QA observer — **entry 302's class, third instance in this cycle, and the second on a fold repairing an instance of it**).
+- Integration-record:  w7 1 folded (4.2 only HALF of entry 302's remedy was applied: the observer existed, but no mandate named it inline — the half that makes an unpaired mandate visible when written).
+- ACID:                w7 1 folded (5.2 Step 4 asserted "all twelve numbered items bind" while this walk's folds took the restated contract to thirteen; a stale count silently narrows what binds).
+
+⚠️⚠️ **THE BAR IS NOT MET, and walk 7 moved AWAY from it — exactly as batch entry 294 predicts.** Instruction-changing findings went 1 → 4 when flag (G) landed. **294: *"a restructuring pass resets the convergence curve — do not read the finding count as progress… the bar must be met by a walk that restructured nothing."*** Flag (G) was added at walk 6 as a deliberate CEO-approved structural change, with this cost stated in advance rather than discovered.
+
+**Walk 8 is owed and it must restructure nothing.** Six of walk 7's seven findings were downstream of flag (G) itself; the artifact outside that region produced one.
+
+⚠️ **Entry 302's class fired THREE times in one cycle — w4-4, w7-1, w7-5 — every instance a mandate written without an observer, twice on folds that were repairing the previous instance.** That is not carelessness: it is the structural cause entry 302 names, measured on the plan that ingests it, and it is the single strongest argument in this cycle for flag (G)'s existence.
 **Panel status (T2):** not convened. ⚠️ This line is deliberately phrased so §4's cold-panel check cannot match it: the check is line-anchored on a bolded or dashed keyword opener, and the canonical form satisfies it by wording alone while the panel has not run. **Both the keyword and the canonical form are DESCRIBED, not reproduced** — §3's prohibition is reflexive, and an earlier draft of this very sentence reproduced the form it warns about, inside the block where the rule binds hardest. The WARN is earned until the panel completes; it clears by running the panel, never by wording.
 **Conflicts:** C20 opened at walk 1's ACID pass and joint-resolved in one move (QA rows 4 vs 10). C18/C19 opened at authoring. No conflict required escalation.
 **Closing:** not reached. Walk 2 returned **12 findings — 8 fold-introduced, 4 pre-existing (67%)** — so the origin condition is met, **but four were instruction-changing and one of those was HIGH**, so the record-class condition is not. ⚠️ **The bar is unmet and the walk re-opens; a ratio-only reading would have closed here.** Walk 3 owed.
