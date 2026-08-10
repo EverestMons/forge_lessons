@@ -21,7 +21,7 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 ⚠️ **`Test Scope: targeted` — the justification is re-verified here, not inherited.** Measured this session: `find . -name "test_*.py"` returns exactly ONE file, `src/test_lessons_forge.py`, so `python3 -m pytest src/` is simultaneously the targeted run and the full run. Rule 21 requires a written justification for `targeted`; this is it. The contract-change carve-out does not fire — this plan changes no code. **`--collect-only` measured 55 tests at authoring** — report the actual. ⚠️ **TRACKING (CEO, 2026-07-31, continued through 288 / 296 / 311): `targeted` on a single-module repo is a precedent under observation; this is the sixth data point.** Falsified by: a defect reaching `Done/` that a broader run would have caught.
 
-**Clone lineage — measured, not recalled.** Direct clone of **311** (`Done/executable-311.md`), which is also the newest same-class plan: the cycle-class set in `Done/` by plan id — plan 247 → plan 257 → plan 274 → plan 281 → plan 283 → plan 288 → plan 296 → **plan 311** (each namespaced: six of these eight numerals fall inside the 232–314 collision band this plan declares below, and bare they would read as proposal ids). The newest plan of ANY class on this corpus is **330** (Gate 2, DRAFTING_CYCLE v1.7 → v1.8); its machinery is a different class (doctrine edit, not cycle run), and the diff obligation against it stands for the cold panel.
+**Clone lineage — measured, not recalled.** Direct clone of **311** (`Done/executable-311.md`), which is also the newest same-class plan: the cycle-class set in `Done/` by plan id — plan 247 → plan 257 → plan 274 → plan 281 → plan 283 → plan 288 → plan 296 → **plan 311** (each namespaced: **all eight** fall inside the 232–314 namespacing band declared below — five of them also inside the narrower 274–306 double-naming band — and bare they would read as proposal ids). The newest plan of ANY class on this corpus is **330** (Gate 2, DRAFTING_CYCLE v1.7 → v1.8); its machinery is a different class (doctrine edit, not cycle run), and the diff obligation against it stands for the cold panel.
 
 ---
 
@@ -92,7 +92,9 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 ---
 
-### ⚠️⚠️ NUMBERING — THE COLLISION BAND IS 33 NUMERALS WIDE
+### ⚠️⚠️ NUMBERING — TWO BANDS, AND THEY ARE NOT THE SAME BAND
+
+The **double-naming band is 274–306, 33 numerals wide** — every numeral there names both one of this batch's entries and one of its proposals. The **namespacing rule covers the wider 232–314**, because a bare numeral anywhere in that range reads as either an entry or a proposal id. ⚠️ An earlier draft titled this section with the 33 as though it described the namespacing band; the two were conflated.
 
 - **`lesson_entries.id` 266–306** — THIS batch's 41 entries (after ingest).
 - **`lesson_proposals.id` 274–314** — THIS batch's 41 proposals (after classification).
@@ -151,7 +153,7 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 | 3 | 268 | three constraints opened from the batch's own entries were breached by the folds that followed | `DRAFTING_CYCLE.md` §2.8 — sibling of entry 288 |
 | 4 | 269 | `id_sequence` at authoring is a prediction; the verify-at-deposit clause must enumerate every site | `PLANNER_TEMPLATE.md` (deposit discipline) — ⚠️ this plan's own deposit step practices it |
 | 5 | 270 | the untargeted confirming pass caught the record's own three-line decay | `DRAFTING_CYCLE.md` §2.7/§3 — ⚠️ **flag (D): v2.0 codified the closing-record re-read and the Cycle-Log-as-covered-region; residue is the sweep-the-tracking-lines clause** |
-| 6 | 271 | the three-tranche split held classification quality — no inter-tranche cliff at 3.2× the record batch | ⚠️ likely `reference` (calibration datum) — **this plan is its first consumer**; Gate 1 decides |
+| 6 | 271 | the three-tranche split held classification quality — no inter-tranche cliff at 3.2× the record batch | ⚠️ likely ROUTED `reference` (calibration datum) — ⚠️ **`reference` is a ROUTE value, never a `target_artifact`: set a FILE here or leave the proposal `ambiguous`** — **this plan is its first consumer**; Gate 1 decides |
 | 7 | 272 | a recognized-value enum lives in every tool that reads it — census every copy before adding one | `PLANNER_TEMPLATE.md` (multi-copy census rule) |
 | 8 | 273 | argue a trade from the population the change actually touches | `PLANNER_TEMPLATE.md` or `DRAFTING_CYCLE.md` §2.7 — Gate 1 splits |
 | 9 | 274 | a truth-restoration edit is held to its own standard in both directions | `PLANNER_TEMPLATE.md` (doc-correction rule) |
@@ -173,7 +175,7 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 | 25 | 290 | a guard's stated REASON is part of the guard — correct the premise and the guard is weakened | `DRAFTING_CYCLE.md` §2.7 |
 | 26 | 291 | `LESSONS.md` entries carry no numbers, so an ordinal citation is unverifiable | `PLANNER_TEMPLATE.md` (citation convention) — ⚠️ this plan's scout declares its depth because of this entry |
 | 27 | 292 | a changelog says what changed, not which direction — read the diff | `DRAFTING_CYCLE.md` §2.6 (clone-diff) / §2.7 |
-| 28 | 293 | folding a defect class in one plan does not immunise the next | ⚠️ **routing principle, not a doctrine clause** — recurrence across artifacts ⇒ mechanization queue. Gate 1 decides |
+| 28 | 293 | folding a defect class in one plan does not immunise the next | ⚠️ **routing principle, not a doctrine clause** — ⚠️ **that is a route/disposition note, NOT a `target_artifact`: set a file or leave it `ambiguous`** — recurrence across artifacts ⇒ mechanization queue. Gate 1 decides |
 | 29 | 294 | a restructuring pass resets the convergence curve | `DRAFTING_CYCLE.md` §2/§3 — ⚠️ **cluster (A)** |
 | 30 | 295 | a corrected corpus measures the FALSE-positive surface and cannot measure true positives | `PLANNER_TEMPLATE.md` (census authoring) / `DRAFTING_CYCLE.md` §2.7 — sibling of entry 305 |
 | 31 | 296 | measure how many DIALECTS a record has before computing anything from it | `DRAFTING_CYCLE.md` §2.7 or `PLANNER_TEMPLATE.md` |
@@ -272,7 +274,7 @@ Carried rather than re-decided, on 311's own measured result: the three-tranche 
 
 **The earned WARN set is TWENTY-ONE, in four classes:**
 1. **(4) the known-benign steps-mention-tests class** (Steps 1, 2, 3 and 6) — **it grew from two to four at walk 7**, because flag (G)'s producer clause uses the word *test* in Steps 2 and 3. Benign and declared; do NOT add test files to any step's scope to silence them.
-2. **(15) `(p) WARN: C<n> has no backtick-quoted command or check: token`.** Check (p) shipped after 311, so this class is unexamined by the clone origin. It is **earned and correct**: a Conflict Ledger constraint with no check token is a constraint nothing can observe, which is the record-without-prevent asymmetry §2.8 names. Constraints carrying a concrete check token do not warn (C9, C11, C18, C19); the fifteen that do are prose invariants inherited from 311's ledger.
+2. **(15) `(p) WARN: C<n> has no backtick-quoted command or check: token`.** Check (p) shipped after 311, so this class is unexamined by the clone origin. It is **earned and correct**: a Conflict Ledger constraint with no check token is a constraint nothing can observe, which is the record-without-prevent asymmetry §2.8 names. Constraints carrying a concrete check token do not warn — **C9, C11, C18, C19 and C20, five of the twenty**; the fifteen that do are prose invariants inherited from 311's ledger. ⚠️ **C20 was missing from this enumeration until walk 8, and the enumeration is the baseline the re-diff mandate below compares against.**
 3. **(1) `T2 plan missing cold-panel line`** — **earned, and it appeared BECAUSE of a walk-1 fold.** Draft v1's line opened with the bolded keyword the check keys on, followed by a not-yet-convened note — which satisfies §4's structural check by wording while the panel has not run. **The offending form is DESCRIBED, not reproduced**: quoting it here would place a line-anchorable match in the plan's own prose, which is the defect batch entry 301 records. Re-phrasing it so the check cannot match moved the WARN set 17 → 18, and **the delta was verified by diffing the before and after WARN sets, not by re-reading the count** — the comparison §3 mandates, run in the direction that catches a silencing. It clears only by convening the panel.
 4. **(1) `Drafting Cycle closing indicates fold as last event, not a dry lens pass`** — **earned and correct while the last event is a fold**, which is §3's healthy direction during an open cycle. It clears only on a dry confirming pass, never by rewording the Closing line.
 
@@ -357,7 +359,7 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 > The glob population is 9 `.db` files at authoring and the count is NOT the guard.
 >
 > **Capture the baseline** (read-only), verbatim raw output:
-> 1. Proposals by `status` **using a zero-emitting form** (LEFT JOIN/COALESCE over the enumerated status list, so every legal status prints a number — `GROUP BY` omits empty buckets and `proposed` is expected ABSENT at baseline). Planner measured: implemented 171 · superseded 28 · rejected 15 · **accepted 42** · reference 14 · stale 3, total 273.
+> 1. Proposals by `status` **using a zero-emitting form** (LEFT JOIN/COALESCE over the enumerated status list, so every legal status prints a number — `GROUP BY` omits empty buckets and `proposed` is expected ABSENT at baseline). Planner measured: implemented 171 · superseded 28 · rejected 15 · **accepted 42** · reference 14 · stale 3, total 273. ⚠️⚠️ **The zero-emitting form enumerates ALL EIGHT schema statuses — proposed, accepted, rejected, ambiguous, stale, superseded, implemented, reference — and the six-value list above is the MEASURED result, not the enumeration.** `proposed` and `ambiguous` are both absent at baseline and must each print a zero. **Record `SURFACEABLE_BASE = proposed + ambiguous` as its own labelled line** — Step 5's derived expectation reads it, cannot re-derive it once 41 `proposed` rows exist, and forbids any fallback.
 > 2. Proposals by `category`.
 > 3. Total `lesson_entries`.
 > 4. **The sentinel — entry 265, hash `c30fdaff226570c030e544648af0bc6096ff633452795387abada9d00a07fa83`, named by id, never derived from `MAX(id)`** (confirm against your own read; mismatch = HALT, not correction).
@@ -373,7 +375,7 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 > ```
 > Label it **`NT`**, deposit as RAW output.
 >
-> ⚠️⚠️ **`NT` HAS EXACTLY ONE DEFINITION IN THIS PLAN AND IT IS THIS PREDICATE: `status IN ('proposed','accepted','ambiguous')`. `NT_COUNT` = **42** on a FRESH run** — the 42 `accepted|codify` rows (21 `DRAFTING_CYCLE.md`, 21 `PLANNER_TEMPLATE.md`), with `proposed` and `ambiguous` both empty at baseline. **The 3 `stale` rows are NOT in `NT` and are never counted into it**; they are reported separately as `STALE_COUNT`. The front matter's "45" is `NT_COUNT + STALE_COUNT` and is a *composition* figure, not an operand — **no gate in this plan ever compares against 45.** Report `NT_COUNT=42` and `STALE_COUNT=3` as two labelled lines and never a sum.
+> ⚠️⚠️ **`NT` HAS EXACTLY ONE DEFINITION IN THIS PLAN AND IT IS THIS PREDICATE: `status IN ('proposed','accepted','ambiguous')`. `NT_COUNT` = **42** on a FRESH run** — the 42 `accepted|codify` rows (21 `DRAFTING_CYCLE.md`, 21 `PLANNER_TEMPLATE.md`), with `proposed` and `ambiguous` both empty at baseline. **The 3 `stale` rows are NOT in `NT` and are never counted into it**; they are reported separately as `STALE_COUNT`. ⚠️ **Never sum `NT_COUNT` and `STALE_COUNT` into one non-terminal figure.** An earlier draft carried such a figure in the front matter and this sentence existed to disambiguate it; that figure is gone, and the only live `45` tokens in this plan are **FORWARD 45** — a different namespace. **No gate in this plan ever compares against 45.** Report `NT_COUNT=42` and `STALE_COUNT=3` as two labelled lines and never a sum.
 >
 > ⚠️⚠️ **Empty stdout is NOT evidence of an empty set** — also run the count form and record the printed token:
 > ```
@@ -479,6 +481,7 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 > 2. The G1–G6 gate table.
 > 3. The pre-cycle baseline (zero-emitting status distribution, category distribution, entry count, sentinel hash, `STALE_COUNT`).
 > 4. `E0`/`P0`.
+> 5b. **`SURFACEABLE_BASE=`** — the `proposed + ambiguous` count at baseline (Planner measured **0**), the sole operand for Step 5's surfaced-proposal expectation.
 > 5. The `NT` capture (+`NT-original`/`NT-now` labels on a resume; `NT-original` is the before-anchor downstream readers take) — **including the explicit list of the 42 `accepted|codify` ids** — captured by the predicate `status='accepted' AND route='codify'`, never by a range. **This list is the sole operand for the `Q2_INTACT` check at Steps 2, 3, 4 and 5 and for QA row 10; nothing else in the plan can reconstruct it after the ingest.**
 > 6. The 41-line ingested-entry list.
 > 7. The absolute backup path(s), labelled `pristine (pre-cycle)` (+ `this-dispatch (mid-cycle)` on resume).
@@ -683,7 +686,7 @@ Bellows dispatches this plan automatically when deposited; no manual bootstrap r
 > - `reports/lessons-report-2026-08-10.md`
 > - `knowledge/development/dev-log-cycle-step-5-2026-08-10.md`
 >
-> **Pre-check:** if the report exists AND this step's dev log is committed → HALT (`generate_lessons_report` overwrites unconditionally). Report exists but deposit absent → deposit-completion resume: **copy the existing report aside FIRST** to `/Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-report-pre-regen-339-<UTC-stamp>.md` (main tree, outside Scope — a worktree copy trips scope_check, an uncommitted one dies with teardown), recorded in `##### Untracked artifacts` on its own labelled line, exact form: `copy-aside (pre-regen): <absolute path>` (Step 6 row 0 cross-checks that token). Verified at authoring: no 2026-08-10 report exists.
+> **Pre-check — branch, do NOT halt unconditionally.** If the report exists AND this step's dev log is committed → **idempotent re-dispatch: APPEND a `### Re-dispatch note`, leave the Complete receipt untouched, and STOP.** ⚠️⚠️ **An unconditional HALT here bricks the run:** Steps 1–4 all carry this branch, Step 6's precondition is an allowlist whose only halt exception is the Step-1 G6 state, and a bare daemon retry of an already-complete Step 5 is a normal bellows state — so a Step-5 halt record has no path forward except a stop plus a re-deposit under a fresh id. **Never overwrite a Complete receipt with a halt record.** (`generate_lessons_report` overwrites unconditionally, which is why the report is not regenerated on this branch.) Report exists but deposit absent → deposit-completion resume: **copy the existing report aside FIRST** to `/Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-report-pre-regen-339-<UTC-stamp>.md` (main tree, outside Scope — a worktree copy trips scope_check, an uncommitted one dies with teardown), recorded in `##### Untracked artifacts` on its own labelled line, exact form: `copy-aside (pre-regen): <absolute path>` (Step 6 row 0 cross-checks that token). Verified at authoring: no 2026-08-10 report exists.
 >
 > Run `generate_lessons_report(conn, "2026-08-10")` — whole-corpus; the date is only the filename/title. **`output_dir` defaults to `"reports"` RELATIVE TO CWD** — `pwd` before the call; state the returned absolute path; confirm the filename matches Scope. ⚠️ The known `encoding=` gap (`src/lessons_forge.py:593`, no explicit encoding) is a FORWARD item already filed by 296 — note, don't re-file.
 >
