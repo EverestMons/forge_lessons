@@ -1,0 +1,32 @@
+== VERIFICATION 4: NO GATE EDIT WAS OWED OR MADE ==
+
+Task A(6) re-run independently:
+
+$ grep -c -F "### 2.0" bellows/scripts/plan_lint.py
+0
+$ grep -c -F "DIRECTION VERDICT" bellows/scripts/plan_lint.py
+0
+$ grep -c -F "RE-DRAFT" bellows/scripts/plan_lint.py
+0
+$ grep -c -F "### 2.0" bellows/gates.py
+0
+$ grep -c -F "DIRECTION VERDICT" bellows/gates.py
+0
+$ grep -c -F "RE-DRAFT" bellows/gates.py
+0
+
+Positive control:
+$ grep -c -F "Drafting Cycle" bellows/scripts/plan_lint.py
+11
+
+All probes return 0; positive control returns 11. No gate edit owed. ✅
+
+Both commits — no bellows file:
+
+$ git -C /Users/marklehn/Developer/GitHub show --name-only --format= ecee4b374482a0a6bca2b262e6228375fb4915f6
+DRAFTING_CYCLE.md
+
+$ git show --name-only --format= 0a3ec9f
+knowledge/development/dc-direction-verdict-dev-log-2026-08-11.md
+
+Neither commit touches any bellows file. ✅
