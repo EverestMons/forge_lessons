@@ -1,0 +1,73 @@
+=== Row 1: DOC INTEGRITY ===
+
+Commit discovered independently by slug:
+  git log --all --oneline --grep='s2-rewrite-2026-08-11' → 6f7dd2d [348] s2-rewrite(s2-rewrite-2026-08-11): ...
+
+Three-way SHA:
+  DOC_SHA (dev-log):  c678f288deba2725fa878969e10362f618de532786a2f75f1a1c4c391d52e54e
+  Live file:          c678f288deba2725fa878969e10362f618de532786a2f75f1a1c4c391d52e54e
+  Commit blob:        c678f288deba2725fa878969e10362f618de532786a2f75f1a1c4c391d52e54e
+  MATCH: YES (three-way)
+
+Porcelain (governance root):
+  M bellows (submodule pointer)
+  M lessons-forge (submodule pointer)
+  ?? scratchpad/
+  DRAFTING_CYCLE.md: clean
+
+Name-only: DRAFTING_CYCLE.md — exactly one file in commit.
+
+=== Row 2: THE REWRITE LANDED WHOLE ===
+
+Post-condition probes re-run (all on live file):
+  zero instruction-class findings: 2 ✓
+  DEMOTED to a diagnostic: 2 ✓
+  convergence clock RESETS: 1 ✓
+  converged before its account of itself: 1 ✓
+  sweeps the record lines that track it: 1 ✓
+  stops trending toward dry: 0 ✓
+  instruction 0 / record (occurrences via grep -Fo | wc -l): 4 ✓
+  **Version:** 2.4 (2026-08-11). Amended only through the Iteration Protocol: 1 ✓
+  2.3 (2026-08-11): 1 ✓
+  predominantly fold-introduced: 2 ✓
+  14 of 19 confirming-pass findings at exec-330: 1 ✓
+  N of M fold-introduced: 1 ✓
+  History bullets (awk): 14 ✓
+
+Bar structure:
+  grep -cE '^Walk the lenses' → 1 ✓
+  Paragraph count (§2 intro span, python3 extraction): 9 ✓ (from 3 pre-edit)
+
+=== Row 3: COHERENCE SWEEP ===
+
+predominantly fold-introduced: 2 ✓
+  Location 1: line 42 — §2 bar, the described-retirement parenthetical ("the prior bar's 'predominantly fold-introduced' condition...")
+  Location 2: line 268 — v2.0 History row (immutable)
+  Classification: described-retirement + immutable v2.0 row. No third location.
+
+stops trending toward dry: 0 ✓
+
+instruction 0 / record (occurrences via grep -Fo | wc -l): 4 ✓
+
+Cross-references intact:
+  ### 2.0 Walk 0: 1 ✓
+  A walk covers, it does not target.: 1 ✓
+  alongside the per-class split (and the origin split as its diagnostic): 1 ✓
+
+=== Row 4: NUMSTAT ===
+
+git diff numstat: 21	7	DRAFTING_CYCLE.md ✓
+
+=== Row 5: VERSION + CHANGELOG ===
+
+v2.4 line: 1 ✓
+2.3 (2026-08-11): 1 ✓
+tail probe (stated for the audit trail): 1 ✓ (earnable — 0 pre-edit)
+PARTIAL-clause probe (259's cross-plan-measurement middle ask): 1 ✓ (earnable — 0 pre-edit)
+History awk: 14 ✓
+New row FIRST at line 264, names slug s2-rewrite-2026-08-11, prior 2.3 row intact below at line 268.
+
+=== Row 10: DOCTRINE PARSES ===
+
+## count: 9 ✓ (unchanged; includes the fenced ## Drafting Cycle decoy inside §3's example per the 253 strip-fences rule)
+### count: 11 ✓ (unchanged; the rewrite adds paragraphs and bullets, zero headings)

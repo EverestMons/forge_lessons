@@ -1,0 +1,15 @@
+=== Row 7: TARGETED TESTS + PREMISE ===
+
+--- Premise ---
+
+Single-module premise: the doctrine change is DRAFTING_CYCLE.md — no source-code file changed.
+The only code this plan deposited is the builder script (s2-rewrite-edits.py) which is not
+imported by any test and has no runtime consumers. The DB flip affects lesson_proposals rows;
+tests exercising proposal operations are in src/test_lessons_forge.py (the single test module).
+
+--- Test run ---
+
+Command: python3 -m pytest src/test_lessons_forge.py -v --tb=short
+Result: 55 passed in 0.10s
+Baseline: 55 passed / 0 skipped
+Delta: 0 (no change)

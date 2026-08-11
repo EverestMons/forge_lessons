@@ -1,0 +1,42 @@
+=== Row 8: GATE-NEUTRALITY + THE DEFERRED HALF ===
+
+--- 8(a): zero-count checks ---
+
+plan_lint.py (/Users/marklehn/Developer/GitHub/bellows/scripts/plan_lint.py):
+  grep -cF 'fold-introduced': 0 ✓
+  grep -cF 'instruction-class': 0 ✓
+  grep -cF 'instruction 0': 0 ✓
+
+gates.py (/Users/marklehn/Developer/GitHub/bellows/gates.py):
+  grep -cF 'fold-introduced': 0 ✓
+  grep -cF 'instruction-class': 0 ✓
+  grep -cF 'instruction 0': 0 ✓
+
+--- 8(b): positive control ---
+
+grep -cF 'Drafting Cycle' in plan_lint.py: 11 ✓
+
+--- 8(c): closing-fold WARN fires correctly on v2.4-form plans ---
+
+The check-(f) region (plan_lint.py lines ~220-240) reads per-lens lines and the Closing line.
+Key mechanism:
+  - lens_line_re matches per-lens lines (weak spots, destruction, vulnerabilities, integration, acid)
+  - It scans the last lens line before **Closing:** for 'fold' and 'dry' tokens
+  - has_fold = 'fold' in ll_lower
+  - has_dry = bool(re.search(r'\bdry\b', cleaned)) [after removing 'not dry'/'no dry'/'never dry']
+  - WARN fires when has_fold=True AND has_dry=False
+
+The v2.4 Closing-line form retains these fold tokens in per-lens lines:
+  - Per-lens lines still use "w<N> <count> folded" (the 'fold' token) or "dry" (the 'dry' token)
+  - The new bar changes §2's prose paragraphs, not the per-lens line format
+  - The worked form (E5) changes the parenthetical content but retains 'folded' and 'dry'
+  - The check keys on fold/dry in per-lens lines, which the new Closing-line form retains unchanged
+
+The check-(f) prose refresh is the DEFERRED gate half:
+  The WARN prose describes the closing condition in the pre-v2.4 wording. After this rewrite, the
+  prose UNDERSTATES the closing condition (the bar now requires zero instruction-class, not just
+  record-class-predominant). This is the 332-precedent class: an understatement, not a false check.
+  The gate's actual matching logic (fold/dry tokens) is unchanged and fires correctly.
+  Owed: check-(f) prose refresh + optional per-class line-form check.
+  Owner: bellows plan_lint.
+  Delivery: wrap-emitted FORWARD row (Planner-direct).
