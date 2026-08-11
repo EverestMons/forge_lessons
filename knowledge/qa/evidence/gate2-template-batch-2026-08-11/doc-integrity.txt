@@ -1,0 +1,78 @@
+== QA Row 1: DOC INTEGRITY ==
+
+Commit discovered independently:
+$ git -C /Users/marklehn/Developer/GitHub log --format='%H %s' -20 -- PLANNER_TEMPLATE.md
+423223bf4f0abc0e4a53105c2919c1d2b0beafa0 [345] gate2(gate2-template-batch-2026-08-11): 37 proposals — 30 new rules 65-94 + 7 extensions — template 4.85 -> 4.86
+
+Three-way SHA agreement:
+  Commit content: 886cfaca36cd5f4e0e0150400220fcd98aff148b9109ff969e7fdf401d1b041e
+  Live file:      886cfaca36cd5f4e0e0150400220fcd98aff148b9109ff969e7fdf401d1b041e
+  Dev-log DOC_SHA: 886cfaca36cd5f4e0e0150400220fcd98aff148b9109ff969e7fdf401d1b041e
+  AGREEMENT: YES (all three match)
+
+Porcelain:
+$ git -C /Users/marklehn/Developer/GitHub status --porcelain -- PLANNER_TEMPLATE.md
+(empty — clean)
+
+Commit name-only:
+$ git -C /Users/marklehn/Developer/GitHub show 423223bf4f0abc0e4a53105c2919c1d2b0beafa0 --name-only --format=
+PLANNER_TEMPLATE.md
+
+== QA Row 2: BLOCK LANDED WHOLE ==
+
+$ grep -cF '### 65. Verify a mandated block in the SECTION the parser reads, not merely present in the deposit' → 1
+$ grep -cF '### 94. Author every task as ordered sub-items from the first draft' → 1
+$ grep -cF 'codified 2026-08-11 (Gate 2 batch 2)' → 30
+$ grep -cF '*Source: proposal 220, lesson 2026-08-03*' → 1
+
+Structural integrity:
+$ python3 -c "..." → RULES 94 1 94 True True
+
+== QA Row 3: SEVEN EXTENSIONS LANDED, CO-TENANTS SURVIVED ==
+
+Extension head-phrases (all → 1):
+  Gate-behaviour sentences are inherited claims → 1
+  An absence-result check requires a positive control → 1
+  Walk the RESUME path before the crash path (proposal 230 → 1
+  A backup and the write it inverts are adjacent (proposal 243 → 1
+  Every pin ships its extraction command → 1
+  A bypass branch enumerates every downstream reader of what it skips → 1
+  Every number a plan states is produced by the plan's own mandated method → 1
+
+Co-tenant/adjacent rule headings (all → 1):
+  ### 52. Re-verify inherited claims → 1
+  ### 53. Region-scoped metrics → 1
+  ### 55. Assert a positive signal → 1
+  ### 56. Resume machinery is justified → 1
+  ### 57. Generalizing a guard → 1
+  ### 61. Pin run-time-copied artifacts → 1
+  ### 62. Establish that a recovered-from state → 1
+  ### 63. Read the DELIVERY code → 1
+
+== QA Row 4: NUMSTAT VS THE PIN ==
+
+$ git -C /Users/marklehn/Developer/GitHub diff 423223b^ 423223b --numstat -- PLANNER_TEMPLATE.md
+197	2	PLANNER_TEMPLATE.md
+MATCHES PIN: YES
+
+== QA Row 5: VERSION + CHANGELOG ==
+
+$ grep -cF '**Version:** 4.86' → 1
+$ grep -cF '**Version:** 4.85' → 0
+$ grep -cF '**Last Updated:** 2026-08-11 (v4.86)' → 1
+$ grep -cF 'v4.86: Gate 2 batch 2' → 1
+$ grep -cF 'v4.85:' → 1 (prior row intact)
+
+First data row after table header:
+$ grep -F -A 2 '| Date | Lesson |'
+| Date | Lesson |
+|---|---|
+| 2026-08-11 | v4.86: Gate 2 batch 2 (gate2-template-batch-2026-08-11) — 37 proposals codified...
+
+Substantive tail:
+$ grep -cF 'Numbering append-only per the 4.83 precedent' → 1
+
+== QA Row 10: TEMPLATE STILL PARSES ==
+
+$ grep -cE '^## ' → 30 (unchanged from pre-edit)
+$ grep -cE '^### [0-9]+\. ' → 137 (pre-edit 107 + 30 new rules)

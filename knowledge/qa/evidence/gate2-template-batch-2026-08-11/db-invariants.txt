@@ -1,0 +1,80 @@
+== QA Row 6: FLIP READ-BACK + BLAST RADIUS ==
+
+=== 6a: All 37 ids implemented|ceo, timestamps Z-GLOB-matching, NOT IN prior values ===
+
+$ sqlite3 -bail -readonly /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db ".timeout 5000" "SELECT id||'|'||status||'|'||status_updated_by||'|'||status_updated_at||'|'||category FROM lesson_proposals WHERE id IN (223,225,226,228,229,230,236,239,240,242,243,244,250,255,257,264,265,266,267,268,269,274,277,280,281,282,284,288,289,293,297,303,305,306,307,310,314) ORDER BY id;"
+
+223|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+225|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+226|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+228|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+229|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+230|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+236|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+239|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+240|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+242|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+243|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+244|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+250|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+255|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+257|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+264|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+265|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+266|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+267|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+268|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+269|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+274|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+277|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+280|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+281|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+282|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+284|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+288|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+289|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+293|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+297|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+303|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+305|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+306|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+307|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+310|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+314|implemented|ceo|2026-08-11T19:00:09Z|governance_rule
+
+exit=0, stderr empty
+Row count: 37
+All implemented|ceo: YES
+All governance_rule: YES
+Timestamp 2026-08-11T19:00:09Z matches Z-GLOB: YES
+Timestamp NOT IN ('2026-08-09T01:20:01Z','2026-08-11T13:42:09+00:00'): YES
+
+=== 6b: accepted|codify remaining count ===
+
+$ sqlite3 -bail -readonly ... "SELECT 'REMAINING_ACC='||COUNT(*) FROM lesson_proposals WHERE status='accepted' AND route='codify';"
+REMAINING_ACC=36
+Expected: 36 (73 - 37). MATCHES.
+
+=== 6c: Outside-range capture re-derived and diffed ===
+
+Re-run projection: id <= 314 AND id NOT IN (<the 37>)
+Current line count: 277
+Diff against deposited outside-range-ids.txt: exit=0 (identical)
+Partition: no differing lines — no concurrent activity detected.
+
+== QA Row 9: CONSUMER SEMANTICS ==
+
+=== 9a: Terminal statuses quote ===
+
+lessons-forge/src/lessons_forge.py:31:
+_TERMINAL_STATUSES = frozenset(('implemented', 'rejected', 'superseded', 'reference'))
+
+Confirmed: 'implemented' IS terminal, 'accepted' is NOT.
+
+=== 9b: get_unclassified_entries ===
+
+$ python3 -c "from lessons_forge import get_unclassified_entries; ..."
+Total unclassified: 0
+Source entries found in work list: 0
+
+All 37 source entries (215, 217, 218, 220, 221, 222, 228, 231, 232, 234, 235, 236, 242, 247, 249, 256, 257, 258, 259, 260, 261, 266, 269, 272, 273, 274, 276, 280, 281, 285, 289, 295, 297, 298, 299, 302, 306) ALL ABSENT from the work list — dispositioned before, dispositioned after.

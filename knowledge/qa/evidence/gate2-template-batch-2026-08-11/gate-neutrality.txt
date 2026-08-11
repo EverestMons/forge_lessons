@@ -1,0 +1,27 @@
+== QA Row 8: GATE-NEUTRALITY WITH POSITIVE CONTROL ==
+
+=== 8a: Rule-number coupling ===
+
+$ grep -rohE 'Rule [0-9]+' /Users/marklehn/Developer/GitHub/bellows/gates.py /Users/marklehn/Developer/GitHub/bellows/scripts/plan_lint.py | sort -u
+Rule 20
+Rule 22
+Rule 26
+
+Exactly the three expected — no new rule-number couplings.
+
+=== 8b: Line-citation sweep ===
+
+$ grep -rn -E 'PLANNER_TEMPLATE[^ ]*:[0-9]+' /Users/marklehn/Developer/GitHub/bellows --include='*.py'
+(no output, exit=1)
+Zero hits — no line-number citations of PLANNER_TEMPLATE.md in bellows code.
+
+=== 8c: Positive control ===
+
+$ grep -cF 'Rule 20' /Users/marklehn/Developer/GitHub/bellows/gates.py
+4
+
+Nonzero — same instrument, known-present token confirmed.
+
+=== 8d: Zero-match note ===
+
+Zero-match grep -c prints 0 and exits 1 — the count is the assertion (8b above: count=0 is the expected zero-hit result; exit 1 is the ugrep shim's standard behavior on zero matches).

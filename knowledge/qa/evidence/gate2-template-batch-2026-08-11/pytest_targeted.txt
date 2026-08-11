@@ -1,0 +1,18 @@
+== QA Row 7: TARGETED TESTS + PREMISE ==
+
+=== Premise ===
+
+$ find /Users/marklehn/Developer/GitHub/lessons-forge/src -name 'test_*.py'
+/Users/marklehn/Developer/GitHub/lessons-forge/src/test_lessons_forge.py
+
+Exactly one test module — premise holds.
+
+=== Test run ===
+
+$ cd /Users/marklehn/Developer/GitHub/lessons-forge && python3 -m pytest src/test_lessons_forge.py -q
+.......................................................                  [100%]
+55 passed in 0.09s
+
+Baseline: 55 passed / 0 skipped (measured 2026-08-11).
+Result: 55 passed / 0 skipped.
+Delta: none — zero regressions.
