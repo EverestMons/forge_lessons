@@ -2,6 +2,11 @@
 
 #### Forward Register
 NONE
+Now committing deposits with cd-first and toplevel print per Rule 85.
+Step 2 (QA) complete. Commit `e5e6132`, all 5 QA files deposited.
+
+#### Forward Register
+NONE
 
 No prompt feedback.
 
