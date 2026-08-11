@@ -1,0 +1,238 @@
+=== Row 0 — Deliverable verification ===
+
+Plan A (dev-log-cycle-step-1-2026-08-10.md):
+  git log: db23e72 draft(cycle-run-339): [339] Step 1 complete — 41 entries ingested (266-306), all gates PASS, Gate-2 queue intact
+  porcelain: (empty), ROW0-PORCELAIN-EXIT=0
+
+Step 1 (dev-log-cycle-step-2-2026-08-10.md):
+  git log: 63a7562 draft(cycle-run-340): [340] Step 1 complete — 14 entries classified (266-279), proposals 274-287, Gate-2 queue intact
+  porcelain: (empty), ROW0-PORCELAIN-EXIT=0
+
+Step 1 (classifications-cycle-2026-08-10-part1.md):
+  git log: 63a7562 draft(cycle-run-340): [340] Step 1 complete — 14 entries classified (266-279), proposals 274-287, Gate-2 queue intact
+  porcelain: (empty), ROW0-PORCELAIN-EXIT=0
+
+Step 2 (dev-log-cycle-step-3-2026-08-10.md):
+  git log: 311140c draft(cycle-run-340): [340] Step 2 complete — 14 entries classified (280-293), proposals 288-301, Gate-2 queue intact
+  porcelain: (empty), ROW0-PORCELAIN-EXIT=0
+
+Step 2 (classifications-cycle-2026-08-10-part2.md):
+  git log: 311140c draft(cycle-run-340): [340] Step 2 complete — 14 entries classified (280-293), proposals 288-301, Gate-2 queue intact
+  porcelain: (empty), ROW0-PORCELAIN-EXIT=0
+
+Step 3 (dev-log-cycle-step-4-2026-08-10.md):
+  git log: f531f61 draft(cycle-run-340): [340] Step 3 complete — 13 entries classified (294-306), proposals 302-314, Gate-2 queue intact
+  porcelain: (empty), ROW0-PORCELAIN-EXIT=0
+
+Step 3 (classifications-cycle-2026-08-10-part3.md):
+  git log: f531f61 draft(cycle-run-340): [340] Step 3 complete — 13 entries classified (294-306), proposals 302-314, Gate-2 queue intact
+  porcelain: (empty), ROW0-PORCELAIN-EXIT=0
+
+Step 4 (reports/lessons-report-2026-08-10.md):
+  git log: 0c5344a draft(cycle-run-340): [340] Step 4 complete — report generated, 41 proposals surfaced, Gate-2 queue intact
+  porcelain: (empty), ROW0-PORCELAIN-EXIT=0
+
+Step 4 (dev-log-cycle-step-5-2026-08-10.md):
+  git log: 0c5344a draft(cycle-run-340): [340] Step 4 complete — report generated, 41 proposals surfaced, Gate-2 queue intact
+  porcelain: (empty), ROW0-PORCELAIN-EXIT=0
+
+Untracked cross-check:
+  Pristine backup (Plan A Receipt item 7): /Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-forge-pre-cycle-339-20260810T234901Z.db — EXISTS (1200128 bytes)
+  Step 4 copy-aside: not present (expected — report did not pre-exist), COPY-ASIDE-GREP-EXIT=1
+
+All 10 committed deposits verified: each has a commit and clean porcelain.
+
+=== Row 2 — Unclassified entries ===
+
+get_unclassified_entries(conn) = []
+ROW2_COUNT=0
+
+=== Row 3 — Invariants over 41 recorded proposal ids (274-314) ===
+
+Proposal count in recorded set: 41
+Dangling entry_ids: [] (none)
+Routed proposals (route IS NOT NULL): [] (none — all route IS NULL)
+Status distribution: {'proposed': 41}
+Stale in ours: [] (none)
+Bad target_layer (non-governance, non-ambiguous): [] (none — all target_layer='governance')
+Outside target set: [] (none — all in {PLANNER_TEMPLATE.md, DRAFTING_CYCLE.md})
+Ambiguous ids: [] (none)
+
+Category by tag (backtick-exact equality matching):
+  `bellows-integration` -> governance_rule: 3
+  `bellows-mechanics` -> governance_rule: 1
+  `drafting-cycle` -> governance_rule: 10
+  `drafting` -> governance_rule: 1
+  `instruction-design` -> governance_rule: 3
+  `instrumentation` -> governance_rule: 1
+  `instrumentation` -> instrumentation: 2
+  `measurement` -> governance_rule: 1
+  `mechanization` -> governance_rule: 1
+  `planner-discipline` -> governance_rule: 2
+  `probe-integrity` -> governance_rule: 1
+  `process-discipline` -> governance_rule: 5
+  `verification` -> governance_rule: 10
+
+Category arm compliance:
+  verification (10) -> all governance_rule: within arm {governance_rule} OK
+  drafting-cycle (10) -> all governance_rule: within arm {governance_rule} OK
+  planner-discipline (2) -> all governance_rule: within arm {governance_rule} OK
+  drafting (1) -> governance_rule: within arm {governance_rule} OK
+  bellows-integration (3) -> all governance_rule: within arm {governance_rule, instrumentation} OK
+  instrumentation (3) -> 1 governance_rule + 2 instrumentation: within arm {governance_rule, instrumentation} OK
+  process-discipline (5) -> all governance_rule: within arm {governance_rule, instrumentation} OK
+  instruction-design (3) -> all governance_rule: within arm {governance_rule, instrumentation, structural, narrative} OK
+  bellows-mechanics (1) -> governance_rule: within arm {governance_rule, instrumentation, structural, narrative} OK
+  probe-integrity (1) -> governance_rule: within arm {governance_rule, instrumentation, structural, narrative} OK
+  measurement (1) -> governance_rule: within arm {governance_rule, instrumentation, structural, narrative} OK
+  mechanization (1) -> governance_rule: within arm {governance_rule, instrumentation, structural, narrative} OK
+No language or duplicate categories assigned.
+
+Tag counts: 10/10/5/3/3/3/2/1/1/1/1/1 — matches expected distribution exactly.
+Category totals: governance_rule=39, instrumentation=2
+Target totals: DRAFTING_CYCLE.md=23, PLANNER_TEMPLATE.md=18
+
+Disposition line counts (line-anchored: startswith '- proposal '):
+  tranche A (dev-log-cycle-step-2): 14
+  tranche B (dev-log-cycle-step-3): 14
+  tranche C (dev-log-cycle-step-4): 13
+  TOTAL: 41 (matches created proposal count exactly)
+
+Disposition id coverage: 41/41 — all proposal ids 274-314 present, no missing, no extra.
+
+Zero-precedent and process-discipline tags (12 proposals): all disposition lines carry reason: fields quoting raw_content to justify category. Verified by reading each disposition line for the 7 zero-precedent-tag proposals and 5 process-discipline proposals.
+
+Flag (G) observer — remedy field on all 41 disposition lines:
+  mechanism: 9
+  discipline: 32
+  both values on one line: 0
+  missing remedy: 0
+  All 41 lines carry exactly one of the two values.
+
+Flag (G) mechanism lines — suggested_action cross-check (9 proposals):
+  proposal 280 (entry 272): owner=unnamed, mechanism referenced in suggested_action=YES
+  proposal 291 (entry 283): owner=plan_lint or QA tooling, mechanism referenced in suggested_action=YES
+  proposal 294 (entry 286): owner=bellows (deposit pipeline), mechanism referenced in suggested_action=YES
+  proposal 299 (entry 291): owner=plan_lint or authoring discipline, mechanism referenced in suggested_action=YES
+  proposal 305 (entry 297): owner=bellows, mechanism referenced in suggested_action=YES
+  proposal 309 (entry 301): owner=bellows plan_lint, mechanism referenced in suggested_action=YES
+  proposal 310 (entry 302): owner=authoring + lint, mechanism referenced in suggested_action=YES
+  proposal 313 (entry 305): owner=bellows _extract_step_text, mechanism referenced in suggested_action=YES
+  proposal 314 (entry 306): owner=plan_lint, mechanism referenced in suggested_action=YES
+  All 9 mechanism proposals reference their mechanism in suggested_action.
+
+=== Row 5 — Report verification ===
+
+Report path: reports/lessons-report-2026-08-10.md — EXISTS
+Total proposals line: **Total proposals:** 41
+
+Heading-to-id mapping (all 41 verified present in report by source_heading match):
+  proposal=274 entry=266: found
+  proposal=275 entry=267: found
+  proposal=276 entry=268: found
+  proposal=277 entry=269: found
+  proposal=278 entry=270: found
+  proposal=279 entry=271: found
+  proposal=280 entry=272: found
+  proposal=281 entry=273: found
+  proposal=282 entry=274: found
+  proposal=283 entry=275: found
+  proposal=284 entry=276: found
+  proposal=285 entry=277: found
+  proposal=286 entry=278: found
+  proposal=287 entry=279: found
+  proposal=288 entry=280: found
+  proposal=289 entry=281: found
+  proposal=290 entry=282: found
+  proposal=291 entry=283: found
+  proposal=292 entry=284: found
+  proposal=293 entry=285: found
+  proposal=294 entry=286: found
+  proposal=295 entry=287: found
+  proposal=296 entry=288: found
+  proposal=297 entry=289: found
+  proposal=298 entry=290: found
+  proposal=299 entry=291: found
+  proposal=300 entry=292: found
+  proposal=301 entry=293: found
+  proposal=302 entry=294: found
+  proposal=303 entry=295: found
+  proposal=304 entry=296: found
+  proposal=305 entry=297: found
+  proposal=306 entry=298: found
+  proposal=307 entry=299: found
+  proposal=308 entry=300: found
+  proposal=309 entry=301: found
+  proposal=310 entry=302: found
+  proposal=311 entry=303: found
+  proposal=312 entry=304: found
+  proposal=313 entry=305: found
+  proposal=314 entry=306: found
+All 41 surfaced proposals matched by heading.
+
+Route lines: 0, ROUTE-GREP-EXIT=1 (exit 1 = no matches, expected)
+Overlap lines: 0, OVERLAP-GREP-EXIT=1 (exit 1 = no matches, expected)
+detect_recently_implemented_overlaps: absent from src/ (DETECT-GREP-EXIT=1, retired by plan 207)
+
+=== Row 7 — Doctrine unchanged ===
+
+7a: git -C /Users/marklehn/Developer/GitHub status --porcelain -- DRAFTING_CYCLE.md PLANNER_TEMPLATE.md RULE_20_SELF_CHECK_BLOCK.md
+  Output: (empty)
+  PORCELAIN-EXIT=0
+  Both pass conditions met: empty output AND exit 0.
+
+7b: shasum -a 256 (working-tree content pins):
+  Live:
+    0964e1a70d6752f8656051b865ebcbdf76cb3e35e1b12415e547b54c45e4a7c7  DRAFTING_CYCLE.md
+    eb767e3284f1a42b70aec9b3a1ab50226a13276f31f854d4117de26de4815b5f  PLANNER_TEMPLATE.md
+    d291b7b2cecf5e4e018a49674f383cb97c2d74d0d8659d134e44e3c70ae133a0  RULE_20_SELF_CHECK_BLOCK.md
+
+  Recorded (Plan A Receipt item 10, lines 271-273):
+    0964e1a70d6752f8656051b865ebcbdf76cb3e35e1b12415e547b54c45e4a7c7  DRAFTING_CYCLE.md
+    eb767e3284f1a42b70aec9b3a1ab50226a13276f31f854d4117de26de4815b5f  PLANNER_TEMPLATE.md
+    d291b7b2cecf5e4e018a49674f383cb97c2d74d0d8659d134e44e3c70ae133a0  RULE_20_SELF_CHECK_BLOCK.md
+
+  Pairwise:
+    DRAFTING_CYCLE.md: MATCH
+    PLANNER_TEMPLATE.md: MATCH
+    RULE_20_SELF_CHECK_BLOCK.md: MATCH
+
+=== Row 8 — Post-cycle DB counts ===
+
+Entries in recorded 41 (266-306): 41
+Proposals in recorded 41 (274-314): 41
+Validated lists: 41 integer values each, none blank/NULL.
+FOREIGN=0 (no foreign entries or proposals in our id sets)
+
+Total entries: 306 (derivation: 265 + 41 = 306 — MATCH)
+Total proposals: 314 (derivation: 273 + 41 = 314 — MATCH)
+
+Status actuals:
+  accepted: 42
+  implemented: 171
+  proposed: 41
+  reference: 14
+  rejected: 15
+  stale: 3
+  superseded: 28
+
+Category actuals:
+  duplicate: 19
+  governance_rule: 267
+  instrumentation: 13
+  narrative: 5
+  structural: 10
+
+=== Row 10 — Gate-2 queue survived ===
+
+Recorded list (Plan A Receipt item 5, line 153): 223, 224, 225, 226, 227, 228, 229, 230, 231, 234, 235, 236, 237, 239, 240, 241, 242, 243, 244, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 272, 273
+
+Live query (SELECT id FROM lesson_proposals WHERE status='accepted' AND route='codify' ORDER BY id):
+223, 224, 225, 226, 227, 228, 229, 230, 231, 234, 235, 236, 237, 239, 240, 241, 242, 243, 244, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 272, 273
+
+Q2_INTACT=42
+Per-artifact split: DRAFTING_CYCLE.md=21, PLANNER_TEMPLATE.md=21
+Symmetric difference: EMPTY in both directions — all 42 recorded ids present, no foreign additions.
+Stale in the 42: [] (none)
+
+Pristine backup path (Plan A Receipt item 7): /Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-forge-pre-cycle-339-20260810T234901Z.db

@@ -1,0 +1,43 @@
+=== Row 4 — Plan-204 fix held ===
+
+Entry 265 content_hash: c30fdaff226570c030e544648af0bc6096ff633452795387abada9d00a07fa83
+Expected (Plan A Receipt): c30fdaff226570c030e544648af0bc6096ff633452795387abada9d00a07fa83
+Match: YES
+
+STALE before (Plan A baseline): 3
+STALE after: 3
+Delta: 0
+
+Plan A Receipt First-dispatch ingest dict:
+  updated_count=0
+  terminal_proposals_flagged=[]
+
+=== Full zero-emitting status distribution ===
+
+--- Pre-ingest (Plan A Receipt item 3, lines 79-90) ---
+accepted: 42
+ambiguous: 0
+implemented: 171
+proposed: 0
+reference: 14
+rejected: 15
+stale: 3
+superseded: 28
+
+--- Post-cycle (current) ---
+accepted: 42  (UNCHANGED — confirmed by Row 10 Q2_INTACT=42)
+implemented: 171  (UNCHANGED — confirmed by Row 10, accepted+implemented invariant = 213)
+proposed: 41  (was 0, +41 = this cycle's classified proposals)
+reference: 14  (UNCHANGED)
+rejected: 15  (UNCHANGED)
+stale: 3  (UNCHANGED)
+superseded: 28  (UNCHANGED)
+
+Ambiguous: 0 (no ambiguous proposals among our 41)
+
+C20 resolution check:
+  accepted + implemented = 42 + 171 = 213 (invariant, confirmed by Row 10)
+  proposed + ambiguous + in-window-gate-1 = 41 + 0 + 0 = 41 (equals classified count)
+  Other buckets (reference=14, rejected=15, stale=3, superseded=28): all UNCHANGED
+
+41 proposals examined.
