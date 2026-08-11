@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+- The `-readonly` flag on `sqlite3` failed to open the backup DB file (`exit=14`, `unable to open database file`); the read succeeded without `-readonly`. The backup is a standalone file without WAL companions, which may be the cause. The plan's `-readonly` directive is on the canonical DB path (which worked), not the backup.
+
 No prompt-feedback observations from this step.
 
 No prompt-feedback observations from this step.
