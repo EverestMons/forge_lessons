@@ -1,5 +1,8 @@
 # Agent Prompt Feedback
 
+Now committing the dev log in the worktree.
+Step 1 complete. Both commits landed cleanly:
+
 None.
 
 Step 5 QA executed cleanly on first dispatch. All 11 rows (0-10) pass. The 42-row Gate-2 queue survived intact (id-for-id, symmetric difference empty). Classification depth measurements show no inter-tranche cliff and all 41 proposals pass both bounds. One near-ceiling ratio at proposal 309 (0.748) is an isolated value, not a clustering pattern.
