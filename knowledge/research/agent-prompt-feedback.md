@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+Step 2 QA executed cleanly. All 8 verification rows pass. The id-for-id comparison at row 7 is the headline check this split exists to protect, and it confirms the 42 accepted|codify proposals survived the ingest without a single stale flip. The plan-204 sentinel held, doctrine is unchanged, and the schema matches src/db.py with only the expected cosmetic RENAME artifact.
+
 Step 1 executed cleanly on first dispatch. The 42-row Gate-2 queue (accepted|codify) survived intact through the ingest, verified by G1's composition check (pre-ingest) and by G4's post-ingest stale-count hold. The `would_update=0` guard at Step 1a-bis provided the load-bearing assurance before mutation. The batch fingerprint matched exactly, confirming the 41 entries are the ones scouted at authoring. No classification was performed — `get_unclassified_entries()` returning 41 is the correct closing state for Plan B.
 
 (none)
