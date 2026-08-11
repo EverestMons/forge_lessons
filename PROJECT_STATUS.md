@@ -396,3 +396,6 @@ Cycle 2026-08-07 Step 5 complete — the whole-corpus lessons report deposited (
 
 ### Plan 311
 Cycle 2026-08-07 complete — the 51-entry session-18-24 batch ingested (Step 1) + classified across three tranches (Steps 2-4), report deposited (Step 5), QA passed 10/10 (Step 6). All 51 proposals are governance_rule with targets resolving to DRAFTING_CYCLE.md (30) and PLANNER_TEMPLATE.md (21). Corpus integrity held: sentinel hash unchanged, stale count stable at 3, no terminal status departures, no schema drift, no doctrine changes. Row 9 per-tranche depth distributions (A: 100-206/0.155-0.361, B: 59-188/0.102-0.303, C: 91-266/0.145-0.439) show no inter-tranche cliff — shape-(b) calibration data. Non-terminal baseline confirmed empty at G1; this cycle's 51 the only non-terminal rows this plan owns at close. Gate 1 pending for the 51.
+
+### Plan 339
+The 41-entry session-24-to-33 batch (entries 266-306) is INGESTED. Corpus integrity held: plan-204 sentinel hash unchanged, no stale growth, no schema drift. The 42-row Gate-2 queue (accepted|codify) verified intact id-for-id at close. No proposals created — classification is Plan B's, and `get_unclassified_entries()` returning 41 is the correct closing state.
