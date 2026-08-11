@@ -1,5 +1,18 @@
 # Agent Prompt Feedback
 
+Now running the Rule 20 self-check.
+Rule 20 passed. Now updating the QA report with the actual self-check output.
+```
+============================================================
+Rule 20 — QA Self-Check Results
+============================================================
+PASSED — SELF-CHECK PASSED — all evidence files present, no hedging keywords found.
+Evidence folder: /Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/343/knowledge/qa/evidence/dc-direction-verdict-2026-08-11/
+Files verified: 3
+```
+Now committing the deposits — pathspec on the commit, then asserting `git show --name-only`.
+Commit `7de527c` contains exactly the four deposit files. No push.
+
 Now committing the dev log in the worktree.
 Step 1 complete. Both commits landed cleanly:
 
