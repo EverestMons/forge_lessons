@@ -1,0 +1,45 @@
+=== QA 1(a): CODIFY-32 symmetric difference ===
+Expected set size: 32
+Actual set size: 32
+Symmetric difference: EMPTY
+RESULT: PASS
+
+=== QA 1(b): BACKLOG-9 symmetric difference ===
+Expected set size: 9
+Actual set size: 9
+Symmetric difference: EMPTY
+RESULT: PASS
+
+=== QA 1(c): proposed=0 and ceo attribution ===
+proposed within 274-314: 0
+status_updated_by='ceo' within 274-314: 41
+RESULT: PASS
+
+=== QA 1(d): status_updated_at matches transaction timestamp ===
+Transaction timestamp: 2026-08-11T13:42:09+00:00
+Total rows checked: 41
+Mismatches: NONE
+RESULT: PASS
+
+=== QA 2: TARGET-1 ===
+Row 301: id=301, status=reference, route=backlog, target_artifact=funnel-mechanization-v0-2026-08-08.md
+Row 301 correct: True
+RESULT: PASS
+
+=== QA 2 continued: target_artifact full projection diff ===
+Total rows compared: 314
+Rows differing: 1
+  id=301: pre='DRAFTING_CYCLE.md' -> db='funnel-mechanization-v0-2026-08-08.md'
+RESULT: PASS — exactly one row (301) differs
+
+=== QA 6: DB not committed ===
+Step 1 commit (git show --name-only --format= HEAD):
+  knowledge/development/gate1-post-dump-2026-08-11.txt
+  knowledge/development/gate1-pre-dump-2026-08-11.txt
+  knowledge/development/gate1-routing-dev-log-2026-08-11.md
+lessons-forge.db count in step commit: 0
+RESULT: PASS
+
+git ls-files --error-unmatch lessons-forge.db:
+  error: pathspec 'lessons-forge.db' did not match any file(s) known to git
+RESULT: PASS — DB remains untracked

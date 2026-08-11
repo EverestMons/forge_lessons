@@ -1,0 +1,110 @@
+=== QA 3: Untouched population — pre vs post dump diff ===
+Changed rows: 41 (ids 274-314)
+Changed lines: 82 (41 paired old/new lines)
+Foreign ids outside 274-314: NONE
+RESULT: PASS
+
+Row 301 shows BOTH changes:
+  < 301|proposed|-|-|-|DRAFTING_CYCLE.md
+  > 301|reference|backlog|ceo|2026-08-11T13:42:09+00:00|funnel-mechanization-v0-2026-08-08.md
+
+Full diff:
+274,314c274,314
+< 274|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 275|proposed|-|-|-|DRAFTING_CYCLE.md
+< 276|proposed|-|-|-|DRAFTING_CYCLE.md
+< 277|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 278|proposed|-|-|-|DRAFTING_CYCLE.md
+< 279|proposed|-|-|-|DRAFTING_CYCLE.md
+< 280|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 281|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 282|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 283|proposed|-|-|-|DRAFTING_CYCLE.md
+< 284|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 285|proposed|-|-|-|DRAFTING_CYCLE.md
+< 286|proposed|-|-|-|DRAFTING_CYCLE.md
+< 287|proposed|-|-|-|DRAFTING_CYCLE.md
+< 288|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 289|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 290|proposed|-|-|-|DRAFTING_CYCLE.md
+< 291|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 292|proposed|-|-|-|DRAFTING_CYCLE.md
+< 293|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 294|proposed|-|-|-|DRAFTING_CYCLE.md
+< 295|proposed|-|-|-|DRAFTING_CYCLE.md
+< 296|proposed|-|-|-|DRAFTING_CYCLE.md
+< 297|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 298|proposed|-|-|-|DRAFTING_CYCLE.md
+< 299|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 300|proposed|-|-|-|DRAFTING_CYCLE.md
+< 301|proposed|-|-|-|DRAFTING_CYCLE.md
+< 302|proposed|-|-|-|DRAFTING_CYCLE.md
+< 303|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 304|proposed|-|-|-|DRAFTING_CYCLE.md
+< 305|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 306|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 307|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 308|proposed|-|-|-|DRAFTING_CYCLE.md
+< 309|proposed|-|-|-|DRAFTING_CYCLE.md
+< 310|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 311|proposed|-|-|-|DRAFTING_CYCLE.md
+< 312|proposed|-|-|-|DRAFTING_CYCLE.md
+< 313|proposed|-|-|-|DRAFTING_CYCLE.md
+< 314|proposed|-|-|-|PLANNER_TEMPLATE.md
+---
+> 274|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 275|reference|backlog|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 276|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 277|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 278|reference|backlog|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 279|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 280|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 281|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 282|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 283|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 284|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 285|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 286|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 287|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 288|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 289|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 290|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 291|reference|backlog|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 292|reference|backlog|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 293|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 294|reference|backlog|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 295|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 296|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 297|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 298|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 299|reference|backlog|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 300|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 301|reference|backlog|ceo|2026-08-11T13:42:09+00:00|funnel-mechanization-v0-2026-08-08.md
+> 302|reference|backlog|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 303|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 304|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 305|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 306|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 307|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 308|reference|backlog|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 309|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 310|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+> 311|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 312|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 313|accepted|codify|ceo|2026-08-11T13:42:09+00:00|DRAFTING_CYCLE.md
+> 314|accepted|codify|ceo|2026-08-11T13:42:09+00:00|PLANNER_TEMPLATE.md
+
+=== QA 4: Committed dumps match working-tree copies ===
+Pre-dump (git show HEAD:... vs working tree): MATCH
+Post-dump (git show HEAD:... vs working tree): MATCH
+RESULT: PASS
+
+=== QA 7: Nothing else moved ===
+git status --porcelain: EMPTY (clean working tree)
+Forbidden files absent from step commits:
+  DRAFTING_CYCLE.md: not in step commits
+  PLANNER_TEMPLATE.md: not in step commits
+  funnel-mechanization-v0-2026-08-08.md: not in step commits
+  LESSONS.md: not in step commits
+  knowledge/FORWARD.md: not in step commits
+RESULT: PASS
