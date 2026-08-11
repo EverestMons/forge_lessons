@@ -1,0 +1,40 @@
+=== VERIFICATION ROW 1 — ROW COUNT ===
+Live data-row count: 12
+Step 1 baseline count: 12
+Equal: True
+
+=== VERIFICATION ROW 2 — STATUS DISTRIBUTION DELTA ===
+Full plan path: /Users/marklehn/Developer/GitHub/bellows/.bellows-cache/executable-341.md.pristine
+Derived <N>: 341
+Live distribution: {'open': 8, 'withdrawn': 3, 'closed-by-plan-341': 1}
+Step 1 baseline: {'open': 12}
+open delta: -4 (expected -4)
+withdrawn delta: 3 (expected +3)
+closed-by-plan-341 delta: 1 (expected +1)
+Row 6 status in file: closed-by-plan-341
+Row 6 expected: closed-by-plan-341
+Other statuses changed: False
+
+=== VERIFICATION ROW 3 — FOUR CELLS BY ROW NUMBER ===
+Row 2: actual='withdrawn', expected='withdrawn', match=True
+Row 6: actual='closed-by-plan-341', expected='closed-by-plan-341', match=True
+Row 10: actual='withdrawn', expected='withdrawn', match=True
+Row 11: actual='withdrawn', expected='withdrawn', match=True
+Untouched rows (derived): [1, 3, 4, 5, 7, 8, 9, 12]
+Row 1: before='open', after='open', unchanged=True
+Row 3: before='open', after='open', unchanged=True
+Row 4: before='open', after='open', unchanged=True
+Row 5: before='open', after='open', unchanged=True
+Row 7: before='open', after='open', unchanged=True
+Row 8: before='open', after='open', unchanged=True
+Row 9: before='open', after='open', unchanged=True
+Row 12: before='open', after='open', unchanged=True
+
+=== VERIFICATION ROW 7 — ROWS 9 AND 12 INTACT AND OPEN ===
+Row 9 status: 'open'
+Row 9 item sha1: 7ace3a3fc14f (before: 7ace3a3fc14f)
+Row 12 status: 'open'
+Row 12 item sha1: 265c9f0a9ab4 (before: 265c9f0a9ab4)
+Row 11 item length: 237
+Row 12 item length: 252
+Row 12 longer than row 11: True

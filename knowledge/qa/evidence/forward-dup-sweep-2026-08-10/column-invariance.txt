@@ -1,0 +1,48 @@
+=== VERIFICATION ROW 4 — COLUMN INVARIANCE ===
+
+--- Part (a): Data rows cell-by-cell ---
+Item/Added/Type/Plan-id differences: 0
+Status change assertions: 0 issues
+Part (a) result: PASS
+
+--- Part (b): Non-data block ---
+Non-data block sha1 before: e8743f9fa83132bc51a69f3b3451489b21ba6d1e
+Non-data block sha1 after: e8743f9fa83132bc51a69f3b3451489b21ba6d1e
+Part (b) result: PASS
+
+--- Part (c): Row-number join ---
+Before row numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+After row numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+Only in before: []
+Only in after: []
+Part (c) result: PASS
+
+Overall column invariance: PASS
+
+=== VERIFICATION ROW 5 — COMPARATOR CONTROL ===
+
+--- Positive half (row 4 mutated) ---
+Item changes: 1
+  Row 4: '- detect_duplicates returns [] on a failed reference read, s' -> 'X detect_duplicates returns [] on a failed reference read, s'
+Status changes: 4
+  Row 2: 'open' -> 'withdrawn'
+  Row 6: 'open' -> 'closed-by-plan-341'
+  Row 10: 'open' -> 'withdrawn'
+  Row 11: 'open' -> 'withdrawn'
+Positive half: PASS — row 4 and only row 4 item change, 4 status changes
+
+--- Negative half (unmutated) ---
+Item changes: 0
+Status changes: 4
+  Row 2: 'open' -> 'withdrawn'
+  Row 6: 'open' -> 'closed-by-plan-341'
+  Row 10: 'open' -> 'withdrawn'
+  Row 11: 'open' -> 'withdrawn'
+Negative half: PASS — 0 item changes, 4 expected status changes
+
+Overall comparator control: PASS
+
+=== VERIFICATION ROW 6 — DASH MARKERS SURVIVED ===
+Live dash-marker row set: [3, 4, 5, 6, 7, 8, 11, 12]
+Step 1 baseline set: [3, 4, 5, 6, 7, 8, 11, 12]
+Sets identical: True
