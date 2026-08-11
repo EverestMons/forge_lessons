@@ -1,0 +1,21 @@
+Row 8 — GATE-NEUTRALITY WITH POSITIVE CONTROL
+
+(a) Distinctive new-bullet tokens against plan_lint.py AND gates.py:
+  'second reversal':  plan_lint.py=0, gates.py=0
+  'namespaced':       plan_lint.py=0, gates.py=0
+  'over-match band':  plan_lint.py=0, gates.py=0
+  'occurrence form':  plan_lint.py=0, gates.py=0
+
+(b) Classified exception — 'not run' in gates.py:
+  grep -nF 'not run' /Users/marklehn/Developer/GitHub/bellows/gates.py
+  => 60:    "skipped", "assumed", "close enough", "should pass", "would pass", "not run",
+
+  Exactly ONE hit at line 60, inside the Rule-19 hedging-keyword list.
+  That list scans the agent's QA report, not doctrine text.
+  No second hit anywhere. No hit outside the hedging-keyword list.
+  Classified: no coupling (precedent: plans 344, 345 both carried the phrase through clean gates).
+
+(c) Positive control:
+  grep -cF 'Drafting Cycle' /Users/marklehn/Developer/GitHub/bellows/scripts/plan_lint.py => 11
+
+(d) Note: zero-match grep -c prints 0 and exits 1 (ugrep shim behavior, expected).

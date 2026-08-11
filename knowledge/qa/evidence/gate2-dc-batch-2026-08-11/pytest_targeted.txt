@@ -1,0 +1,15 @@
+Row 7 — TARGETED TESTS + PREMISE
+
+Premise:
+  find .../src -name 'test_*.py'
+  => src/test_lessons_forge.py (exactly one test module — premise holds)
+
+Test run:
+  python3 -m pytest src/test_lessons_forge.py -q
+
+  .......................................................                  [100%]
+  55 passed in 0.13s
+
+Baseline: 55 passed / 0 skipped
+Result:   55 passed / 0 skipped / 0 failed
+Delta:    none — zero regressions
