@@ -1,0 +1,13 @@
+=== ROW 7: TARGETED TESTS ===
+
+Rule 21 premise re-check:
+  find /Users/marklehn/Developer/GitHub/lessons-forge/src -name 'test_*.py':
+/Users/marklehn/Developer/GitHub/lessons-forge/src/test_lessons_forge.py
+  Exactly test_lessons_forge.py: YES (targeted = full)
+
+pytest output:
+.......................................................                  [100%]
+55 passed in 0.09s
+
+  55 passed, 0 failed, 0 skipped — matches baseline (55 passed / 0 skipped)
+  Zero regressions: PASS

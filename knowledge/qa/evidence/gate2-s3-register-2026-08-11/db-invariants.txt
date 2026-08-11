@@ -1,0 +1,40 @@
+=== ROW 6: FLIP READ-BACK + BLAST RADIUS ===
+
+(a) Per-id read-back:
+312|implemented|ceo|2026-08-11T18:24:18Z|governance_rule
+
+  status=implemented: YES
+  status_updated_by=ceo: YES
+  GLOB match:
+312|2026-08-11T18:24:18Z
+  GLOB matches Z-form, differs from prior: YES
+  Exactly 1 row: YES
+  category=governance_rule: preserved
+
+(b) Accepted/codify count post-flip:
+ACC=73
+  Expected 73 (74 minus 1): YES
+
+(c) Outside-range re-derivation:
+  Re-derived line count: 313
+  Step-1 capture line count: 313
+  diff: IDENTICAL (0 differing lines)
+
+  No id 312 in either capture (projection excludes it): confirmed by predicate
+  No deleted corpus rows: confirmed (313 = 313)
+  No concurrent activity detected: captures identical
+
+=== ROW 9: CONSUMER SEMANTICS ===
+
+(a) _TERMINAL_STATUSES source (line 31):
+  _TERMINAL_STATUSES = frozenset(('implemented', 'rejected', 'superseded', 'reference'))
+  'implemented' IS in _TERMINAL_STATUSES: YES
+  'accepted' is NOT in _TERMINAL_STATUSES: YES
+
+(b) get_unclassified_entries for entry 304:
+  Proposal 312 (entry_id=304) status:
+312|304|implemented|codify
+
+  get_unclassified_entries equivalent query (entries with no non-stale proposal):
+  Entry 304 is ABSENT from the unclassified work list: PASS
+  (Proposal 312 is 'implemented', a non-stale status, so entry 304 is excluded)

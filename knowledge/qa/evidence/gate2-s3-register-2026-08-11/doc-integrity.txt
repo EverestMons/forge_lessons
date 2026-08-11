@@ -1,0 +1,70 @@
+=== ROW 1: DOC INTEGRITY ===
+
+Doctrine commit discovered independently:
+  git -C /Users/marklehn/Developer/GitHub log --format='%H %s' -20 -- DRAFTING_CYCLE.md
+  Newest commit naming slug gate2-s3-register-2026-08-11:
+  983136aabd102367ffc56943f99ab839b2d01f9c [344] gate2(gate2-s3-register-2026-08-11): §3 walk register is a committed output (312) — doctrine 2.1 -> 2.2
+
+Three-way SHA agreement:
+  From commit:  98c9c2553b4e87fbd19e82a21a2475c4677fdbacc78dc62818038895565cfa39  -
+  Live file:    98c9c2553b4e87fbd19e82a21a2475c4677fdbacc78dc62818038895565cfa39  /Users/marklehn/Developer/GitHub/DRAFTING_CYCLE.md
+  Dev-log pin:  98c9c2553b4e87fbd19e82a21a2475c4677fdbacc78dc62818038895565cfa39
+  MATCH: YES
+
+Porcelain: 
+  (empty — clean)
+
+Commit name-only: DRAFTING_CYCLE.md
+  Exactly DRAFTING_CYCLE.md — PASS
+
+=== ROW 2: SWEEP POST-CONDITION ===
+
+grep -cF 'scratchpad' → 0 (expected 0)
+grep -cF 'session-local and ephemeral' → 0
+1 (count 0, expected 0)
+grep -cF 'committed walk register' → 4 (expected 4)
+grep -cF 'scratchpad walk register' → 0
+1 (count 0, expected 0)
+grep -cF 'scratchpad register' → 0
+1 (count 0, expected 0)
+
+=== ROW 3: E1 CONTENT ===
+
+New text probes:
+  'an OUTPUT of the cycle, not a scratch buffer' → 1 (expected 1)
+  'committed to `governance/knowledge/research/`' → 1 (expected 1)
+  'The register must outlive the session' → 1 (expected 1)
+  'verify that location outlives the reader the rule anticipates' → 1 (expected 1)
+  'Proposal 312 / bellows Forward row 51, codified 2026-08-11' → 1 (expected 1)
+
+Co-tenant probes (byte-intact):
+  'The compact form is **load-bearing**' → 1 (expected 1)
+  'Do not keep a running fold-count in the Cycle Log' → 1 (expected 1)
+  'record, not instructions' → 1 (expected 1)
+
+=== ROW 4: NUMSTAT ===
+
+git diff 983136aabd102367ffc56943f99ab839b2d01f9c^ 983136aabd102367ffc56943f99ab839b2d01f9c --numstat -- DRAFTING_CYCLE.md:
+7	6	DRAFTING_CYCLE.md
+  Expected: 7	6	DRAFTING_CYCLE.md — MATCH
+
+=== ROW 5: VERSION + CHANGELOG INTEGRITY ===
+
+grep -cF '**Version:** 2.2 (2026-08-11). Amended only through the Iteration Protocol' → 1 (expected 1)
+grep -cF '2.1 (2026-08-11)' → 1 (expected 1, down from 2)
+grep -cF 'the remaining Gate-2 batches' → 1 (expected 1, E7 tail earnable)
+History bullets (awk): 12 (expected 12)
+
+First History bullet names slug gate2-s3-register-2026-08-11: YES (line 211)
+E7 does NOT contain '2.1 (2026-08-11)': confirmed by reading the History row
+Prior first row (2.1 slug dc-direction-verdict-2026-08-11) intact immediately below: YES
+
+=== ROW 10: AMENDMENT TRUTH CHECK ===
+
+Walk registers in governance/knowledge/research/:
+/Users/marklehn/Developer/GitHub/governance/knowledge/research/walk-register-walk-register-schema-2026-08-10.md
+/Users/marklehn/Developer/GitHub/governance/knowledge/research/walk-register-cycle-run-339-2026-08-10.md
+/Users/marklehn/Developer/GitHub/governance/knowledge/research/walk-register-gate2-s3-register-2026-08-11.md
+/Users/marklehn/Developer/GitHub/governance/knowledge/research/walk-register-group4-rescope-2026-08-10.md
+/Users/marklehn/Developer/GitHub/governance/knowledge/research/walk-register-lint-class-recall-2026-08-10.md
+Count: 5 (expected >= 4)
