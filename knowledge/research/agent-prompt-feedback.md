@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+Step 5 QA executed cleanly on first dispatch. All 11 rows (0-10) pass. The 42-row Gate-2 queue survived intact (id-for-id, symmetric difference empty). Classification depth measurements show no inter-tranche cliff and all 41 proposals pass both bounds. One near-ceiling ratio at proposal 309 (0.748) is an isolated value, not a clustering pattern.
+
 Step 2 QA executed cleanly. All 8 verification rows pass. The id-for-id comparison at row 7 is the headline check this split exists to protect, and it confirms the 42 accepted|codify proposals survived the ingest without a single stale flip. The plan-204 sentinel held, doctrine is unchanged, and the schema matches src/db.py with only the expected cosmetic RENAME artifact.
 
 Step 1 executed cleanly on first dispatch. The 42-row Gate-2 queue (accepted|codify) survived intact through the ingest, verified by G1's composition check (pre-ingest) and by G4's post-ingest stale-count hold. The `would_update=0` guard at Step 1a-bis provided the load-bearing assurance before mutation. The batch fingerprint matched exactly, confirming the 41 entries are the ones scouted at authoring. No classification was performed — `get_unclassified_entries()` returning 41 is the correct closing state for Plan B.
