@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+No prompt feedback.
+
 - Row 9b: `get_unclassified_entries` requires a `sqlite3.Connection` object, not a path string. The plan's instruction "run `get_unclassified_entries` (read-only)" could benefit from naming the expected calling convention to avoid a wasted invocation.
 
 - The `-readonly` flag on `sqlite3` failed to open the backup DB file (`exit=14`, `unable to open database file`); the read succeeded without `-readonly`. The backup is a standalone file without WAL companions, which may be the cause. The plan's `-readonly` directive is on the canonical DB path (which worked), not the backup.
