@@ -1,0 +1,5 @@
+BEGIN IMMEDIATE;
+SELECT 'PRE='||COUNT(*) FROM lesson_proposals WHERE id IN (223,225,226,228,229,230,236,239,240,242,243,244,250,255,257,264,265,266,267,268,269,274,277,280,281,282,284,288,289,293,297,303,305,306,307,310,314) AND status='accepted' AND route='codify';
+SELECT 'ACC='||COUNT(*) FROM lesson_proposals WHERE status='accepted' AND route='codify';
+SELECT 'MAXID='||MAX(id) FROM lesson_proposals;
+ROLLBACK;
