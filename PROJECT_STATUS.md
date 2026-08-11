@@ -399,3 +399,6 @@ Cycle 2026-08-07 complete — the 51-entry session-18-24 batch ingested (Step 1)
 
 ### Plan 339
 The 41-entry session-24-to-33 batch (entries 266-306) is INGESTED. Corpus integrity held: plan-204 sentinel hash unchanged, no stale growth, no schema drift. The 42-row Gate-2 queue (accepted|codify) verified intact id-for-id at close. No proposals created — classification is Plan B's, and `get_unclassified_entries()` returning 41 is the correct closing state.
+
+### Plan 340
+Cycle 2026-08-10 complete — the 41-entry session-24-through-33 batch ingested (Plan A, id 339) and classified across three tranches (Steps 1-3, proposals 274-314), report deposited (Step 4), corpus integrity held, the 42-row Gate-2 queue verified intact at close (row 10, Q2_INTACT=42, id-for-id), row 9's per-tranche depth distributions recorded (no inter-tranche cliff, all 41 pass both bounds), Gate 1 pending for the 41.
