@@ -1,0 +1,57 @@
+== ROW 4: Plan-204 fix held, no proposal created ==
+
+Entry 265 sentinel hash:
+  Live:     c30fdaff226570c030e544648af0bc6096ff633452795387abada9d00a07fa83
+  Expected: c30fdaff226570c030e544648af0bc6096ff633452795387abada9d00a07fa83
+  MATCH
+
+Stale count:
+  Before: 3 (proposals 98, 121, 130)
+  After:  3 (proposals 98, 121, 130 — unchanged)
+
+updated_count (from Receipt): 0
+terminal_proposals_flagged (from Receipt): []
+
+Total proposals: 273 (unchanged from P0=273)
+
+Zero-emitting status distribution (post-ingest):
+  accepted|42
+  ambiguous|0
+  implemented|171
+  proposed|0
+  reference|14
+  rejected|15
+  stale|3
+  superseded|28
+
+Step 1 Receipt baseline (pre-ingest):
+  accepted|42
+  ambiguous|0
+  implemented|171
+  proposed|0
+  reference|14
+  rejected|15
+  stale|3
+  superseded|28
+
+All 8 buckets UNCHANGED. 273 proposals examined.
+
+Category distribution (post-ingest):
+  duplicate|19
+  governance_rule|228
+  instrumentation|11
+  narrative|5
+  structural|10
+  Total: 273
+
+Step 1 Receipt baseline (pre-ingest):
+  duplicate|19
+  governance_rule|228
+  instrumentation|11
+  narrative|5
+  structural|10
+  Total: 273
+
+All category buckets UNCHANGED.
+
+duplicates_marked_count (from Receipt): 0
