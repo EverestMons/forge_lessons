@@ -1,5 +1,8 @@
 # Agent Prompt Feedback
 
+#### Forward Register
+NONE
+
 No prompt feedback.
 
 - Row 9b: `get_unclassified_entries` requires a `sqlite3.Connection` object, not a path string. The plan's instruction "run `get_unclassified_entries` (read-only)" could benefit from naming the expected calling convention to avoid a wasted invocation.
