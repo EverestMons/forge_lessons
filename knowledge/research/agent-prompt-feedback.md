@@ -1,5 +1,7 @@
 # Agent Prompt Feedback
 
+No prompt-feedback observations from this step.
+
 Now running the Rule 20 self-check.
 Rule 20 passed. Now updating the QA report with the actual self-check output.
 ```
