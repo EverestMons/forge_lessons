@@ -1,0 +1,19 @@
+Gate Neutrality — gate2-dc5-2026-08-11
+========================================
+
+7. GATE-NEUTRALITY
+
+plan_lint.py (/Users/marklehn/Developer/GitHub/bellows/scripts/plan_lint.py):
+  grep -cF -- 'per-LENS'      → 0
+  grep -cF -- 'DIFF REVIEW'   → 0
+  grep -cF -- 'pricing gate'  → 0
+  grep -cF -- 'EDIT ANCHOR'   → 0
+  Positive control: grep -cF -- 'Drafting Cycle' → 11
+
+gates.py (/Users/marklehn/Developer/GitHub/bellows/gates.py):
+  grep -cF -- 'per-LENS'      → 0
+  grep -cF -- 'DIFF REVIEW'   → 0
+  grep -cF -- 'pricing gate'  → 0
+  grep -cF -- 'EDIT ANCHOR'   → 0
+
+ALL PASS. No doctrine clause language leaked into gate infrastructure.

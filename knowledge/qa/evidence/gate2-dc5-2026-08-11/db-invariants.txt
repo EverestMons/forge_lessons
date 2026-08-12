@@ -1,0 +1,36 @@
+DB Invariants — gate2-dc5-2026-08-11
+======================================
+
+4. FLIP + BLAST RADIUS
+
+(a) Five implemented — per-id readback:
+  315|instrumentation|implemented|codify|ceo|2026-08-12T02:31:25Z
+  317|governance_rule|implemented|codify|ceo|2026-08-12T02:31:25Z
+  318|governance_rule|implemented|codify|ceo|2026-08-12T02:31:25Z
+  319|governance_rule|implemented|codify|ceo|2026-08-12T02:31:25Z
+  325|governance_rule|implemented|codify|ceo|2026-08-12T02:31:25Z
+
+  All five: implemented|codify|ceo, Z-stamped 2026-08-12T02:31:25Z ≠ prior 2026-08-12T00:29:31Z.
+  Category preserved per seat-3 table: 315=instrumentation, 317/318/319/325=governance_rule.
+  PASS.
+
+(b) accepted|codify count → 3 (the PT three: 316, 324, 326).
+  PASS.
+
+(c) Capture re-run:
+  SELECT id||'|'||category||'|'||status||'|'||COALESCE(route,'')||'|'||COALESCE(status_updated_at,'')||'|'||COALESCE(status_updated_by,'')
+  FROM lesson_proposals WHERE id <= 326 AND id NOT IN (315,317,318,319,325) ORDER BY id;
+  → 321 lines.
+  diff vs deposited outside-range-ids.txt → no differences.
+  PASS.
+
+6. CONSUMER SEMANTICS
+
+Line 31 of src/lessons_forge.py (verbatim):
+  _TERMINAL_STATUSES = frozenset(('implemented', 'rejected', 'superseded', 'reference'))
+
+  'implemented' IS terminal; 'accepted' is NOT.
+
+get_unclassified_entries(conn) → 0 entries.
+  Check IDs [307, 309, 310, 311, 317] all absent — dispositioned before, dispositioned after.
+  PASS.
