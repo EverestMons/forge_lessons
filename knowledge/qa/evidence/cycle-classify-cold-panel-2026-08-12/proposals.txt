@@ -1,0 +1,47 @@
+=== Row 3: Six proposals, exactly ours ===
+
+SELECT p.id, p.entry_id, p.category, p.status, p.route, p.confidence
+FROM lesson_proposals p WHERE p.entry_id > 318 ORDER BY p.id
+
+  id=327 entry_id=319 category=instrumentation status=proposed route=None confidence=high
+  id=328 entry_id=320 category=governance_rule status=proposed route=None confidence=high
+  id=329 entry_id=321 category=governance_rule status=proposed route=None confidence=high
+  id=330 entry_id=322 category=instrumentation status=proposed route=None confidence=high
+  id=331 entry_id=323 category=governance_rule status=proposed route=None confidence=medium
+  id=332 entry_id=324 category=instrumentation status=proposed route=None confidence=high
+
+Count: 6
+Total lesson_proposals: 332 (326 pre-existing + 6 new)
+
+Step 1 recorded list: [327, 328, 329, 330, 331, 332] — MATCHES
+
+All 6 disposition lines carry flag-(G) field (grep count: 6):
+  - proposal=327 entry=319: remedy: mechanism | owner: PANEL_SEAT_TEMPLATE.md (new artifact) + DRAFTING_CYCLE.md §2.6
+  - proposal=328 entry=320: remedy: mechanism | owner: DRAFTING_CYCLE.md §2.6
+  - proposal=329 entry=321: remedy: mechanism | owner: DRAFTING_CYCLE.md §2.6 registry
+  - proposal=330 entry=322: remedy: mechanism | owner: walk-register schema (DRAFTING_CYCLE-adjacent)
+  - proposal=331 entry=323: remedy: discipline | packet: shape-session routing decision
+  - proposal=332 entry=324: remedy: mechanism | owner: §2.6 panel structures; bundle: entries 320/321/322
+
+Entry 323 packet flag: PRESENT
+
+=== Row 6: Corpus preservation ===
+
+Total entries: 324/324
+Sentinel entry 318 content_hash: 260857bbc71e818b74f503f2984f2b6e5c2854e84e97e4522f9e74b2ccdd0cb8 — UNCHANGED
+Stale proposals: [98, 121, 130] (count: 3)
+Accepted proposals: [] (count: 0)
+
+Status distribution:
+  implemented: 265
+  proposed: 6
+  reference: 15
+  rejected: 15
+  stale: 3
+  superseded: 28
+  Total: 332
+
+Distribution delta (vs pre-Step-1 baseline of 326 proposals, 0 proposed):
+  proposed: 0 → 6 (+6)
+  All other buckets: UNCHANGED
+  Delta is EXACTLY +6 proposed.

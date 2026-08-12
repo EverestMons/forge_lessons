@@ -1,0 +1,31 @@
+=== Row 4: Report integrity ===
+
+Report path: reports/lessons-report-2026-08-12.md — EXISTS
+Report length: 61 lines (Step 2 recorded: 61 lines)
+
+Surfaced count: 6 (Step 2 recorded expectation: 6) — MATCHES
+
+Route-grep (fresh re-run):
+  Command: grep -Fc -- '- **Route:**' reports/lessons-report-2026-08-12.md
+  Result: 0 matches, ROUTE-GREP-EXIT=1
+  Exit 1 = expected zero — PASS
+
+Overlap-grep (fresh re-run):
+  Command: grep -Fc -- 'Recently-implemented overlap:' reports/lessons-report-2026-08-12.md
+  Result: 0 matches, OVERLAP-GREP-EXIT=1
+  Exit 1 = no matches — PASS
+
+Heading spot-checks (bound-parameter joins):
+  proposal 327 (entry 319): heading appears in report — CONFIRMED
+  proposal 331 (entry 323): heading appears in report — CONFIRMED
+
+=== Row 7: Register posture ===
+
+decisions/ non-Done contents:
+  - halted-executable-334.md (expected)
+  - in-progress-executable-357.md (worktree-isolation artifact: 357 completed and moved to Done on main; this worktree branched before that move — not a collision)
+  - in-progress-executable-359.md (this plan's own file — expected)
+
+FORWARD.md delta since Step 1 (commit a1c4f2a): zero changes (git diff empty).
+FORWARD.md rows 16-17 (2026-08-12): both NONE.-item rows (known daemon artifact, pre-adjudicated).
+No real-item text rows added.
