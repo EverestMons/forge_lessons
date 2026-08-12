@@ -1,0 +1,62 @@
+DOC INTEGRITY — gate2-coldpanel-2026-08-12
+==========================================
+
+ROW 1 — COMMIT DISCOVERY + SHAS + PORCELAIN + NAME-ONLY
+--------------------------------------------------------
+
+Commit discovered by slug:
+  git -C /Users/marklehn/Developer/GitHub log --format='%H %s' --grep='gate2-coldpanel-2026-08-12' -- DRAFTING_CYCLE.md
+  → a2a0cd986f2ab8d3761809befb7f4dc46b573922 [364] gate2(gate2-coldpanel-2026-08-12): the cold-panel four — meter-at-convene, Execution brief, the four panel structures, seat-template mandate — DC 2.5 -> 2.6 + PANEL_SEAT_TEMPLATE v1.0 (330 schema re-scoped)
+  Line count (| wc -l): 1 — exactly ONE
+
+Committed content shas (git show <commit>:<path> | shasum -a 256):
+  DC committed:  1099b50dc710e99b144d46964f357214f30fee369003a32ce594d8b5cd35a98b == DOC_SHA
+  TPL committed: f8d2626abe6eb0d0a3f8a4a38eb9ed4513f27ef041b97d96c288953ff280ffb4 == TPL_SHA
+
+Live shas (shasum -a 256):
+  DC live:         1099b50dc710e99b144d46964f357214f30fee369003a32ce594d8b5cd35a98b == DOC_SHA
+  TPL root copy:   f8d2626abe6eb0d0a3f8a4a38eb9ed4513f27ef041b97d96c288953ff280ffb4 == TPL_SHA
+  TPL source file: f8d2626abe6eb0d0a3f8a4a38eb9ed4513f27ef041b97d96c288953ff280ffb4 == TPL_SHA
+
+FOUR-WAY TPL match: committed == live root == live source == pin f8d2626a… ✓
+
+Porcelain (git status --porcelain):
+  DC:  (empty — clean)
+  TPL: (empty — clean)
+
+Name-only (git show <commit> --name-only --format=):
+  DRAFTING_CYCLE.md
+  PANEL_SEAT_TEMPLATE.md
+  (exactly the two files)
+
+ROW 2 — THE CLAUSES LANDED (five probe sets on live DC)
+-------------------------------------------------------
+
+Probe set 1 — tokens:
+  'panel meter opens when the panel CONVENES' → 1 ✓
+  '**Execution brief.**'                      → 1 ✓
+  'PANEL_SEAT_TEMPLATE.md'                    → 2 ✓
+
+Probe set 2 — re-scope:
+  'Walk-register schema 0.2' → 0 ✓ (the re-scope probe — E5 did not leak back)
+
+Probe set 3 — version + history:
+  '**Version:** 2.6'                    → 1 ✓
+  '**Version:** 2.5'                    → 0 ✓
+  'slug gate2-coldpanel-2026-08-12'     → 1 ✓ (the History row)
+
+Probe set 4 — censuses:
+  H2 (grep -cE '^## '):  9  ✓ (unchanged; includes §3 fenced decoy, invariant both sides)
+  H3 (grep -cE '^### '): 11 ✓ (unchanged)
+  wc -l:                 286 ✓
+
+ROW 3 — COHERENCE
+------------------
+
+v2.5 History row (grep -cF 'slug gate2-dc5-2026-08-11'):                           1 ✓
+Attribution bullet (grep -cF '- **Attribution.** Every panel finding names'):       1 ✓
+Adjacency (grep -n): Execution brief at line 113, Attribution at line 114 → diff 1 ✓
+§2.7 head (grep -cF '### 2.7'):                                                    1 ✓
+§4 head (grep -cE '^## 4\.'):                                                      1 ✓
+Template: 'THE INCIDENT MANDATE' in PANEL_SEAT_TEMPLATE.md:                        1 ✓
+Template: 'CLAIMS TO ATTACK' in PANEL_SEAT_TEMPLATE.md:                            1 ✓

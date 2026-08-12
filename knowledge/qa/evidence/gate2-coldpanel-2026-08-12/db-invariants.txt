@@ -1,0 +1,40 @@
+DB INVARIANTS — gate2-coldpanel-2026-08-12
+==========================================
+
+ROW 4 — FLIP + BLAST RADIUS
+----------------------------
+
+(a) Per-id read-back:
+  327|instrumentation|implemented|codify|ceo|2026-08-12T18:50:56Z  ✓ (instrumentation, Z ≠ prior)
+  328|governance_rule|implemented|codify|ceo|2026-08-12T18:50:56Z  ✓ (governance_rule, Z ≠ prior)
+  329|governance_rule|implemented|codify|ceo|2026-08-12T18:50:56Z  ✓ (governance_rule, Z ≠ prior)
+  330|instrumentation|accepted|codify|ceo|2026-08-12T17:12:07Z     ✓ UNCHANGED (re-scoped fifth)
+  331|governance_rule|reference|backlog|ceo|2026-08-12T17:12:07Z   ✓ UNCHANGED
+  332|instrumentation|implemented|codify|ceo|2026-08-12T18:50:56Z  ✓ (instrumentation, Z ≠ prior)
+
+Categories match authoring measurement: 327/332 instrumentation, 328/329 governance_rule ✓
+Z-stamps 2026-08-12T18:50:56Z ≠ pinned prior 2026-08-12T17:12:07Z ✓
+330 UNCHANGED at accepted|codify — the re-scoped schema row ✓
+331 UNCHANGED at reference|backlog ✓
+
+(b) accepted|codify count:
+  SELECT COUNT(*) … WHERE status='accepted' AND route='codify' → 1
+  Exactly 330 — the re-scoped schema row awaiting its own plan ✓
+
+(c) Capture re-run:
+  EXACT G2 capture SELECT re-run → 328 lines
+  Deposited capture: 328 lines
+  diff: (empty — identical) ✓
+  No impossible-id, no deleted-row, no concurrent divergence.
+
+ROW 6 — CONSUMER SEMANTICS
+---------------------------
+
+lessons_forge.py:31 — _TERMINAL_STATUSES = frozenset(('implemented', 'rejected', 'superseded', 'reference'))
+  'implemented' IS terminal ✓
+
+get_unclassified_entries (read-only query):
+  Work list: (empty — 0 entries need classification)
+  319-324 proposal statuses: 319 implemented, 320 reference, 321 reference, 322 reference, 323 reference, 324 implemented
+  319-324 entry_ids (311-316) ABSENT from the work list ✓
+  (No foreign in-window ingest detected — list is empty.)

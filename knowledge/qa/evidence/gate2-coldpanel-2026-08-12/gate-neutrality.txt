@@ -1,0 +1,30 @@
+GATE-NEUTRALITY — gate2-coldpanel-2026-08-12
+=============================================
+
+ROW 7 — GATE-NEUTRALITY
+------------------------
+
+(a) Token sweeps (grep -cF):
+
+plan_lint.py:
+  'panel meter opens'    → 0 ✓
+  'Execution brief'      → 0 ✓
+  'PANEL_SEAT_TEMPLATE'  → 0 ✓
+  Positive control: 'Drafting Cycle' → 11 (confirms grep is working)
+
+gates.py:
+  'panel meter opens'    → 0 ✓
+  'Execution brief'      → 0 ✓
+  'PANEL_SEAT_TEMPLATE'  → 0 ✓
+
+All THREE expected values are 0 in both files ✓
+
+(b) Rule-number coupling (grep -rohE 'Rule [0-9]+' | sort -u):
+  plan_lint.py: Rule 20
+  gates.py:    Rule 20, Rule 22, Rule 26
+  Exactly the expected set {Rule 20, Rule 22, Rule 26} ✓
+
+(c) Line-citation sweep:
+  grep -rn -E 'DRAFTING_CYCLE[^ ]*:[0-9]+' /Users/marklehn/Developer/GitHub/bellows --include='*.py'
+  → zero hits (no output) ✓
+  (b) is the positive-output control — rule-number grep produced output, confirming grep is functional.
