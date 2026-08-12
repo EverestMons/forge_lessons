@@ -1,0 +1,16 @@
+# Pytest Targeted — classify-307-318-2026-08-11
+
+## Rule 21 premise re-derived
+
+Test modules found: 1 (src/test_lessons_forge.py)
+Single test module confirmed — Rule 21 targeted scope valid.
+
+## Pytest results vs baseline 55/0
+
+$ python3 -m pytest src/test_lessons_forge.py -v
+
+55 passed in 0.17s
+
+Baseline: 55 passed / 0 failed
+Observed: 55 passed / 0 failed
+Delta: 0 / 0 (no change)

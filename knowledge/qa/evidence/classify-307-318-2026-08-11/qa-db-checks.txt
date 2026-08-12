@@ -1,0 +1,68 @@
+# QA DB Checks — classify-307-318-2026-08-11
+
+## CHECK 1 — Per-entry coverage re-derived
+
+entry_id=307 | proposal_id=315 | category=instrumentation | confidence=high | target_artifact=DRAFTING_CYCLE.md
+entry_id=308 | proposal_id=316 | category=governance_rule | confidence=high | target_artifact=PLANNER_TEMPLATE.md
+entry_id=309 | proposal_id=317 | category=governance_rule | confidence=high | target_artifact=DRAFTING_CYCLE.md
+entry_id=310 | proposal_id=318 | category=governance_rule | confidence=high | target_artifact=DRAFTING_CYCLE.md
+entry_id=311 | proposal_id=319 | category=governance_rule | confidence=high | target_artifact=DRAFTING_CYCLE.md
+entry_id=312 | proposal_id=320 | category=structural | confidence=high | target_artifact=DRAFTING_CYCLE.md
+entry_id=313 | proposal_id=321 | category=governance_rule | confidence=high | target_artifact=DRAFTING_CYCLE.md
+entry_id=314 | proposal_id=322 | category=governance_rule | confidence=high | target_artifact=DRAFTING_CYCLE.md
+entry_id=315 | proposal_id=323 | category=governance_rule | confidence=high | target_artifact=DRAFTING_CYCLE.md
+entry_id=316 | proposal_id=324 | category=governance_rule | confidence=high | target_artifact=PLANNER_TEMPLATE.md
+entry_id=317 | proposal_id=325 | category=governance_rule | confidence=high | target_artifact=PLANNER_TEMPLATE.md
+entry_id=318 | proposal_id=326 | category=governance_rule | confidence=high | target_artifact=PLANNER_TEMPLATE.md
+
+RESULT: all 12 entries (307–318) have >=1 proposal. CHECK 1 PASSED.
+
+## CHECK 2 — get_unclassified_entries live vs positive control
+
+Live DB unclassified: [] (empty — correct)
+Pre-classify backup (pre-classify-s36-20260811_235358.db, ?immutable=1) unclassified: [307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318]
+Positive control: exactly the twelve — instrument proven against known-positive state.
+
+RESULT: CHECK 2 PASSED.
+
+## CHECK 3 — INSERT-only proven
+
+COUNT(*) FROM lesson_proposals WHERE id<=314 AND status<>'proposed': 314
+  (equals Step 1 pre-capture value of 314 — no existing row touched)
+Total proposals: 326 = 314 + 12 (correct)
+All 12 new rows (id 315–326): status='proposed', route=NULL
+
+RESULT: CHECK 3 PASSED.
+
+## CHECK 4 — Report verification
+
+Report exists: reports/lessons-report-2026-08-11.md
+Report surfaces 12 proposals (>=12 requirement met)
+Spot-check entry 307 (instrumentation, DRAFTING_CYCLE.md): FOUND in report
+Spot-check entry 317 (governance_rule, PLANNER_TEMPLATE.md — edit-anchor uniqueness): FOUND in report
+Spot-check entry 318 (governance_rule, PLANNER_TEMPLATE.md — four doctrine defects): FOUND in report
+Per-entry report lines match DB rows for all three spot-checked entries.
+
+RESULT: CHECK 4 PASSED.
+
+## CHECK 5 — Flag coverage
+
+Proposal 315 (entry 307): Flag (G) present — mechanism: per-phase commits
+Proposal 316 (entry 308): Flag (G) present — mechanism: deposited plan file existence
+Proposal 317 (entry 309): Flag (G) present — mechanism: diff output
+Proposal 318 (entry 310): Flag (G) present + Flag (D) present — cites DRAFTING_CYCLE.md §2.6
+Proposal 319 (entry 311): Flag (G) present — mechanism: per-walk finding distribution by region
+Proposal 320 (entry 312): Flag (G) present + Flag (D) present — cites v2.4
+Proposal 321 (entry 313): Flag (G) present + Flag (D) present — cites v2.3
+Proposal 322 (entry 314): Flag (G) present — mechanism: per-walk finding-origin tag
+Proposal 323 (entry 315): Flag (G) present + Flag (D) present — cites v2.4
+Proposal 324 (entry 316): Flag (G) present — mechanism: audience test per sentence
+Proposal 325 (entry 317): Flag (G) present — mechanism: count==1 assertion on edit anchors
+Proposal 326 (entry 318): Flag (G) present — mechanism: prose-debt extension protocol
+
+Flag (G): all 12 proposals carry a Flag (G) reading with a named observable.
+Flag (D) entries: {310, 312, 313, 315} — all cite their codifying location.
+  Required minimum {312, 313, 315}: all cite explicit v2.x versions (v2.4, v2.3, v2.4).
+  Entry 310: cites DRAFTING_CYCLE.md §2.6 (section reference rather than version number — valid citation of codifying location).
+
+RESULT: CHECK 5 PASSED.
