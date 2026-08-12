@@ -35,3 +35,4 @@
 | 12 | 2026-08-10 | - `_TERMINAL_STATUSES` omits `accepted`, so an ingest can silently stale a routed-but-not-yet-codified proposal; this cycle carried 42 such rows and guarded them procedurally at five sites — worth deciding whether the guard belongs in the code instead. | deferred-work | — | open |
 | 13 | 2026-08-11 | NONE | deferred-work | — | open |
 | 14 | 2026-08-11 | NONE. | deferred-work | — | open |
+| 15 | 2026-08-11 | NONE. | deferred-work | — | open |
