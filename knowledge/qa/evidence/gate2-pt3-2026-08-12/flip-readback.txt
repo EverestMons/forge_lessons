@@ -1,0 +1,3 @@
+316|governance_rule|implemented|codify|ceo|2026-08-12T15:43:52Z
+324|governance_rule|implemented|codify|ceo|2026-08-12T15:43:52Z
+326|governance_rule|implemented|codify|ceo|2026-08-12T15:43:52Z
