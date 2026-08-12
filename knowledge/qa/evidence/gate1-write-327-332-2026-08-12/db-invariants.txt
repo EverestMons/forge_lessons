@@ -1,0 +1,27 @@
+== BLAST RADIUS (QA row 2) ==
+Re-ran exact capture SELECT from G2:
+SELECT id||'|'||status||'|'||COALESCE(route,'')||'|'||COALESCE(status_updated_at,'') FROM lesson_proposals WHERE id <= 332 AND id NOT IN (327,328,329,330,331,332) ORDER BY id;
+Result: 326 lines.
+Diff vs deposited outside-range-ids.txt: EMPTY (identical).
+Partition: no impossible-id, no deleted-row, no concurrent changes.
+
+== CORPUS SHAPE (QA row 3) ==
+ACCEPTED_CODIFY=5
+PROPOSED=0
+REFERENCE_STATUS=16
+REF_ROUTE_REFERENCE=9
+REF_ROUTE_BACKLOG=7
+STALE=3
+STALE_IDS=98/121/130
+TOTAL=332
+
+Backlog-route ids (7): 161, 169, 291, 294, 299, 301, 331
+Reference-route ids (9): 140, 141, 146, 164, 183, 320, 321, 322, 323
+
+== CONSUMER SEMANTICS (QA row 5) ==
+UNCLASSIFIED=0
+  (get_unclassified_entries returns [] — routing does not un-classify)
+ENTRIES_319_324=6
+  (six source entries present and unchanged)
+ENTRY318_HASH=260857bbc71e818b74f503f2984f2b6e5c2854e84e97e4522f9e74b2ccdd0cb8
+  (sentinel intact — matches plan-specified hash)
