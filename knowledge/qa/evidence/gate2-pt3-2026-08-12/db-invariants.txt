@@ -1,0 +1,35 @@
+QA Row 4 — FLIP + BLAST RADIUS
+================================
+
+(a) Per-id read-back:
+  316|governance_rule|implemented|codify|ceo|2026-08-12T15:43:52Z
+  324|governance_rule|implemented|codify|ceo|2026-08-12T15:43:52Z
+  326|governance_rule|implemented|codify|ceo|2026-08-12T15:43:52Z
+
+All three: governance_rule|implemented|codify|ceo, Z-stamped 2026-08-12T15:43:52Z ≠ 2026-08-12T00:29:31Z ✓
+Categories all governance_rule (per authoring measurement) ✓
+
+(b) accepted|codify queue:
+  SELECT COUNT(*) FROM lesson_proposals WHERE status='accepted' AND route='codify' → 0
+  THE GATE-2 QUEUE FULLY DRAINED ✓
+
+(c) Capture re-run:
+  EXACT G2 capture SELECT re-run → 323 lines
+  diff vs deposited outside-range-ids.txt → identical (no diff output) ✓
+
+QA Row 6 — CONSUMER SEMANTICS
+===============================
+
+lessons_forge.py:31 (verbatim):
+  _TERMINAL_STATUSES = frozenset(('implemented', 'rejected', 'superseded', 'reference'))
+
+`implemented` IS terminal ✓
+`accepted` is NOT terminal ✓
+
+get_unclassified_entries — the three source entries (308, 316, 318):
+  308|implemented
+  316|implemented
+  318|implemented
+
+All three in terminal status → ABSENT from get_unclassified_entries ✓
+Preservation: the terminal-boundary crossing is the intended meaning of codified ✓

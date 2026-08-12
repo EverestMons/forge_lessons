@@ -1,0 +1,14 @@
+QA Row 5 — TESTS
+==================
+
+Single-module premise:
+  find <tree-abs>/src -name 'test_*.py'
+  → src/test_lessons_forge.py
+  Exactly one module ✓
+
+Pytest results:
+  python3 -m pytest src/test_lessons_forge.py -v
+  55 passed in 0.14s
+
+Baseline: 55 passed / 0 skipped
+Delta: 0 (55/0 → 55/0) — no change ✓

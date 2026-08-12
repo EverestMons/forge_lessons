@@ -1,0 +1,66 @@
+QA Row 1 — DOC INTEGRITY
+=========================
+
+Commit discovery (spelled, -C pinned):
+  git -C /Users/marklehn/Developer/GitHub log -n 1 --format='%H %s' --grep='gate2-pt3-2026-08-12' -- PLANNER_TEMPLATE.md
+  → 6330c8322bdb0fd5cc5e8d1255deaabec5d5e2f0 [356] gate2(gate2-pt3-2026-08-12): the PT three — Rule 85 -C amendment, Rule 93 blanket form, Rule 44 wrap channel, the wrap freeze-check, Rule 95 — template 4.86 -> 4.87
+
+Committed content SHA:
+  git -C /Users/marklehn/Developer/GitHub show 6330c8322bdb0fd5cc5e8d1255deaabec5d5e2f0:PLANNER_TEMPLATE.md | shasum -a 256
+  → 8aac8aa9f107fc9b7b4dc7b7241ea9a253d57d07aab2877c81b748a88f84a58e
+
+Live file SHA:
+  shasum -a 256 /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
+  → 8aac8aa9f107fc9b7b4dc7b7241ea9a253d57d07aab2877c81b748a88f84a58e
+
+SHA match: committed == live == DOC_SHA ✓
+
+Porcelain (template path):
+  git -C /Users/marklehn/Developer/GitHub status --porcelain -- PLANNER_TEMPLATE.md
+  → (empty) ✓
+
+Name-only (spelled, -C + CAPTURE_COMMIT):
+  git -C /Users/marklehn/Developer/GitHub show 6330c8322bdb0fd5cc5e8d1255deaabec5d5e2f0 --name-only --format=
+  → PLANNER_TEMPLATE.md ✓
+
+QA Row 2 — THE CLAUSES LANDED
+===============================
+
+Seven probes re-run independently against the live file:
+
+| # | Probe | Expected | Actual |
+|---|-------|----------|--------|
+| 1 | An equally blessed form | 1 | 1 |
+| 2 | A DECLARED BLANKET form is equally valid | 1 | 1 |
+| 3 | Owner-mismatch at wrap | 1 | 1 |
+| 4 | a CORPUS FREEZE on its pinned file | 1 | 1 |
+| 5 | ### 95. A step body has exactly ONE reader | 1 | 1 |
+| 6a | **Version:** 4.87 | 1 | 1 |
+| 6b | **Version:** 4.86 | 0 | 0 |
+| 6c | **Last Updated:** 2026-08-12 (v4.87) | 1 | 1 |
+| 6d | **Last Updated:** 2026-08-11 (v4.86) | 0 | 0 |
+| 6e | the PARTIAL convention | 1 | 1 |
+| 7 | Rules census | RULES 95 1 95 True True | RULES 95 1 95 True True |
+| H2 | ^## count | 30 | 30 |
+| H3 | ^### count | 191 | 191 |
+
+Tail probe (scoped to new changelog row):
+  grep -F 'v4.87' <file> | grep -cF 'Numbering append-only.' → 1 ✓
+  grep -cF 'Numbering append-only.' <file> → 1 (earnable — 0 pre-edit was measured at seat 1)
+
+QA Row 3 — COHERENCE
+======================
+
+Version 4.86 removed: grep -cF '**Version:** 4.86' → 0 ✓
+v4.86 changelog row intact: grep -cF 'v4.86: Gate 2 batch 2' → 1 ✓
+
+Header companion (seat 2's E8):
+  grep -cF '**Last Updated:** 2026-08-12 (v4.87)' → 1 ✓
+  grep -cF '**Last Updated:** 2026-08-11 (v4.86)' → 0 ✓
+
+Rule 94 Source line intact above Rule 95: grep -cF '### 94.' → 1 ✓
+
+Neighbour text intact:
+  grep -cF 'never trust cwd persistence' → 1 ✓ (Rule 85)
+  grep -cF 'FORWARD 52, forge-owned' → 1 ✓ (Rule 93)
+  grep -cF 'computing next row number and date automatically' → 1 ✓ (Rule 44)

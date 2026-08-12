@@ -1,0 +1,25 @@
+QA Row 7 — GATE-NEUTRALITY
+============================
+
+(a) Four distinctive clause tokens in both consumer files:
+
+| Token | plan_lint.py | gates.py |
+|-------|-------------|----------|
+| equally blessed | 0 | 0 |
+| CORPUS FREEZE | 0 | 0 |
+| exactly ONE reader | 0 | 0 |
+| Owner-mismatch | 0 | 0 |
+
+Positive control: grep -cF 'Drafting Cycle' plan_lint.py → 11 ✓
+
+(b) Rule-number coupling:
+  grep -rohE 'Rule [0-9]+' gates.py plan_lint.py | sort -u
+  → Rule 20
+  → Rule 22
+  → Rule 26
+  Exactly three, no Rule 95 ✓
+
+(c) Line-citation sweep:
+  grep -rn -E 'PLANNER_TEMPLATE[^ ]*:[0-9]+' /Users/marklehn/Developer/GitHub/bellows --include='*.py'
+  → (no output, exit 1) ✓
+  Zero hits — no line-number citations to the template in bellows *.py
