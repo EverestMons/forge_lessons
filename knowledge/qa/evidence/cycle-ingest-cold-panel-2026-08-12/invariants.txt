@@ -1,0 +1,24 @@
+Row 3 — The 6 landed, only those
+
+SELECT id, source_heading FROM lesson_entries WHERE id IN (319,320,321,322,323,324) ORDER BY id
+(bound as query parameters)
+
+entry=319: 2026-08-12: The cold panel's operational layer is lore — seat prompts carry the safety contract and no artifact carries the seat prompts [tag: drafting-cycle]
+entry=320: 2026-08-12: Meter the panel from seat 0 — a meter added at seat 4 permanently lost seat 1's cost [tag: drafting-cycle]
+entry=321: 2026-08-12: The executing seat has no brief — six-for-six HIGHs came from RUNNING the machinery, and the streak broke exactly where the machinery was already run five times [tag: drafting-cycle]
+entry=322: 2026-08-12: Panel registers coarsen to one-row-per-seat in every instance — a deviation declared by ALL members of a class is a schema amendment owed [tag: drafting-cycle]
+entry=323: 2026-08-12: Cold-front timing is a SHAPE decision, not a bullet — cold passes return 7× the pre-existing yield while warm walks find their own fold damage [tag: drafting-cycle]
+entry=324: 2026-08-12: The warm walk's mechanical/judgment split transfers to the panel — four structures that cut the replication layer without touching discovery [tag: drafting-cycle]
+
+Count: 6 rows returned (6 expected)
+Total entries: 324 (E0+6 = 318+6 = 324)
+
+Anchor heading comparison (DB vs Receipt):
+  319: MATCH
+  320: MATCH
+  321: MATCH
+  322: MATCH
+  323: MATCH
+  324: MATCH
+
+All 6 anchored headings verified by query-parameter-bound SELECT; apostrophes in entries 319, 320, 324 handled safely.

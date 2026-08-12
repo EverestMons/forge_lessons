@@ -1,0 +1,33 @@
+Row 4 — Plan-204 held, no proposal created
+
+Stale proposals:
+  ids: [98, 121, 130] count: 3
+  Expected: 3 (ids 98/121/130, settled 2026-07-16)
+  MATCH
+
+Entry 318 sentinel hash:
+  Measured:  260857bbc71e818b74f503f2984f2b6e5c2854e84e97e4522f9e74b2ccdd0cb8
+  Expected:  260857bbc71e818b74f503f2984f2b6e5c2854e84e97e4522f9e74b2ccdd0cb8
+  MATCH
+
+Total proposals: 326 (unchanged from P0=326)
+
+Receipt dict values:
+  updated_count: 0
+  terminal_proposals_flagged: []
+
+Status distribution (all 8 statuses, zero-emitting):
+  Before (Receipt)  | After (QA)
+  implemented: 265  | implemented: 265
+  superseded:  28   | superseded:  28
+  rejected:    15   | rejected:    15
+  reference:   15   | reference:   15
+  stale:        3   | stale:        3
+  accepted:     0   | accepted:     0
+  proposed:     0   | proposed:     0
+  ambiguous:    0   | ambiguous:    0
+  ALL UNCHANGED
+
+NT_COUNT=0 (still 0)
+
+Scoped duplicate check (entry_id > 318): 0
