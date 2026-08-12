@@ -1,0 +1,66 @@
+QA DB Checks — gate1-write-315-326-2026-08-11
+Date: 2026-08-12
+
+=== ROW 1: Per-set read-back re-derived (read-only, by IDs) ===
+
+A-set (315,316,317,318,319,324,325,326):
+315|accepted|codify|DRAFTING_CYCLE.md|ceo|2026-08-12T00:29:31Z
+316|accepted|codify|PLANNER_TEMPLATE.md|ceo|2026-08-12T00:29:31Z
+317|accepted|codify|DRAFTING_CYCLE.md|ceo|2026-08-12T00:29:31Z
+318|accepted|codify|DRAFTING_CYCLE.md|ceo|2026-08-12T00:29:31Z
+319|accepted|codify|DRAFTING_CYCLE.md|ceo|2026-08-12T00:29:31Z
+324|accepted|codify|PLANNER_TEMPLATE.md|ceo|2026-08-12T00:29:31Z
+325|accepted|codify|DRAFTING_CYCLE.md|ceo|2026-08-12T00:29:31Z
+326|accepted|codify|PLANNER_TEMPLATE.md|ceo|2026-08-12T00:29:31Z
+
+Result: 8/8 accepted|codify, all ceo, all Z-stamped (2026-08-12T00:29:31Z)
+
+R-set (320,321,322,323):
+320|reference|reference|DRAFTING_CYCLE.md|ceo|2026-08-12T00:29:31Z
+321|reference|reference|DRAFTING_CYCLE.md|ceo|2026-08-12T00:29:31Z
+322|reference|reference|DRAFTING_CYCLE.md|ceo|2026-08-12T00:29:31Z
+323|reference|reference|DRAFTING_CYCLE.md|ceo|2026-08-12T00:29:31Z
+
+Result: 4/4 reference|reference, all ceo, all Z-stamped (2026-08-12T00:29:31Z)
+
+325 target_artifact: DRAFTING_CYCLE.md (Gate-1 reversal from classifier's PLANNER_TEMPLATE.md confirmed)
+
+Target comparison (backup vs live, per id):
+  315: DRAFTING_CYCLE.md → DRAFTING_CYCLE.md (unchanged)
+  316: PLANNER_TEMPLATE.md → PLANNER_TEMPLATE.md (unchanged)
+  317: DRAFTING_CYCLE.md → DRAFTING_CYCLE.md (unchanged)
+  318: DRAFTING_CYCLE.md → DRAFTING_CYCLE.md (unchanged)
+  319: DRAFTING_CYCLE.md → DRAFTING_CYCLE.md (unchanged)
+  320: DRAFTING_CYCLE.md → DRAFTING_CYCLE.md (unchanged)
+  321: DRAFTING_CYCLE.md → DRAFTING_CYCLE.md (unchanged)
+  322: DRAFTING_CYCLE.md → DRAFTING_CYCLE.md (unchanged)
+  323: DRAFTING_CYCLE.md → DRAFTING_CYCLE.md (unchanged)
+  324: PLANNER_TEMPLATE.md → PLANNER_TEMPLATE.md (unchanged)
+  325: PLANNER_TEMPLATE.md → DRAFTING_CYCLE.md (CHANGED — Gate-1 reversal)
+  326: PLANNER_TEMPLATE.md → PLANNER_TEMPLATE.md (unchanged)
+
+Other eleven targets: all unchanged from classification.
+
+=== ROW 2: Corpus totals ===
+
+Live DB:
+  ACC_CODIFY=8
+  REF_REF=9
+  PROPOSED=0
+
+Positive control (backup pre-gate1w-20260812_002858.db via ?immutable=1):
+  BK_PROPOSED=12
+  BK_ACC_CODIFY=0
+  BK_REF_REF=5
+
+Delta: accepted|codify 0→8 (+8), reference|reference 5→9 (+4), proposed 12→0 (−12)
+Arithmetic: 8+4=12=the twelve. 5+4=9 reference|reference.
+
+=== ROW 3: Blast radius ===
+
+Re-ran EXACT capture SELECT from G2 block:
+SELECT id||'|'||status||'|'||COALESCE(route,'')||'|'||COALESCE(status_updated_at,'') FROM lesson_proposals WHERE id <= 326 AND id NOT IN (315,316,317,318,319,320,321,322,323,324,325,326) ORDER BY id;
+
+diff vs deposited outside-range-ids.txt: IDENTICAL
+Line count: 314 (matches expected 326−12=314)
+Partition: no impossible-id, no deleted-row, no concurrent change.
