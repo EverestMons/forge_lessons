@@ -1,0 +1,13 @@
+archive-halted-lessons-forge-2026-08-13 manifest receipt
+========================================================
+
+Pre-move sha256 (sources at knowledge/decisions/):
+30c524f18420713f4b02bc51b6f17156aae421a95136963b0597f97a0045a053  knowledge/decisions/halted-executable-334.md
+cb88956c26b6abbb67dc1eb41ee67cd8a203ca4253b549530f12cbfbaf7c1eef  knowledge/decisions/halted-executable-360.md
+
+Post-move sha256 (destinations at knowledge/decisions/archived-halted-plans/):
+30c524f18420713f4b02bc51b6f17156aae421a95136963b0597f97a0045a053  knowledge/decisions/archived-halted-plans/halted-executable-334.md
+cb88956c26b6abbb67dc1eb41ee67cd8a203ca4253b549530f12cbfbaf7c1eef  knowledge/decisions/archived-halted-plans/halted-executable-360.md
+
+Sources absent: CONFIRMED
+Destinations present with matching shas: CONFIRMED
