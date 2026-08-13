@@ -1,0 +1,45 @@
+=== Row 4: Plan-204 held, no proposal created ===
+
+--- Stale proposals ---
+Stale ids: [98, 121, 130] (count: 3)
+Expected: 3 (proposals 98/121/130)
+Match: YES
+
+--- Sentinel hash (entry 324) ---
+content_hash: 04d2bff7a7bfd9552ef5aab0fd099d81214ed97b8fa1a9ee8082e9c218c88c4a
+Expected:     04d2bff7a7bfd9552ef5aab0fd099d81214ed97b8fa1a9ee8082e9c218c88c4a
+Match: YES
+
+--- Receipt dict values ---
+updated_count: 0 (from Receipt verbatim dict)
+terminal_proposals_flagged: [] (from Receipt verbatim dict)
+
+--- Total proposals ---
+SELECT COUNT(*) FROM lesson_proposals = 332
+Expected (P0): 332
+Match: YES (no proposals created by ingest)
+
+--- Full 8-status distribution (before/after comparison) ---
+
+| Status       | Pre-ingest (Receipt) | Post-ingest (measured) | Match |
+|--------------|----------------------|------------------------|-------|
+| implemented  | 271                  | 271                    | YES   |
+| superseded   | 28                   | 28                     | YES   |
+| rejected     | 15                   | 15                     | YES   |
+| reference    | 15                   | 15                     | YES   |
+| stale        | 3                    | 3                      | YES   |
+| accepted     | 0                    | 0                      | YES   |
+| proposed     | 0                    | 0                      | YES   |
+| ambiguous    | 0                    | 0                      | YES   |
+| **TOTAL**    | **332**              | **332**                | YES   |
+
+All 8 buckets unchanged.
+
+--- NT_COUNT ---
+SELECT COUNT(*) FROM lesson_proposals WHERE status IN ('proposed','accepted','ambiguous') = 0
+Expected: 0
+Match: YES
+
+--- Scoped duplicate check (G3 re-verify) ---
+SELECT COUNT(*) FROM lesson_proposals WHERE category='duplicate' AND entry_id > 324 = 0
+No duplicate proposals created for this batch.

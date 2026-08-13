@@ -1,0 +1,19 @@
+=== Row 3: The 4 landed entries (query: SELECT id, source_heading FROM lesson_entries WHERE id IN (325,326,327,328) ORDER BY id) ===
+
+entry=325: 2026-08-13: The panel's own fold round is new surface — both capstone HIGHs were interactions BETWEEN the panel's folds [tag: drafting-cycle]
+entry=326: 2026-08-13: The record could not license the panel — walk 3 ran dry but was never recorded; strike, don't tidy [tag: drafting-cycle]
+entry=327: 2026-08-13: cwd reset between Bash calls reaches OPS compounds too — a daemon relaunch fired from the wrong directory [tag: operational-recovery]
+entry=328: 2026-08-13: A transcribed census row transposed two column values and stayed well-formed — spot-check rows against their cited sources [tag: verification]
+
+COUNT = 4
+TOTAL entries = 328
+Derivation check: 324 + 4 = 328, actual MAX(id) = 328
+
+=== Anchor heading comparison (DB vs Receipt) ===
+
+All 4 headings match the Receipt's 4-line anchor verbatim.
+
+=== get_unclassified_entries(conn) ===
+
+Result: [325, 326, 327, 328]
+Matches the 4 anchor ids exactly.
