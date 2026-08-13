@@ -1,0 +1,24 @@
+=== Proposals with entry_id > 324 ===
+proposal=333 entry=325 category=governance_rule status=proposed route=None confidence=high
+proposal=334 entry=326 category=governance_rule status=proposed route=None confidence=high
+proposal=335 entry=327 category=governance_rule status=proposed route=None confidence=medium
+proposal=336 entry=328 category=instrumentation status=proposed route=None confidence=medium
+Count: 4
+Total lesson_proposals: 336
+MAX(lesson_proposals.id): 336
+
+=== Corpus Preservation ===
+Total entries: 328/328
+Entry 324 content_hash: 04d2bff7a7bfd9552ef5aab0fd099d81214ed97b8fa1a9ee8082e9c218c88c4a
+Sentinel match: True
+Stale proposals: [98, 121, 130] (count=3)
+Accepted proposals: [] (count=0)
+
+=== Status Distribution ===
+  implemented: 271
+  proposed: 4
+  reference: 15
+  rejected: 15
+  stale: 3
+  superseded: 28
+Delta vs pre-plan: +4 proposed (0->4), all other buckets unchanged

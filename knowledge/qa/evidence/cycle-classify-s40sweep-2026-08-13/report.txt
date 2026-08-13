@@ -1,0 +1,29 @@
+=== Report Existence ===
+-rw-r--r--@ 1 marklehn  staff  5640 Aug 13 12:00 reports/lessons-report-2026-08-13.md
+
+=== Surfaced Count ===
+Heading count (### lines): 4
+Expected: 4 (Step 2 recorded)
+
+=== Route Lines ===
+0
+ROUTE-GREP-EXIT=1
+
+=== Overlap Lines ===
+0
+OVERLAP-GREP-EXIT=1
+
+=== Hostile-Heading Spot-Check ===
+Entry 325 heading: "2026-08-13: The panel's own fold round is new surface — both capstone HIGHs were interactions BETWEEN the panel's folds [tag: drafting-cycle]"
+Present in report: True
+Entry 326 heading: "2026-08-13: The record could not license the panel — walk 3 ran dry but was never recorded; strike, don't tidy [tag: drafting-cycle]"
+Present in report: True
+
+=== Register Posture ===
+decisions/ non-Done contents:
+archived-halted-plans
+executable-382.md
+
+FORWARD.md pipe-lines: 18
+Baseline: 18
+Delta: 0
