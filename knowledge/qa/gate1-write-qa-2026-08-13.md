@@ -41,3 +41,14 @@ NONE
 #### Forward Register
 
 NONE
+
+---
+
+```
+============================================================
+Rule 20 — QA Self-Check Results
+============================================================
+PASSED — SELF-CHECK PASSED — all evidence files present, no hedging keywords found.
+Evidence folder: /Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/384/knowledge/qa/evidence/gate1-write-333-336-2026-08-13/
+Files verified: 4
+```
