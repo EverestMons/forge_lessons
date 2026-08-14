@@ -1,0 +1,75 @@
+=== QA Probes Raw Output — gate1-write-337-346-2026-08-13 ===
+=== Generated: 2026-08-14T13:25:49Z ===
+
+--- Item 1: Deliverables (Rule 17) ---
+DEV NOTE:
+4f0262c [402] Step 1 Complete: Gate-1 routing write — proposals 337-346, three route sets (I/R/A), all sentinels passed
+EXIT=0
+SQL FILE:
+4f0262c [402] Step 1 Complete: Gate-1 routing write — proposals 337-346, three route sets (I/R/A), all sentinels passed
+EXIT=0
+FLIP CAPTURE:
+4f0262c [402] Step 1 Complete: Gate-1 routing write — proposals 337-346, three route sets (I/R/A), all sentinels passed
+EXIT=0
+
+--- Item 2: Three sets landed ---
+337|implemented|NULL|ceo|2026-08-14T13:21:27Z
+338|implemented|NULL|ceo|2026-08-14T13:21:27Z
+339|implemented|NULL|ceo|2026-08-14T13:21:27Z
+340|accepted|codify|ceo|2026-08-14T13:21:27Z
+341|accepted|codify|ceo|2026-08-14T13:21:27Z
+342|accepted|codify|ceo|2026-08-14T13:21:27Z
+343|reference|reference|ceo|2026-08-14T13:21:27Z
+344|reference|reference|ceo|2026-08-14T13:21:27Z
+345|reference|reference|ceo|2026-08-14T13:21:27Z
+346|accepted|codify|ceo|2026-08-14T13:21:27Z
+
+GLOBOK=10
+
+--- Item 3: C5 commit shape ---
+Parent count:
+       1
+Name-only:
+knowledge/development/g1-s42-route.sql
+knowledge/development/gate1-write-s42-dev-2026-08-13.md
+knowledge/qa/evidence/gate1-write-337-346-2026-08-13/flip-capture.txt
+Toplevel:
+/Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/402
+
+--- Item 4: Targeted suite ---
+src/test_lessons_forge.py::test_terminal_status_guard[superseded] PASSED [ 96%]
+src/test_lessons_forge.py::test_nonterminal_still_stales PASSED          [ 98%]
+src/test_lessons_forge.py::test_trailing_separator_only_delta_zero_stales PASSED [100%]
+
+============================== 55 passed in 0.10s ==============================
+
+--- Item 5: Corpus invariants ---
+PROP_POST=0
+ACC_POST=4
+IMPL_POST=278
+REF_POST=18
+REJ=15
+STALE=3
+SUPER=28
+TOT=346
+ENTRIES=338
+ACC_IDS=340,341,342,346
+REF_REFERENCE=12
+REF_BACKLOG=6
+BACKLOG_IDS=161,169,291,294,299,301
+STALE_IDS=98,121,130
+
+C6 capture diff:
+     336 /tmp/qa-flip-capture-check2.txt
+DIFF_EXIT=0
+
+--- Item 6: Routing-record completeness ---
+62:#### Routing record
+6
+
+--- Item 7: Register posture ---
+decisions/ non-Done:
+archived-halted-plans
+in-progress-executable-402.md
+FORWARD pipe-lines:
+18
