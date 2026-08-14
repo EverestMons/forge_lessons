@@ -6,42 +6,88 @@
 
 | Category | Count |
 |---|---|
-| governance_rule | 3 |
-| instrumentation | 1 |
+| governance_rule | 4 |
+| instrumentation | 3 |
+| structural | 3 |
 
-**Total proposals:** 4
+**Total proposals:** 10
 
 
 ## Governance Rule
 
 
-### 2026-08-13: The panel's own fold round is new surface — both capstone HIGHs were interactions BETWEEN the panel's folds [tag: drafting-cycle]
+### 2026-08-13: One action per ops compound — the close-compound carries a POST-CONDITION, and an unrouted clause is a Gate-1 bypass even when it is right [tag: drafting-cycle]
 
 
-- **Suggested action:** Add capstone-seat/fold-set-reader clause to DRAFTING_CYCLE.md §2.6: a panel round that folds is closed only when a capstone seat (or the scripted inter-seat battery) has read the FOLD SET as its artifact — per-seat commit diffs as the handoff, probe-vs-fold cross-checks, the freeze checklist re-run against the folded state. Add the corresponding new-surface handoff slot to PANEL_SEAT_TEMPLATE.md. Part of the drafting-cycle pair-cluster with entry 326 — both extend the same doctrine surfaces (§2.6 capstone + §2.0/§3 record discipline).
-- **Reasoning:** Entry describes how both capstone HIGH findings at the dc-coldfront panel (plan 373) were defects the panel round itself had just created — the fold set was new surface that no seat had read. The 'How to apply' prescribes a mechanism: a capstone seat must read the fold set (per-seat commit diffs, probe-vs-fold cross-checks, freeze checklist re-run) before the round is closed. This is a documentary rule change to DRAFTING_CYCLE.md §2.6, making the fold-set reading an explicit gate rather than an implicit assumption. The entry cites panel-scale replay of the warm-walk fact (~a third of findings are previous round's folds) with a sharper edge: panel folds land denser and later.
+- **Suggested action:** Codify the one-action-per-compound rule with mandatory post-condition close into PLANNER_TEMPLATE.md (already shipped as Rule 85 in PT v4.88 via plan 389). Also codify the severance discipline: doctrine text that surfaces during drafting enters through routing (LESSONS corpus → Gate 1 → gates), never by inlining mid-draft — the severance-and-corpus-path is the correct disposition.
+- **Reasoning:** Entry names two rules: (1) every ops compound performs ONE state change and CLOSES by verifying its post-condition — measured twice in session (386 C5, 389), shipped as PT v4.88 Rule 85; (2) when drafting surfaces a rule worth keeping, route it through the corpus, never inline it — the scout caught an unrouted clause and severed it. Both are governance-level disciplines for plan authoring. The compound rule is mechanism-shaped with a named owner (PLANNER_TEMPLATE.md Rule 85). The severance rule is a Gate-1-routing discipline.
 - **Confidence:** high
 
-### 2026-08-13: The record could not license the panel — walk 3 ran dry but was never recorded; strike, don't tidy [tag: drafting-cycle]
+### 2026-08-13: A summary line attested a lint run that never happened — the attestation was written from intention, not output [tag: drafting-cycle]
 
 
-- **Suggested action:** Add per-walk-commit record-clock rule to DRAFTING_CYCLE.md §2.0/§3: the per-walk commit IS the record's clock — a dry walk is a row, not a non-event. Codify the strike-not-tidy discipline for lagging records (explicit lateness note with dating evidence, never backfill as if contemporaneous). Add a mechanized record-coherence check (rows vs per-walk commits) to the walk-0 battery in the walk-register schema. Part of the drafting-cycle pair-cluster with entry 325 — both extend the same doctrine surfaces (§2.6 capstone + §2.0/§3 record discipline); Gate 1 should route them together.
-- **Reasoning:** Entry describes walk 3 running dry at dc-coldfront (plan 373) but having no register row, leaving the record unable to license the cold panel — seat 4 (Integration) flagged it HIGH (S4-2). The 'How to apply' prescribes two mechanisms: (1) per-walk commit as the record's clock (a dry walk is a row), and (2) a mechanized record-coherence check in the walk-0 battery. Both are documentary rule changes to DRAFTING_CYCLE.md §2.0/§3, codifying the strike-not-tidy discipline and adding an automated coherence check. The entry cites the record-decay pattern: 'attention converges on the artifact while the record starves.'
+- **Suggested action:** Write result-describing lines only from captured output (paste-adjacent, then compress to summary); treat every pre-classification of gate/lint output as a prediction that the closing run must confirm, and correct the text from the measured set before deposit — recording the correction rather than overwriting silently. Candidate owner: DRAFTING_CYCLE.md section 2.7's lens-attestation bullet.
+- **Reasoning:** Entry documents a summary line that attested a lint run before it happened — the closing-record re-read caught it against actual command history (391 cycle). The class extends the attestation-integrity rule: a summary sentence describing tool output IS an attestation, and writing it before the run leaves a window where the record certifies a fiction. 392 repeated from the other side: the close lint FALSIFIED the draft's 'no expected advisories' pre-classification (six (o2) advisories are the true set). A pre-classification is a claim about a future mechanical result. Part of the attestation-integrity pair with entry 337.
 - **Confidence:** high
 
-### 2026-08-13: cwd reset between Bash calls reaches OPS compounds too — a daemon relaunch fired from the wrong directory [tag: operational-recovery]
+### 2026-08-13: A strike note that QUOTES a section header becomes a second anchor match — describe tokens, don't exhibit them, in records that carry retractions [tag: drafting-cycle]
 
 
-- **Suggested action:** Extend the commit-compound cd-absolute + location-assert rule in PLANNER_TEMPLATE.md to cover all state-changing ops compounds (restarts, kills, nohup launches, log rotations, db backups): open with cd to absolute path plus location assert (git rev-parse --show-toplevel or explicit pwd check), close by verifying the post-condition (pid is up, startup log line appeared) — never the launcher's exit code.
-- **Reasoning:** Entry extends the phase-commits class (cwd resets between Bash calls) to ops compounds, citing session 40's daemon restart #2 where cwd reset put the relaunch elsewhere and the daemon was down ~1 minute before an absolute-path relaunch brought it up (pid 3969). The 'How to apply' prescribes extending the commit compound's cd-absolute + location-assert pattern to all state-changing ops compounds, with post-condition verification. Currently operator practice (discipline); the mechanism candidate is a PLANNER_TEMPLATE.md clause codifying the ops-compound open/close contract alongside the existing commit-compound rule.
-- **Confidence:** medium
+- **Suggested action:** In registers, strike notes, and fold commentary, reference structural tokens by description ('the section header above') or with a deliberate spelling break — never exhibit them verbatim. Keep the count-1 anchor assert on every scripted edit, because it is the instrument that turns this class from silent corruption into a loud halt. Candidate owner: DRAFTING_CYCLE.md section 2.7's edit-anchor bullet.
+- **Reasoning:** Entry documents a register strike note that quoted the '## Deviations' header token verbatim; a later scripted edit anchored on that header matched the QUOTE first and tripped the count-1 assert (correct behavior — the assert exists for exactly this). Every quoted structural token in a register is a decoy for future anchors. The class joins the edit-anchor rule with the retraction-classification rule: a well-run cycle accumulates text ABOUT its own structure, and each verbatim token is an anchor collision waiting to happen.
+- **Confidence:** high
+
+### 2026-08-13: The daemon claims an uncommitted deposit within one second — commit the claimed rename, and predict ids, never mint [tag: operational-recovery]
+
+
+- **Suggested action:** The deposit compound is always: fresh id read, copy, attempt commit, on failure restore-staged and commit the daemon's rename. Never pre-write the id anywhere the freeze does not re-derive, and treat a failed deposit commit as the EXPECTED path, not an error. Largely already carried by PLANNER_TEMPLATE and operational memory; Gate 1 should dedup against live doctrine.
+- **Reasoning:** Entry documents the deposit claim-race firing identically at 391 and 392: the daemon renamed the just-copied deposit to in-progress within one second of the git commit, and the defensive sequence (commit attempt, restore --staged on failure, commit the on-disk claimed state) handled both cleanly. The id-consumption window is also real: 391's authoring-time read said 390, the parallel terminal consumed it in-window, and the at-deposit re-read caught it. The fix is a governance-level procedure (discipline-shaped) largely already carried by PLANNER_TEMPLATE + operational memory.
+- **Confidence:** high
 
 ## Instrumentation
 
 
-### 2026-08-13: A transcribed census row transposed two column values and stayed well-formed — spot-check rows against their cited sources [tag: verification]
+### 2026-08-13: Every sqlite sentinel prints BEFORE the COMMIT — a rollback run produces perfect evidence with nothing written [tag: verification]
 
 
-- **Suggested action:** Add a paired-value source spot-check procedure: any hand-transcribed table that pairs values per row gets a sample of rows diffed against their cited sources before it is consumed — the check is cheap (open the citation, compare the pair) and it is the only instrument that sees transposition defects. When a defect is found in a closed artifact, record it in the consuming verdict/register with a pointer to the source; the closed artifact stays byte-stable.
-- **Reasoning:** Entry describes plan 370's Item-7 spot-check finding census row #9 of labelled-instances.md carrying its inherited/actual category values swapped relative to its cited source. The row was perfectly well-formed — right shape, both values legal, plausible in either order — so no structural check fires. The 'How to apply' prescribes a new procedural safeguard: spot-check paired values against their cited sources before consumption. This is an instrumentation-class fix — a new verification instrument — rather than a documentary rule change. The mechanism candidate is a standing QA-row convention in RULE_20's orbit.
-- **Confidence:** medium
+- **Suggested action:** Every transactional write step must end with a separate fresh-invocation read-back whose expected values are asserted — in-transaction sentinels prove intent, not durability. The step's record must state this distinction explicitly. A verdict or QA item citing only in-transaction sentinels has verified nothing. Strong mechanism candidate: a QA-row convention for post-COMMIT read-back alongside DRAFTING_CYCLE.md section 2.7's execute-against-real-data bullet.
+- **Reasoning:** Entry proves that every sentinel SELECT in a transactional flip script executes and prints before COMMIT — a run ending in ROLLBACK emits byte-identical success evidence with nothing written (386 panel proof S3-2, 389 re-measurement). The evidence is real output from real queries about a transaction that never became durable. The only proof of durability is a post-COMMIT read-back from a fresh connection. The fix is a new verification step (discipline-shaped today), not a documentary rule change. Part of the probe-integrity pair with entry 336.
+- **Confidence:** high
+
+### 2026-08-13: The probe was authored from prediction and would have halted a CORRECT run — measure every expected value ON the pinned artifact [tag: verification]
+
+
+- **Suggested action:** Every expected count or value in a probe battery must be derived by executing the probe against the pinned source artifact at authoring time — and re-derived after ANY fold that touches that artifact. A probe value with no derivation command next to it is a prediction wearing a probe's clothes. Strong mechanism candidate: a probe-derivation clause alongside DRAFTING_CYCLE.md section 2.7's execute-against-real-data bullet.
+- **Reasoning:** Entry documents a probe that expected 3 occurrences where the pinned reference measured 2 (392 scout finding) — the number was written from the author's mental model rather than by running the grep. On dispatch, a CORRECT apply would have failed the probe, triggered the restore arm, and halted the plan: the guard destroying the work it guards. The fix is a probe-authoring procedure (discipline-shaped today): derive by execution, re-derive after every fold. Part of the probe-integrity pair with entry 333.
+- **Confidence:** high
+
+### 2026-08-13: Deliverable counts in templates go stale when the deliverable grows — sweep every count-carrying template site after a late addition [tag: drafting-cycle]
+
+
+- **Suggested action:** After any fold that changes a deliverable's cardinality, grep the draft for the OLD count and re-derive every hit — commit messages, QA arithmetic, prose claims. Where a count must appear in multiple sites, the post-fold sweep is the price of that duplication. Candidate owner: DRAFTING_CYCLE.md section 2.7 (alongside the declare-once rule's companion).
+- **Reasoning:** Entry documents 392 shipping 8 new tests while its commit-message template and QA Item-4 arithmetic both still said 7 — written before the scout's fold added test 8 and never re-swept. The header expectation WAS updated (to 1025), so the plan carried an internal contradiction. The QA agent caught it live and classified against the diff (8 test functions, 27 = 19+8). The class: the count lives in N sites, the fold updates the one the author is looking at, and the others decay. Part of the attestation-integrity pair with entry 334.
+- **Confidence:** high
+
+## Structural
+
+
+### 2026-08-13: Register DUP-APPEND — one bullet in, two identical rows out, in the cycle's own record [tag: drafting-cycle]
+
+
+- **Suggested action:** The walk_register_lint v0.3 duplicate_row guard mechanizes detection of byte-identical duplicate data rows in walk registers (already shipped via plan 392). Run the v0.3 lint per culmination; treat any duplicate-row WARN as a record defect to strike. When building new guards, validate against the real corpus before trusting output — the false-positive shape (header repeats producing 34 false hits in the first prototype) was invisible to reasoning and obvious only to execution.
+- **Reasoning:** Entry documents the DUP-APPEND channel class recurring in walk registers: 389's capstone pass found a duplicated open-tail line (F2-1), and the class was measured twice in one register during the s40sweep arc. A duplicated record line is invisible to every content probe — both copies are individually correct. The fix is mechanical: walk_register_lint v0.3's duplicate_row guard flags byte-identical data rows as UNCONFORMANT. Part of the register/validator pair with entry 331 (both shipped via plan 392's schema v0.3 and walk_register_lint guards).
+- **Confidence:** high
+
+### 2026-08-13: Headerless table rows are INVISIBLE to a header-anchored parser — 46 committed rows had never been validated [tag: verification]
+
+
+- **Suggested action:** The walk_register_lint v0.3 headerless_rows guard detects fold-shaped pipe rows outside any parsed table, including files with no parsed table at all (already shipped via plan 392). Any headerless row flips the file UNCONFORMANT. When a tool's recognition rule can silently EXCLUDE malformed instances of the thing it validates, add a guard for the excluded shape — ask 'what does my parser silently skip?' and measure over the real corpus.
+- **Reasoning:** Entry documents the silent-exclusion failure: 46 committed headerless fold rows across 4 registers had never been validated because the header-anchored parser skipped them entirely — including 16 panel-seat rows in 386's register that no validator run had ever read. The fix is mechanical: v0.3's headerless_rows guard catches any fold-shaped pipe row outside a parsed table (the worst case — files with no parsed table at all — was caught by the scout). Part of the register/validator pair with entry 330 (both shipped via plan 392's schema v0.3 and walk_register_lint guards).
+- **Confidence:** high
+
+### 2026-08-13: A case-insensitive filesystem defeats a realpath guard — compare inodes, not strings [tag: verification]
+
+
+- **Suggested action:** Every path-identity guard must test by inode (os.path.samefile), never by string equality of resolved paths — a case-insensitive filesystem (macOS default) defeats the string test. Retain the realpath test for the non-existing-file case and add a directory-prefix rejection when the write must leave the tree entirely. This is a builder-authoring convention with no single owning artifact today; the fix was applied to builders 389/391/392.
+- **Reasoning:** Entry demonstrates the bypass: 389's execution seat showed a realpath-string comparison passing a differently-cased path to the same file on a case-insensitive filesystem — the guard said 'different file' while the write destroys the live artifact. Closed with os.path.samefile alongside the realpath test, plus a root-subtree rejection. The fix is mechanical (inode-level identity) and has been applied to each subsequent builder, but the convention has no single named owner — it applies to every builder that guards a path identity.
+- **Confidence:** high
