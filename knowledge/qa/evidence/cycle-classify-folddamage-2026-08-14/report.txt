@@ -1,0 +1,17 @@
+=== Row 4: Report integrity ===
+Report exists: True
+Report size: 7256 bytes
+Report line count: 61
+
+Route grep output: 0
+Route grep exit: 1
+
+Overlap grep output: 0
+Overlap grep exit: 1
+
+entry 339 heading in report: True (heading: 2026-08-14: A fold is the only edit in the system with no post-condition — six r...)
+entry 340 heading in report: True (heading: 2026-08-14: A fold's own prose can break a machine contract — three times in one...)
+
+=== Row 7: Register posture ===
+FORWARD.md pipe-lines: 18 (baseline: 18, delta: 0)
+decisions/ non-Done contents: ['archived-halted-plans', 'in-progress-executable-414.md']

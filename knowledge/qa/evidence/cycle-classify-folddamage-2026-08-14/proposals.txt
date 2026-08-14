@@ -1,0 +1,30 @@
+=== Row 3: Six proposals (entry_id > 338) ===
+proposal=347 entry=339 category=structural status=proposed route=None confidence=high
+proposal=348 entry=340 category=structural status=proposed route=None confidence=high
+proposal=349 entry=341 category=governance_rule status=proposed route=None confidence=high
+proposal=350 entry=342 category=governance_rule status=proposed route=None confidence=high
+proposal=351 entry=343 category=governance_rule status=proposed route=None confidence=high
+proposal=352 entry=344 category=governance_rule status=proposed route=None confidence=high
+Count: 6
+
+Total lesson_proposals: 352
+MAX(lesson_proposals.id): 352
+
+=== Row 6: Corpus preservation ===
+Entry count: 344, MAX(id): 344
+Entry 338 content_hash: 359bf0267d500f50e67b4748a974b468620d8eb25c58b1fd4c046d0fabffaf9a
+Hash matches expected (359bf026...): True
+
+Stale count: 3, ids: [98, 121, 130]
+Accepted/codify set: [(340, 332), (342, 334), (346, 338)]
+Accepted id set: [340, 342, 346]
+Expected {340, 342, 346}: True
+
+=== Status distribution ===
+  accepted: 3
+  implemented: 279
+  proposed: 6
+  reference: 18
+  rejected: 15
+  stale: 3
+  superseded: 28
