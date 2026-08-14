@@ -1,0 +1,24 @@
+Row 4 — Plan-204 held, NO proposal created
+
+Stale count: 3 (unchanged)
+Sentinel entry 338 content_hash: 359bf0267d500f50e67b4748a974b468620d8eb25c58b1fd4c046d0fabffaf9a (match: True)
+Total proposals: 346 (unchanged from P0)
+Duplicates post-338: 0 (SELECT COUNT(*) FROM lesson_proposals WHERE category='duplicate' AND entry_id > 338)
+MAX(lesson_proposals.id): 346 (unchanged)
+NT set by id: 340,342,346 (exactly {340,342,346})
+
+Receipt dict values confirmed:
+  updated_count=0
+  terminal_proposals_flagged=[]
+
+Full 8-status distribution (pre vs post — all unchanged):
+  implemented: 279 -> 279
+  superseded:   28 ->  28
+  reference:    18 ->  18
+  rejected:     15 ->  15
+  stale:         3 ->   3
+  accepted:      3 ->   3
+  proposed:      0 ->   0
+  ambiguous:     0 ->   0
+
+All buckets unchanged. No proposal created by the ingest.

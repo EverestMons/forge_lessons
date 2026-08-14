@@ -1,0 +1,16 @@
+Row 3 — The 6 landed, only those
+
+SELECT id, source_heading FROM lesson_entries WHERE id IN (339,340,341,342,343,344) ORDER BY id:
+
+  entry=339: 2026-08-14: A fold is the only edit in the system with no post-condition — six rules govern it and all six key on the wrong unit [tag: drafting-cycle]
+  entry=340: 2026-08-14: A fold's own prose can break a machine contract — three times in one cycle, every one invisible to reading [tag: verification]
+  entry=341: 2026-08-14: Narrating a severance re-introduces the severed content [tag: drafting-cycle]
+  entry=342: 2026-08-14: A clone is diffed section-by-section, never token-swapped — 17 of 18 findings were origin-carried and one would have halted a correct run [tag: drafting-cycle]
+  entry=343: 2026-08-14: The marker-collision fired on the first artifact written after it shipped [tag: verification]
+  entry=344: 2026-08-14: A session that crosses midnight carries a stale date into every slug it authors [tag: operational-recovery]
+
+Row count: 6
+Total entries: 344
+Reconcile: 338 + 6 = 344, actual = 344
+
+Headings bound as query parameters (entry 340 carries apostrophe — verified safe via parameterized query).
