@@ -1,0 +1,32 @@
+=== Row 4: Report integrity ===
+Report path: reports/lessons-report-2026-08-13.md
+      93 reports/lessons-report-2026-08-13.md
+
+Surfaced count: 10 (matches Step 2 expectation)
+
+Route grep:
+0
+ROUTE-GREP-EXIT=1
+
+Overlap grep:
+0
+OVERLAP-GREP-EXIT=1
+
+=== Hostile heading spot-check ===
+Entry 330 heading in report:
+### 2026-08-13: Register DUP-APPEND — one bullet in, two identical rows out, in the cycle's own record [tag: drafting-cycle]
+
+Entry 335 heading in report:
+### 2026-08-13: A strike note that QUOTES a section header becomes a second anchor match — describe tokens, don't exhibit them, in records that carry retractions [tag: drafting-cycle]
+
+=== Row 7: Register posture ===
+decisions/ non-Done contents:
+archived-halted-plans
+in-progress-executable-399.md
+
+in-progress files:
+knowledge/decisions/in-progress-executable-399.md
+
+FORWARD.md pipe-line count:
+18
+Expected: 18 (delta ZERO)

@@ -1,0 +1,33 @@
+=== Row 3: Proposals (entry_id > 328) ===
+  id=337 entry_id=329 category=governance_rule status=proposed route=None confidence=high
+  id=338 entry_id=330 category=structural status=proposed route=None confidence=high
+  id=339 entry_id=331 category=structural status=proposed route=None confidence=high
+  id=340 entry_id=332 category=structural status=proposed route=None confidence=high
+  id=341 entry_id=333 category=instrumentation status=proposed route=None confidence=high
+  id=342 entry_id=334 category=governance_rule status=proposed route=None confidence=high
+  id=343 entry_id=335 category=governance_rule status=proposed route=None confidence=high
+  id=344 entry_id=336 category=instrumentation status=proposed route=None confidence=high
+  id=345 entry_id=337 category=instrumentation status=proposed route=None confidence=high
+  id=346 entry_id=338 category=governance_rule status=proposed route=None confidence=high
+COUNT: 10
+entry_ids: [329, 330, 331, 332, 333, 334, 335, 336, 337, 338]
+proposal_ids: [337, 338, 339, 340, 341, 342, 343, 344, 345, 346]
+TOTAL lesson_proposals: 346
+MAX(lesson_proposals.id): 346
+
+=== Row 6: Corpus preservation ===
+Entries: COUNT=338, MAX(id)=338 (expected 338/338)
+Sentinel entry 328 content_hash: 63b3831d2ddfdd553d9b8904df40723dbbd50d6fa442db72f2d16cfeb8762d26
+Expected: 63b3831d2ddfdd553d9b8904df40723dbbd50d6fa442db72f2d16cfeb8762d26
+Match: True
+Stale: [98, 121, 130] (count=3, expected [98,121,130])
+Accepted: [] (count=0, expected 0)
+
+=== Status distribution ===
+  implemented: 275
+  proposed: 10
+  reference: 15
+  rejected: 15
+  stale: 3
+  superseded: 28
+Delta: +10 proposed (from 0 to 10), all other buckets unchanged
