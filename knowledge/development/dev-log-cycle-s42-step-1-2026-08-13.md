@@ -53,3 +53,17 @@ ea3049ce6fc8ad0c62b1e4da9525500826fe2c8495fb478ee038c03c2d995752  /Users/markleh
 4f33c3884b426189ba9f019c0722681a4446e5f9223b1f0f10c117f7de0691a0  /Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md
 d291b7b2cecf5e4e018a49674f383cb97c2d74d0d8659d134e44e3c70ae133a0  /Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md
 ```
+
+## Ingest Result Dict (verbatim)
+
+```json
+{
+  "ingested_count": 10,
+  "updated_count": 0,
+  "unchanged_count": 271,
+  "duplicates_marked_count": 0,
+  "needs_classification": [329, 330, 331, 332, 333, 334, 335, 336, 337, 338],
+  "terminal_proposals_flagged": [],
+  "cycle_timestamp": "2026-08-14T12:36:12.490321+00:00"
+}
+```
