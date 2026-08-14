@@ -1,0 +1,26 @@
+=== Row 4: Plan-204 held, NO proposal created ===
+
+Stale proposals: [(98, 'stale'), (121, 'stale'), (130, 'stale')]
+STALE_COUNT: 3 (expected 3, ids 98/121/130)
+Entry 328 hash: 63b3831d2ddfdd553d9b8904df40723dbbd50d6fa442db72f2d16cfeb8762d26
+Expected:       63b3831d2ddfdd553d9b8904df40723dbbd50d6fa442db72f2d16cfeb8762d26
+Match: True
+
+Total proposals: 336 (expected 336 unchanged)
+
+Receipt dict updated_count: 0
+Receipt dict terminal_proposals_flagged: []
+
+=== Status distribution (post-ingest vs Receipt baseline) ===
+  implemented: 275 (Receipt: 275, match: True)
+  superseded: 28 (Receipt: 28, match: True)
+  rejected: 15 (Receipt: 15, match: True)
+  reference: 15 (Receipt: 15, match: True)
+  stale: 3 (Receipt: 3, match: True)
+  accepted: 0 (Receipt: 0, match: True)
+  proposed: 0 (Receipt: 0, match: True)
+  ambiguous: 0 (Receipt: 0, match: True)
+All distribution buckets match: True
+
+NT_COUNT: 0 (expected 0)
+Proposals with entry_id > 328: 0 (expected 0)

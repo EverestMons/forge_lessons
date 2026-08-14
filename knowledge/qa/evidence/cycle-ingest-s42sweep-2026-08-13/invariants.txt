@@ -1,0 +1,30 @@
+=== Row 3: The 10 landed, only those ===
+
+id=329: 2026-08-13: One action per ops compound — the close-compound carries a POST-CONDITION, and an unrouted clause is a Gate-1 bypass even when it is right [tag: drafting-cycle]
+id=330: 2026-08-13: Register DUP-APPEND — one bullet in, two identical rows out, in the cycle's own record [tag: drafting-cycle]
+id=331: 2026-08-13: Headerless table rows are INVISIBLE to a header-anchored parser — 46 committed rows had never been validated [tag: verification]
+id=332: 2026-08-13: A case-insensitive filesystem defeats a realpath guard — compare inodes, not strings [tag: verification]
+id=333: 2026-08-13: Every sqlite sentinel prints BEFORE the COMMIT — a rollback run produces perfect evidence with nothing written [tag: verification]
+id=334: 2026-08-13: A summary line attested a lint run that never happened — the attestation was written from intention, not output [tag: drafting-cycle]
+id=335: 2026-08-13: A strike note that QUOTES a section header becomes a second anchor match — describe tokens, don't exhibit them, in records that carry retractions [tag: drafting-cycle]
+id=336: 2026-08-13: The probe was authored from prediction and would have halted a CORRECT run — measure every expected value ON the pinned artifact [tag: verification]
+id=337: 2026-08-13: Deliverable counts in templates go stale when the deliverable grows — sweep every count-carrying template site after a late addition [tag: drafting-cycle]
+id=338: 2026-08-13: The daemon claims an uncommitted deposit within one second — commit the claimed rename, and predict ids, never mint [tag: operational-recovery]
+
+Row count: 10 (expected 10)
+Total entries: 338
+Derivation: E0(328) + 10 = 338 == 338: True
+
+=== Heading match against Receipt anchor ===
+id=329: match=True
+id=330: match=True
+id=331: match=True
+id=332: match=True
+id=333: match=True
+id=334: match=True
+id=335: match=True
+id=336: match=True
+id=337: match=True
+id=338: match=True
+
+All headings match anchor: True

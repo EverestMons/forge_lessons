@@ -1,0 +1,175 @@
+=== Row 5: Schema comparison — DB vs src/db.py DDL ===
+
+--- lesson_entries PRAGMA table_info ---
+(0, 'id', 'INTEGER', 0, None, 1)
+(1, 'source_file', 'TEXT', 1, None, 0)
+(2, 'source_heading', 'TEXT', 1, None, 0)
+(3, 'entry_date', 'TEXT', 0, None, 0)
+(4, 'raw_content', 'TEXT', 1, None, 0)
+(5, 'content_hash', 'TEXT', 1, None, 0)
+(6, 'tags', 'TEXT', 0, None, 0)
+(7, 'ingested_at', 'TEXT', 1, None, 0)
+
+--- lesson_proposals PRAGMA table_info ---
+(0, 'id', 'INTEGER', 0, None, 1)
+(1, 'entry_id', 'INTEGER', 1, None, 0)
+(2, 'category', 'TEXT', 1, None, 0)
+(3, 'subcategory', 'TEXT', 0, None, 0)
+(4, 'suggested_action', 'TEXT', 1, None, 0)
+(5, 'reasoning', 'TEXT', 1, None, 0)
+(6, 'confidence', 'TEXT', 1, None, 0)
+(7, 'status', 'TEXT', 1, "'proposed'", 0)
+(8, 'target_layer', 'TEXT', 0, None, 0)
+(9, 'target_artifact', 'TEXT', 0, None, 0)
+(10, 'duplicate_of', 'INTEGER', 0, None, 0)
+(11, 'route', 'TEXT', 0, None, 0)
+(12, 'proposed_at', 'TEXT', 1, None, 0)
+(13, 'status_updated_at', 'TEXT', 0, None, 0)
+(14, 'status_updated_by', 'TEXT', 0, None, 0)
+
+--- lesson_entries raw .schema ---
+CREATE TABLE lesson_entries (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            source_file     TEXT    NOT NULL,
+            source_heading  TEXT    NOT NULL,
+            entry_date      TEXT,
+            raw_content     TEXT    NOT NULL,
+            content_hash    TEXT    NOT NULL,
+            tags            TEXT,
+            ingested_at     TEXT    NOT NULL,
+            UNIQUE(source_file, source_heading)
+        )
+
+--- lesson_proposals raw .schema ---
+CREATE TABLE "lesson_proposals" (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+                category            TEXT    NOT NULL CHECK(category IN ('structural', 'instrumentation', 'governance_rule', 'language', 'narrative', 'duplicate')),
+                subcategory         TEXT,
+                suggested_action    TEXT    NOT NULL,
+                reasoning           TEXT    NOT NULL,
+                confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
+                status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented', 'reference')),
+                target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
+                target_artifact     TEXT,
+                duplicate_of        INTEGER,
+                route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
+                proposed_at         TEXT    NOT NULL,
+                status_updated_at   TEXT,
+                status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
+            )
+
+--- src/db.py DDL (authoritative) ---
+"""Lessons Forge — DB initialization for lessons-forge.db."""
+from __future__ import annotations
+
+import sqlite3
+
+
+def init_db(conn: sqlite3.Connection) -> None:
+    """Create lesson_entries and lesson_proposals tables with indexes."""
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA foreign_keys=ON")
+
+    conn.executescript("""
+        CREATE TABLE IF NOT EXISTS lesson_entries (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            source_file     TEXT    NOT NULL,
+            source_heading  TEXT    NOT NULL,
+            entry_date      TEXT,
+            raw_content     TEXT    NOT NULL,
+            content_hash    TEXT    NOT NULL,
+            tags            TEXT,
+            ingested_at     TEXT    NOT NULL,
+            UNIQUE(source_file, source_heading)
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_lesson_entries_source
+            ON lesson_entries(source_file);
+        CREATE INDEX IF NOT EXISTS idx_lesson_entries_date
+            ON lesson_entries(entry_date);
+        CREATE INDEX IF NOT EXISTS idx_lesson_entries_hash
+            ON lesson_entries(content_hash);
+
+        CREATE TABLE IF NOT EXISTS lesson_proposals (
+            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+            entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+            category            TEXT    NOT NULL CHECK(category IN ('structural', 'instrumentation', 'governance_rule', 'language', 'narrative', 'duplicate')),
+            subcategory         TEXT,
+            suggested_action    TEXT    NOT NULL,
+            reasoning           TEXT    NOT NULL,
+            confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
+            status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented', 'reference')),
+            target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
+            target_artifact     TEXT,
+            duplicate_of        INTEGER,
+            route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
+            proposed_at         TEXT    NOT NULL,
+            status_updated_at   TEXT,
+            status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_lesson_proposals_entry
+            ON lesson_proposals(entry_id);
+        CREATE INDEX IF NOT EXISTS idx_lesson_proposals_status
+            ON lesson_proposals(status);
+        CREATE INDEX IF NOT EXISTS idx_lesson_proposals_category
+            ON lesson_proposals(category);
+    """)
+
+    # Migration: add route column to existing DBs that lack it
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(lesson_proposals)").fetchall()}
+    if "route" not in cols:
+        conn.execute(
+            "ALTER TABLE lesson_proposals ADD COLUMN "
+            "route TEXT CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference'))"
+        )
+
+    # Migration: add 'reference' to status CHECK constraint (table rebuild required)
+    schema_sql = conn.execute(
+        "SELECT sql FROM sqlite_master WHERE type='table' AND name='lesson_proposals'"
+    ).fetchone()[0]
+    if "'implemented', 'reference'" not in schema_sql:
+        conn.execute("PRAGMA foreign_keys=OFF")
+        conn.executescript("""
+            CREATE TABLE lesson_proposals_new (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+                category            TEXT    NOT NULL CHECK(category IN ('structural', 'instrumentation', 'governance_rule', 'language', 'narrative', 'duplicate')),
+                subcategory         TEXT,
+                suggested_action    TEXT    NOT NULL,
+                reasoning           TEXT    NOT NULL,
+                confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
+                status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented', 'reference')),
+                target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
+                target_artifact     TEXT,
+                duplicate_of        INTEGER,
+                route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
+                proposed_at         TEXT    NOT NULL,
+                status_updated_at   TEXT,
+                status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
+            );
+
+            INSERT INTO lesson_proposals_new
+                SELECT id, entry_id, category, subcategory, suggested_action, reasoning,
+                       confidence, status, target_layer, target_artifact, duplicate_of,
+                       route, proposed_at, status_updated_at, status_updated_by
+                FROM lesson_proposals;
+
+            DROP TABLE lesson_proposals;
+
+            ALTER TABLE lesson_proposals_new RENAME TO lesson_proposals;
+
+            CREATE INDEX IF NOT EXISTS idx_lesson_proposals_entry
+                ON lesson_proposals(entry_id);
+            CREATE INDEX IF NOT EXISTS idx_lesson_proposals_status
+                ON lesson_proposals(status);
+            CREATE INDEX IF NOT EXISTS idx_lesson_proposals_category
+                ON lesson_proposals(category);
+        """)
+        conn.execute("PRAGMA foreign_keys=ON")
+
+    conn.commit()
+
+
+Verdict: DB schema matches src/db.py DDL — columns, types, constraints, and CHECK clauses identical.
