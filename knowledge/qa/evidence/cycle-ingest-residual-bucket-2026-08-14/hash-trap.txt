@@ -1,0 +1,37 @@
+=== Row 4: Plan-204 held, no proposal created ===
+
+STALE_COUNT = 3 (expected 3)
+
+Entry 344 content_hash = e7b607bde3cdaf801fe266d06137b549bab7786accb99356e4eda315351e723d
+Expected: e7b607bde3cdaf801fe266d06137b549bab7786accb99356e4eda315351e723d
+Match: True
+
+COUNT(*) lesson_proposals = 352 (expected 352 unchanged)
+
+From Receipt: updated_count=0, terminal_proposals_flagged=[]
+
+NT set by id = 340,342,346,350,352
+Expected: 340,342,346,350,352
+Match: True
+
+=== Full 8-status distribution (post-ingest, from live DB) ===
+implemented: 281
+superseded: 28
+reference: 20
+rejected: 15
+accepted: 5
+stale: 3
+proposed: 0
+ambiguous: 0
+
+=== Pre-ingest distribution (from Step 1 receipt) ===
+implemented: 281, superseded: 28, reference: 20, rejected: 15
+accepted: 5, stale: 3, proposed: 0, ambiguous: 0
+All buckets unchanged: True
+
+=== Row 6: Fingerprint provenance ===
+Heading from DB: 2026-08-14: A residual "everything else" bucket silently absorbs the class that deserved its own bin [tag: governance-design]
+Recomputed fingerprint: ec35aac0063056bd4daea52c8a3fe6532779d230ff2192e204a54ed90029b042
+Expected: ec35aac0063056bd4daea52c8a3fe6532779d230ff2192e204a54ed90029b042
+Match: True
+MAX(lesson_proposals.id) = 352 (expected 352)

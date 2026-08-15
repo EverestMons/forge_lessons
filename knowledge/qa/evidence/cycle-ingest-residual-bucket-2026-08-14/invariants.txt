@@ -1,0 +1,9 @@
+=== Row 3: Entry 345 identity ===
+id=345
+source_heading=2026-08-14: A residual "everything else" bucket silently absorbs the class that deserved its own bin [tag: governance-design]
+
+COUNT(*) lesson_entries = 345
+Reconcile: E0(344) + ingested(1) = 345 == 345: True
+
+MAX(id) lesson_entries = 345
+MAX(id) == COUNT(*): True (no gaps)
