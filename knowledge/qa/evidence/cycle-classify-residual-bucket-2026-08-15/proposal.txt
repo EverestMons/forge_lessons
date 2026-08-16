@@ -1,0 +1,19 @@
+Row 2: Proposal 353 shape
+SELECT id, entry_id, category, confidence, status, route FROM lesson_proposals WHERE id = 353
+  id=353 entry_id=345 category=governance_rule confidence=high status=proposed route=None
+COUNT(*) FROM lesson_proposals: 353
+
+Row 4: Reasoning markers
+  [DEDUP]: 1
+  [REMEDY-GATED]: 1
+  [AUTHOR-CONFLICT]: 1
+All three markers present.
+
+Row 5: get_unclassified_entries(conn) == []
+Confirmed: []
+
+Row 11: DISPOSITION line
+grep -Fc -- 'DISPOSITION | entry=345' knowledge/development/dev-log-classify-residual-bucket-step-1-2026-08-15.md
+  Count: 1
+Full line: DISPOSITION | entry=345 | proposal=353 | remedy: drafted-and-gated (PT 4.88->4.89) | markers: [DEDUP] [REMEDY-GATED] [AUTHOR-CONFLICT]
+Carries proposal=353 and all three marker names: confirmed.

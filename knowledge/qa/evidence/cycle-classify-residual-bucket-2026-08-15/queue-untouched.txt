@@ -1,0 +1,26 @@
+Row 3: Gate-2 queue is UNTOUCHED
+Pre-existing five NT ids (accepted|codify):
+  id=340 status=accepted route=codify
+  id=342 status=accepted route=codify
+  id=346 status=accepted route=codify
+  id=350 status=accepted route=codify
+  id=352 status=accepted route=codify
+NT id-set confirmed: {340, 342, 346, 350, 352} — all accepted with route=codify
+Proposal 353: status=proposed route=None (not in the codify queue — correct)
+
+STALE count: 3
+Sentinel entry 344 content_hash: e7b607bde3cdaf801fe266d06137b549bab7786accb99356e4eda315351e723d
+  Expected: e7b607bd… — matches
+Entries count: 345
+
+Row 8: 8-status distribution
+  implemented: 281
+  superseded: 28
+  reference: 20
+  rejected: 15
+  accepted: 5
+  proposed: 1
+  stale: 3
+  ambiguous: 0
+  total: 353
+All buckets match pinned baseline. Total 353.

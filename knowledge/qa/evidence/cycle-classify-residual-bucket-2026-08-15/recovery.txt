@@ -1,0 +1,40 @@
+Row 0: Deliverables (Rule 17)
+git log --oneline -1 -- knowledge/development/dev-log-classify-residual-bucket-step-1-2026-08-15.md
+  c9974d0 classify: entry 345 → proposal 353 (governance_rule, high) — step 1 complete [425]
+git status --porcelain -- knowledge/development/dev-log-classify-residual-bucket-step-1-2026-08-15.md
+  (empty — clean)
+
+git log --oneline -1 -- knowledge/development/dev-log-classify-residual-bucket-step-2-2026-08-15.md
+  8bfb954 report: generate lessons-report-2026-08-15 (1 proposal surfaced) — step 2 complete [425]
+git status --porcelain -- knowledge/development/dev-log-classify-residual-bucket-step-2-2026-08-15.md
+  (empty — clean)
+
+git log --oneline -1 -- reports/lessons-report-2026-08-15.md
+  8bfb954 report: generate lessons-report-2026-08-15 (1 proposal surfaced) — step 2 complete [425]
+git status --porcelain -- reports/lessons-report-2026-08-15.md
+  (empty — clean)
+
+All three deliverables tracked, non-empty git log, porcelain clean.
+
+Row 10: R2 recovery is clean
+(a) git -C /Users/marklehn/Developer/GitHub/lessons-forge worktree list:
+  /Users/marklehn/Developer/GitHub/lessons-forge                         54d3fd7 [main]
+  /Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/427  649bd02 [bellows-wt/427]
+  No worktree for 425. This plan's own worktree (427) present — correct, not a failure.
+
+(b) main HEAD contains 8bfb954: confirmed
+  8bfb954 report: generate lessons-report-2026-08-15 (1 proposal surfaced) — step 2 complete [425]
+
+(c) git -C /Users/marklehn/Developer/GitHub/lessons-forge status --porcelain:
+  (empty — clean)
+  No claim-rename pair visible (already committed). No other porcelain lines. Clean.
+
+(d) decisions/ top-level md files:
+  /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/decisions/in-progress-executable-427.md
+  /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/decisions/halted-executable-425.md
+  Exactly: halted-executable-425.md + this plan's own in-progress-executable-427.md. Correct.
+  halted-executable-425.md is present — reported, not moved or renamed.
+
+Row 12: Register posture
+grep -c "^| " knowledge/FORWARD.md: 18
+FORWARD row count: 18 — matches baseline.

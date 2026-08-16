@@ -1,0 +1,97 @@
+Row 9: No schema drift
+
+=== DB PRAGMA table_info(lesson_entries) ===
+(0, 'id', 'INTEGER', 0, None, 1)
+(1, 'source_file', 'TEXT', 1, None, 0)
+(2, 'source_heading', 'TEXT', 1, None, 0)
+(3, 'entry_date', 'TEXT', 0, None, 0)
+(4, 'raw_content', 'TEXT', 1, None, 0)
+(5, 'content_hash', 'TEXT', 1, None, 0)
+(6, 'tags', 'TEXT', 0, None, 0)
+(7, 'ingested_at', 'TEXT', 1, None, 0)
+
+=== DB PRAGMA table_info(lesson_proposals) ===
+(0, 'id', 'INTEGER', 0, None, 1)
+(1, 'entry_id', 'INTEGER', 1, None, 0)
+(2, 'category', 'TEXT', 1, None, 0)
+(3, 'subcategory', 'TEXT', 0, None, 0)
+(4, 'suggested_action', 'TEXT', 1, None, 0)
+(5, 'reasoning', 'TEXT', 1, None, 0)
+(6, 'confidence', 'TEXT', 1, None, 0)
+(7, 'status', 'TEXT', 1, "'proposed'", 0)
+(8, 'target_layer', 'TEXT', 0, None, 0)
+(9, 'target_artifact', 'TEXT', 0, None, 0)
+(10, 'duplicate_of', 'INTEGER', 0, None, 0)
+(11, 'route', 'TEXT', 0, None, 0)
+(12, 'proposed_at', 'TEXT', 1, None, 0)
+(13, 'status_updated_at', 'TEXT', 0, None, 0)
+(14, 'status_updated_by', 'TEXT', 0, None, 0)
+
+=== DB .schema lesson_entries ===
+CREATE TABLE lesson_entries (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            source_file     TEXT    NOT NULL,
+            source_heading  TEXT    NOT NULL,
+            entry_date      TEXT,
+            raw_content     TEXT    NOT NULL,
+            content_hash    TEXT    NOT NULL,
+            tags            TEXT,
+            ingested_at     TEXT    NOT NULL,
+            UNIQUE(source_file, source_heading)
+        )
+
+=== DB .schema lesson_proposals ===
+CREATE TABLE "lesson_proposals" (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+                category            TEXT    NOT NULL CHECK(category IN ('structural', 'instrumentation', 'governance_rule', 'language', 'narrative', 'duplicate')),
+                subcategory         TEXT,
+                suggested_action    TEXT    NOT NULL,
+                reasoning           TEXT    NOT NULL,
+                confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
+                status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented', 'reference')),
+                target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
+                target_artifact     TEXT,
+                duplicate_of        INTEGER,
+                route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
+                proposed_at         TEXT    NOT NULL,
+                status_updated_at   TEXT,
+                status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
+            )
+
+=== src/db.py DDL (init_db) ===
+CREATE TABLE IF NOT EXISTS lesson_entries (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_file     TEXT    NOT NULL,
+    source_heading  TEXT    NOT NULL,
+    entry_date      TEXT,
+    raw_content     TEXT    NOT NULL,
+    content_hash    TEXT    NOT NULL,
+    tags            TEXT,
+    ingested_at     TEXT    NOT NULL,
+    UNIQUE(source_file, source_heading)
+);
+
+CREATE TABLE IF NOT EXISTS lesson_proposals (
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+    entry_id            INTEGER NOT NULL REFERENCES lesson_entries(id) ON DELETE CASCADE,
+    category            TEXT    NOT NULL CHECK(category IN ('structural', 'instrumentation', 'governance_rule', 'language', 'narrative', 'duplicate')),
+    subcategory         TEXT,
+    suggested_action    TEXT    NOT NULL,
+    reasoning           TEXT    NOT NULL,
+    confidence          TEXT    NOT NULL CHECK(confidence IN ('low', 'medium', 'high')),
+    status              TEXT    NOT NULL DEFAULT 'proposed' CHECK(status IN ('proposed', 'accepted', 'rejected', 'ambiguous', 'stale', 'superseded', 'implemented', 'reference')),
+    target_layer        TEXT    CHECK(target_layer IS NULL OR target_layer IN ('structure', 'governance', 'language', 'none')),
+    target_artifact     TEXT,
+    duplicate_of        INTEGER,
+    route               TEXT    CHECK(route IS NULL OR route IN ('codify', 'backlog', 'reference')),
+    proposed_at         TEXT    NOT NULL,
+    status_updated_at   TEXT,
+    status_updated_by   TEXT    CHECK(status_updated_by IS NULL OR status_updated_by IN ('planner', 'ceo', 'auto'))
+);
+
+Comparison: DB schema matches src/db.py DDL. Differences are cosmetic only:
+- DB omits IF NOT EXISTS (creation-time artifact)
+- DB table name has quotes (from migration rebuild)
+- Column definitions, constraints, defaults, and CHECK clauses are identical.
+No drift detected.

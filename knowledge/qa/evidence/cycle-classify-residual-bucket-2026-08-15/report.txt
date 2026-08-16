@@ -1,0 +1,18 @@
+Row 6: At-risk artifact survived
+shasum -a 256 /Users/marklehn/Developer/GitHub/lessons-forge/reports/lessons-report-2026-08-14.md
+  f1807cf266b369541ce5ae56f17e83966e354dd36d0ac8daa7ec73d4ec454c85
+  Expected: f1807cf2… — matches (measured in MAIN, absolute path, read-only)
+
+reports/lessons-report-2026-08-15.md exists: 2593 bytes
+Proposal count in report: 1 (Total proposals: 1)
+
+Row 7: Report content
+grep -Fc -- '- **Route:**' report: 0 (EXIT=1) — no Route lines, correct
+grep -Fc -- 'Recently-implemented' report: 0 (EXIT=1) — no Recently-implemented lines, correct
+grep -Fc -- '"everything else"' report: 1 (EXIT=0) — phrase intact
+
+DB heading for entry 345:
+  '2026-08-14: A residual "everything else" bucket silently absorbs the class that deserved its own bin [tag: governance-design]'
+Report heading (line 17):
+  ### 2026-08-14: A residual "everything else" bucket silently absorbs the class that deserved its own bin [tag: governance-design]
+Heading matches.
