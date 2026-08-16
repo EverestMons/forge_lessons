@@ -1,0 +1,20 @@
+pwd: /Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/428
+
+=== Row 0: Deliverables (Rule 17) ===
+
+Step 1 dev log committed:
+$ git log --oneline -1 -- knowledge/development/dev-log-gate1-write-353-2026-08-15.md
+d9307eb dev: gate1-write-353 step 1 — route 353 accepted|codify [428]
+
+$ git status --porcelain
+(clean)
+
+=== Row 2: THE ROUTE LANDED ===
+
+$ sqlite3 -readonly "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT id, status, route, status_updated_by, status_updated_at FROM lesson_proposals WHERE id = 353;"
+353|accepted|codify|ceo|2026-08-16T03:38:34Z
+
+Stamp 2026-08-16T03:38:34Z matches GLOB 20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]Z
+
+$ sqlite3 -readonly "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_proposals WHERE status='proposed';"
+0

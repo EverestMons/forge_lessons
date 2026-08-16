@@ -1,0 +1,64 @@
+pwd: /Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/428
+
+=== Row 3: THE STANDING FIVE ARE BYTE-UNTOUCHED ===
+
+$ sqlite3 -readonly "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT id, status, route, status_updated_at, status_updated_by FROM lesson_proposals WHERE id IN (340, 342, 346, 350, 352) ORDER BY id;"
+340|accepted|codify|2026-08-14T13:21:27Z|ceo
+342|accepted|codify|2026-08-14T13:21:27Z|ceo
+346|accepted|codify|2026-08-14T13:21:27Z|ceo
+350|accepted|codify|2026-08-14T18:38:14Z|ceo
+352|accepted|codify|2026-08-14T18:38:14Z|ceo
+
+Expected stamps:
+  340/342/346: 2026-08-14T13:21:27Z — MATCH
+  350/352:     2026-08-14T18:38:14Z — MATCH
+
+=== Row 4: Corpus shape ===
+
+$ sqlite3 -readonly "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT id FROM lesson_proposals WHERE status='accepted' ORDER BY id;"
+340
+342
+346
+350
+352
+353
+
+Accepted set = {340,342,346,350,352,353} — MATCH
+
+$ sqlite3 -readonly "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_proposals;"
+353
+
+$ sqlite3 -readonly "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_entries;"
+345
+
+$ sqlite3 -readonly "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_proposals WHERE status='stale';"
+3
+
+=== Row 5: Nothing else moved — full 8-status distribution ===
+
+$ sqlite3 -readonly "file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro" "SELECT status, COUNT(*) FROM lesson_proposals GROUP BY status ORDER BY COUNT(*) DESC;"
+implemented|281
+superseded|28
+reference|20
+rejected|15
+accepted|6
+stale|3
+
+(proposed and ambiguous absent = count 0)
+
+Pinned expected: implemented 281, superseded 28, reference 20, rejected 15, accepted 6, proposed 0, stale 3, ambiguous 0
+Shift vs pre-write: proposed -1, accepted +1 — exactly as specified.
+Sum: 281+28+20+15+6+0+3+0 = 353 = total proposals COUNT. MATCH.
+
+=== Row 6: Register posture ===
+
+$ grep -c "^| " knowledge/FORWARD.md
+18
+
+Step 1 captured baseline: 18. Delta: 0. MATCH.
+
+$ find knowledge/decisions/ -maxdepth 1 -name '*.md' | sort
+knowledge/decisions/halted-executable-425.md
+knowledge/decisions/verdict-pending-executable-428.md
+
+Expected: halted-executable-425.md + this plan's own file. MATCH.
