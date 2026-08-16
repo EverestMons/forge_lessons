@@ -1,0 +1,52 @@
+Row 1: Targeted suite — python3 -m pytest src/ -v from worktree root
+Run from: /Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/427
+
+src/test_lessons_forge.py::test_ingest_creates_entry PASSED
+src/test_lessons_forge.py::test_ingest_idempotent PASSED
+src/test_lessons_forge.py::test_classify_creates_proposal PASSED
+src/test_lessons_forge.py::test_classify_with_dedup PASSED
+src/test_lessons_forge.py::test_classify_skips_terminal_proposals PASSED
+src/test_lessons_forge.py::test_proposal_status_lifecycle PASSED
+src/test_lessons_forge.py::test_stale_detection_flags_unmodified PASSED
+src/test_lessons_forge.py::test_stale_detection_spares_fresh PASSED
+src/test_lessons_forge.py::test_stale_detection_spares_terminal PASSED
+src/test_lessons_forge.py::test_get_lesson_summary PASSED
+src/test_lessons_forge.py::test_detect_duplicates PASSED
+src/test_lessons_forge.py::test_detect_duplicates_skips_own_entry PASSED
+src/test_lessons_forge.py::test_detect_duplicates_returns_empty_when_no_match PASSED
+src/test_lessons_forge.py::test_get_unclassified_entries PASSED
+src/test_lessons_forge.py::test_get_unclassified_entries_skips_terminal PASSED
+src/test_lessons_forge.py::test_get_unclassified_entries_empty_when_all_classified PASSED
+src/test_lessons_forge.py::test_generate_lessons_report_basic PASSED
+src/test_lessons_forge.py::test_generate_lessons_report_multi_category PASSED
+src/test_lessons_forge.py::test_generate_lessons_report_writes_file PASSED
+src/test_lessons_forge.py::test_insert_proposal_with_valid_route[codify] PASSED
+src/test_lessons_forge.py::test_insert_proposal_with_valid_route[backlog] PASSED
+src/test_lessons_forge.py::test_insert_proposal_with_valid_route[reference] PASSED
+src/test_lessons_forge.py::test_insert_proposal_route_none_default PASSED
+src/test_lessons_forge.py::test_insert_proposal_invalid_route_raises PASSED
+src/test_lessons_forge.py::test_route_check_constraint_rejects_invalid_sql PASSED
+src/test_lessons_forge.py::test_migration_idempotence_double_init PASSED
+src/test_lessons_forge.py::test_migration_adds_route_to_pre_existing_db PASSED
+src/test_lessons_forge.py::test_set_proposal_route_persists PASSED
+src/test_lessons_forge.py::test_set_proposal_route_invalid_raises PASSED
+src/test_lessons_forge.py::test_report_renders_route_where_present PASSED
+src/test_lessons_forge.py::test_reference_status_migration_idempotence PASSED
+src/test_lessons_forge.py::test_reference_status_migration_pre_existing_db PASSED
+src/test_lessons_forge.py::test_reference_status_check_accepts_reference PASSED
+src/test_lessons_forge.py::test_reference_status_check_still_rejects_invalid PASSED
+src/test_lessons_forge.py::test_reference_status_migration_preserves_row_count PASSED
+src/test_lessons_forge.py::test_report_renders_proposal_details PASSED
+src/test_lessons_forge.py::test_hash_trailing_separator_invariant PASSED
+src/test_lessons_forge.py::test_hash_substantive_edit_changes_hash PASSED
+src/test_lessons_forge.py::test_raw_content_stored_verbatim_with_separator PASSED
+src/test_lessons_forge.py::test_terminal_status_guard[implemented] PASSED
+src/test_lessons_forge.py::test_terminal_status_guard[reference] PASSED
+src/test_lessons_forge.py::test_terminal_status_guard[rejected] PASSED
+src/test_lessons_forge.py::test_terminal_status_guard[superseded] PASSED
+src/test_lessons_forge.py::test_nonterminal_still_stales PASSED
+src/test_lessons_forge.py::test_trailing_separator_only_delta_zero_stales PASSED
+
+============================== 55 passed in 0.14s ==============================
+
+Baseline: 55 passed. Measured: 55 passed. No delta.
