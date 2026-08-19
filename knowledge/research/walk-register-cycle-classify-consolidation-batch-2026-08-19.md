@@ -188,3 +188,18 @@ Walk 8 found one structural gap by checking one property. This walk ran the **fu
 ⚠️ **Both gaps are in Step 3, and so was w8-1 — three of the last four findings.** The pattern is not random: **Step 3 was cloned last and least carefully**, and every pass so far has been aimed at the steps that DO something. A QA step that verifies is easy to treat as inert, but it commits files and runs in the same worktree as the step it verifies.
 
 ⚠️ **One honest note on the matrix itself:** it also shows where the clone is BETTER than the parent — my Steps 1 and 2 carry the pathspec rule and 425's do not. **A structural diff is not a checklist of the parent's virtues; it is a comparison, and the divergences point both ways.** Recording that so the third pass is not mis-applied as "make it identical to the parent".
+
+## Walk 10 — the SEMANTIC pass. NOT DRY.
+
+**Findings: 2 folded, 1 suspected defect KILLED BY MEASUREMENT.** Both folds are pre-existing since v0 and neither is visible to any of the three structural passes — they are about what the instructions MEAN, not what they contain.
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w10-1 | 2 Destruction (2.3) | **The destruction guard detects an overwrite and names no recovery.** Step 2 can overwrite a shipped report; the guard takes shasums before and after — and if the post-check fires, the plan tells the agent nothing about undoing it. ⚠️ **Detection without recovery is half a guard**, and HALT ROUTING's "never repair forward" would leave an overwritten artifact in place. | ✅ **Measured: all three reports are TRACKED in git**, so the restore point already existed — `git checkout -- reports/<file>`. **Named in one line; no backup copy added, and the plan now says none should be.** |
+| w10-2 | 4 Integration-vs-record (4.4) | ⚠️⚠️ **A SHOP LESSON THAT GIVES THE WRONG ANSWER IF APPLIED MECHANICALLY HERE.** `cycle_date` was justified only as *"can only be wrong by inheritance"*. But this shop carries a lesson — and `accepted\|codify` proposal **352** — instructing an author to **measure the date at authoring and never inherit it**. An agent applying that rule would recompute `cycle_date` from `date -u` and be **wrong**: 352 governs a date describing *when the work happens*, while `cycle_date` names *which cycle the report belongs to*, fixed when the batch was assembled. **The two rules point in opposite directions and the plan did not disambiguate them.** | Stated explicitly: the plan's cycle date is correct even on a later dispatch; do not recompute. The original inheritance hazard retained. |
+
+**Killed by measurement, not folded:** I suspected the plan had **no restore point at all** — `grep -i restore` returned three hits, all of them incidental prose (*"restored from 425"*, *"walk 6 restored"*). That part was right. **But the conclusion "therefore add a backup copy" was wrong**, because `git ls-files` shows all three at-risk reports are tracked. **The gap was documentation, not machinery** — and folding a scratch-copy backup would have added a second restore point where one already existed.
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN**.
+
+⚠️ **w10-2 is the most transferable finding of this cycle.** Every other defect has been something missing or mis-stated. This one is a **correct, shipped, CEO-routed shop rule that produces a wrong action in a specific context** — and nothing in the drafting cycle asks *"which of our own rules would mislead an agent reading this instruction?"*. The three structural passes check the plan against its parent; the tools check it against itself. **Neither checks it against the shop's standing doctrine, which is precisely what an executing agent brings to it.**
