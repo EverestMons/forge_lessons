@@ -12,7 +12,7 @@
 
 **Ingest only.** This plan takes the **`N1`** un-ingested `LESSONS.md` entries into the corpus and stops. **It creates no proposals, writes no report, and classifies nothing.** Classification and the report are **Plan B**; Gate-1 routing is a third plan after that.
 
-⚠️ **Why the split matters more here than it did at 423.** Five of the `N1` entries were written by the Planner **today**, and they are the evidence base for changes to `DRAFTING_CYCLE.md` and `PLANNER_TEMPLATE.md` that the Planner authored, evidenced, and benefits from — including the retirement of PT v4.89's project-bin arm. **The corpus path exists so a NON-AUTHOR routes them at Gate 1.** That is the entire reason this plan exists instead of a direct doctrine edit, and a multi-entry batch containing the author's own proposals is the strongest case yet for keeping ingest, classification and routing in three separate plans.
+⚠️ **Why the split matters more here than it did at 423.** Five of the `N1` entries were written by the Planner **on 2026-08-19**, and they are the evidence base for changes to `DRAFTING_CYCLE.md` and `PLANNER_TEMPLATE.md` that the Planner authored, evidenced, and benefits from — including the retirement of PT v4.89's project-bin arm. **The corpus path exists so a NON-AUTHOR routes them at Gate 1.** That is the entire reason this plan exists instead of a direct doctrine edit, and a multi-entry batch containing the author's own proposals is the strongest case yet for keeping ingest, classification and routing in three separate plans.
 
 **Clone lineage — measured, not recalled:** … → 411 → **423** (direct origin AND newest same-class cycle plan; `Done/executable-423.md`, closed 2026-08-14). Verified by listing `lessons-forge/knowledge/decisions/Done/` by ship date: 427 and 428 are newer but are a QA-corrective and a Gate-1 routing write, not cycle runs.
 
@@ -146,7 +146,7 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 > 2. Re-run G1 (NT by id) and G2 (`P` == N5) independently of Step 1's report.
 > 3. Confirm the backup exists, passes `PRAGMA integrity_check`, and its `MAX(id)` equals the **pre-ingest** baselines — the restore point is only real if it is verified.
 > 4. Confirm **no classification ran**: `lesson_proposals` unchanged (`P` == `N5`), and `get_unclassified_entries()` returns **`UNCLASSIFIED_BASE` + `N1`** ids.
-> ⚠️ **`get_unclassified_entries()` is NOT scoped to this batch** — it returns every corpus entry lacking a non-stale proposal. A bare `N1` expectation is right only while the pre-existing unclassified count is zero, which this plan must **measure, not assume**. Measured at walk 6: **`UNCLASSIFIED_BASE` = 0**, so the expectation is 25 today — but capture it at baseline (Step 1a) and compute the expectation from it. *(w6-3: the same shape as inherited-fact 7 — a correct conclusion resting on an unstated, unverified operand.)*
+> ⚠️ **`get_unclassified_entries()` is NOT scoped to this batch** — it returns every corpus entry lacking a non-stale proposal. A bare `N1` expectation is right only while the pre-existing unclassified count is zero, which this plan must **measure, not assume**. Measured at walk 6: **`UNCLASSIFIED_BASE` = 0**, so the expectation equals `N1` as measured — but capture it at baseline (Step 1a) and compute the expectation from it. *(w6-3: the same shape as inherited-fact 7 — a correct conclusion resting on an unstated, unverified operand.)*
 > 5. `git show --stat <this step's commit>` — assert only the declared deposits changed.
 
 ## Drafting Cycle

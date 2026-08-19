@@ -175,3 +175,20 @@ w3-1 **removed a false belief without installing the true requirement it implied
 ⚠️ **P-4's trigger fired at walk 8 and is NOT actionable here.** Pre-existing yield hit 0 with total not falling — the codified signal to stop walking and run a mechanical sweep. But both tools have run green on **every** walk of this cycle, so the remedy is already discharged and the trigger carries no new information. **Recorded because it is a limit of P-4 worth knowing before it is routed:** the trigger assumes the mechanical class is undrained. On a cycle that runs the checks continuously, it fires on a state it cannot improve, and walks 8 and 9 then produced four findings the tools structurally cannot see — a wrong evidence source, a wrong connection, an undefined derivation, a mis-attributed measurement.
 
 **Cycle yield: 6 → 7 → 3 → 3 → 3 → 3 → 2 → 2 → 2.** Pre-existing: 6 → 1 → 3 → 3 → 3 → 1 → 1 → 0 → 2.
+
+## Walk 10 — confirming pass. NOT DRY (one plan finding, one Planner finding).
+
+**Findings: 2. Instruction-class 1 (plan) / 1 process finding against the Planner, not the artifact.**
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w10-1 | 4 Integration-vs-record (4.4) | Two **relative-date phrases** in a plan that may dispatch days after authoring: *"written by the Planner **today**"* and *"the expectation is 25 today"*. This shop carries a shipped lesson on exactly this (the midnight-boundary entry) and an `accepted\|codify` proposal — **352** — whose whole subject is measuring the date at authoring rather than inheriting it. | Both replaced with the absolute date / the symbol. |
+| w10-2 | 4 Integration-vs-record (4.1) | ⚠️ **A PLANNER finding, not a plan defect — and the more useful of the two.** While checking whether this plan needed the recorded forge-cycle worktree contract (`FORGE_GITHUB_ROOT` + absolute DB path), I searched before adding it. **`FORGE_GITHUB_ROOT` appears nowhere in `lessons-forge/`, nowhere in `bellows.py`, and nowhere in the code at all.** Reading the memory file resolved it: the contract is about **`forge/` — a DIFFERENT project** (`forge/src/config.py`, `forge/forge.db`, 61.6 MB) and does not apply to `lessons-forge/` (1.5 MB). **Had I trusted recall, I would have added a mandatory env-var prefix that does not exist, to every python command in Step 1.** | **No plan change** — the requirement is not real here. The **memory** was disambiguated instead: its description and opening now state `forge/` ONLY, NOT `lessons-forge/`, with the verification and the near-miss recorded. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN**.
+
+⚠️ **w10-2 is the same defect as w4-2, committed by me in RECALL rather than in text.** At walk 4 this plan folded a finding distinguishing three look-alike DB paths — `lessons-forge/forge.db` (0-byte decoy), `lessons-forge/lessons.db` (0-byte decoy), and `forge/forge.db` (real, 61.6 MB, another project). **Six walks later I conflated the same two projects while recalling a memory about one of them.** The fold protected the artifact and did nothing for the author, because a fold changes the document and recall runs on a separate channel that no walk inspects.
+
+**The rule that generalises:** the memory instructions already say to verify a named file, function or flag still exists before recommending it. This is a case where following that rule **prevented** a defect that no lens, no gate and neither tool would have caught — the plan would simply have carried a false mandatory prefix through every remaining walk, looking like diligence.
+
+**Cycle yield: 6 → 7 → 3 → 3 → 3 → 3 → 2 → 2 → 2 → 2.** Pre-existing: 6 → 1 → 3 → 3 → 3 → 1 → 1 → 0 → 2 → 2.
