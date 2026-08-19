@@ -158,3 +158,20 @@ w3-1 **removed a false belief without installing the true requirement it implied
 **A second-order note on w8-2 worth keeping:** the defect was not a wrong value but a **wrong evidence source**. `updated == N3` was true, provable in Step 1, and structurally unprovable in Step 2. **A post-condition that only its own author can verify is not a post-condition** — and nothing in either tool, nor in five prior walks, distinguishes "asserted from a live probe" from "asserted from a value the writer reported".
 
 **Cycle yield: 6 → 7 → 3 → 3 → 3 → 3 → 2 → 2.** Pre-existing: 6 → 1 → 3 → 3 → 3 → 1 → 1 → 0.
+
+## Walk 9 — confirming pass. NOT DRY.
+
+**Findings: 2. Instruction-class 1 / record-class 1. Pre-existing 2 of 2** — neither descends from walk 8's folds.
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w9-1 | 1 Weak spots (1.2) | **The BATCH FINGERPRINT is a HALT-bearing pin whose INPUT SET was never defined.** Item 1b said *"sha256 of the joined would-insert headings in parse order"* — but the dry run returns **counts, not headings**, so an agent had no stated way to obtain the list. A plausible alternative derivation (filter by `entry_date`) yields a different set and therefore a different hash, turning a correct run into a HALT. | Derivation specified exactly: parse the register, read `content_hash` from the live corpus read-only, take parsed entries whose hash is **absent** from that set in parse order, join headings with `\n`, hash. **Re-verified end-to-end from the written definition: 25 entries, `4484828a…` — the pinned value reproduces.** |
+| w9-2 | 4 Integration-vs-record | Criterion 1's note claimed `ref_tag_sets` was *"Measured empty at walk 0"*. It was measured at **walk 1** (w1-1); walk 0 never touched it. A provenance claim attached to the wrong walk. | Corrected in place, with the mis-attribution named. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN**, both after the folds.
+
+⚠️ **w9-1 is the fourth instance of this cycle's dominant class** — after w1-1, w5-1 and w6-3: **a guard whose stated conclusion is correct while the thing it actually rests on is unstated.** Here the unstated element was not an operand but a *derivation*: the pinned hash is right, and nothing in the plan told the executing agent how to compute the value it would be compared against. **A pin is only as reproducible as the method that produces its input**, and this cycle has now found that gap in an inherited fact, a sentinel's population, a helper's scope, and a fingerprint's input set.
+
+⚠️ **P-4's trigger fired at walk 8 and is NOT actionable here.** Pre-existing yield hit 0 with total not falling — the codified signal to stop walking and run a mechanical sweep. But both tools have run green on **every** walk of this cycle, so the remedy is already discharged and the trigger carries no new information. **Recorded because it is a limit of P-4 worth knowing before it is routed:** the trigger assumes the mechanical class is undrained. On a cycle that runs the checks continuously, it fires on a state it cannot improve, and walks 8 and 9 then produced four findings the tools structurally cannot see — a wrong evidence source, a wrong connection, an undefined derivation, a mis-attributed measurement.
+
+**Cycle yield: 6 → 7 → 3 → 3 → 3 → 3 → 2 → 2 → 2.** Pre-existing: 6 → 1 → 3 → 3 → 3 → 1 → 1 → 0 → 2.
