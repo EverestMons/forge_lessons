@@ -101,3 +101,23 @@ Plan: `lessons-forge/knowledge/decisions/drafts/WIP-cycle-ingest-consolidation-b
 ⚠️ **w5-1 is the most serious finding of this cycle and it survived four walks and two green tool runs.** It is a **false-PASS gate**: not a check that fails wrongly, but one that succeeds while measuring nothing. Neither tool can see this class — `plan_lint` reads form, `propagation_check` reads restatement, and both are satisfied by a coherent sentence about the wrong object. **The only detector was asking what the sentinel is FOR and then checking whether the pinned entry could do that job.**
 
 **Cycle yield: 6 → 7 → 3 → 3 → 3.** Pre-existing: 6 → 1 → 3 → 3 → 3. **Unlike plan 451's tail, this cycle's findings are NOT fold damage — they are original defects in the authored steps, surfacing at a steady three per walk.** That is not convergence; it is a plan whose machinery is dense enough that each read reaches a new part of it.
+
+## Walk 6 — confirming pass. NOT DRY.
+
+**Findings: 3. Instruction-class 1 / record-class 2. Fold-introduced 2 of 3** — the first fold damage this cycle has produced, and it is concentrated in one place: **the Cycle Log**.
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w6-1 | 4 Integration-vs-record | ⚠️ **The Cycle Log's ACID bullet still asserted the claim walk 3 DISPROVED** — *"a dry run is not dry; `ingest_lesson_entries` commits (w1-6)"*. w3-1 traced all three `conn.commit()` hits to docstrings saying the function does **not** commit, and corrected the step body — **but not the lens summary.** A false factual claim was left standing in the plan's own account of itself, cited to a superseded finding. | Bullet rewritten to carry the w3-1 correction plus w3-2 and w3-3, so the lens summary states what the cycle now believes rather than what it believed at walk 1. |
+| w6-2 | 4 Integration-vs-record | The walk-0 line still read *"Direction verdict pending walk 1"* six walks after walk 1 returned **PROCEED**. | Corrected, with the fold count. |
+| w6-3 | 1 Weak spots (1.3) | **Step 2 item 4 asserted `get_unclassified_entries()` returns an `N1`-id list.** That function is **not scoped to this batch** — it returns every corpus entry lacking a non-stale proposal. The assertion is correct **only while the pre-existing unclassified count is zero**, which the plan never stated and never measured. Measured at walk 6: **`UNCLASSIFIED_BASE` = 0**, so it holds today — by luck of the corpus's state, not by construction. | `UNCLASSIFIED_BASE` added to the Step 1a baseline capture; item 4's expectation is now **computed** as `UNCLASSIFIED_BASE + N1`, never hard-coded. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN**, both after the folds.
+
+⚠️ **Two structural notes worth carrying.**
+
+**1. The Cycle Log is invisible to both tools, by design.** `propagation_check.instruction_region()` deliberately excises the `## Drafting Cycle` section as record, and `plan_lint` checks only that lens lines and a Closing line exist — never whether their content is true. **So the one region of a plan that summarises what the cycle believes is the one region no mechanical check reads.** Both of w6-1 and w6-2 lived there, and w6-1 was a false factual claim, not a stale number. That is a real gap in the tooling story and belongs in the honing notes rather than being folded silently.
+
+**2. w6-3 is the third instance this cycle of one specific shape** — after w1-1 (423's criterion-1 reason false on both operands) and w5-1 (the sentinel outside its population): **a correct conclusion resting on an unstated operand that nobody measured.** The conclusion holds each time; the reasoning does not; and the guard degrades silently the moment the unmeasured operand moves. This cycle has now found it in an inherited fact, in a gate's subject, and in a helper's scope.
+
+**Cycle yield: 6 → 7 → 3 → 3 → 3 → 3.** Pre-existing: 6 → 1 → 3 → 3 → 3 → 1.
