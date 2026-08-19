@@ -28,3 +28,19 @@ Plan: `lessons-forge/knowledge/decisions/drafts/WIP-cycle-classify-consolidation
 **Direction verdict: PROCEED.** Nothing invalidates the clone origin (halted, but for a cause now understood and designed around), the mechanism, or the premise licensing scope.
 
 ⛔ **Bar NOT met** — six instruction-class findings. `plan_lint` **exit 0**, `propagation_check` **CLEAN**, both after the folds.
+
+## Walk 2 — first pass over the authored steps. NOT DRY.
+
+**Findings: 3. Instruction-class 3.** Two pre-existing, one introduced by this walk's own fold and caught by the tool immediately.
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w2-1 | ⛔ 2 Destruction (2.3) | ⛔ **THE DESTRUCTION GUARD POINTED AT A PIN THAT DID NOT EXIST.** Three sections cited *"the three report shas from §Numbers"* — pre-flight, Step 2's before/after guard, and QA item 3. **Measured: those shas appear ZERO times in the plan.** They existed only in the walk register. The guard protecting three shipped artifacts — on the step whose mishandling **halted the clone origin** — had nothing to compare against, and its before/after check would have compared nothing to nothing and passed. | **M8** added with all three sizes and hashes, and **M9** for today's report (ABSENT → exists, and none of M8). |
+| w2-2 | 1 Weak spots (1.2) | **M7 said `[AUTHOR-CONFLICT]` markers `≥ 5` with NO probe and no statement of WHICH entries** — an unverifiable pin sitting on this plan's most conflicted surface, the one place the author's interest and the artifact's integrity diverge. | A real probe, and the five identified by measurement: every entry dated 2026-08-19. |
+| w2-3 | 3 Vulnerabilities (3.2) | **My own w2-2 fold hard-coded `id > 353` and an id range `366–370`.** `353` is `P0` — it silently becomes wrong the moment a proposal is added — and `370` collides by value with `E0`. ⚠️ **And selecting the five by ID RANGE is wrong in principle**: contiguity is a coincidence of ingest order, while `entry_date = '2026-08-19'` is the property that actually defines them. | `P0` bound from pre-flight; selection by date, with the reasoning stated so a later walk does not "simplify" it back to an id range. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN** after the folds.
+
+⚠️ **w2-1 is the sharpest kind of defect this cycle produces: a guard that would have PASSED while measuring nothing.** It is the same class as plan 456's w5-1 (a sentinel outside the population it guarded) and w8-2 (a post-condition only its author could verify). **Three instances now, across two plans, all of them checks that fail open rather than closed** — and none visible to `plan_lint` or `propagation_check`, both of which read a coherent sentence citing a section that exists and are satisfied.
+
+⚠️ **w2-3 is the second time in two walks that MY OWN FOLD introduced the defect class the fold was fixing** (w1-3/w1-4 the same). The tool caught it within seconds both times. That is the argument for running the checks after every fold rather than at the end of a walk — which is now this cycle's actual practice.
