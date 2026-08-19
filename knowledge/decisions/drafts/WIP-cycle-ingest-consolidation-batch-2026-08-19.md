@@ -151,6 +151,17 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 
 ## Drafting Cycle
 
+**Closing:** ⛔ **CEO-DIRECTED DEPOSIT — §2's bar is NOT met.** Ten walks, **30 findings folded**, last event a FOLD not a dry lens pass. No walk returned dry. **T1, so §2.6 owes no cold panel** (that section is T2-only) — this cycle's assurance is the ten walks plus `plan_lint` and `propagation_check` run **on every walk**, both green after every fold.
+
+**Residue by class:** *instruction* — **none unfolded.** *record* — none outstanding; w6-1, w6-2 and w9-2 corrected the Cycle Log's own false and stale claims in place.
+
+**Pins re-verified at the deposit moment, not inherited from walk 0:** `N7` **313** · `N1` **25** · `E0` **345** · `P0` **353** · fingerprint **`4484828a…` MATCHES** · register porcelain clean · non-terminal set `{340,342,346,350,352}`. **Every pin holds; the batch has not moved since walk 0.**
+
+⚠️ **This cycle's findings were NOT fold damage.** Unlike plan 451, whose tail was the cycle auditing its own repairs, nine of ten walks here surfaced original defects in the authored machinery — a false-PASS sentinel outside its population (w5-1), an ingest that would never have committed (w7-1), a post-condition only its author could verify (w8-2), a HALT pin with an undefined input (w9-1). **Yield never fell below 2 and never rose; the plan is dense, not circling.** A dry walk was not reached and is not claimed.
+
+⚠️ **Four findings shared one shape and it is the thing to watch when this plan is cloned:** a guard whose stated conclusion is correct while what it actually rests on is unstated — an inherited operand (w1-1), a sentinel's population (w5-1), a helper's scope (w6-3), a fingerprint's derivation (w9-1). Each held on the day and each would degrade silently.
+
+
 - Weak spots — steps authored from 423's machinery; `detect_duplicates` proven unable to answer pre-mutation (w1-2, w1-4).
 - Destruction — one INSERT-only mutation behind a verified restore point; scope boundary (no classification) guarded by G2, not asserted in prose.
 - Vulnerabilities — backtick/apostrophe headings, ugrep exit-1, the `?immutable=1` backup trap, `.db`-scoped resume glob (w1-3).
