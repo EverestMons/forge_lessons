@@ -44,3 +44,20 @@ Plan: `lessons-forge/knowledge/decisions/drafts/WIP-cycle-classify-consolidation
 ⚠️ **w2-1 is the sharpest kind of defect this cycle produces: a guard that would have PASSED while measuring nothing.** It is the same class as plan 456's w5-1 (a sentinel outside the population it guarded) and w8-2 (a post-condition only its author could verify). **Three instances now, across two plans, all of them checks that fail open rather than closed** — and none visible to `plan_lint` or `propagation_check`, both of which read a coherent sentence citing a section that exists and are satisfied.
 
 ⚠️ **w2-3 is the second time in two walks that MY OWN FOLD introduced the defect class the fold was fixing** (w1-3/w1-4 the same). The tool caught it within seconds both times. That is the argument for running the checks after every fold rather than at the end of a walk — which is now this cycle's actual practice.
+
+## Walk 3 — confirming pass. NOT DRY.
+
+**Findings: 2. Instruction-class 2. Both fold-introduced by walk 2, and both are the class that killed the clone origin.**
+
+Run by enumerating **every path in every probe** and asking which resolve against CWD — the question 425 lost on.
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w3-1 | ⛔ 3 Vulnerabilities (3.1) | **M9's probe was `ls reports/lessons-report-2026-08-19.md` — a bare RELATIVE path**, added by walk 2's own fix for the missing sha pins. ⚠️ **In the one plan whose clone origin HALTED on worktree path resolution.** In the worktree it measures the sandbox copy; from main it measures a different file; **either way it returns a plausible answer and looks like it worked.** | Worktree-anchored `"$(pwd)/reports/…"`, matching M8, with the irony recorded so it is not undone. |
+| w3-2 | 1 Weak spots (1.3) | The pre-flight asserted `entry_id > 345`. That boundary is correct **only because it happens to equal the pre-456 corpus size** — an artefact of ingest history, not a property of the batch. | Bind the `W` work-list ids: the defining property. *(Third instance of this shape in two walks — w2-3 was the id range, this is the id boundary.)* |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN** after the folds.
+
+⚠️ **Both findings were introduced by walk 2's folds, and walk 2's folds were themselves fixing a fails-open guard.** Three walks in, the pattern in THIS plan is unambiguous: **every fold so far has introduced its own successor.** w1-3/w1-4 → w2-3 → w3-1. The tools catch the restatement class immediately; the path-resolution and defining-property classes need a targeted read, and I only found these two by deliberately enumerating paths rather than reading prose.
+
+⚠️ **Worth carrying to the honing notes:** the mechanical checks are now demonstrably good at *"is this number stated twice"* and blind to *"does this path resolve where you think"* and *"is this boundary the real property or a coincidence"*. Those two classes have produced **five** findings across plans 456 and this one, every one of them a guard that would have passed while measuring the wrong thing.
