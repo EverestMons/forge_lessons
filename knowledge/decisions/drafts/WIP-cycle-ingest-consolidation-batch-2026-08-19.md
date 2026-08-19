@@ -31,6 +31,8 @@
 
 ⚠️ **This table is the ONLY place a quantity is declared** (honing-notes P-5). Every other section references a symbol.
 
+⚠️⚠️ **`N1`, `N4` and `N7` are ABSOLUTES ON PURPOSE — do not "fix" them into deltas.** The register legitimately grows at every session wrap, and on a *write* plan that would make an absolute a false-halt bug (plan 451 spent two walks removing exactly these). **An ingest is the opposite case.** The fingerprint pin and the entire pre-ingest duplicate audit were computed over one specific set of `N1` headings; a register that has grown means the evidence no longer covers what would be ingested. **A mismatch here is the world moving on correctly and the batch needing re-measurement — a re-scope signal, not a defect and not a bug in the pin.** *(w3-3: stated because a later walk reading `N1` as a stale absolute would delete the guard and call it a fix.)*
+
 | id | pin | before | after | probe |
 |---|---|---|---|---|
 | N1 | **`N1`** batch size | — | **25** | dry run `inserted`, cross-checked by content-hash set difference |
@@ -87,7 +89,8 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 >
 > ### Step 1a-bis — pre-ingest guard (READ-ONLY, against a scratch copy)
 > 1. `parse_lessons_md("/Users/marklehn/Developer/GitHub/LESSONS.md")` → assert **N7**. Dry-run `ingest_lesson_entries` against a **FRESH `cp`-made scratch DB**, never the live file.
-> ⚠️ **A "dry run" here is not dry — treat it as a mutation.** `ingest_lesson_entries` contains a `conn.commit()` (`lessons_forge.py`), so the caller's `rollback()` cannot be relied on to undo it. *(Measured 2026-08-19: in one specific invocation the rollback DID hold and the scratch copy returned to `E0` — but whether that `commit()` fires depends on a branch not fully traced, and **a safety property that rests on an untraced branch is not a safety property**.)* **Make a fresh `cp` for every dry run, assert the copy's count equals `E0` before using it, and never hand the live DB to a call described as dry.** *(w1-6.)* **FRESH → assert `inserted == N1` AND `updated == N3`.** **RESUME → `updated == N3` and `inserted ∈ {0, N1}`.**
+> **Make a fresh `cp` for every dry run, assert the copy's count equals `E0` before using it, and never hand the live DB to a call described as dry.**
+> ⚠️ **CORRECTION to w1-6, which stated a FALSE reason for this guard.** Walk 1 claimed `ingest_lesson_entries` "contains a `conn.commit()`" so rollback could not be trusted. **That was wrong.** Traced at walk 3: **all three `conn.commit()` occurrences in `lessons_forge.py` (:127, :212, :436) are DOCSTRING SENTENCES saying the function does NOT commit.** My walk-1 probe was `'conn.commit()' in source` — it matched prose. The function genuinely leaves the transaction to the caller, and the rollback that worked did so correctly, not by luck. **The guard stays** — a fresh copy is cheap and removes a whole class of resume ambiguity — **but it is defence-in-depth, not a fix for a commit that does not exist.** *(w3-1. Same probe-vs-representation trap this plan criticises 423 for in inherited-fact 7, committed by its own author one walk later.)* **FRESH → assert `inserted == N1` AND `updated == N3`.** **RESUME → `updated == N3` and `inserted ∈ {0, N1}`.**
 > ✅ **Unlike 423, a multi-entry batch HAS intermediate values** — any `inserted` strictly between 0 and `N1` is positive evidence of a foreign writer and is a HALT, not an ambiguity. 423 could not make this check because its batch was 1.
 > 1b. **BATCH FINGERPRINT** — sha256 of `"\n".join(<would-insert headings in parse order>)` == **`4484828a0a400696a9148b89a422cffcbd2443be1a8df81df3e06691621fd34c`**. Mismatch → HALT. **RESUME with `inserted == 0` → SKIP, record `FINGERPRINT SKIPPED (post-ingest resume)`.**
 > 2. **Sentinel:** the parsed entry matching the corpus sentinel heading — **measure the match count and PRINT it**; exactly 1 match with equal hash → PASS, else HALT.
@@ -103,6 +106,8 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 > **Post-conditions:** `inserted` == **N1**, `updated` == **N3**, `unchanged` == **N4**, and `E` == **N2**.
 >
 > ### Gates G1–G7 (post-mutation, read-only)
+> ⚠️ **G1 and G2 are NOT independent of the mutation, and are safe here only because `N3` is 0.** Traced at walk 3: `ingest_lesson_entries` marks proposals `stale` and flags terminal-status proposals **only inside its UPDATE branch** (`lessons_forge.py:160–194`), and the stale UPDATE explicitly excludes terminal statuses — so it targets exactly the non-terminal set G1 pins. **With `updated == 0` no proposal status can change; if an update ever occurs, G1 failing is the CORRECT behaviour, not corruption.** Read a G1 failure alongside `N3` before treating it as damage. *(w3-2.)*
+>
 > **G1 — NT UNCHANGED, by id:** re-run the NT query; the id list must equal **N6** exactly. A count match with a different id set is a FAIL.
 > **G2 — proposals unchanged:** `P` == **N5**. Any growth means classification ran → HALT, this plan's hardest scope boundary.
 > **G3 — corpus count:** `E` == **N2**.
