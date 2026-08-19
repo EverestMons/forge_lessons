@@ -87,6 +87,17 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 >
 > ⚠️⚠️ **DISCLOSURE MARKERS — mechanically asserted, not left to judgement.** Five entries were authored by the Planner on 2026-08-19 and argue for changes the Planner benefits from. **Every proposal derived from one of those five carries `[AUTHOR-CONFLICT]` in its `reasoning`.** Use `[DEDUP]` where a proposal overlaps an existing corpus class and `[REMEDY-GATED]` where the remedy needs a decision the classifier cannot make. **Presence is this plan's post-condition (M7); ADEQUACY is Gate 1's judgement and explicitly not asserted here.**
 >
+> ⚠️⚠️ **THE THREE MARKERS ARE NOT SYMMETRIC HERE, AND 425's TREATMENT CANNOT BE COPIED.** 425 asserted all three present exactly once because its single entry genuinely warranted all three. Across `W` entries they differ in kind:
+> - **`[AUTHOR-CONFLICT]` is DETERMINISTIC** — it applies to exactly the entries dated 2026-08-19 and to no others. Pinned as **M7**.
+> - **`[DEDUP]` and `[REMEDY-GATED]` are CONDITIONAL** — they apply only where a proposal actually overlaps a recorded class, or where its remedy needs a decision the classifier cannot make. ⚠️ **Pinning a count for either would force the classifier to fabricate markers to hit a number** — the same reason `K` is unpinned (§Numbers). **Record their counts raw; assert nothing about how many.**
+>
+> ### THE DISPOSITION LINE — restored from 425, which this clone had dropped
+> ⚠️ **Without it, a missing marker is indistinguishable from a marker the classifier never considered.** For **every** entry in `W`, write one line to the dev log in exactly this form, byte-exact prefix:
+> ```
+> DISPOSITION | entry=<id> | proposal=<id> | remedy: <one clause> | markers: <those that apply, or NONE>
+> ```
+> **`markers: NONE` is a legitimate and expected value.** The line's purpose is to make the classifier's judgement VISIBLE per entry, so Gate 1 reads a decision rather than inferring one from silence. **Post-condition: `grep -cF 'DISPOSITION | entry=' <dev log>` == `W`** — one per entry, no more, no fewer. *(w5-1: the clone dropped this record wholesale; my walk-0 clone-diff did not catch it, and it is the only artefact that makes an ABSENT marker auditable. w5-2: the asymmetry above was never stated, so a reader comparing to 425 would expect three pinned markers and find one.)*
+>
 > ### THE COMMIT
 > ⚠️⚠️ **`insert_proposal` DOES NOT COMMIT** (`lessons_forge.py`, three docstrings state it). **Issue exactly ONE `conn.commit()` after all `W` inserts.** Without it the step reports success and writes nothing — proven in this lineage on plan 456, where an uncommitted ingest read correct from inside its own transaction and vanished on close.
 >
@@ -133,6 +144,7 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 > 2. Re-assert **M1** (the inversion) independently of Step 1's report.
 > 3. Re-assert the three report shas from §Numbers — **and that `lessons-report-2026-08-19.md` now exists and is NOT one of them.**
 > 4. Confirm **no routing occurred**: **M3** and **M4** both zero, and **M6** still present.
+> 4b. **The disposition record:** `grep -cF 'DISPOSITION | entry=' <Step-1 dev log>` == `W`, and `grep -Fc` each of `[DEDUP]`, `[REMEDY-GATED]`, `[AUTHOR-CONFLICT]` across the new proposals' `reasoning` fields — ⚠️ **report the first two RAW and gate only `[AUTHOR-CONFLICT]` against M7.** Presence only; adequacy is Gate 1's.
 > 5. `git show --stat <this step's commit>` — assert only the declared deposits changed.
 
 ## Drafting Cycle

@@ -80,3 +80,18 @@ The fold script for w4-1/w4-2 **died at parse time** (a `SyntaxError` from an aw
 **The lesson, and it is not about Python:** *a multi-part fold must apply atomically or not at all.* Both plan 451 and 456 relied on that property — every batch there asserted before writing, so a bad anchor discarded the whole batch. **Here I split one fold across two invocations and lost the atomicity without noticing.** The half-state is closed; the guard is to keep each fold's edits in a single asserted batch.
 
 ⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN** after the folds — both re-run **after** the half-state was closed, not before.
+
+## Walk 5 — confirming pass. NOT DRY. A DROPPED CLONE HUNK, found five walks late.
+
+**Findings: 2. Instruction-class 2. Both pre-existing since v0.** Applied as **one atomic batch**, per walk 4's lesson.
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w5-1 | ⛔ 4 Integration-vs-record (4.1) | ⛔ **THE CLONE DROPPED 425's `DISPOSITION` LINE ENTIRELY — measured, zero occurrences.** 425 wrote one per entry (`DISPOSITION \| entry=… \| proposal=… \| remedy: … \| markers: …`) and its QA grepped for it. ⚠️ **It is the only artefact that makes an ABSENT marker auditable**: without it, a missing `[DEDUP]` is indistinguishable from a `[DEDUP]` the classifier never considered — silence reads identically to judgement. **My walk-0 clone-diff did not catch this**, and it is exactly what a clone-diff exists for. | Restored and scaled to `W`: one line per entry, `markers: NONE` an expected value, post-condition `grep -cF 'DISPOSITION \| entry=' == W`, plus a QA re-check. |
+| w5-2 | 1 Weak spots (1.3) | **The three disclosure markers were treated asymmetrically with no statement of why.** 425 asserted all three present because its single entry warranted all three; this plan pins only `[AUTHOR-CONFLICT]`. A reader comparing the two would read the difference as an omission. ⚠️ **And it must NOT be "fixed" by pinning all three** — `[DEDUP]` and `[REMEDY-GATED]` are conditional, so a count pin would force the classifier to fabricate markers to hit a number, exactly the failure `K` is unpinned to avoid. | The asymmetry stated in the plan: `[AUTHOR-CONFLICT]` is **deterministic** (the 2026-08-19 entries, pinned as M7); the other two are **conditional**, recorded raw and gated on nothing. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN**, both after the fold.
+
+⚠️ **w5-1 is a walk-0 failure surfacing at walk 5.** The clone-diff at walk 0 compared inherited FACTS — batch size, hazard classes, baselines — and recorded five as false. **It did not enumerate 425's ARTEFACTS and ask which the clone had failed to carry.** A dropped hunk is invisible to a fact-by-fact diff, because an absent thing states nothing to be wrong about. That is the same asymmetry w5-1 itself is about: **absence does not announce itself, in a clone-diff any more than in a marker set.**
+
+**Carried for the honing notes:** a clone-diff needs two passes, not one — *are the inherited claims still true* (done at walk 0) **and** *which of the parent's artefacts are simply not here* (not done, and it took five walks to notice). Plan 456's clone-diff had the same shape and may carry the same gap.
