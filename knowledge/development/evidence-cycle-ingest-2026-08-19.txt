@@ -1,0 +1,57 @@
+=== EVIDENCE: cycle-ingest-consolidation-2026-08-19 (plan 456) ===
+
+--- E (corpus count) ---
+370
+
+--- P (proposals count) ---
+353
+
+--- Proposal distribution ---
+implemented|282
+superseded|28
+reference|20
+rejected|15
+accepted|5
+stale|3
+
+--- NT by id ---
+NT=340,342,346,350,352
+
+--- Sentinel (entry 345) ---
+8df4331b1596f12d5498437984ea2dd7ac63959c887a178fc69eda46ed9de962
+
+--- G4 persisted check ---
+0
+
+--- FORWARD baseline ---
+18
+
+--- Stale count ---
+3
+
+--- New entries (ids 346-370) ---
+346|2026-08-16: A fold lands where the defect was NOTICED — and by the third reviewer that failure has moved BETWEEN the folds [tag: drafting-cycle]
+347|2026-08-16: A decision table's correctness is a property of its STATE SPACE — enumerate it in code, because reading cannot [tag: verification]
+348|2026-08-16: A guard that observes an EXIT CODE has not observed its EFFECT [tag: verification]
+349|2026-08-16: The probe must match the INSTRUMENT the plan prescribes, not just the target [tag: verification]
+350|2026-08-16: The freeze checklist is the least-sticky section in a clone — dropped four times in one day [tag: planner-discipline]
+351|2026-08-18: Fold damage is POSITIONAL, and presence probes are structurally blind to it [tag: drafting-cycle]
+352|2026-08-18: `plan_lint`'s dryness check disagrees with §2's bar, and its false-clean rate RISES as a cycle converges [tag: instrumentation]
+353|2026-08-18: A CEO decision folded into a plan is an unread fold round, and behaves exactly like one [tag: drafting-cycle]
+354|2026-08-18: Price a finding's severity against evidence, not against how alarming it reads [tag: verification]
+355|2026-08-18: A watcher must key on the signal the system actually emits, not the state you expect it to write [tag: bellows-integration]
+356|2026-08-18: A predicted deposit filename must be derived from the code that stamps it, not from the local session date [tag: planner-discipline]
+357|2026-05-20: Bellows verdict and pause mechanics — three failures in one session [tag: bellows-integration]
+358|2026-05-22: Phase 1.5 must scan halted-* plans, not just research/feedback [tag: planner-discipline]
+359|2026-05-22: Diagnostics that depend on production data must gate on data availability [tag: planner-discipline]
+360|2026-05-22: Amendment plans should scope sections to revise, not re-do the work [tag: planner-discipline]
+361|2026-05-30: Worktree regression on restart-during-pause; Planner-direct recovery; plan header needs a title line [tag: bellows-integration]
+362|2026-08-18: A UTF-8 dev machine cannot reproduce a cp1252 failure — the only guard is an ASCII-assertion test [tag: execution-environment]
+363|2026-08-18: An autouse isolation fixture can be silently bypassed by import binding — verify isolation per-path before writing tests that write [tag: test-infrastructure]
+364|2026-08-18: A domain pattern that looks like corrupted data may be the contract — confirm with the domain owner before "correcting" it [tag: verification]
+365|2026-08-18: When a validator rejects an extraction, suspect the extraction before relaxing the validator [tag: verification]
+366|2026-08-19: The sibling-sweep discipline has a measured floor — when pre-existing yield hits zero while total yield does not fall, stop walking and run a mechanical check [tag: drafting-cycle]
+367|2026-08-19: The last fold round before a deposit has no executor — folds made after the execution seat are never run by anyone [tag: drafting-cycle]
+368|2026-08-19: A cold seat's proposed FIX is an unexecuted hypothesis, and the seat's own report often already contains the real one [tag: drafting-cycle]
+369|2026-08-19: A cross-step carrier cannot live inside the commit whose hash it carries [tag: bellows-integration]
+370|2026-08-19: A knowledge destination that is not ingested cannot improve the system — route by what ACTS on the knowledge, not only by who must not be wrong [tag: planner-discipline]
