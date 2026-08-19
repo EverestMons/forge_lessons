@@ -118,3 +118,23 @@ Checking whether a sentinel was warranted, I ran `'lesson_entries' in inspect.ge
 ⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN** after the folds.
 
 **The method itself is the carry-forward:** the artefact pass took one command and found four real gaps at walk 6 that five prior walks and two tools missed entirely. **It belongs at walk 0 of every clone**, alongside the fact-diff — which is exactly what w5-1 concluded, now with a measured yield behind it.
+
+## Walk 7 — confirming pass. NOT DRY. FIVE PINS THAT COULD NOT FAIL.
+
+**Findings: 1, instruction-class, spanning five pins.** Found by a mechanical question neither tool asks: **is every declared pin actually exercised by a step?**
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w7-1 | ⛔ 1 Weak spots (1.2) | ⛔ **M8, M9, M10, M11 and M12 were declared in `## Numbers discipline` and referenced by NO step.** M8/M9 were reachable only through the prose *"the three report shas from §Numbers"*; **M10, M11 and M12 were reachable through nothing at all** — declared at walk 6 and wired to no check anywhere. **Five pins that could not fail.** | All five wired: M10/M11/M12 into the pre-flight, Step 1's post-conditions and QA 3b; M8/M9 named **by symbol** in Step 2's destruction guard and QA item 3 rather than by prose. Orphan check now returns **none**. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN** after the folds.
+
+⚠️ **This is the exact MIRROR of w2-1, and I created it while fixing w2-1.**
+- **w2-1:** three checks cited pins that did not exist → the guard compared nothing to nothing and passed.
+- **w7-1:** five pins existed and no check cited them → the pins could never fail.
+
+Both are the same defect in a declaration/consumer pair, and **each of my folds fixed one half while creating the other.** Walk 2 added M8/M9 to satisfy the checks and left them prose-linked; walk 6 added M10–M12 and wired them to nothing.
+
+⚠️ **The general form, and it is a real gap in this shop's tooling:** `plan_lint` verifies plan STRUCTURE and `propagation_check` verifies that quantities are not RESTATED — **neither asks whether a declared pin has a consumer, or whether a cited pin has a declaration.** That is a bidirectional reachability check over one table, it is ~15 lines, and across two plans it would have caught w2-1 and w7-1 — both of them guards that pass while measuring nothing.
+
+**Recorded for the honing notes as a concrete tool proposal**, not just an observation: extend `propagation_check` with a **pin-reachability detector** — every `| Mn |` row must be referenced by at least one step, and every `§Numbers`-citing sentence must name a symbol that exists.

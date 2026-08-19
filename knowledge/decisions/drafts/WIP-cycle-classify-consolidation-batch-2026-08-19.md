@@ -82,7 +82,7 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 > **Single-writer check:** `get_unclassified_entries` stable across TWO reads; `ls /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/decisions/in-progress-*.md` — **THIS PROJECT ONLY**; this plan's own file is normal, **ZERO matches means the probe is broken**, any OTHER match → HALT.
 >
 > ### Pre-flight (read-only, raw output for each)
-> `get_unclassified_entries(conn)` == exactly the `W` entry ids, the contiguous range recorded at walk 0 ⚠️ *(whose upper endpoint coincidentally equals `E0`'s value — they are an ID and a COUNT and must not be conflated; w1-3)* · `SELECT COUNT(*) FROM lesson_proposals WHERE entry_id IN (<the `W` work-list ids>)` == **0** ⚠️ *(w3-2: this hard-coded `entry_id > 345`, a boundary that is only correct because it happens to equal the pre-456 corpus size. Bind the work list — it is the defining property; the boundary is an artefact. Same class as w2-3.)* · `E0` == **M5** · `P0` == **M2 before** · NT id-list == **M6** · reports dir contains exactly the three artifacts pinned in §Numbers and **no** `lessons-report-2026-08-19.md`. Any mismatch → HALT with measured vs expected.
+> `get_unclassified_entries(conn)` == exactly the `W` entry ids, the contiguous range recorded at walk 0 ⚠️ *(whose upper endpoint coincidentally equals `E0`'s value — they are an ID and a COUNT and must not be conflated; w1-3)* · `SELECT COUNT(*) FROM lesson_proposals WHERE entry_id IN (<the `W` work-list ids>)` == **0** ⚠️ *(w3-2: this hard-coded `entry_id > 345`, a boundary that is only correct because it happens to equal the pre-456 corpus size. Bind the work list — it is the defining property; the boundary is an artefact. Same class as w2-3.)* · `E0` == **M5** · `P0` == **M2 before** · NT id-list == **M6** · **M10** sentinel hash · **M11** `STALE_COUNT` · **M12** `SURFACEABLE_BASE` ⚠️ *(recorded, not gated — it is EXPECTED to become `K`)* · reports dir contains exactly the three artifacts pinned in §Numbers and **no** `lessons-report-2026-08-19.md`. Any mismatch → HALT with measured vs expected.
 >
 > ### Classify
 > For each of the `W` entries, read it with a **parameter-bound** `SELECT raw_content, source_heading, tags FROM lesson_entries WHERE id = ?`, then call `insert_proposal` (`src/lessons_forge.py:202`) with `route=None`.
@@ -105,7 +105,7 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 > ⚠️⚠️ **`insert_proposal` DOES NOT COMMIT** (`lessons_forge.py`, three docstrings state it). **Issue exactly ONE `conn.commit()` after all `W` inserts.** Without it the step reports success and writes nothing — proven in this lineage on plan 456, where an uncommitted ingest read correct from inside its own transaction and vanished on close.
 >
 > ### Post-conditions — ⚠️ ON A FRESH READ-ONLY CONNECTION, NOT THE WRITING ONE
-> A read on the writing connection sees the **uncommitted** transaction and returns the expected values whether or not the commit landed. Close, reopen read-only by absolute path, then assert **M1** (the inversion — `get_unclassified_entries()` returns `[]`, the one post-condition a partial run cannot fake), **M3**, **M4**, **M5**, **M6**, **M7**, and record `K` raw.
+> A read on the writing connection sees the **uncommitted** transaction and returns the expected values whether or not the commit landed. Close, reopen read-only by absolute path, then assert **M1** (the inversion — `get_unclassified_entries()` returns `[]`, the one post-condition a partial run cannot fake), **M3**, **M4**, **M5**, **M6**, **M7**, **M10** (sentinel unchanged) and **M11** (`STALE_COUNT` unchanged), and record **M2** (`K`, asserting only `K` ≥ `W`) and **M12** raw.
 >
 > ### Deposit
 > Write both deposits, `git add` **by explicit pathspec**, commit. **Do not `git add -A`.**
@@ -123,7 +123,7 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 > - ⛔ **`output_dir` — THE HAZARD, AND 425'S REMEDY WAS WORSE THAN THE DISEASE.** It defaults to the RELATIVE `"reports"` (`:515`) and is passed straight to `os.makedirs` (`:591`), resolving against CWD — **and you run in a worktree**. 425 "fixed" this by mandating an absolute path **rooted at the MAIN repo**, which wrote outside the sandbox and left an untracked file that teardown's merge refused to overwrite; the plan halted and its Step 3 never ran.
 >   **DO THIS INSTEAD: run `pwd` FIRST and print it; pass `output_dir` as `"$(pwd)/reports"` — absolute, and anchored at the WORKTREE ROOT.** The fix for CWD-relative is not "absolute", it is **"absolute WITHIN the sandbox"**.
 >
-> **Destruction guard — pinned in §Numbers, re-asserted here before and after:** the reports directory holds three shipped artifacts and **no `lessons-report-2026-08-19.md`**. Take a `shasum -a 256` of all three **before** generating and re-assert all three **after** — ⚠️ **using the same absolute worktree-anchored prefix as the generator**, or the pre- and post-checks will agree with each other while measuring files that are not the ones at risk.
+> **Destruction guard — **M8** and **M9**, re-asserted here before and after:** the reports directory holds three shipped artifacts and **no `lessons-report-2026-08-19.md`**. Take a `shasum -a 256` of all three **before** generating and re-assert all three **after** — ⚠️ **using the same absolute worktree-anchored prefix as the generator**, or the pre- and post-checks will agree with each other while measuring files that are not the ones at risk.
 >
 > **Deposits:**
 > - `knowledge/development/dev-log-report-2026-08-19.md`
@@ -145,8 +145,9 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 >
 > 1. Re-run every **GATED** pin in `## Numbers discipline` in table order on a **fresh read-only connection**, printing raw output. Do not restate values here. ⚠️ **M2 is RECORD-ONLY** — report `K` raw and assert only the derivable bound `K` ≥ `W`; do not treat an unpinnable row as a failed check. *(w4-1.)*
 > 2. Re-assert **M1** (the inversion) independently of Step 1's report.
-> 3. Re-assert the three report shas from §Numbers — **and that `lessons-report-2026-08-19.md` now exists and is NOT one of them.**
+> 3. Re-assert **M8** (all three shas byte-identical) and **M9** (today's report exists and is none of M8).
 > 4. Confirm **no routing occurred**: **M3** and **M4** both zero, and **M6** still present.
+> 3b. **The pins walk 6 restored:** re-assert **M10** (sentinel entry 345 unchanged) and **M11** (`STALE_COUNT` unchanged); report **M12** raw. ⚠️ *(w7-1: M8–M12 were declared in the table and referenced by NO step — five pins that could not fail. M8/M9 were reachable through prose; M10–M12 were reachable through nothing at all.)*
 > 4b. **The disposition record:** `grep -cF 'DISPOSITION | entry=' <Step-1 dev log>` == `W`, and `grep -Fc` each of `[DEDUP]`, `[REMEDY-GATED]`, `[AUTHOR-CONFLICT]` across the new proposals' `reasoning` fields — ⚠️ **report the first two RAW and gate only `[AUTHOR-CONFLICT]` against M7.** Presence only; adequacy is Gate 1's.
 > 5. `git show --stat <this step's commit>` — assert only the declared deposits changed.
 
