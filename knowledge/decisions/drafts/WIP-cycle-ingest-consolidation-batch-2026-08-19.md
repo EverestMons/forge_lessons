@@ -1,4 +1,4 @@
-# Lessons Forge — Cycle Run 2026-08-19, PLAN A: ingest the 25-entry consolidation batch (classification held to Plan B)
+# Lessons Forge — Cycle Run 2026-08-19, PLAN A: ingest the consolidation batch — `N1` entries, 25 as measured at walk 0 (classification held to Plan B)
 
 **Date:** 2026-08-19 | **Tier:** Small | **Dispatch Mode:** bellows | **Test Scope:** targeted | **Execution:** Step 1 (Lessons Agent — ingest the 25) → Step 2 (QA) | **qa_steps:** 2 | **pause_for_verdict:** always
 **cycle_tier:** T1 — T-8 (clone of `executable-423`). No T-4: read-mostly, single INSERT-only ingest, dry-run rehearsable against a scratch DB copy.
@@ -10,7 +10,7 @@
 
 ## CEO Context
 
-**Ingest only.** This plan takes the **25** un-ingested `LESSONS.md` entries into the corpus and stops. **It creates no proposals, writes no report, and classifies nothing.** Classification and the report are **Plan B**; Gate-1 routing is a third plan after that.
+**Ingest only.** This plan takes the **`N1`** un-ingested `LESSONS.md` entries into the corpus and stops. **It creates no proposals, writes no report, and classifies nothing.** Classification and the report are **Plan B**; Gate-1 routing is a third plan after that.
 
 ⚠️ **Why the split matters more here than it did at 423.** Five of the 25 entries were written by the Planner **today**, and they are the evidence base for changes to `DRAFTING_CYCLE.md` and `PLANNER_TEMPLATE.md` that the Planner authored, evidenced, and benefits from — including the retirement of PT v4.89's project-bin arm. **The corpus path exists so a NON-AUTHOR routes them at Gate 1.** That is the entire reason this plan exists instead of a direct doctrine edit, and a 25-entry batch containing the author's own proposals is the strongest case yet for keeping ingest, classification and routing in three separate plans.
 
@@ -33,7 +33,7 @@
 
 | id | pin | before | after | probe |
 |---|---|---|---|---|
-| N1 | batch size | — | **25** | dry run `inserted`, cross-checked by content-hash set difference |
+| N1 | **`N1`** batch size | — | **25** | dry run `inserted`, cross-checked by content-hash set difference |
 | N2 | corpus entries `E0` | **345** | `E0` + 25 = **370** | `select count(*) from lesson_entries` |
 | N3 | `would_update` | — | **0** | ⚠️ **the invariant. Non-zero → HALT**: an ingested row's body changed |
 | N4 | unchanged | — | **288** | dry run `unchanged` |
@@ -116,11 +116,15 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 
 ## STEP 2 — QA
 
-> **QA SELF-CHECK — Rule 20.** Post the block from `/Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md` verbatim under the banner **`Rule 20 — QA Self-Check Results`**, closing with the **`PASSED`** line.
+> **QA SELF-CHECK — Rule 20.** Post the block from `/Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md` verbatim under the banner `Rule 20 — QA Self-Check Results`, and close with the literal line `PASSED — SELF-CHECK PASSED`. ⚠️ **Both strings are matched literally by `plan_lint` (c)** — paraphrasing either FAILs the gate. *(w2-2.)*
 >
 > Verification only. **Evidence must be RAW command output pasted verbatim — never a summary, never a claim that a check passed.**
 >
-> **Deposits:** `knowledge/development/qa-cycle-ingest-consolidation-2026-08-19.md` **and** `knowledge/development/qa-evidence-cycle-ingest-2026-08-19.txt` — the `.txt` is required for `qa_test_result`.
+> **Deposits:**
+> - `knowledge/development/qa-cycle-ingest-consolidation-2026-08-19.md`
+> - `knowledge/development/qa-evidence-cycle-ingest-2026-08-19.txt`
+>
+> ⚠️ The `.txt` is required for `qa_test_result`. ⚠️ **The bullet-list form is load-bearing** — `plan_lint` parses paths from bullets; an inline `**Deposits:** \`a\` and \`b\`` yields **zero** paths and FAILs `(b)`. *(w2-1: I re-introduced plan 451's S1-3(b) defect in a different shape one step after citing it.)*
 >
 > 1. Re-run every pin in `## Numbers discipline` in table order, printing raw output. **Do not restate values here** — that table is the single declaration.
 > 2. Re-run G1 (NT by id) and G2 (`P` == N5) independently of Step 1's report.
@@ -129,5 +133,11 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 > 5. `git show --stat <this step's commit>` — assert only the declared deposits changed.
 
 ## Drafting Cycle
+
+- Weak spots — steps authored from 423's machinery; `detect_duplicates` proven unable to answer pre-mutation (w1-2, w1-4).
+- Destruction — one INSERT-only mutation behind a verified restore point; scope boundary (no classification) guarded by G2, not asserted in prose.
+- Vulnerabilities — backtick/apostrophe headings, ugrep exit-1, the `?immutable=1` backup trap, `.db`-scoped resume glob (w1-3).
+- Integration — 423's criterion-1 reasoning false on both operands (w1-1); plan 451's `.txt` deposit lesson folded (w1-5).
+- ACID — a "dry run" is not dry; `ingest_lesson_entries` commits (w1-6).
 
 **Walk 0 (context pin):** register `lessons-forge/knowledge/research/walk-register-cycle-ingest-consolidation-batch-2026-08-19.md`. Clone-diff against 423 run BEFORE lens 1; seven inherited facts re-measured, **five false, one still true, one unchanged doctrine pin**. Batch **25** verified two ways · dry run `25/0/288` · `E0` 345 · `P0` 353 · non-terminal set unchanged · em-dash regime inverted · new backtick hazard. **Direction verdict pending walk 1.**

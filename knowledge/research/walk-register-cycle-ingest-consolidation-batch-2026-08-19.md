@@ -30,3 +30,21 @@ Plan: `lessons-forge/knowledge/decisions/drafts/WIP-cycle-ingest-consolidation-b
 **Direction verdict: PROCEED.** The angle is right — a measured clone of a proven cycle plan, ingest-only, with the scope boundary (no classification) guarded by G2 rather than asserted in prose. No finding invalidates the clone origin, the mechanism, or the premise licensing scope.
 
 ⛔ **Bar NOT met** — six instruction-class findings. Walk 2 is a first pass over the newly authored steps.
+
+## Walk 2 — first pass over the newly authored steps. NOT DRY.
+
+**Findings: 5. Instruction-class 5 / record-class 0. Fold-introduced 5 of 5** (walk 1 authored the steps this walk reads).
+
+**Both mechanical checks were run first, and between them they found four of the five.**
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w2-1 | 1 Weak spots | ⛔ `plan_lint` **FAIL (b) step 2 deposits** — I wrote Step 2's Deposits inline (`**Deposits:** \`a\` **and** \`b\``), which yields **zero** parsed paths. ⚠️ **This is plan 451's S1-3(b) defect re-introduced in a different shape, one step after I cited it in the same document.** Step 1 used bullets and passed with 2 paths; Step 2 did not. | Bullet-list form, with the parser dependency named so it is not re-broken. |
+| w2-2 | 1 Weak spots | `plan_lint` **FAIL (c)** — I paraphrased the Rule 20 close as *"the `PASSED` line"*. The gate matches the literal `PASSED — SELF-CHECK PASSED`. | Both literals written out, with "matched literally" stated. |
+| w2-3 | 4 Integration-vs-record | `plan_lint` WARN — the Cycle Log named no lenses, so §3's per-lens record was absent. | Five lens bullets added. |
+| w2-4 | 3 Vulnerabilities (3.2) | ⚠️⚠️ **`propagation_check` reported `CLEAN` on a plan it could not read.** `declared symbols: (none found)` — this plan's Numbers table declares `\| N1 \| batch size \| — \| **25** \|`, with no backticked symbol, so `declared_values()` matched nothing and detector (1) ran over an empty declaration set. **A clean report across zero declarations is the exact failure mode the tool exists to prevent** — the same shape as its `instruction_region` bug: silent, total, indistinguishable from success. | **Tool fixed**: zero parsed declarations is now **exit 2 (could not run)**, never CLEAN, with the expected row form printed. Regression-tested — shipped plans 432, 451 and 411 still exit 0. Plan's table amended to declare `**\`N1\`**`. |
+| w2-5 | 4 Integration-vs-record | Found by the repaired tool on its first real run: the **title** hard-coded *"the 25-entry consolidation batch"*, and the CEO Context restated **25**. A count in a title is the literal that goes stale — measured on plan 451, whose register moved 298 → 299 between authoring and dispatch. | Both restated against `N1`; the count now lives only in the Numbers table. |
+
+⛔ **Bar NOT met** — five instruction-class findings. `plan_lint` now **exit 0** (one deliberate WARN: no Closing line, the cycle is open). `propagation_check` clean **and now provably able to read this plan**.
+
+**Worth naming:** four of five findings came from tools, not from reading — and the fifth (w2-5) came from a tool that had to be repaired first. The one class reading caught nothing of. This is the honing-note P-4 thesis holding on a second, unrelated plan.
