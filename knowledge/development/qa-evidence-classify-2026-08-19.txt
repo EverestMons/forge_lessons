@@ -1,0 +1,84 @@
+QA Evidence — Consolidation-Batch Classification Cycle 2026-08-19
+================================================================
+Plan 459, Step 3 — QA verification (read-only)
+DB: file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro
+
+--- Dispatch-state probe ---
+Probe 1 (committed HEAD): EXIT_CODE=128 (absent)
+Probe 2 (working tree): EXIT_CODE=1 (absent)
+Probe 3 (git log --all): no hits for qa-classify-consolidation-2026-08-19.md; positive control (FORWARD.md) EXIT_CODE=0 with multiple hits
+Determination: FRESH
+Step 2 receipt: Status: Complete — PROCEED gate passes.
+
+--- M1: Inversion ---
+>>> get_unclassified_entries(conn)
+M1 unclassified entries: []
+M1 count: 0
+
+--- M2: Proposal count (RECORD-ONLY, assert K >= W) ---
+>>> SELECT COUNT(*) FROM lesson_proposals
+M2 total proposals: 378
+M2 K (new proposals): 25
+M2 K >= W: 25 >= 25 = True
+
+--- M3: No routing on new proposals ---
+>>> SELECT COUNT(*) FROM lesson_proposals WHERE id > 353 AND route IS NOT NULL
+M3 new proposals with non-NULL route: 0
+
+--- M4: All new proposals status = proposed ---
+>>> SELECT COUNT(*) FROM lesson_proposals WHERE id > 353 AND status <> 'proposed'
+M4 new proposals with status != proposed: 0
+
+--- M5: Corpus entries unchanged ---
+>>> SELECT COUNT(*) FROM lesson_entries
+M5 corpus entries (E0): 370
+M5 expected 370: True
+
+--- M6: Non-terminal set {340,342,346,350,352} still present ---
+>>> SELECT id FROM lesson_proposals WHERE status NOT IN ('accepted','rejected','stale','withdrawn') AND id <= 353
+M6 expected set {340,342,346,350,352} present in non-terminal: True
+
+--- M7: [AUTHOR-CONFLICT] markers ---
+>>> SELECT COUNT(DISTINCT lp.entry_id) FROM lesson_proposals lp JOIN lesson_entries le ON lp.entry_id = le.id WHERE lp.id > 353 AND le.entry_date = '2026-08-19' AND lp.reasoning LIKE '%[AUTHOR-CONFLICT]%'
+M7 distinct entry_ids with [AUTHOR-CONFLICT] (date=2026-08-19): 5
+M7 expected 5: True
+
+--- M8: Three destructible reports sha256 ---
+>>> shasum -a 256 "$(pwd)/reports/lessons-report-2026-08-{13,14,15}.md"
+7cfd7904c849197645300ea8b0c83078b4d3ebc997a5e85be70eaa2f29e7d7a5  reports/lessons-report-2026-08-13.md
+f1807cf266b369541ce5ae56f17e83966e354dd36d0ac8daa7ec73d4ec454c85  reports/lessons-report-2026-08-14.md
+b21281169ac1a138ade427d338c90823382d03cb69800234533d5e86a87d991d  reports/lessons-report-2026-08-15.md
+All three byte-identical to plan pins: True
+
+--- M9: Today's report exists and is none of M8 ---
+>>> ls "$(pwd)/reports/lessons-report-2026-08-19.md"
+-rw-r--r--  1 marklehn  staff  21895 Aug 19 15:21 reports/lessons-report-2026-08-19.md
+>>> shasum -a 256 "$(pwd)/reports/lessons-report-2026-08-19.md"
+7f9b283bf42a31eb9fca9fb97121cad1a5dfc654a9fc5a8aa06e5b3dcafa363e  reports/lessons-report-2026-08-19.md
+Is none of M8: True
+
+--- M10: Sentinel entry 345 ---
+>>> SELECT content_hash FROM lesson_entries WHERE id = 345
+M10 sentinel 345 content_hash: 8df4331b1596f12d5498437984ea2dd7ac63959c887a178fc69eda46ed9de962
+M10 matches expected: True
+
+--- M11: STALE_COUNT ---
+>>> SELECT COUNT(*) FROM lesson_proposals WHERE status='stale'
+M11 STALE_COUNT: 3
+>>> SELECT id FROM lesson_proposals WHERE status='stale' ORDER BY id
+M11 stale ids: [98, 121, 130]
+M11 expected 3 (ids 98/121/130): True
+
+--- M12: SURFACEABLE_BASE (RECORD-ONLY) ---
+>>> SELECT COUNT(*) FROM lesson_proposals WHERE status IN ('proposed','ambiguous')
+M12 SURFACEABLE_BASE: 25
+
+--- 4b: Disposition record ---
+>>> grep -cF 'DISPOSITION | entry=' knowledge/development/dev-log-classify-consolidation-2026-08-19.md
+25
+Expected W=25: True
+
+--- 4b: Marker counts in new proposals reasoning ---
+[DEDUP] count: 3 (raw, not gated)
+[REMEDY-GATED] count: 3 (raw, not gated)
+[AUTHOR-CONFLICT] count: 5 (gated against M7=5: PASS)
