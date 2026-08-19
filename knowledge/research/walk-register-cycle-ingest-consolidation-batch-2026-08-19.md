@@ -85,3 +85,19 @@ Plan: `lessons-forge/knowledge/decisions/drafts/WIP-cycle-ingest-consolidation-b
 ⛔ **Bar NOT met** — three instruction-class findings. `plan_lint` **exit 0**, `propagation_check` **CLEAN**, both re-run after the folds.
 
 **Note on w4-3, because it nearly shipped:** this plan spent walk 3 arguing that `N1`'s absolutes are *deliberate* and must not be softened. Walk 4 found a different set of absolutes in the same document that must be softened, for the opposite reason. **The rule is not "absolutes are good" or "absolutes are bad" — it is whether a change in the value invalidates the plan's evidence.** For `N1` it does; for the proposal distribution it does not. Applying w3-3 mechanically across the document would have preserved a false halt sitting directly in the path of the CEO's own next action.
+
+## Walk 5 — confirming pass. NOT DRY.
+
+**Findings: 3. Instruction-class 3 / record-class 0. Pre-existing 3 of 3** — the third consecutive walk whose findings all came from **reading**, with both mechanical checks green before and after.
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w5-1 | 1 Weak spots (1.2) | ⛔ **THE SENTINEL WAS THE WRONG ENTRY — the canary was outside the population it guards.** Walk 0 pinned the **last parsed REGISTER entry** (`2026-08-19: A knowledge destination…`, hash `76b1b344…`). Measured: that heading has **0 corpus rows** — it is a **batch** entry. 423's sentinel was an **already-ingested** row (its entry 344), which is the entire point: the sentinel proves the ingest touched no pre-existing data. Pre-ingest there was nothing for mine to match, so the Step 1a-bis check was incoherent and **G5 would have verified nothing while reporting PASS.** | Corrected to **corpus entry 345** — `2026-08-14: A residual "everything else" bucket…`, hash `8df4331b…`. **Verified earnable:** exactly 1 register match, hash equal to the corpus. *(It is the very entry 423 ingested — the sentinel chain is continuous.)* ⚠️ Its heading carries a **double quote**, 423's own hazard class, so probes over it must be `grep -F` single-quoted. |
+| w5-2 | 1 Weak spots (1.2) | **G4 carried a clause with no probe:** *"confirm no pre-existing `content_hash` changed"*. The baseline captures **no hash manifest**, so nothing could satisfy it — an unverifiable gate clause reads as rigour and delivers none. | Removed and replaced by the traced guarantee: the **only** write path to an existing row's `content_hash` is the UPDATE branch (`:160–168`) that increments `updated`, so **`updated == 0` IS the guarantee**, not a proxy for it. |
+| w5-3 | 4 Integration-vs-record | G5 read only *"sentinel intact"* — no entry id, no hash, no statement of what it proves. | Names entry 345, its hash, and why the check is meaningful only for an already-ingested entry — so the w5-1 defect cannot be reintroduced by a later reader. |
+
+⛔ **Bar NOT met** — three instruction-class findings. `plan_lint` **exit 0**, `propagation_check` **CLEAN**, both after the folds.
+
+⚠️ **w5-1 is the most serious finding of this cycle and it survived four walks and two green tool runs.** It is a **false-PASS gate**: not a check that fails wrongly, but one that succeeds while measuring nothing. Neither tool can see this class — `plan_lint` reads form, `propagation_check` reads restatement, and both are satisfied by a coherent sentence about the wrong object. **The only detector was asking what the sentinel is FOR and then checking whether the pinned entry could do that job.**
+
+**Cycle yield: 6 → 7 → 3 → 3 → 3.** Pre-existing: 6 → 1 → 3 → 3 → 3. **Unlike plan 451's tail, this cycle's findings are NOT fold damage — they are original defects in the authored steps, surfacing at a steady three per walk.** That is not convergence; it is a plan whose machinery is dense enough that each read reaches a new part of it.
