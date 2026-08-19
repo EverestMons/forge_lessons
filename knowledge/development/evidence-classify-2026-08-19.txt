@@ -1,0 +1,131 @@
+=== EVIDENCE: classify-consolidation-2026-08-19 ===
+Plan: executable-459 | Step: 1 | Date: 2026-08-19
+
+--- DISPATCH STATE PROBES ---
+
+Probe 1 (git show HEAD):
+$ git show HEAD -- knowledge/development/dev-log-classify-consolidation-2026-08-19.md
+(empty output)
+EXIT:0
+
+Probe 2 (working tree):
+$ ls -la knowledge/development/dev-log-classify-consolidation-2026-08-19.md
+ls: knowledge/development/dev-log-classify-consolidation-2026-08-19.md: No such file or directory
+EXIT:1
+
+Probe 3 (git log --all):
+$ git log --all --oneline -- knowledge/development/dev-log-classify-consolidation-2026-08-19.md
+(no output)
+EXIT:0
+$ git branch --list 'bellows-preserved/*'
+(no output)
+EXIT:0
+
+Positive control:
+$ git log --all --oneline -- knowledge/FORWARD.md
+15 hits
+EXIT:0
+
+Determination: FRESH
+
+--- SINGLE-WRITER CHECK ---
+
+get_unclassified_entries() read 1: [346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370]
+get_unclassified_entries() read 2: [346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370]
+Stable: True
+Count: 25
+
+$ ls /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/decisions/in-progress-*.md
+/Users/marklehn/Developer/GitHub/lessons-forge/knowledge/decisions/in-progress-executable-459.md
+(only this plan's own file — expected)
+
+--- PRE-FLIGHT (read-only) ---
+
+get_unclassified_entries(): [346..370], count=25, contiguous
+E0 (entry count): 370
+P0 (proposal count): 353
+Proposals for work-list entries (346-370): 0
+NT set (proposal ids {340,342,346,350,352}):
+  proposal 340: entry_id=332, status=accepted, route=codify
+  proposal 342: entry_id=334, status=accepted, route=codify
+  proposal 346: entry_id=338, status=accepted, route=codify
+  proposal 350: entry_id=342, status=accepted, route=codify
+  proposal 352: entry_id=344, status=accepted, route=codify
+M10 sentinel 345 content_hash: 8df4331b1596f12d5498437984ea2dd7ac63959c887a178fc69eda46ed9de962
+M11 STALE_COUNT: 3 (ids: 98, 121, 130)
+M12 SURFACEABLE_BASE: 0
+
+Report shas (worktree-anchored):
+$ shasum -a 256 reports/lessons-report-2026-08-13.md
+7cfd7904c849197645300ea8b0c83078b4d3ebc997a5e85be70eaa2f29e7d7a5
+
+$ shasum -a 256 reports/lessons-report-2026-08-14.md
+f1807cf266b369541ce5ae56f17e83966e354dd36d0ac8daa7ec73d4ec454c85
+
+$ shasum -a 256 reports/lessons-report-2026-08-15.md
+b21281169ac1a138ade427d338c90823382d03cb69800234533d5e86a87d991d
+
+$ ls reports/lessons-report-2026-08-19.md
+ls: reports/lessons-report-2026-08-19.md: No such file or directory
+EXIT:1
+
+All pre-flight checks pass.
+
+--- CLASSIFICATION ---
+
+25 entries classified. One conn.commit() after all inserts.
+K=25, proposal ID range: 354–378.
+DB path: /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db (absolute, main repo — untracked)
+
+New proposals:
+
+proposal=354 entry_id=346 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=DRAFTING_CYCLE.md
+proposal=355 entry_id=347 category=instrumentation confidence=high status=proposed route=None target_layer=governance target_artifact=None
+proposal=356 entry_id=348 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=None
+proposal=357 entry_id=349 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=None
+proposal=358 entry_id=350 category=governance_rule confidence=medium status=proposed route=None target_layer=governance target_artifact=PLANNER_TEMPLATE.md
+proposal=359 entry_id=351 category=instrumentation confidence=high status=proposed route=None target_layer=governance target_artifact=DRAFTING_CYCLE.md
+proposal=360 entry_id=352 category=structural confidence=high status=proposed route=None target_layer=structure target_artifact=plan_lint.py
+proposal=361 entry_id=353 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=DRAFTING_CYCLE.md
+proposal=362 entry_id=354 category=governance_rule confidence=medium status=proposed route=None target_layer=governance target_artifact=PANEL_SEAT_TEMPLATE.md
+proposal=363 entry_id=355 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=None
+proposal=364 entry_id=356 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=None
+proposal=365 entry_id=357 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=None
+proposal=366 entry_id=358 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=PLANNER_TEMPLATE.md
+proposal=367 entry_id=359 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=None
+proposal=368 entry_id=360 category=governance_rule confidence=medium status=proposed route=None target_layer=governance target_artifact=None
+proposal=369 entry_id=361 category=structural confidence=high status=proposed route=None target_layer=structure target_artifact=None
+proposal=370 entry_id=362 category=instrumentation confidence=high status=proposed route=None target_layer=structure target_artifact=None
+proposal=371 entry_id=363 category=structural confidence=high status=proposed route=None target_layer=structure target_artifact=None
+proposal=372 entry_id=364 category=governance_rule confidence=medium status=proposed route=None target_layer=governance target_artifact=None
+proposal=373 entry_id=365 category=governance_rule confidence=medium status=proposed route=None target_layer=governance target_artifact=None
+proposal=374 entry_id=366 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=DRAFTING_CYCLE.md
+proposal=375 entry_id=367 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=DRAFTING_CYCLE.md
+proposal=376 entry_id=368 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=PANEL_SEAT_TEMPLATE.md
+proposal=377 entry_id=369 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=None
+proposal=378 entry_id=370 category=governance_rule confidence=high status=proposed route=None target_layer=governance target_artifact=PLANNER_TEMPLATE.md
+
+--- POST-CONDITIONS (FRESH read-only connection) ---
+
+M1 (inversion): get_unclassified_entries() = []  ✓
+M2 (K): P0=353, total=378, K=25, K >= W=25  ✓
+M3 (no routing): new proposals with non-null route = 0  ✓
+M4 (all proposed): new proposals with status != 'proposed' = 0  ✓
+M5 (E0): 370  ✓
+M6 (NT set):
+  proposal 340: entry_id=332, status=accepted, route=codify  ✓
+  proposal 342: entry_id=334, status=accepted, route=codify  ✓
+  proposal 346: entry_id=338, status=accepted, route=codify  ✓
+  proposal 350: entry_id=342, status=accepted, route=codify  ✓
+  proposal 352: entry_id=344, status=accepted, route=codify  ✓
+M7 (AUTHOR-CONFLICT): 5 distinct entry_ids with marker on 2026-08-19  ✓
+  proposal 374: entry_id=366
+  proposal 375: entry_id=367
+  proposal 376: entry_id=368
+  proposal 377: entry_id=369
+  proposal 378: entry_id=370
+M10 (sentinel 345): 8df4331b1596f12d5498437984ea2dd7ac63959c887a178fc69eda46ed9de962  ✓
+M11 (STALE_COUNT): 3 (ids: 98, 121, 130)  ✓
+M12 (SURFACEABLE_BASE): 25 (recorded, K=25)  ✓
+
+All post-conditions pass.
