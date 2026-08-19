@@ -95,3 +95,26 @@ The fold script for w4-1/w4-2 **died at parse time** (a `SyntaxError` from an aw
 ⚠️ **w5-1 is a walk-0 failure surfacing at walk 5.** The clone-diff at walk 0 compared inherited FACTS — batch size, hazard classes, baselines — and recorded five as false. **It did not enumerate 425's ARTEFACTS and ask which the clone had failed to carry.** A dropped hunk is invisible to a fact-by-fact diff, because an absent thing states nothing to be wrong about. That is the same asymmetry w5-1 itself is about: **absence does not announce itself, in a clone-diff any more than in a marker set.**
 
 **Carried for the honing notes:** a clone-diff needs two passes, not one — *are the inherited claims still true* (done at walk 0) **and** *which of the parent's artefacts are simply not here* (not done, and it took five walks to notice). Plan 456's clone-diff had the same shape and may carry the same gap.
+
+## Walk 6 — the ARTEFACT pass w5-1 said walk 0 never did. NOT DRY.
+
+**Findings: 4 in the plan + 1 process failure by the Planner.** All four plan findings are **artefacts 425 carries that this clone dropped** — none visible to the fact-by-fact diff run at walk 0, and none findable by either tool.
+
+**Method:** enumerated 23 distinctive artefacts/mechanisms named in 425 and counted each in the clone. Seven scored zero in BOTH (they were 423's, not 425's — correctly absent). Four scored high in 425 and **zero here**.
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w6-1 | 4 Integration-vs-record | **No sentinel.** 425 names one 8 times; this clone had none. It converts *"classification writes only `lesson_proposals`"* from an assertion into a measurement, for one query. | **M10** — corpus entry 345, `8df4331b…`, unchanged. *(Continuous with plan 456's sentinel, so the chain holds across the arc.)* |
+| w6-2 | 2 Destruction (2.1) | **`STALE_COUNT` not captured.** 3 rows (ids 98/121/130) — a population **distinct from M6** that a stray UPDATE would move invisibly. | **M11**, gated unchanged. |
+| w6-3 | 5 ACID (5.2) | **`SURFACEABLE_BASE` not captured** — and 425 insisted it be *"labelled distinctly from NT"*. Here it is **0** and **expected to become `K`**, since every proposal this plan writes is `proposed`. ⚠️ Gating it would false-halt a correct run; omitting it loses the baseline. | **M12**, RECORD-ONLY, with the distinction from M6 stated. |
+| w6-4 | 4 Integration-vs-record (4.2) | ⚠️ **AN INHERITED DECISION WHOSE REASON NO LONGER HOLDS.** 414 clustered six entries via Flag (G); **425 collapsed that apparatus explicitly *because its batch was one*.** This clone inherited the collapsed form **without re-deciding it, on a batch of `W`** — so the classifier gets no instruction about relatedness across 25 entries that include four on drafting-cycle mechanics and two on cold-seat conduct. | **Not folded into a cluster mechanism** — inventing one at walk 6 would be novel machinery in a T1 clone. **Recorded as a deliberate, explicit omission** for Gate 1 and the next clone, rather than left as an unexamined default. |
+
+### ⚠️ Planner process failure — the same trap, one plan later
+
+Checking whether a sentinel was warranted, I ran `'lesson_entries' in inspect.getsource(insert_proposal)` and got **True**, and briefly treated classification as writing to `lesson_entries`. **It does not** — the matches are **docstring lines** documenting the FK. The only SQL is `INSERT INTO lesson_proposals`.
+
+**This is precisely plan 456's w3-1**, where `'conn.commit()' in source` matched three docstrings saying the function does *not* commit. I recorded that finding, wrote a lesson about it, ingested that lesson into the corpus **today** — and committed the identical error one plan later. **A substring test over source is a probe against prose, not behaviour**, and knowing that has now demonstrably failed to prevent it twice. The check that works is reading the SQL.
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN** after the folds.
+
+**The method itself is the carry-forward:** the artefact pass took one command and found four real gaps at walk 6 that five prior walks and two tools missed entirely. **It belongs at walk 0 of every clone**, alongside the fact-diff — which is exactly what w5-1 concluded, now with a measured yield behind it.
