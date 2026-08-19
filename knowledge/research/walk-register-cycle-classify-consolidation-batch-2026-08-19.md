@@ -160,3 +160,31 @@ Both are the same defect in a declaration/consumer pair, and **each of my folds 
 3. **Structure** — does each step still have the properties the parent gave every step? *(walk 8; found 1 — and it was the parent's own scout fix)*
 
 Each pass found what the previous one structurally could not. **Recorded for the honing notes**: the third pass is a per-step matrix — dispatch probe, PROCEED gate, scope block, deposits block, post-conditions — cheap to run and mechanically checkable, which makes it a better candidate for tooling than for discipline.
+
+## Walk 9 — the full structural matrix. NOT DRY.
+
+**Findings: 2, instruction-class, both pre-existing, both in Step 3.**
+
+Walk 8 found one structural gap by checking one property. This walk ran the **full matrix** — eight per-step properties across all three steps of both plans — which is what walk 8's conclusion actually implied.
+
+| property | 425 s1/s2/s3 | mine (before) | |
+|---|---|---|---|
+| dispatch probe | Y/Y/Y | Y/Y/Y | ✓ *(fixed at w8-1)* |
+| PROCEED gate | -/Y/Y | -/Y/Y | ✓ |
+| single-writer | Y/-/- | Y/-/- | ✓ |
+| Scope / write list | Y/Y/Y | Y/Y/Y | ✓ |
+| **visible chat message** | Y/Y/Y | **Y/Y/-** | ⛔ **w9-1** |
+| post-conditions | Y/Y/Y | Y/Y/Y | ✓ |
+| absolute DB path | Y/-/- | Y/-/- | ✓ |
+| **explicit pathspec** | -/-/Y | **Y/Y/-** | ⛔ **w9-2** |
+
+| id | finding | resolution |
+|---|---|---|
+| w9-1 | Step 3 carried no visible-chat instruction; Steps 1 and 2 do, and 425 has it in all three. | Restored. |
+| w9-2 | ⛔ **Step 3 declared two deposits and never said how to commit them.** Steps 1 and 2 both mandate `git add` **by explicit pathspec** and forbid `git add -A`; 425 carries the rule in its Step 3. **A `git add -A` in a worktree QA step would sweep whatever else the tree holds** — and this plan's Step 2 writes a report into that same tree. | Restored as QA item 5, with the renumber of the `git show --stat` check. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN** after the folds. Matrix now uniform on both properties.
+
+⚠️ **Both gaps are in Step 3, and so was w8-1 — three of the last four findings.** The pattern is not random: **Step 3 was cloned last and least carefully**, and every pass so far has been aimed at the steps that DO something. A QA step that verifies is easy to treat as inert, but it commits files and runs in the same worktree as the step it verifies.
+
+⚠️ **One honest note on the matrix itself:** it also shows where the clone is BETTER than the parent — my Steps 1 and 2 carry the pathspec rule and 425's do not. **A structural diff is not a checklist of the parent's virtues; it is a comparison, and the divergences point both ways.** Recording that so the third pass is not mis-applied as "make it identical to the parent".

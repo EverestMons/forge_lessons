@@ -136,6 +136,7 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 > **Before starting: Step 2's Receipt status must be a PROCEED-value** (allowlist: `Status: Complete`). Anything else → HALT. **Dispatch-state probe first**, same three-place form as Steps 1 and 2 — committed HEAD, working tree, `git log --all`, exit codes captured, probe 3 paired with a positive control. Any hit → RESUME: the QA report may already exist; re-verify rather than regenerate over your own prior output.
 > ⚠️ *(w8-1: this clone had NEITHER — no dispatch probe and no PROCEED gate on Step 3. **425 carries both**, added to fix its own scout finding S1-6; the clone dropped the parent's fix. Without them a bellows re-dispatch re-runs QA with no idempotency branch, and Step 3 would start regardless of whether Step 2 actually succeeded.)*
 >
+> **Post a short visible chat message (1–2 sentences).** You are Lessons Forge QA. *(w9-1: Steps 1 and 2 carry this and Step 3 did not; 425 carries it in all three.)*
 > Canonical DB **read-only** (`?mode=ro`, absolute path). **Verification and reporting only; a failing check is REPORTED, never fixed. No routing.**
 >
 > **QA SELF-CHECK — Rule 20.** Post the block from `/Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md` verbatim under the banner `Rule 20 — QA Self-Check Results`, and close with the literal line `PASSED — SELF-CHECK PASSED`. **Both strings are matched literally by `plan_lint` (c).**
@@ -154,7 +155,8 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 > 4. Confirm **no routing occurred**: **M3** and **M4** both zero, and **M6** still present.
 > 3b. **The pins walk 6 restored:** re-assert **M10** (sentinel entry 345 unchanged) and **M11** (`STALE_COUNT` unchanged); report **M12** raw. ⚠️ *(w7-1: M8–M12 were declared in the table and referenced by NO step — five pins that could not fail. M8/M9 were reachable through prose; M10–M12 were reachable through nothing at all.)*
 > 4b. **The disposition record:** `grep -cF 'DISPOSITION | entry=' <Step-1 dev log>` == `W`, and `grep -Fc` each of `[DEDUP]`, `[REMEDY-GATED]`, `[AUTHOR-CONFLICT]` across the new proposals' `reasoning` fields — ⚠️ **report the first two RAW and gate only `[AUTHOR-CONFLICT]` against M7.** Presence only; adequacy is Gate 1's.
-> 5. `git show --stat <this step's commit>` — assert only the declared deposits changed.
+> 5. **Commit both deposits by EXPLICIT PATHSPEC. Do not `git add -A`.** *(w9-2: Step 3 declared two deposits and never said how to commit them — Steps 1 and 2 both carry the pathspec rule and 425 carries it in Step 3. A `git add -A` here would sweep whatever else the worktree holds.)*
+> 6. `git show --stat <this step's commit>` — assert only the declared deposits changed.
 
 ## Drafting Cycle
 
