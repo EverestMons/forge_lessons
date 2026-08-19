@@ -175,6 +175,19 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 
 ## Drafting Cycle
 
+**Closing:** ⛔ **CEO-DIRECTED DEPOSIT — §2's bar is NOT met.** Eleven walks, **26 findings folded**, last event a FOLD. No walk returned dry. **T1, so §2.6 owes no cold panel.** Assurance is the eleven walks plus `plan_lint` and `propagation_check` run **after every fold**, both green.
+
+**Residue by class:** *instruction* — **none unfolded.** *record* — none outstanding.
+
+**All twelve pins re-verified at the deposit moment, not inherited:** `W` **25** · `P0` **353** · `E0` **370** · NT `{340,342,346,350,352}` · sentinel 345 `8df4331b…` · `STALE_COUNT` **3** · `SURFACEABLE_BASE` **0** · the three reports byte-identical · today's report **ABSENT**. **Every pin holds.**
+
+⚠️ **THE CLONE ORIGIN IS HALTED, AND THREE OF ITS ARTEFACTS WERE DROPPED BY THIS CLONE AND RESTORED HERE** — the `DISPOSITION` line (w5-1), four baseline pins including the sentinel (w6), and Step 3's dispatch probe + PROCEED gate (w8-1, which 425 had added to fix its own scout finding). **A clone-diff needs three passes and walk 0 ran only one:** facts (walk 0, 5 false), artefacts (walk 6, 4 missing), structure (walks 8–9, 3 missing). **Each pass found what the previous one structurally could not.**
+
+⚠️ **The two most transferable findings are defects of REASONS, not instructions, and no check in this shop can see them.** *(w10-2)* proposal 352 — a shipped, CEO-routed rule — **produces the WRONG action here** if applied mechanically to `cycle_date`. *(w11-1)* the plan carried two opposite path rules, both correct, with the generating principle absent; **harmonising either way reproduces a known failure, and one of them is what halted 425.** The rule — *anchor a path where its file lives for git: tracked → worktree, untracked → main* — is one sentence, was derivable from `git ls-files` at any time, and its absence cost a halted plan and a corrective.
+
+⚠️ **Author-conflict disclosure:** five of the `W` entries were written by the Planner on 2026-08-19 and argue for changes the Planner benefits from. **This plan routes nothing** — every proposal leaves `route` NULL and `status` `proposed` (M3, M4), and `[AUTHOR-CONFLICT]` presence is mechanically asserted (M7) while **adequacy is explicitly Gate 1's, which is not the Planner's.**
+
+
 - Weak spots — steps authored from 425's machinery; RESUME defined by the single-commit design, which admits only work list `W` or 0 (w1-6).
 - Destruction — the report directory holds three shipped artifacts, pinned by sha before and after; `output_dir` anchored at the worktree root, which is what halted 425.
 - Vulnerabilities — backtick/apostrophe/double-quote headings force parameter binding; ugrep exit-1; `insert_proposal` does not commit.
