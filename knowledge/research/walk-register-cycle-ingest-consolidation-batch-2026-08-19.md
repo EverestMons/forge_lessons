@@ -121,3 +121,23 @@ Plan: `lessons-forge/knowledge/decisions/drafts/WIP-cycle-ingest-consolidation-b
 **2. w6-3 is the third instance this cycle of one specific shape** — after w1-1 (423's criterion-1 reason false on both operands) and w5-1 (the sentinel outside its population): **a correct conclusion resting on an unstated operand that nobody measured.** The conclusion holds each time; the reasoning does not; and the guard degrades silently the moment the unmeasured operand moves. This cycle has now found it in an inherited fact, in a gate's subject, and in a helper's scope.
 
 **Cycle yield: 6 → 7 → 3 → 3 → 3 → 3.** Pre-existing: 6 → 1 → 3 → 3 → 3 → 1.
+
+## Walk 7 — confirming pass. NOT DRY. ⛔ SHIP-BLOCKER.
+
+**Findings: 2. Instruction-class 2. w7-1 pre-existing (since walk 1); w7-2 fold-introduced by w7-1 and caught by the tool within seconds.**
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w7-1 | ⛔ 5 ACID (5.4 Durability) | ⛔⛔ **THE PLAN'S SINGLE MUTATION WOULD NOT PERSIST.** Step 1b read *"A single `ingest_lesson_entries` call… Nothing else writes"* and **never instructed a commit.** The function leaves the transaction to the caller (`:127`). **Proven on a scratch copy: after the call the connection reports 370 entries; after closing without a commit, a fresh connection reports 345.** The step would run, report a full `inserted` count, and change nothing. ⚠️ **Worse, the gates might not catch it** — G3 asserts `E == N2`, and a read on the *writing* connection sees the uncommitted transaction and returns 370 either way. The plan never specified which connection verifies, so it could pass every gate on a corpus it never changed. | `conn.commit()` made explicit and added to the authorized-writes list; **post-conditions must now be measured on a FRESH read-only connection**, so uncommitted state cannot satisfy them. |
+| w7-2 | 1 Weak spots | My w7-1 fold wrote *"reports `inserted: 25`"* — a bare restatement of `N1`. | Caught by `propagation_check` on the very next run and folded to a symbol. **The tool earning its cost on a fold made seconds earlier.** |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN** after both folds.
+
+⚠️⚠️ **The lineage of w7-1 is the finding behind the finding, and it is a new class for the honing notes: A CORRECTION CAN OPEN A GAP.**
+- **w1-6** wrongly claimed `ingest_lesson_entries` commits, and prescribed a fresh-copy guard.
+- **w3-1** correctly disproved it — three `conn.commit()` hits were docstrings — and fixed the stated reason.
+- **Neither walk asked the consequent question: *if the function does not commit, who does?***
+
+w3-1 **removed a false belief without installing the true requirement it implied**, and the resulting hole sat unnoticed through walks 4, 5 and 6 and two green tool runs on every one of them. A fold that corrects a claim must ask what the corrected claim now *obliges*, because the old false belief may have been the only thing standing where a real requirement belongs.
+
+**Cycle yield: 6 → 7 → 3 → 3 → 3 → 3 → 2.** Pre-existing: 6 → 1 → 3 → 3 → 3 → 1 → 1.

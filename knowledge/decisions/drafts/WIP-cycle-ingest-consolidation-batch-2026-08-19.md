@@ -54,7 +54,7 @@ The corpus is `/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db` 
 
 Any measured value outside its stated expectation → **HALT**, quoting every measured input. **Never repair forward.** On any HALT: commit existing deposit files by explicit pathspec and record the gate, its measured value, and **whether the ingest committed** — that last fact is what a resume needs and what a lost session destroys.
 
-**Authorized writes, and nothing else:** the `.backup`, the single `ingest_lesson_entries` call, and this step's deposits.
+**Authorized writes, and nothing else:** the `.backup`, the single `ingest_lesson_entries` call **and its `conn.commit()`**, and this step's deposits.
 
 ## STEP 1 — Lessons Agent: ingest the batch (NO classification anywhere in this plan)
 
@@ -106,7 +106,13 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 >
 > ### Step 1b — THE ONE MUTATION
 > A single `ingest_lesson_entries` call against the live corpus by absolute path. Nothing else writes.
-> **Post-conditions:** `inserted` == **N1**, `updated` == **N3**, `unchanged` == **N4**, and `E` == **N2**.
+>
+> ⚠️⚠️ **THEN `conn.commit()`. THE INGEST DOES NOT PERSIST WITHOUT IT.** `ingest_lesson_entries` leaves the transaction to the caller (`lessons_forge.py:127` — *"Does NOT call conn.commit()"*). **Measured 2026-08-19 on a scratch copy: after the call the connection reports 370 entries; after closing WITHOUT a commit, a fresh connection reports 345.** Without this line the step runs, reports a full `inserted` count, and **changes nothing.**
+>
+> ⚠️ **Verify the post-conditions on a FRESH CONNECTION, not the writing one.** A read on the writing connection sees the uncommitted transaction and returns the expected values whether or not the commit happened — so same-connection verification can pass on a corpus that was never changed. Close, reopen read-only by absolute path, then assert.
+> *(w7-1. Lineage worth recording: w1-6 wrongly claimed the function commits; w3-1 correctly disproved that — and **removed a false belief without installing the true requirement.** The commit obligation this creates went unstated for four walks. A correction can open a gap.)*
+>
+> **Post-conditions, all measured on the reopened connection:** `inserted` == **N1**, `updated` == **N3**, `unchanged` == **N4** (from the returned dict), and `E` == **N2**.
 >
 > ### Gates G1–G7 (post-mutation, read-only)
 > ⚠️ **G1 and G2 are NOT independent of the mutation, and are safe here only because `N3` is 0.** Traced at walk 3: `ingest_lesson_entries` marks proposals `stale` and flags terminal-status proposals **only inside its UPDATE branch** (`lessons_forge.py:160–194`), and the stale UPDATE explicitly excludes terminal statuses — so it targets exactly the non-terminal set G1 pins. **With `updated == 0` no proposal status can change; if an update ever occurs, G1 failing is the CORRECT behaviour, not corruption.** Read a G1 failure alongside `N3` before treating it as damage. *(w3-2.)*
