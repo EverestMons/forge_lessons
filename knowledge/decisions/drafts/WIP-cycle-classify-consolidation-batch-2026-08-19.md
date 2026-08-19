@@ -133,6 +133,11 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 
 ## STEP 3 — QA
 
+> **Before starting: Step 2's Receipt status must be a PROCEED-value** (allowlist: `Status: Complete`). Anything else → HALT. **Dispatch-state probe first**, same three-place form as Steps 1 and 2 — committed HEAD, working tree, `git log --all`, exit codes captured, probe 3 paired with a positive control. Any hit → RESUME: the QA report may already exist; re-verify rather than regenerate over your own prior output.
+> ⚠️ *(w8-1: this clone had NEITHER — no dispatch probe and no PROCEED gate on Step 3. **425 carries both**, added to fix its own scout finding S1-6; the clone dropped the parent's fix. Without them a bellows re-dispatch re-runs QA with no idempotency branch, and Step 3 would start regardless of whether Step 2 actually succeeded.)*
+>
+> Canonical DB **read-only** (`?mode=ro`, absolute path). **Verification and reporting only; a failing check is REPORTED, never fixed. No routing.**
+>
 > **QA SELF-CHECK — Rule 20.** Post the block from `/Users/marklehn/Developer/GitHub/RULE_20_SELF_CHECK_BLOCK.md` verbatim under the banner `Rule 20 — QA Self-Check Results`, and close with the literal line `PASSED — SELF-CHECK PASSED`. **Both strings are matched literally by `plan_lint` (c).**
 >
 > Verification only. **Evidence must be RAW command output pasted verbatim.**

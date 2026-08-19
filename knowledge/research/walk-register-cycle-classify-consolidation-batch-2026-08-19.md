@@ -138,3 +138,25 @@ Both are the same defect in a declaration/consumer pair, and **each of my folds 
 ⚠️ **The general form, and it is a real gap in this shop's tooling:** `plan_lint` verifies plan STRUCTURE and `propagation_check` verifies that quantities are not RESTATED — **neither asks whether a declared pin has a consumer, or whether a cited pin has a declaration.** That is a bidirectional reachability check over one table, it is ~15 lines, and across two plans it would have caught w2-1 and w7-1 — both of them guards that pass while measuring nothing.
 
 **Recorded for the honing notes as a concrete tool proposal**, not just an observation: extend `propagation_check` with a **pin-reachability detector** — every `| Mn |` row must be referenced by at least one step, and every `§Numbers`-citing sentence must name a symbol that exists.
+
+## Walk 8 — the STRUCTURAL pass. NOT DRY. A third dropped hunk.
+
+**Findings: 1, instruction-class, pre-existing since v0.**
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w8-1 | ⛔ 1 Weak spots (1.1) | ⛔ **Step 3 had NO dispatch-state probe and NO PROCEED gate. 425 carries BOTH** — it added them specifically to fix its own scout finding S1-6 (*"steps 2 and 3 had no dispatch-state probe and no PROCEED gate, so a bellows re-dispatch would re-run the generator with no idempotency branch"*). **The clone carried the parent's fix into Step 2 and dropped it from Step 3.** Consequences: a re-dispatch re-runs QA with no idempotency branch, and Step 3 begins **regardless of whether Step 2 succeeded**. | Both restored, with the omission and its cause recorded in place. Per-step audit now: Step 1 probe ✓, Step 2 probe ✓ + gate ✓, Step 3 probe ✓ + gate ✓. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN**.
+
+⚠️ **THIS IS THE THIRD DROPPED HUNK, AND IT ESCAPED THE PASS BUILT TO CATCH DROPPED HUNKS.**
+- **w5-1** found the `DISPOSITION` line missing — and concluded walk 0's fact-diff cannot see absences.
+- **w6** ran an **artefact pass** over 23 named mechanisms and found four more.
+- **w8-1** was invisible to that artefact pass too, because **"has a dispatch-state probe" is not a keyword — it is a STRUCTURAL PROPERTY OF A STEP.** Enumerating vocabulary finds missing *nouns*; it cannot find a missing *guarantee*.
+
+**So a clone-diff needs three passes, not two:**
+1. **Facts** — are the inherited claims still true? *(walk 0; found 5 false)*
+2. **Artefacts** — which of the parent's named mechanisms are absent? *(walk 6; found 4)*
+3. **Structure** — does each step still have the properties the parent gave every step? *(walk 8; found 1 — and it was the parent's own scout fix)*
+
+Each pass found what the previous one structurally could not. **Recorded for the honing notes**: the third pass is a per-step matrix — dispatch probe, PROCEED gate, scope block, deposits block, post-conditions — cheap to run and mechanically checkable, which makes it a better candidate for tooling than for discipline.
