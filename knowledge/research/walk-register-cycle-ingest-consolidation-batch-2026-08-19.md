@@ -141,3 +141,20 @@ Plan: `lessons-forge/knowledge/decisions/drafts/WIP-cycle-ingest-consolidation-b
 w3-1 **removed a false belief without installing the true requirement it implied**, and the resulting hole sat unnoticed through walks 4, 5 and 6 and two green tool runs on every one of them. A fold that corrects a claim must ask what the corrected claim now *obliges*, because the old false belief may have been the only thing standing where a real requirement belongs.
 
 **Cycle yield: 6 → 7 → 3 → 3 → 3 → 3 → 2.** Pre-existing: 6 → 1 → 3 → 3 → 3 → 1 → 1.
+
+## Walk 8 — first pass over w7-1's surface. NOT DRY.
+
+**Findings: 2. Instruction-class 2. Both descend from walk 7's ship-blocker fold.**
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w8-1 | 5 ACID (5.4) | ⚠️ **w7-1's fresh-connection requirement reached Step 1b's post-conditions and NOTHING ELSE.** G1, G2, G3 and G5 all read live DB state, and **G3 asserts the very same `E == N2`** — so the gate most exposed to the uncommitted-read defect was left with only *"post-mutation, read-only"*, which says nothing about which connection. A gate run on the writing connection returns the expected value whether or not the commit landed. | The fresh-connection rule moved to the **G-gates header**, where every DB-reading gate inherits it, with G3's specific exposure named. |
+| w8-2 | 1 Weak spots (1.2) | **G4 asserted `updated == N3` "from the returned dict" — a value that dies with Step 1's process.** Step 2 could therefore only re-assert it by **trusting Step 1's report**, which is precisely the agent-summary-as-evidence failure QA exists to prevent. `N3` was, in effect, unverifiable in QA. | Re-grounded in **persisted state**: the UPDATE branch sets `ingested_at = now` (`:160–168`), so `COUNT(*) WHERE id <= E0 AND ingested_at > <ingest-start>` must be **0**. Measured at walk 8 — the newest existing `ingested_at` is `2026-08-15T14:39:31`, well before any dispatch, so the probe is unambiguous. The dict cross-check is retained but scoped to Step 1. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN**, both after the folds.
+
+⚠️ **w8-1 is the THIRD instance in this cycle of a fix landing where the defect was noticed and not at the site that acts on the same property** (after w6-1's Cycle Log and w7-1's own lineage). ⚠️ **And it is a direct child of the ship-blocker fold made one walk earlier** — which is the strongest possible argument for the honing-note position that **a fold is an unreviewed edit**: w7-1 was a correct, carefully-reasoned, measured fix that immediately created a new defect one section away.
+
+**A second-order note on w8-2 worth keeping:** the defect was not a wrong value but a **wrong evidence source**. `updated == N3` was true, provable in Step 1, and structurally unprovable in Step 2. **A post-condition that only its own author can verify is not a post-condition** — and nothing in either tool, nor in five prior walks, distinguishes "asserted from a live probe" from "asserted from a value the writer reported".
+
+**Cycle yield: 6 → 7 → 3 → 3 → 3 → 3 → 2 → 2.** Pre-existing: 6 → 1 → 3 → 3 → 3 → 1 → 1 → 0.
