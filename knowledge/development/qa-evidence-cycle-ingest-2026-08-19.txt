@@ -1,0 +1,80 @@
+=== QA EVIDENCE: cycle-ingest-consolidation-2026-08-19 (plan 456, Step 2) ===
+
+--- N1: batch size (entries with id > 345) ---
+sqlite3 -readonly "file:lessons-forge.db?mode=ro" 'SELECT count(*) FROM lesson_entries WHERE id > 345;'
+25
+
+--- N2/G3: corpus count E ---
+sqlite3 -readonly "file:lessons-forge.db?mode=ro" 'SELECT count(*) FROM lesson_entries;'
+370
+
+--- N3/G4: updated = 0 (persisted check) ---
+sqlite3 -readonly "file:lessons-forge.db?mode=ro" "SELECT COUNT(*) FROM lesson_entries WHERE id <= 345 AND ingested_at > '2026-08-19T17:18:13';"
+0
+
+--- N4: unchanged (structural: N7 - N1 - N3 = 313 - 25 - 0) ---
+288
+
+--- N5/G2: proposals count P ---
+sqlite3 -readonly "file:lessons-forge.db?mode=ro" 'SELECT count(*) FROM lesson_proposals;'
+353
+
+--- N6/G1: NT by id ---
+sqlite3 -readonly "file:lessons-forge.db?mode=ro" "SELECT 'NT='||GROUP_CONCAT(id) FROM (SELECT id FROM lesson_proposals WHERE status IN ('proposed','accepted','ambiguous') ORDER BY id);"
+NT=340,342,346,350,352
+
+--- N7: parser total ---
+python3: parse_lessons_md('/Users/marklehn/Developer/GitHub/LESSONS.md')
+313
+
+--- Proposal distribution (SUM = 353 = P0 = N5) ---
+sqlite3 -readonly "file:lessons-forge.db?mode=ro" "SELECT status, count(*) FROM lesson_proposals GROUP BY status ORDER BY count(*) DESC;"
+implemented|282
+superseded|28
+reference|20
+rejected|15
+accepted|5
+stale|3
+
+--- G5: sentinel entry 345 content_hash ---
+sqlite3 -readonly "file:lessons-forge.db?mode=ro" "SELECT content_hash FROM lesson_entries WHERE id = 345;"
+8df4331b1596f12d5498437984ea2dd7ac63959c887a178fc69eda46ed9de962
+
+--- G7: FORWARD baseline ---
+grep -c "^| " knowledge/FORWARD.md
+18
+
+--- STALE_COUNT ---
+sqlite3 -readonly "file:lessons-forge.db?mode=ro" "SELECT count(*) FROM lesson_proposals WHERE status = 'stale';"
+3
+
+--- Backup verification ---
+ls -la /Users/marklehn/Developer/GitHub/lessons-forge/data/backups/lessons-forge-pre-cycle-456-20260819T171437Z.db
+-rw-r--r--  1 marklehn  staff  1507328 Aug 19 12:14 ...lessons-forge-pre-cycle-456-20260819T171437Z.db
+
+sqlite3 -readonly "file:...?immutable=1" 'PRAGMA integrity_check;'
+ok
+
+sqlite3 -readonly "file:...?immutable=1" 'SELECT max(id) FROM lesson_entries;'
+345
+
+sqlite3 -readonly "file:...?immutable=1" 'SELECT max(id) FROM lesson_proposals;'
+353
+
+--- Item 4: get_unclassified_entries ---
+python3: get_unclassified_entries(conn) on read-only connection
+unclassified_count=25
+
+--- Item 5: git show --stat of Step 1 commit ---
+git show --stat 0e99997
+commit 0e999970f4e0e10e2bc55bc8315abd674c610a91
+Author: Mark Lehn <marklehn@icloud.com>
+Date:   Wed Aug 19 12:19:24 2026 -0500
+
+    [456] deposit(cycle-ingest-consolidation): Step 1 complete — 25 entries ingested (345→370), all gates pass
+
+    Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+
+ ...ev-log-cycle-ingest-consolidation-2026-08-19.md | 50 ++++++++++++++++++-
+ .../evidence-cycle-ingest-2026-08-19.txt           | 57 ++++++++++++++++++++++
+ 2 files changed, 106 insertions(+), 1 deletion(-)
