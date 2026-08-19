@@ -203,3 +203,23 @@ Walk 8 found one structural gap by checking one property. This walk ran the **fu
 ⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN**.
 
 ⚠️ **w10-2 is the most transferable finding of this cycle.** Every other defect has been something missing or mis-stated. This one is a **correct, shipped, CEO-routed shop rule that produces a wrong action in a specific context** — and nothing in the drafting cycle asks *"which of our own rules would mislead an agent reading this instruction?"*. The three structural passes check the plan against its parent; the tools check it against itself. **Neither checks it against the shop's standing doctrine, which is precisely what an executing agent brings to it.**
+
+## Walk 11 — doctrine-conflict pass, continued. NOT DRY.
+
+**Findings: 1, instruction-class, pre-existing since v0 — and it is the general rule behind two of this lineage's most expensive failures.**
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w11-1 | ⛔ 4 Integration-vs-record (4.2) | ⛔ **The plan gives TWO OPPOSITE PATH RULES and no principle connecting them.** The corpus DB must be **main-repo absolute**; the report must be **worktree absolute** (`"$(pwd)/reports"`). Both are correct. **Neither is explained.** ⚠️ **An agent that notices the inconsistency has no stated way to resolve it, and harmonising EITHER way breaks something:** DB → worktree loses the work at teardown (the file is absent from a fresh checkout); report → main is **precisely what halted 425**. The plan carried both scars and neither's cause. | ✅ **Measured: `lessons-forge.db` is UNTRACKED; `reports/*.md` are TRACKED.** New §*Path anchoring* states the generating rule — **anchor a path where its file lives for git: tracked → worktree, untracked → main** — with both special cases derived from it. |
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN**.
+
+⚠️ **This is the same shape as w10-2, one level deeper, and together they are the strongest argument in this register for a fourth pass.**
+- **w10-2:** a shipped shop rule (proposal 352) that produces the WRONG action in this context.
+- **w11-1:** two correct local rules with the connecting principle absent, so each reads as arbitrary and invites "correction" into the other's failure mode.
+
+**Both are defects of REASONS, not of instructions.** Every instruction here was right. What was missing was why — and a missing reason is invisible to all five existing checks: `plan_lint` reads structure, `propagation_check` reads restatement, and the facts/artefacts/structure passes all compare against the parent, **which had the same gap.** A clone cannot inherit a reason its parent never wrote down.
+
+**The measured cost of this particular missing reason: one halted plan (425) and a full corrective (427).** The rule that would have prevented it fits in one sentence and was derivable from `git ls-files` at any point in eighteen months.
+
+**Carried to the honing notes** as the fourth pass: *for each instruction that looks arbitrary, is the rule that generates it written down — and would any standing shop doctrine, applied mechanically, contradict it?*

@@ -47,6 +47,20 @@
 
 ✅ **But a LOWER BOUND is derivable and is therefore asserted: `K` ≥ `W`.** `get_unclassified_entries()` returns every entry with no non-stale proposal, so **M1 == 0 means each of the `W` entries acquired at least one** — the bound follows from the inversion rather than from any prediction about the classifier. **Assert `K` ≥ `W` in QA.** *(w4-2: the plan had this guarantee available from its own machinery and was not using it. An unpinnable quantity is not an unconstrained one.)*
 
+## Path anchoring — the rule behind both special cases
+
+⚠️⚠️ **This plan gives two OPPOSITE path rules and, until walk 11, no principle connecting them:**
+- the corpus DB must use an **absolute path rooted at the MAIN repo**;
+- the report must use an absolute path rooted at the **WORKTREE** (`"$(pwd)/reports"`).
+
+**An agent that notices the inconsistency has no stated way to resolve it — and harmonising it EITHER way breaks something.** Making the DB worktree-anchored writes to a file absent from a fresh checkout and loses the work at teardown; making the report main-anchored is **exactly what halted 425**.
+
+✅ **THE DECIDING PROPERTY IS TRACKEDNESS, measured at walk 11:**
+- **`lessons-forge.db` is UNTRACKED** → absent from a fresh worktree → **anchor at MAIN.** Mutations land on the canonical file and survive teardown because they were never in the sandbox.
+- **`reports/*.md` are TRACKED** → present in the worktree → **anchor at `$(pwd)`.** Writes merge back at teardown; writing to main instead leaves an untracked collision the merge refuses.
+
+**Rule: anchor a path where its file LIVES for git.** Tracked → worktree. Untracked → main. *(w11-1: both special cases were in the plan; the rule that generates them was not, so each read as arbitrary and either could be "corrected" into the other's failure mode.)*
+
 ## Scope
 
 Mutates one artifact — the corpus at `/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db` — plus the declared deposits and one new report. ⚠️ **Look-alikes, measured:** `lessons-forge/forge.db` and `lessons-forge/lessons.db` are **0-byte decoys**; `forge/forge.db` is a **real 61.6 MB database from a different project**. Do **not** route any proposal, do **not** re-ingest, do **not** touch `LESSONS.md`, `PLANNER_TEMPLATE.md` or `DRAFTING_CYCLE.md`, and do **not** overwrite any existing report.
