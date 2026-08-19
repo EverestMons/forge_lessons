@@ -61,3 +61,22 @@ Run by enumerating **every path in every probe** and asking which resolve agains
 ⚠️ **Both findings were introduced by walk 2's folds, and walk 2's folds were themselves fixing a fails-open guard.** Three walks in, the pattern in THIS plan is unambiguous: **every fold so far has introduced its own successor.** w1-3/w1-4 → w2-3 → w3-1. The tools catch the restatement class immediately; the path-resolution and defining-property classes need a targeted read, and I only found these two by deliberately enumerating paths rather than reading prose.
 
 ⚠️ **Worth carrying to the honing notes:** the mechanical checks are now demonstrably good at *"is this number stated twice"* and blind to *"does this path resolve where you think"* and *"is this boundary the real property or a coincidence"*. Those two classes have produced **five** findings across plans 456 and this one, every one of them a guard that would have passed while measuring the wrong thing.
+
+## Walk 4 — confirming pass. NOT DRY. ⚠️ Includes a TOOLING near-miss of my own.
+
+**Findings: 2 in the plan, plus 1 process failure by the Planner.**
+
+| id | lens | finding | resolution |
+|---|---|---|---|
+| w4-1 | 1 Weak spots (1.2) | **M2 is unpinnable — `K`, the proposal count, cannot be predicted — yet QA item 1 said "re-run every pin in table order".** An unpinnable row read as a check, so a correct run would have produced an unresolvable QA line. **Identical to plan 456's w4-3**, where a gated status distribution would have false-halted on the CEO's own next action. | M2 marked **RECORD-ONLY**; QA item 1 scoped to **gated** pins. |
+| w4-2 | 5 ACID (5.2 Consistency) | ✅ **The plan had a guarantee available from its own machinery and was not using it.** `get_unclassified_entries()` returns entries with no non-stale proposal, so **M1 == 0 entails that each of the `W` entries acquired at least one** — i.e. **`K` ≥ `W` is DERIVABLE**. The plan declared `K` simply "not predictable" and asserted nothing. **An unpinnable quantity is not an unconstrained one.** | `K` ≥ `W` derived from the inversion and asserted in QA — a real bound that costs no prediction. |
+
+### ⚠️ Planner process failure, recorded because it nearly shipped a half-state
+
+The fold script for w4-1/w4-2 **died at parse time** (a `SyntaxError` from an awkward triple-quoted literal) — so **neither fold applied.** But a *second* script in the same invocation ran successfully and rewrote **QA item 1** to say *"M2 is RECORD-ONLY"*.
+
+**The plan was therefore left asserting, in QA, a property its Numbers table did not state** — a half-state produced by my own tooling, in which the two halves of one fold disagreed. It was caught only because I read the error output instead of the exit line.
+
+**The lesson, and it is not about Python:** *a multi-part fold must apply atomically or not at all.* Both plan 451 and 456 relied on that property — every batch there asserted before writing, so a bad anchor discarded the whole batch. **Here I split one fold across two invocations and lost the atomicity without noticing.** The half-state is closed; the guard is to keep each fold's edits in a single asserted batch.
+
+⛔ **Bar NOT met.** `plan_lint` **exit 0**, `propagation_check` **CLEAN** after the folds — both re-run **after** the half-state was closed, not before.

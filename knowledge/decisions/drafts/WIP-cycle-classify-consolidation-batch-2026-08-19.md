@@ -31,7 +31,7 @@
 | id | pin | before | after | probe |
 |---|---|---|---|---|
 | M1 | **`W`** work list | **25** (ids 346–370, contiguous) | **0** | `len(get_unclassified_entries(conn))` — the inversion, on a FRESH connection |
-| M2 | **`P0`** proposals | **353** | `P0` + `K` — ⚠️ **`K` is NOT predictable and is NOT pinned**; classification may emit 0..n per entry | `select count(*) from lesson_proposals` |
+| M2 | **`P0`** proposals | **353** | `P0` + `K`, and ⚠️ **`K` ≥ `W` is DERIVABLE, not assumed** — see below | `select count(*) from lesson_proposals`. ⚠️ **RECORD-ONLY, not a gate**: `K` is not predictable and must never be pinned to a number *(w4-1: QA is told to re-run every pin, which would make an unpinnable row read as a failed check — the defect plan 456 hit at w4-3 with its status distribution)*. |
 | M3 | route on every NEW proposal | — | **NULL, every one** | `select count(*) from lesson_proposals where id > P0 and route is not null` → **0** |
 | M4 | status on every NEW proposal | — | every one is `proposed` | `select count(*) from lesson_proposals where id > P0 and status <> 'proposed'` → **0** *(w1-4: the bolded-backtick form made `propagation_check` parse `proposed` as a numeric symbol with value 0 and pollute the symbol table)* |
 | M5 | **`E0`** corpus entries | **370** | **370 — UNCHANGED** | this plan classifies; it must not ingest |
@@ -41,6 +41,8 @@
 | M9 | today's report | **ABSENT** | **exists, and is none of M8** | `ls "$(pwd)/reports/lessons-report-2026-08-19.md"` — ⚠️ **worktree-anchored, like M8.** *(w3-1: this pin used a bare relative `reports/…` in the one plan whose clone origin HALTED on worktree path resolution. In a worktree it would measure the sandbox copy; run from main it would measure a different file — and either way it would look like it worked.)* |
 
 ⚠️ **`K` is deliberately unpinned and that is not laziness.** A classifier that must hit a predicted proposal count is a classifier under pressure to fabricate or suppress. **What is pinned is the SHAPE of every proposal it emits (M3, M4, M7), never how many.**
+
+✅ **But a LOWER BOUND is derivable and is therefore asserted: `K` ≥ `W`.** `get_unclassified_entries()` returns every entry with no non-stale proposal, so **M1 == 0 means each of the `W` entries acquired at least one** — the bound follows from the inversion rather than from any prediction about the classifier. **Assert `K` ≥ `W` in QA.** *(w4-2: the plan had this guarantee available from its own machinery and was not using it. An unpinnable quantity is not an unconstrained one.)*
 
 ## Scope
 
@@ -127,7 +129,7 @@ Any measured value outside its stated expectation → **HALT**, quoting every me
 >
 > ⚠️ **`qa_test_result` WILL FAIL and that is STRUCTURAL, not a defect.** Read from `bellows/gates.py:735–777`: the gate fires on any QA step, has **no opt-out**, and requires a line matching `(\d+)\s+passed`. **This plan runs no pytest**, so no correct execution can satisfy it. Plan 456's step-2 verdict adjudicated the identical case. ⚠️ **Supplying a `.txt` does NOT fix it** — that only moves the gate from "no .txt evidence deposit found" to "no parseable pytest summary". Expect the pause; the other gates carry the certification.
 >
-> 1. Re-run every pin in `## Numbers discipline` in table order on a **fresh read-only connection**, printing raw output. Do not restate values here.
+> 1. Re-run every **GATED** pin in `## Numbers discipline` in table order on a **fresh read-only connection**, printing raw output. Do not restate values here. ⚠️ **M2 is RECORD-ONLY** — report `K` raw and assert only the derivable bound `K` ≥ `W`; do not treat an unpinnable row as a failed check. *(w4-1.)*
 > 2. Re-assert **M1** (the inversion) independently of Step 1's report.
 > 3. Re-assert the three report shas from §Numbers — **and that `lessons-report-2026-08-19.md` now exists and is NOT one of them.**
 > 4. Confirm **no routing occurred**: **M3** and **M4** both zero, and **M6** still present.
