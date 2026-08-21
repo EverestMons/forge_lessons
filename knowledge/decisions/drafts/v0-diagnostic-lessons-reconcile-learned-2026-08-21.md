@@ -87,6 +87,14 @@ The log is to record what was implemented, so the queue can shed it. ⚠️ **`l
 - ACID (alone, on the four-lens-folded draft): w3 dry — the sole fold is subtractive and self-referential; it re-opens no earlier fold and changes no probe, count or ordering rule.
 **Walk 3 STATUS:** 1 folded — instruction 1 / record 0 — NOT dry. Yield 6 → 2 → 1.
 
+**Walk 4 — closing walk, lens-by-lens over the whole artifact:**
+- Weak spots (1.4):   w4 dry — every question now carries its own failure mode: Q1 the exact matching method with `content_hash` as the overriding key, Q2 a justified sample and a stated precision bar, Q3b a parser-compatibility check, Q6b the gate on Q3b/Q4, and Q4 an explicit instruction to ARGUE the table-vs-file recommendation rather than inherit it.
+- Destruction (2.4):  w4 dry — write surface is one file inside the worktree; both reads are absolute and read-only (`LESSONS.md` 611,049 bytes and the corpus DB 1,593,344 bytes both re-verified to resolve at this moment); MUST-PRESERVE forbids creating `learned_lessons` (token verified present) and forbids deleting any lesson.
+- Vulnerabilities:    w4 dry — gate surface verified MECHANICALLY, not by eye: `plan_lint` exit 0, `## STEP` count 1, Scope ≡ Deposits 1/1 and set-equal, the deposit path absolute and unconditional, `pause_for_verdict: after_step_1` in the recognized set, and the ANSWER ORDER clause present.
+- Integration-record: w4 dry — the yield series in the STATUS lines (6 → 2 → 1 → 0) matches the per-lens records; the two surviving `v0` mentions sit inside walk records as fold provenance, not as instructions, and the title and banner no longer contradict the plan's deposit-readiness.
+- ACID (alone, on the four-lens-folded draft): w4 dry — no fold re-opens another; the one cross-question dependency (Q6b gates Q3b and Q4) is stated from both ends, in the ANSWER ORDER clause and in Q6b itself.
+**Walk 4 STATUS:** 0 folded — instruction 0 / record 0 — **DRY**. Yield 6 → 2 → 1 → 0; the last event before deposit is a dry pass and the final walk carries zero INSTRUCTION-class findings (§2 bar met on the class test).
+
 ## MUST-PRESERVE
 
 - **READ-ONLY.** This plan proposes and measures. It does not delete a single line of `LESSONS.md`, does not write to the forge DB, and does not create `learned_lessons`. Those are a later, reviewable executable.
