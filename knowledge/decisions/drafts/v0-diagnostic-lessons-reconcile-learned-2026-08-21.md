@@ -95,6 +95,14 @@ The log is to record what was implemented, so the queue can shed it. ⚠️ **`l
 - ACID (alone, on the four-lens-folded draft): w4 dry — no fold re-opens another; the one cross-question dependency (Q6b gates Q3b and Q4) is stated from both ends, in the ANSWER ORDER clause and in Q6b itself.
 **Walk 4 STATUS:** 0 folded — instruction 0 / record 0 — **DRY**. Yield 6 → 2 → 1 → 0; the last event before deposit is a dry pass and the final walk carries zero INSTRUCTION-class findings (§2 bar met on the class test).
 
+**§5 Conformance pass (run at shape-stability, AFTER the dry walk 4; exit codes are the LAST run's):**
+- `plan_lint.py` → **exit 0**, 5 PASS / **0 FAIL**, 2 declared WARNs: (i) *"step 1 mentions tests but declares no test scope"* — fires on the literal word "test"/"detector" prose in a read-only diagnostic that creates no `test_*.py`; header declares `Test Scope: none`. (ii) *"no **Closing:** line"* — cleared by this block. Plus `(o1) missing path` for the findings file this plan CREATES, which is correct.
+- `propagation_check.py` → **exit 2 (COULD NOT RUN)** — no Numbers-discipline symbol table is declared, so detector (1) has nothing to check. Recorded as could-not-run, NOT clean ([[reason-for-not-running-is-itself-a-claim]]).
+- `cycle_check.py` → **BAR_MET**.
+- Cold panel: NOT required — T1 (see the computed tier above). The downstream executables inherit T-6 and will be T2.
+
+**Closing:** Four walks (yield **6 → 2 → 1 → 0**), `cycle_check` CONTINUE ×3 → **BAR_MET**. The cycle's value landed almost entirely in walk 0 and walk 1, before any lens ran on the prose: the plan was staged in the WRONG REPOSITORY (deposit dir determines target project, so its lessons-forge deposits would have resolved outside a bellows worktree), and **both of its primary inputs are unreachable from the worktree it will run in** — the corpus DB is gitignored so it does not exist there, and `LESSONS.md` lives in a different repository. Either would have burned a dispatch. Walk 3 then caught that the plan carried its own v0 scaffolding, including a banner reading "NOT deposit-ready" that the dispatched agent would have read as an instruction not to run. The remaining folds tightened the measurement contract so that a number the agent reports differing from the Planner's means a difference in the DATA, not in the method.
+
 ## MUST-PRESERVE
 
 - **READ-ONLY.** This plan proposes and measures. It does not delete a single line of `LESSONS.md`, does not write to the forge DB, and does not create `learned_lessons`. Those are a later, reviewable executable.
