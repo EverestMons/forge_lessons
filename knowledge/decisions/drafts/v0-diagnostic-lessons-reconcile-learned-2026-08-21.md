@@ -67,6 +67,11 @@ The log is to record what was implemented, so the queue can shed it. ⚠️ **`l
 
 **Role:** DEV (read-only audit). Contract: `/Users/marklehn/Developer/GitHub/READONLY_AUDIT_CONTRACT.md`.
 
+⚠️⚠️ **BOTH OF THIS PLAN'S PRIMARY INPUTS ARE OUTSIDE YOUR WORKTREE — verified 2026-08-21. Read them by ABSOLUTE path and never by a relative one.**
+- **`lessons-forge.db` is untracked AND gitignored**, so it does NOT exist in `.bellows-worktrees/<id>/`. Read it at `file:/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db?mode=ro`. ⚠️ A relative name would CREATE a new empty database and every query would return a confident, empty, WRONG answer — and sibling `forge.db`/`lessons.db` are 0-byte decoys with the same property.
+- **`LESSONS.md` is in the governance ROOT repo** (`/Users/marklehn/Developer/GitHub/LESSONS.md`), a DIFFERENT repository from your target project. It is not in your worktree either.
+- Your worktree is for your DEPOSIT only. Everything you read comes from the main checkouts by absolute path. **Before answering anything, verify both inputs resolve: `ls -la` each and report the byte counts.** If either is missing, STOP — do not proceed with a partial corpus, and do not "helpfully" regenerate one.
+
 **Q1 — Reproduce the reconciliation.** Independently re-derive the 320 / 313 / 250 / 63 / 7 figures above. Report your own numbers; if they differ, yours supersede. State the matching method and its failure modes (the Planner used normalized-heading matching after tag-stripping; `content_hash` may be stronger — evaluate it).
 
 **Q2 — BUILD AND MEASURE THE RETIREMENT DETECTOR. This is the load-bearing question.** For an entry marked `implemented`, decide whether the target artifact REALLY contains the rule. Propose the check, run it over all 250, and report how many PASS, FAIL, and are UNDECIDABLE. Then hand-verify a random sample of 30 by reading both the lesson and the target, and report the detector's PRECISION against that sample. ⚠️ Because the detector now sets a LABEL rather than authorizing a deletion, a moderate precision is workable — but it must still be MEASURED and stated, and entries it cannot decide must be marked `unknown`, never silently `learned`. A query that returns a confidently wrong build list is worse than one that admits uncertainty.
