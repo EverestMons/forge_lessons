@@ -70,6 +70,9 @@ The log is to record what was implemented, so the queue can shed it. ⚠️ **`l
 - Vulnerabilities:    w1 1 folded — instruction 1 (V1 the write path INVERTS the read path: reads must be absolute because the inputs live outside the worktree, but the DEPOSIT must be written relative to cwd INSIDE it — and writing to the main checkout instead passes both `deposit_exists` and `scope_check` silently while the teardown-merge never picks the file up).
 - Integration-record: w1 1 folded — instruction 0 / record 1 (I1 the plan's own account of itself was stale: the v0 authoring notes said walk 0 and the tier computation were "not done" while walk 0 was in fact producing the two ship-blockers above → this block).
 
+- ACID (alone, on the four-lens-folded draft): w1 1 folded — instruction 1 (A1 lens 1's own fold created an ordering defect: the new **Q6b** decides whether the corpus is a system of record or a derived index, which GATES both Q3b's schema and Q4's `learned_lessons` design — but it sits AFTER them in document order, so an agent answering top-to-bottom would bake in the assumption Q6b exists to test. Explicit ANSWER ORDER added, declared authoritative over document order).
+**Walk 1 STATUS:** 6 folded — instruction 5 / record 1 — NOT dry. Two were ship-blockers found before a lens ran (wrong repo; both inputs unreachable from the worktree), and one was damage created by this walk's own first fold.
+
 ## MUST-PRESERVE
 
 - **READ-ONLY.** This plan proposes and measures. It does not delete a single line of `LESSONS.md`, does not write to the forge DB, and does not create `learned_lessons`. Those are a later, reviewable executable.
