@@ -1,10 +1,8 @@
-# ⚠️ v0 DRAFT — lessons-forge — diagnostic: reconcile LESSONS.md against the forge and design the `learned_lessons` log
+# lessons-forge — diagnostic: reconcile LESSONS.md against the forge corpus and design the queryable build queue
 **Date:** 2026-08-21 | **Tier:** Medium | **Dispatch Mode:** bellows | **cycle_tier:** T1 | **Test Scope:** none (read-only diagnostic) | **Execution:** Step 1 (READ-ONLY DIAGNOSTIC) | **Priority:** 1
 
 **auto_close:** false
 **pause_for_verdict:** after_step_1
-
-> ⚠️ **v0 DRAFT — NOT cycled, NOT deposit-ready.** Supersedes `v0-diagnostic-lessons-corpus-routing-2026-08-21.md`, whose premise (build a classification from scratch) was FALSE: the forge already carries one.
 
 ## The objective (CEO, 2026-08-21) — QUERYABILITY, not size
 
@@ -81,6 +79,14 @@ The log is to record what was implemented, so the queue can shed it. ⚠️ **`l
 - ACID (alone, on the four-lens-folded draft): w2 dry — walk 2's two folds both tighten Q1/Q2's measurement contract and touch no other question, no probe, and no path rule; nothing from walk 1 is re-opened.
 **Walk 2 STATUS:** 2 folded — instruction 2 / record 0 — NOT dry. Yield 6 → 2, and both folds are measurement-contract items rather than defects in the plan's substance.
 
+**Walk 3 — closing walk, lens-by-lens over the whole artifact:**
+- Weak spots (1.4):   w3 1 folded — instruction 1 (W3-1 ⚠️ the plan carried its own v0 SCAFFOLDING — a title prefixed `⚠️ v0 DRAFT`, a banner reading **"NOT cycled, NOT deposit-ready"**, and an authoring-notes section labelled "delete before deposit". Deposited unchanged, the dispatched agent would have read an instruction that its own plan must not be run. Scaffolding stripped and the title restated; the record of what the cycle did remains in this block, which is where it belongs).
+- Destruction (2.4):  w3 dry — stripping the scaffolding removed only self-referential prose; no instruction, path, question, deposit or MUST-PRESERVE clause was touched (verified by re-reading the step and gate sections after the cut, per the subtractive-cut discipline).
+- Vulnerabilities:    w3 dry — gate surface re-verified MECHANICALLY after the cut rather than by eye: `plan_lint` exit 0, one `## STEP`, Scope ≡ Deposits at 1/1, the single deposit unconditional, `pause_for_verdict: after_step_1` recognized.
+- Integration-record: w3 dry — with the scaffolding gone the plan's account of itself is now consistent: the Drafting Cycle block records three walks and a computed tier, and nothing in the file still claims the plan is un-cycled.
+- ACID (alone, on the four-lens-folded draft): w3 dry — the sole fold is subtractive and self-referential; it re-opens no earlier fold and changes no probe, count or ordering rule.
+**Walk 3 STATUS:** 1 folded — instruction 1 / record 0 — NOT dry. Yield 6 → 2 → 1.
+
 ## MUST-PRESERVE
 
 - **READ-ONLY.** This plan proposes and measures. It does not delete a single line of `LESSONS.md`, does not write to the forge DB, and does not create `learned_lessons`. Those are a later, reviewable executable.
@@ -131,9 +137,3 @@ The log is to record what was implemented, so the queue can shed it. ⚠️ **`l
 - `/Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/lessons-reconcile-learned-2026-08-21.md`
 
 **Commit:** ⚠️ **WORKTREE DISCIPLINE — the absolute path in Scope/Deposits names the file by IDENTITY, not by the checkout you write to.** You are dispatched into `lessons-forge/.bellows-worktrees/<id>/` and your cwd is that worktree. **Write your findings file at the SAME relative path under YOUR cwd** (`knowledge/research/lessons-reconcile-learned-2026-08-21.md`) and commit it there, in the repo-asserting form: `git -C <your-worktree> add knowledge/research/<file> && git -C <your-worktree> commit -m "..."`. ⚠️ Do NOT write to `/Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/` directly — that is the MAIN checkout, outside your worktree, and `gates._resolve_deposit_path` falls back to "path as-is" while `_check_deposit_uncommitted` swallows the out-of-worktree git error, so writing to the wrong checkout passes both gates SILENTLY and the daemon's teardown-merge never picks your file up. ⚠️ This is the one place the absolute-path rule INVERTS: absolute for everything you READ (both inputs live outside the worktree), relative-to-cwd for the one thing you WRITE. Your final operation is the commit.
-
-## v0 authoring notes (delete before deposit)
-- ✅ Walk 0, tier computation, and walk 1 are DONE (see the Drafting Cycle block). Remaining before deposit: walks to dry, `plan_lint`, `cycle_check`, `propagation_check`.
-- ✅ `lessons-forge/knowledge/research/` verified to exist; the worktree contract is now stated in-step rather than assumed.
-- Q2 is the direction question: if the detector cannot be made precise, the 78% shrink is NOT authorized and this becomes a staged manual retirement. Treat that as a possible §2.0 RE-DRAFT trigger, not a fold.
-- Consider whether Q6 should split into its own plan — the taxonomy leak is arguably more valuable than the shrink, and bundling may trip `ESCALATE:yield-rising` as the paired wrap-hook plan did.
