@@ -102,7 +102,7 @@ The log is to record what was implemented, so the queue can shed it. ⚠️ **`l
 **Deposits:**
 - `/Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/lessons-reconcile-learned-2026-08-21.md`
 
-**Commit:** `git -C /Users/marklehn/Developer/GitHub/lessons-forge add <abs> && git -C ... commit -m "..."`. Edit and commit INSIDE your worktree. Your final operation is the commit.
+**Commit:** ⚠️ **WORKTREE DISCIPLINE — the absolute path in Scope/Deposits names the file by IDENTITY, not by the checkout you write to.** You are dispatched into `lessons-forge/.bellows-worktrees/<id>/` and your cwd is that worktree. **Write your findings file at the SAME relative path under YOUR cwd** (`knowledge/research/lessons-reconcile-learned-2026-08-21.md`) and commit it there, in the repo-asserting form: `git -C <your-worktree> add knowledge/research/<file> && git -C <your-worktree> commit -m "..."`. ⚠️ Do NOT write to `/Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/` directly — that is the MAIN checkout, outside your worktree, and `gates._resolve_deposit_path` falls back to "path as-is" while `_check_deposit_uncommitted` swallows the out-of-worktree git error, so writing to the wrong checkout passes both gates SILENTLY and the daemon's teardown-merge never picks your file up. ⚠️ This is the one place the absolute-path rule INVERTS: absolute for everything you READ (both inputs live outside the worktree), relative-to-cwd for the one thing you WRITE. Your final operation is the commit.
 
 ## v0 authoring notes (delete before deposit)
 - Not done: walk 0, any lens walk, `plan_lint`, `cycle_check`, tier computed against §1.
