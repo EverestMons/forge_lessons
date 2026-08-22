@@ -1,0 +1,10 @@
+{
+  "plan_lint": {
+    "exit": 0,
+    "signals": [
+      "(o1) WARN: missing path `knowledge/research/annotation-mapping-N-N-N.tsv`",
+      "(o1) WARN: missing path `scripts/detect_learned.py`",
+      "PIN-CHECK: kind=sha256 line=N token=e0cb0005660c\u2026 result=ok"
+    ]
+  }
+}
