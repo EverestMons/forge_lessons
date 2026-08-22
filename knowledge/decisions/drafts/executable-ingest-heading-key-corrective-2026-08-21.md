@@ -50,6 +50,14 @@ Consume the whitespace PRECEDING a marker; `rstrip` the tail; never touch intern
 - ACID (alone, on the four-lens-folded draft): w1 dry — the two folds are independent (one makes an assertion robust, one orders the test-writing) and neither touches the correction itself, which stayed byte-identical to the Planner-verified form throughout.
 **Walk 1 STATUS:** 2 folded — instruction 2 / record 0 — NOT dry. Both folds prevent a FALSE result: one a false failure on correct code, the other a false pass from a guard that never discriminated.
 
+**Walk 2 — lens-by-lens over the whole artifact:**
+- Weak spots (1.4):   w2 1 folded — instruction 1 (W2-1 the walk-1 fold mandates a deliberately FAILING pytest run, and pytest exits non-zero — an agent can reasonably read that as a blocker and halt, or "fix" the test to green it, destroying the guard. Labelled as expected, with `|| true` capture and an explicit do-not-halt).
+- Destruction (2.4):  w2 dry — checked the hypothesis that a deliberate red run trips a gate, and DISMISSED it on evidence: `_gate_no_errors` keys on `parsed["is_error"]` (`gates.py:253-254`), the agent's overall result flag, not per-command exit codes. Recorded so the concern is not re-spent.
+- Vulnerabilities:    w2 dry — the plan's own numbers are now either computed at run time (assertion ii) or stated as authoring-time signals; no gate in this plan asserts a hard-coded corpus figure that time can invalidate.
+- Integration-record: w2 dry — the DEV sequence (guard → red → fix → green) and the QA A/B are consistent: both exist to distinguish the correction's effect from pre-existing drift, which is the single lesson halted-499 produced.
+- ACID (alone, on the four-lens-folded draft): w2 dry — the fold adds framing around an existing instruction and changes no assertion, path or expectation.
+**Walk 2 STATUS:** 1 folded — instruction 1 / record 0 — NOT dry. Yield 2 → 1.
+
 ## STEP 1 — DEV: correct the normalizer
 
 **Role:** DEV. ⚠️ You run in a worktree — edit and commit INSIDE it at the same relative paths. The corpus DB is untracked and absent from your worktree; you do not need it here.
@@ -61,7 +69,7 @@ Consume the whitespace PRECEDING a marker; `rstrip` the tail; never touch intern
    - `[tag: ...]` survives; `[status:]`/`[target:]` are removed; matching is case-insensitive.
    - Internal double-spacing is PRESERVED (the regression guard — this test fails against 499's version).
    - A marker at the START or MIDDLE of a heading does not leave a doubled space.
-3. ⚠️ **ORDER MATTERS — write the regression guard BEFORE applying the fix, and watch it fail.** Sequence: (a) add the internal-double-spacing test to `src/test_lessons_forge.py` while the code is still at `7e8b2a2`; (b) run it and paste the raw FAILING output — this proves the guard actually discriminates; (c) apply the correction from the Context; (d) re-run and paste the raw PASSING output. A guard written after the fix and only ever observed green guards nothing ([[earn-the-clean-gate-dont-author-it]]). Both outputs go in your Receipt.
+3. ⚠️ **ORDER MATTERS — write the regression guard BEFORE applying the fix, and watch it fail.** Sequence: (a) add the internal-double-spacing test to `src/test_lessons_forge.py` while the code is still at `7e8b2a2`; (b) run it and paste the raw FAILING output — this proves the guard actually discriminates. ⚠️ **That failing run is EXPECTED and is not a step failure.** pytest will exit non-zero; do NOT read that as a blocker, do not halt on it, and do not "fix" the test to make it pass at this stage. Capture it (`... || true`) and label it in your Receipt as the deliberate pre-fix observation. (Checked: the `no_errors` gate keys on the agent's overall `is_error` flag, `gates.py:253-254`, not on individual command exits — so a deliberate red run does not trip it.); (c) apply the correction from the Context; (d) re-run and paste the raw PASSING output. A guard written after the fix and only ever observed green guards nothing ([[earn-the-clean-gate-dont-author-it]]). Both outputs go in your Receipt.
 
 **Scope:**
 - `/Users/marklehn/Developer/GitHub/lessons-forge/src/lessons_forge.py`
