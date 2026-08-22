@@ -31,6 +31,14 @@ Diagnostic-498 designed a queryable schema for `LESSONS.md`: each entry gains `[
 2. Pre-edit pins (agent RE-VERIFIES): three call sites as listed; `_EM_DASH_SEP` used at `:375`; `src/test_lessons_forge.py` exists as the test home.
 3. All 370 existing `source_heading` values contain NO `[status:`/`[target:` markers, so the normalizer is the identity function on today's data — the migration is a no-op and existing rows keep matching.
 
+**Walk 1 — warm lens-by-lens, folds applied:**
+- Weak spots (1.4):   w1 1 folded — instruction 1 (W1 **`source_file` is a KEY, not a path** (`:121`, default `"LESSONS.md"`): the canary said "run the ingest against the copied DB" without pinning it, and passing the copy's filesystem path would make EVERY row miss — `inserted` 320 instead of 0 — failing the canary on correct code. Now pinned to the literal, with the parse entry point `parse_lessons_md` named).
+- Destruction (2.4):  w1 1 folded — instruction 1 (D1 `src/test_lessons_forge.py` carries **28** `source_heading` references, several asserting the stored value round-trips (`:339-340`) or comparing parsed headings (`:229`/`:233`/`:256`). Canonicalizing what the INSERT stores can legitimately break them, so forced updates are expected and each diff must be verified as ONLY the forced change — with an explicit STOP if a test breaks for any other reason. This is the split-pair `scope_check` class caught earlier today, applied before it fires).
+- Vulnerabilities:    w1 1 folded — instruction 1 (V1 the canary's scratch DB and annotated `LESSONS.md` copies had no location constraint; inside the worktree they become unnamed changed files that trip `scope_check` on a clean step, and a 1.6 MB binary could reach a commit → scratch goes to the step's tmp dir, outside the repo).
+- Integration-record: w1 dry — Scope ≡ Deposits per step (2/2, 3/3), the QA step's Deposits block carries a literal `.txt`, the Rule 20 banner pair is present verbatim, and the three call sites in the Context match the three in Step 1. `plan_lint` exit 0 / 8 PASS / 0 FAIL on the first authoring pass.
+- ACID (alone, on the four-lens-folded draft): w1 dry — the three folds are independent (a key-semantics pin, a test-breakage expectation, a scratch-location rule); none touches another's probe, and none re-opens the walk-0 finding that the normalizer is the identity on all 370 existing rows.
+**Walk 1 STATUS:** 3 folded — instruction 3 / record 0 — NOT dry. All three would have produced a false failure or a gate trip on otherwise-correct execution.
+
 ## STEP 1 — DEV: normalize the heading key at all three sites
 
 **Role:** DEV. ⚠️ You run in a worktree (`lessons-forge/.bellows-worktrees/<id>/`) — edit and commit INSIDE it, using the same relative paths. The corpus DB is untracked and therefore ABSENT from your worktree; you do not need it, and you must not reach out to the live one.
