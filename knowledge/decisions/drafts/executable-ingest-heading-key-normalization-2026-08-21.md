@@ -47,6 +47,22 @@ Diagnostic-498 designed a queryable schema for `LESSONS.md`: each entry gains `[
 - ACID (alone, on the four-lens-folded draft): w2 dry — the single fold narrows a justification and adds a bound; it touches no probe, no assertion and no path rule, and re-opens nothing.
 **Walk 2 STATUS:** 1 folded — instruction 1 / record 0 — NOT dry. Yield 3 → 1.
 
+**Walk 3 — closing walk, lens-by-lens over the whole artifact:**
+- Weak spots (1.4):   w3 dry — every instruction that could fail silently now names its failure: the `source_file` key semantics, the 28 test references, the scratch-location rule, the site-3 bound, and the canary's five separately-reported assertions.
+- Destruction (2.4):  w3 dry — the live corpus is protected three ways: MUST-PRESERVE forbids touching it, all exercises run against a `cp` copy in tmp, and QA item 3 proves it byte-identical with a before/after `shasum`. A verified restorable snapshot exists independently.
+- Vulnerabilities:    w3 dry — gate surface verified MECHANICALLY, not by eye: `plan_lint` exit 0 / 8 PASS / 0 FAIL, `## STEP` count 2, Scope ≡ Deposits per step (2/2, 3/3) and set-equal with absolute paths, the QA Deposits block carries both `.txt` files, the Rule 20 banner pair is verbatim, and Step 1's items renumber contiguously 1-7 after the walk-1 insertion.
+- Integration-record: w3 dry — the walk-0 no-op guarantee RE-VERIFIED against live data at closing rather than trusted from walk 0: `select count(*) ... where source_heading like '%[status:%' or '%[target:%'` returns **0**, so the normalizer is provably the identity on all 370 existing rows and the migration cannot alter stored data.
+- ACID (alone, on the four-lens-folded draft): w3 dry — no fold re-opens another; the one cross-section dependency (site 1 canonicalizing on INSERT is what makes site 3 an identity) is stated in both places and consistently.
+**Walk 3 STATUS:** 0 folded — instruction 0 / record 0 — **DRY**. Yield 3 → 1 → 0; the last event before deposit is a dry pass and the final walk carries zero INSTRUCTION-class findings (§2 bar met).
+
+**§5 Conformance pass (run at shape-stability, AFTER the dry walk 3; exit codes are the LAST run's):**
+- `plan_lint.py` → **exit 0**, 8 PASS / **0 FAIL**.
+- `propagation_check.py` → exit 2 (COULD NOT RUN) — no Numbers-discipline symbol table declared; recorded as could-not-run, NOT clean.
+- `cycle_check.py` → **BAR_MET**.
+- Cold panel: NOT required — T1 (computed above).
+
+**Closing:** Three walks (yield **3 → 1 → 0**), `cycle_check` CONTINUE ×2 → **BAR_MET**. Every walk-1 fold prevented a FALSE FAILURE on otherwise-correct execution rather than a defect in the fix itself: `source_file` is a key not a path (the canary would have reported 320 insertions instead of 0), 28 existing test references make forced test edits expected rather than scope creep, and scratch artifacts left inside the worktree would trip `scope_check`. Walk 2 then corrected site 3's justification — it is defence-in-depth, not a requirement — and bounded the search so the change cannot creep to a fourth site. The fix itself stayed three lines of intent throughout; the cycle's whole yield was in making its verification honest.
+
 ## STEP 1 — DEV: normalize the heading key at all three sites
 
 **Role:** DEV. ⚠️ You run in a worktree (`lessons-forge/.bellows-worktrees/<id>/`) — edit and commit INSIDE it, using the same relative paths. The corpus DB is untracked and therefore ABSENT from your worktree; you do not need it, and you must not reach out to the live one.
