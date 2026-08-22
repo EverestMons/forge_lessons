@@ -49,6 +49,14 @@ def _normalize_for_hash(raw_content: str) -> str:
     return "\n".join(lines)
 
 
+_STATUS_TARGET_MARKER_RE = re.compile(r'\[(?:status|target):[^\]]*\]', re.IGNORECASE)
+
+
+def _key_heading(heading: str) -> str:
+    cleaned = _STATUS_TARGET_MARKER_RE.sub('', heading)
+    return re.sub(r'\s+', ' ', cleaned).strip()
+
+
 def parse_lessons_md(path: str) -> list[dict]:
     """
     Parse LESSONS.md into a list of entry dicts.
@@ -136,10 +144,11 @@ def ingest_lesson_entries(conn: sqlite3.Connection, entries: list[dict],
     }
 
     for entry in entries:
+        canonical_heading = _key_heading(entry["source_heading"])
         row = conn.execute(
             "SELECT id, content_hash FROM lesson_entries "
             "WHERE source_file = ? AND source_heading = ?",
-            (source_file, entry["source_heading"]),
+            (source_file, canonical_heading),
         ).fetchone()
 
         if row is None:
@@ -148,7 +157,7 @@ def ingest_lesson_entries(conn: sqlite3.Connection, entries: list[dict],
                 "INSERT INTO lesson_entries "
                 "(source_file, source_heading, entry_date, raw_content, content_hash, tags, ingested_at) "
                 "VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (source_file, entry["source_heading"], entry["entry_date"],
+                (source_file, canonical_heading, entry["entry_date"],
                  entry["raw_content"], entry["content_hash"], entry["tags"], now),
             )
             result["inserted"] += 1
@@ -369,6 +378,7 @@ def detect_duplicates(conn: sqlite3.Connection, entry_ids: list[int],
             continue
 
         source_heading, tags = row
+        source_heading = _key_heading(source_heading)
         matched = False
 
         # Extract descriptive title from heading
@@ -468,7 +478,7 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
     for entry in entries:
         row = conn.execute(
             "SELECT id FROM lesson_entries WHERE source_file = ? AND source_heading = ?",
-            ("LESSONS.md", entry["source_heading"]),
+            ("LESSONS.md", _key_heading(entry["source_heading"])),
         ).fetchone()
         if row:
             candidate_ids.append(row[0])

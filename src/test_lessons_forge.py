@@ -24,6 +24,7 @@ from src.lessons_forge import (
     run_full_lessons_cycle,
     generate_lessons_report,
     _normalize_for_hash,
+    _key_heading,
     _TERMINAL_STATUSES,
 )
 
@@ -1513,3 +1514,116 @@ def test_trailing_separator_only_delta_zero_stales():
     finally:
         os.unlink(path2)
         conn.close()
+
+
+# --- Heading key normalization tests (plan 499) ---
+
+_CLEAN_HEADING_MD = """\
+# Lessons
+
+## 2026-04-10 — Test lesson about planning
+
+**Source:** Unit test fixture.
+
+**Lesson:** Plans should be small and focused.
+
+**Tag:** planner-discipline
+
+---
+
+## Archived entries (integrated into permanent homes)
+"""
+
+_ANNOTATED_HEADING_MD = """\
+# Lessons
+
+## 2026-04-10 — Test lesson about planning [status: learned] [target: PLANNER_TEMPLATE.md]
+
+**Source:** Unit test fixture.
+
+**Lesson:** Plans should be small and focused.
+
+**Tag:** planner-discipline
+
+---
+
+## Archived entries (integrated into permanent homes)
+"""
+
+
+def test_annotated_heading_matches_existing_row():
+    """(a)(b) Heading with [status:] [target:] markers matches existing row,
+    reports unchanged (not updated), inserts nothing, marks no proposal stale."""
+    conn = _setup()
+
+    path1 = _write_fixture(_CLEAN_HEADING_MD)
+    try:
+        entries1 = parse_lessons_md(path1)
+        result1 = ingest_lesson_entries(conn, entries1)
+        conn.commit()
+        assert result1["inserted"] == 1
+    finally:
+        os.unlink(path1)
+
+    entry_id = conn.execute("SELECT id FROM lesson_entries").fetchone()[0]
+    insert_proposal(conn, entry_id, "governance_rule", "Add rule", "Needed",
+                    "high", status="implemented")
+    conn.commit()
+
+    path2 = _write_fixture(_ANNOTATED_HEADING_MD)
+    try:
+        entries2 = parse_lessons_md(path2)
+        result2 = ingest_lesson_entries(conn, entries2)
+
+        assert result2["inserted"] == 0, "Annotated heading must match existing row"
+        assert result2["unchanged"] == 1, "Body unchanged → unchanged"
+        assert result2["updated"] == 0
+        assert result2["stale_proposals_marked"] == 0
+
+        count = conn.execute("SELECT COUNT(*) FROM lesson_entries").fetchone()[0]
+        assert count == 1
+    finally:
+        os.unlink(path2)
+        conn.close()
+
+
+def test_key_heading_preserves_tag_markers():
+    """(c) [tag: ...] markers survive normalization and still participate in matching."""
+    heading_with_tag = "2026-04-10 — Lesson [tag: governance]"
+    assert _key_heading(heading_with_tag) == heading_with_tag
+
+    heading_mixed = "2026-04-10 — Lesson [tag: governance] [status: learned] [target: X]"
+    assert _key_heading(heading_mixed) == "2026-04-10 — Lesson [tag: governance]"
+
+
+def test_heading_with_markers_correct_heading_title():
+    """(d) A heading with markers still yields the correct heading_title at site 3."""
+    conn = _setup()
+    conn.execute(
+        "INSERT INTO lesson_entries "
+        "(source_file, source_heading, raw_content, content_hash, tags, ingested_at) "
+        "VALUES ('LESSONS.md', '2026-04-10 — Test lesson [status: learned] [target: X]', "
+        "'body', 'hash1', NULL, '2026-04-10')"
+    )
+    entry_id = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+    ref_path = _write_ref_file("This document discusses Test lesson in detail.\n")
+    try:
+        result = detect_duplicates(conn, [entry_id], reference_files=[ref_path])
+        assert len(result) == 1
+        assert result[0]["match_reason"] == "heading_substring_match"
+    finally:
+        os.unlink(ref_path)
+        conn.close()
+
+
+def test_key_heading_identity_no_markers():
+    """(e) _key_heading is identity on headings with no markers (370-row no-op guarantee)."""
+    headings = [
+        "2026-04-10 — First test lesson about planning",
+        "2026-04-12 — Second lesson with no tags",
+        "2026-05-01 — No proposal [tag: governance-meta]",
+        "2026-04-01 — Test entry",
+    ]
+    for h in headings:
+        assert _key_heading(h) == h, f"_key_heading should be identity for {h!r}"
