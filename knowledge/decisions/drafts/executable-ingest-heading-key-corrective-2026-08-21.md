@@ -58,6 +58,21 @@ Consume the whitespace PRECEDING a marker; `rstrip` the tail; never touch intern
 - ACID (alone, on the four-lens-folded draft): w2 dry — the fold adds framing around an existing instruction and changes no assertion, path or expectation.
 **Walk 2 STATUS:** 1 folded — instruction 1 / record 0 — NOT dry. Yield 2 → 1.
 
+**Walk 3 — closing walk, lens-by-lens over the whole artifact:**
+- Weak spots (1.4):   w3 dry — every assertion is either computed at run time or explicitly labelled an authoring-time signal; every instruction that could be misread (the red run, the three untouched call sites, `source_file` as a key) carries its own warning.
+- Destruction (2.4):  w3 dry — the live corpus is protected four ways: MUST-PRESERVE forbids touching it, all exercises use `cp` copies in TMP outside the repo, QA item 3 proves it byte-identical by `shasum`, and a verified restorable snapshot exists independently.
+- Vulnerabilities:    w3 dry — gate surface verified MECHANICALLY: `plan_lint` exit 0 / 8 PASS / 0 FAIL, `## STEP` count 2, Scope ≡ Deposits (2/2, 3/3) and set-equal, and zero hard-coded `== 11` assertions remain after the walk-1 fold.
+- Integration-record: w3 dry — the correction quoted in Context is byte-identical to the one the Planner verified (0 of 370 stored headings changed), and Step 1 instructs replacing exactly the regex and the function, nothing else.
+- ACID (alone, on the four-lens-folded draft): w3 dry — no fold re-opens another; the DEV red-then-green sequence and the QA A/B are complementary, not overlapping, and neither touches the three committed call sites.
+**Walk 3 STATUS:** 0 folded — instruction 0 / record 0 — **DRY**. Yield 2 → 1 → 0; the last event before deposit is a dry pass and the final walk carries zero INSTRUCTION-class findings (§2 bar met).
+
+**§5 Conformance pass (AFTER the dry walk 3; exit codes are the LAST run's):**
+- `plan_lint.py` → **exit 0**, 8 PASS / **0 FAIL**.
+- `propagation_check.py` → exit 2 (COULD NOT RUN) — no symbol table declared; recorded as could-not-run, NOT clean.
+- `cycle_check.py` → **BAR_MET**. Cold panel: not required (T1, computed).
+
+**Closing:** Three walks (yield **2 → 1 → 0**), CONTINUE ×2 → **BAR_MET**. This is the exec-490→492 shape: a stop on a clean gate, then a corrective that changes only what was wrong. Both walk-1 folds prevented a FALSE RESULT rather than a defect in the correction — a hard-coded `inserted == 11` would have failed on correct code the moment another entry was appended, and a regression guard written after the fix would never have discriminated. The correction itself was Planner-verified against all 370 stored headings before it entered the plan and stayed byte-identical through every walk.
+
 ## STEP 1 — DEV: correct the normalizer
 
 **Role:** DEV. ⚠️ You run in a worktree — edit and commit INSIDE it at the same relative paths. The corpus DB is untracked and absent from your worktree; you do not need it here.
