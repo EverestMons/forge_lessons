@@ -42,6 +42,14 @@ Consume the whitespace PRECEDING a marker; `rstrip` the tail; never touch intern
 2. Pre-edit pins (agent RE-VERIFIES): `_STATUS_TARGET_MARKER_RE` at `:52`, `_key_heading` at `:55-57`, call sites at `:147`, `:381`, `:481`. Baseline commit `7e8b2a2`.
 3. The identity property is the acceptance criterion, and it is measurable: over the 370 stored headings the corrected normalizer must change **0**.
 
+**Walk 1 — warm lens-by-lens, folds applied:**
+- Weak spots (1.4):   w1 1 folded — instruction 1 (W1 assertion (ii) hard-coded `inserted == 11`, but 11 is 324 parsed minus 313 matching and is TIME-SENSITIVE — appending one entry to `LESSONS.md` makes it 12 and the canary fails on correct code. Now COMPUTED at run time from both sides, with 11 kept only as an authoring-time sanity signal, and the ~40-row gap named as the did-not-land signature. [[plan-predicted-numbers-need-verify-clause]]).
+- Destruction (2.4):  w1 1 folded — instruction 1 (D1 "verify the guard fails against the old implementation" had no executable sequence — the old implementation IS current HEAD, so the only clean way is to write the test FIRST and watch it fail. Ordered explicitly: add the guard at `7e8b2a2`, paste the FAILING output, then fix, then paste the PASSING output. A guard authored after the fix and only ever seen green discriminates nothing).
+- Vulnerabilities:    w1 dry — gate surface: `plan_lint` exit 0 / 8 PASS / 0 FAIL; Scope ≡ Deposits per step (2/2, 3/3); the QA Deposits block carries both `.txt` files; the Rule 20 banner pair is verbatim; every deposit is produced on every path.
+- Integration-record: w1 dry — the Context's measured figures (40 double-space rows, 51 vs 11, 313/324, 370-row identity) are consistent with the QA assertions that test them, and with the halted-499 verdict they derive from; the "do not touch the three call sites" rule appears in both MUST-PRESERVE and Step 1.
+- ACID (alone, on the four-lens-folded draft): w1 dry — the two folds are independent (one makes an assertion robust, one orders the test-writing) and neither touches the correction itself, which stayed byte-identical to the Planner-verified form throughout.
+**Walk 1 STATUS:** 2 folded — instruction 2 / record 0 — NOT dry. Both folds prevent a FALSE result: one a false failure on correct code, the other a false pass from a guard that never discriminated.
+
 ## STEP 1 — DEV: correct the normalizer
 
 **Role:** DEV. ⚠️ You run in a worktree — edit and commit INSIDE it at the same relative paths. The corpus DB is untracked and absent from your worktree; you do not need it here.
