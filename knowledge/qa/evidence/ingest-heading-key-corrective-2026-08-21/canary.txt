@@ -1,0 +1,84 @@
+TMP dir: /var/folders/vf/8nw0z7hj1m34w6z48l5dp54w0000gn/T/canary_500_jt64p_1x
+Headings to annotate in ARM B:
+  2026-06-02: "Known-good" plan headers have a freshness axis — a header that pars...
+  2026-06-02: Never edit a project's working tree while a Bellows plan is in-fligh...
+  2026-06-02: A QA "full suite passes / N passing" headline is the least independe...
+
+============================================================
+ARM A — CONTROL (unannotated)
+============================================================
+  parsed entries: 324
+  inserted:       11
+  updated:        0
+  unchanged:      313
+  stale_proposals_marked: 0
+  stored headings (pre-ingest): 370
+  exact_heading_matches: 313
+  expected_inserted (parsed - matches): 11
+  implemented proposals: 282
+
+============================================================
+ARM B — TREATMENT (3 headings annotated)
+============================================================
+  annotated: 2026-06-02: "Known-good" plan headers have a freshness axis — a header that pars...
+  annotated: 2026-06-02: Never edit a project's working tree while a Bellows plan is in-fligh...
+  annotated: 2026-06-02: A QA "full suite passes / N passing" headline is the least independe...
+  parsed entries: 324
+  inserted:       11
+  updated:        0
+  unchanged:      313
+  stale_proposals_marked: 0
+  stored headings (pre-ingest): 370
+  exact_heading_matches: 313
+  expected_inserted (parsed - matches): 11
+  implemented proposals: 282
+
+============================================================
+ASSERTION (iv) — annotated entries resolve to original row ids
+============================================================
+  heading: 2026-06-02: "Known-good" plan headers have a freshness axis ...
+    original id: 94, treatment id: 94, match: True
+  heading: 2026-06-02: Never edit a project's working tree while a Bell...
+    original id: 95, treatment id: 95, match: True
+  heading: 2026-06-02: A QA "full suite passes / N passing" headline is...
+    original id: 96, treatment id: 96, match: True
+  ASSERTION (iv): PASSED -- all 3 annotated entries map to original row ids
+
+============================================================
+ASSERTION (v) — identity property: _key_heading(h) == h for all stored headings
+============================================================
+  381/381 headings pass identity property
+  ASSERTION (v): PASSED -- 381/381
+
+============================================================
+ASSERTION RESULTS
+============================================================
+
+  (i) arm_B.inserted == arm_A.inserted
+      arm_A.inserted = 11
+      arm_B.inserted = 11
+      delta = 0
+      PASSED
+
+  (ii) arm_A.inserted == (parsed_entries - exact_heading_matches)
+       parsed_entries        = 324
+       exact_heading_matches = 313
+       expected_inserted     = 11
+       actual_inserted       = 11
+       PASSED
+       Authoring-time signal (expected ~11): 11 -- MATCHES
+
+  (iii) stale_proposals_marked == 0 in both arms
+        arm_A: 0
+        arm_B: 0
+        PASSED
+
+  (iv) annotated entries resolve to original row ids
+       PASSED (verified above)
+
+  (v) identity: _key_heading(h) == h for all 381 stored headings
+      PASSED -- 381/381
+
+============================================================
+ALL ASSERTIONS PASSED
+============================================================
