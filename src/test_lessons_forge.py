@@ -1617,13 +1617,79 @@ def test_heading_with_markers_correct_heading_title():
         conn.close()
 
 
-def test_key_heading_identity_no_markers():
-    """(e) _key_heading is identity on headings with no markers (370-row no-op guarantee)."""
+def test_key_heading_preserves_internal_double_spacing():
+    """(500) Regression guard: _key_heading must not collapse internal whitespace.
+    House style puts two spaces before the first [tag: ...] marker."""
+    headings_with_double_space = [
+        "2026-04-10 — Lesson about planning  [tag: governance-meta]",
+        "2026-05-01 — Another lesson  [tag: planner-discipline]",
+        "2026-06-15 — Multi-tag entry  [tag: a] [tag: b]",
+    ]
+    for h in headings_with_double_space:
+        assert _key_heading(h) == h, (
+            f"_key_heading must preserve internal whitespace; "
+            f"got {_key_heading(h)!r} for {h!r}"
+        )
+
+
+def test_key_heading_identity_fixture():
+    """(500) Identity property: _key_heading(h) == h for headings with no status/target
+    markers, INCLUDING double-space examples in the house style."""
     headings = [
         "2026-04-10 — First test lesson about planning",
         "2026-04-12 — Second lesson with no tags",
         "2026-05-01 — No proposal [tag: governance-meta]",
         "2026-04-01 — Test entry",
+        "2026-06-01 — House style  [tag: planner-discipline]",
+        "2026-06-02 — Another example  [tag: governance-meta]",
+        "2026-07-01 — Triple   spacing edge case",
     ]
     for h in headings:
-        assert _key_heading(h) == h, f"_key_heading should be identity for {h!r}"
+        assert _key_heading(h) == h, (
+            f"_key_heading must be identity; got {_key_heading(h)!r} for {h!r}"
+        )
+
+
+def test_key_heading_annotated_matches_unannotated():
+    """(500) Annotated heading produces the SAME key as its unannotated form."""
+    pairs = [
+        (
+            "2026-04-10 — Lesson about planning [status: learned]",
+            "2026-04-10 — Lesson about planning",
+        ),
+        (
+            "2026-04-10 — Lesson [tag: gov] [status: learned] [target: X.md]",
+            "2026-04-10 — Lesson [tag: gov]",
+        ),
+        (
+            "2026-05-01 — Entry  [tag: a] [status: done]",
+            "2026-05-01 — Entry  [tag: a]",
+        ),
+    ]
+    for annotated, unannotated in pairs:
+        assert _key_heading(annotated) == _key_heading(unannotated), (
+            f"annotated {annotated!r} and unannotated {unannotated!r} must produce same key"
+        )
+
+
+def test_key_heading_tag_survives_status_target_removed():
+    """(500) [tag: ...] survives; [status:] and [target:] are removed; case-insensitive."""
+    assert _key_heading("Title [tag: x]") == "Title [tag: x]"
+    assert _key_heading("Title [status: learned]") == "Title"
+    assert _key_heading("Title [target: X.md]") == "Title"
+    assert _key_heading("Title [STATUS: LEARNED]") == "Title"
+    assert _key_heading("Title [Target: Y.md]") == "Title"
+    assert _key_heading("Title [tag: x] [Status: done] [TARGET: Z]") == "Title [tag: x]"
+
+
+def test_key_heading_marker_start_or_middle_no_doubled_space():
+    """(500) A marker at the START or MIDDLE of a heading does not leave a doubled space."""
+    result = _key_heading("[status: learned] Title")
+    assert "  " not in result, f"Doubled space in {result!r}"
+
+    result = _key_heading("Title [status: learned] suffix")
+    assert "  " not in result, f"Doubled space in {result!r}"
+    assert result == "Title suffix"
+
+    result = _key_heading("[target: X] [status: y] Title")
+    assert "  " not in result, f"Doubled space in {result!r}"

@@ -49,12 +49,11 @@ def _normalize_for_hash(raw_content: str) -> str:
     return "\n".join(lines)
 
 
-_STATUS_TARGET_MARKER_RE = re.compile(r'\[(?:status|target):[^\]]*\]', re.IGNORECASE)
+_STATUS_TARGET_MARKER_RE = re.compile(r'\s*\[(?:status|target):[^\]]*\]', re.IGNORECASE)
 
 
 def _key_heading(heading: str) -> str:
-    cleaned = _STATUS_TARGET_MARKER_RE.sub('', heading)
-    return re.sub(r'\s+', ' ', cleaned).strip()
+    return _STATUS_TARGET_MARKER_RE.sub('', heading).rstrip()
 
 
 def parse_lessons_md(path: str) -> list[dict]:
