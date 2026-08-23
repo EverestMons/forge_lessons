@@ -1,0 +1,29 @@
+entry_id	entry_heading	mechanism	mechanism_file	rule1_partly	rule2_circular	verdict
+98	Name deposit file paths literally — scope_check authorizes from named paths	_gate_deposit_exists	bellows/gates.py:405	N	N	PROMOTE
+98	Name deposit file paths literally — scope_check authorizes from named paths	_gate_scope_check	bellows/gates.py:850	N	N	PROMOTE
+61	Inline Deposits blocks with un-prefixed paths silently fail _extract_plan_required_deposits	_gate_deposit_exists	bellows/gates.py:405	N	N	PROMOTE
+85	QA-step deposits blocks must declare exactly one .md file or the gate misfires	_gate_deposit_exists	bellows/gates.py:405	N	N	PROMOTE
+90	Use Deposits blocks for ALL agent deposits	_gate_deposit_exists	bellows/gates.py:405	N	N	PROMOTE
+70	QA-step prompts must reference RULE_20_SELF_CHECK_BLOCK.md	_gate_rule_20_self_check	bellows/gates.py:551	N	N	PROMOTE
+70	QA-step prompts must reference RULE_20_SELF_CHECK_BLOCK.md	plan_lint (c)	bellows/scripts/plan_lint.py:254	N	N	PROMOTE
+120	Gate-enforced QA steps must be made unmissable in the prompt	_gate_rule_20_self_check	bellows/gates.py:551	N	N	PROMOTE
+184	Choose the QA Rule 20 self-check FORM by plan class	_gate_rule_20_self_check	bellows/gates.py:551	N	N	PROMOTE
+231	Two gates over the same list pull in opposite directions	_gate_deposit_exists	bellows/gates.py:405	N	N	PROMOTE
+231	Two gates over the same list pull in opposite directions	_gate_scope_check	bellows/gates.py:850	N	N	PROMOTE
+111	Dispatch Mode: standard rejection	plan_lint (a)	bellows/scripts/plan_lint.py:192	N	N	PROMOTE
+89	pause_for_verdict accepts only three values	plan_lint (a)	bellows/scripts/plan_lint.py:200	N	N	PROMOTE
+119	pause_for_verdict must be validated against the daemon's accepted enum	plan_lint (a)	bellows/scripts/plan_lint.py:200	N	N	PROMOTE
+140	qa_steps header is a step-number list, not a count	plan_lint (i)	bellows/scripts/plan_lint.py:540	N	N	PROMOTE
+142	High-stakes executables get a drafting cycle	cycle_check.py	bellows/scripts/cycle_check.py	N	N	PROMOTE
+340	A fold's own prose can break a machine contract	fold_check.py	bellows/scripts/fold_check.py	N	N	PROMOTE
+106	scope_check false-positive on plan-required evidence files	_gate_scope_check	bellows/gates.py:850	N	Y	CODIFIED
+191	An honest QA failure passes the Rule 20 self-check	_gate_rule_20_self_check	bellows/gates.py:551	N	Y	CODIFIED
+109	Strict Bellows convention strings must be copied from a known-good artifact	_gate_rule_20_self_check	bellows/gates.py:551	Y	N	CODIFIED
+109	Strict Bellows convention strings must be copied from a known-good artifact	plan_lint (c)	bellows/scripts/plan_lint.py:254	Y	N	CODIFIED
+96	A QA full suite passes headline is the least independently-verifiable claim	_gate_rule_22_verification	bellows/gates.py:605	Y	N	CODIFIED
+121	Run the FULL test suite during DEV and Planner review	_gate_qa_test_result	bellows/gates.py:733	Y	Y	CODIFIED
+62	scope_check trip identified the WRONG file in CEO context	_gate_scope_check	bellows/gates.py:850	Y	N	CODIFIED
+114	Non-monotonic STEP header labels cause positional/literal misalignment	plan_lint (e)	bellows/scripts/plan_lint.py	Y	N	CODIFIED
+339	A fold is the only edit in the system with no post-condition	fold_check.py	bellows/scripts/fold_check.py	Y	N	CODIFIED
+83	Rule 22 (d) hedging-keyword detector false-positive on domain terminology	_gate_rule_22_verification	bellows/gates.py:605	N	Y	CODIFIED
+L4599	A function that computes a LOOKUP KEY must be the identity	test_key_heading_annotated_matches_unannotated	tests/test_lessons_forge.py	N	N	PROMOTE
