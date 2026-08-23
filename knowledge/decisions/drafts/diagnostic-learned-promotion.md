@@ -50,16 +50,30 @@ Report each candidate as **DEMONSTRATED** (violation constructed, mechanism obse
 ## Drafting Cycle
 **Tier:** T1 — triggers fired: **T-7** (a companion executable consumes the promotion set without re-deriving it) and **T-8** (novel: no prior plan grades lessons by whether a mechanism rejects a violation). T-5/T-6 do NOT fire — read-only, edits no doctrine, gate, template or contract.
 **Walk register:** `governance/knowledge/research/walk-register-diagnostic-learned-promotion.md`
-**Walks:** in progress — walks 0-4 run.
-**Walk 0 (context pin) — REAL, measured 2026-08-23:** newest same-class is `Done/diagnostic-501.md` (2026-08-22), same project and class, and the plan that produced the mapping this one re-grades. This plan replaces text in no existing file, so §2.0's anchor measurements are structurally empty rather than skipped. Two measurements decided the plan's shape: **~36 primary mechanisms against 327 entries** fixed the method as mechanism-first, and **only `C` lesson-id citations across the whole enforcement surface** established that the mapping is a reading task and became Q6. 4 folded at walk 0.
-- Weak spots:          w0 1 folded (1.2); w1 3 folded — instruction 3 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry; w4 1 folded — instruction 1 / record 0.
-- Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry; w3 dry.
-- Vulnerabilities:     w0 1 folded (3.1); w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry.
-- Integration-record:  w0 2 folded (4.1, 4.4); w1 dry; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0; w4 1 folded — instruction 1 / record 0.
-- ACID:                w1 1 folded — instruction 1 / record 0; w2 dry; w3 1 folded — instruction 1 / record 0.
-- Conformance:         w2 2 folded — instruction 2 / record 0 (symbol table; the 7 restatements it then caught); w3 1 folded — instruction 0 / record 1.
+**Walks:** 6 (walks 0-5).
+**Walk 0 (context pin) — REAL, measured 2026-08-23:** newest same-class is `Done/diagnostic-501.md` (2026-08-22), same project and class, and the plan that produced the mapping this one re-grades. This plan replaces text in no existing file, so §2.0's anchor measurements are structurally empty rather than skipped. Two measurements decided the plan's shape: **`M` primary mechanisms against `N` entries** fixed the method as mechanism-first, and **only `C` lesson-id citations across the whole enforcement surface** established that the mapping is a reading task and became Q6. 4 folded at walk 0.
+- Weak spots:          w0 1 folded (1.2); w1 3 folded — instruction 3 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry; w4 1 folded — instruction 1 / record 0; w5 dry.
+- Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry; w3 dry; w4 dry; w5 dry.
+- Vulnerabilities:     w0 1 folded (3.1); w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry; w4 dry; w5 dry.
+- Integration-record:  w0 2 folded (4.1, 4.4); w1 dry; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0; w4 1 folded — instruction 1 / record 0; w5 dry.
+- ACID:                w1 1 folded — instruction 1 / record 0; w2 dry; w3 1 folded — instruction 1 / record 0; w4 dry; w5 dry.
+- Conformance:         w2 2 folded — instruction 2 / record 0 (symbol table; the 7 restatements it then caught); w3 1 folded — instruction 0 / record 1; w4 dry; w5 2 folded — instruction 0 / record 2.
 **Conformance (§5):** `plan_lint` exit **0**; `propagation_check` exit **0** — it can run only because walk 2 added the symbol table, having reported COULD-NOT-RUN before that.
-**Cold panel:** not required at T1; scout at the Planner's call.
+**Yields (instruction-class):** 4 / 6 / 5 / 3 / 2 / 0.
+**Cold panel:** not required at T1. The Planner declines a scout here and says why rather than leaving it implicit: this plan's own bar is DEMONSTRATE THE FIRE, so the dispatched agent must execute every claim it makes — the work a cold execution seat would do is inside the step itself. ⚠️ Recorded as a judgement, not a waiver; the CEO may call one.
+**Closing:** walk 5 met the bar — instruction 0 / record 2: a walk-0 line carrying two symbols as bare numerals, and four per-lens lines lagging a walk. Both are in the Cycle Log, which `propagation_check` structurally cannot see (it scans the instruction region only, 88 of 95 lines) — the same record-blind class walk 3 found in the symbol table. Closing-record re-read run, dry. No restructuring fold. Deposited once.
+
+## Cycle Manifest
+tier: T1
+target: knowledge/research/learned-promotion-2026-08-23.md
+class: read-only
+reads: /Users/marklehn/Developer/GitHub/LESSONS.md, /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db, /Users/marklehn/Developer/GitHub/bellows/gates.py, /Users/marklehn/Developer/GitHub/bellows/scripts/, /Users/marklehn/Developer/GitHub/bellows/hooks/, /Users/marklehn/Developer/GitHub/lessons-forge/src/test_lessons_forge.py, /Users/marklehn/Developer/GitHub/lessons-forge/scripts/detect_learned.py
+writes: knowledge/research/learned-promotion-2026-08-23.md, knowledge/research/learned-promotion-2026-08-23.tsv
+open_forks: (1) the Q bare entries still await a CEO ruling and belong to no state; (2) whether a mechanism's lesson-citation belongs in the code or the corpus is Q6's to answer, not this plan's; (3) the companion re-label executable is not yet authored and must consume this plan's promotion set with the set arithmetic Q4 specifies
+walks: 5
+yields: 6, 3, 2, 2, 0
+validation: cycle_check=BAR_MET, plan_lint=0_FAIL, fold_check=PASS
+coherence: N/A
 
 ## MUST-PRESERVE
 
