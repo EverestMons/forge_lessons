@@ -1,0 +1,8 @@
+{
+  "plan_lint": {
+    "exit": 0,
+    "signals": [
+      "(o1) WARN: missing path `knowledge/research/learned-promotion-N-N-N.tsv`"
+    ]
+  }
+}
