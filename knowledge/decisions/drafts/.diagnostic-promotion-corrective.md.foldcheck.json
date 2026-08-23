@@ -1,0 +1,11 @@
+{
+  "plan_lint": {
+    "exit": 0,
+    "signals": [
+      "(o1) WARN: missing path `knowledge/research/promotion-corrected-N-N-N.tsv`",
+      "WARN: Drafting Cycle block has no **Closing:** line (DRAFTING_CYCLE.md \u00a73)",
+      "WARN: Drafting Cycle closing indicates fold as last event, not a dry lens pass (DRAFTING_CYCLE.md \u00a72)",
+      "WARN: step 1 mentions tests but declares no test scope"
+    ]
+  }
+}
