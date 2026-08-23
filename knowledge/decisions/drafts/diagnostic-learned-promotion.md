@@ -77,6 +77,7 @@ coherence: N/A
 
 ## MUST-PRESERVE
 
+- ⚠️ **EVERY DATE IN THIS PLAN IS A FIXED LITERAL — do NOT re-derive "today".** Both deposits are named `learned-promotion-2026-08-23.{md,tsv}`, carrying the plan's authoring date, and this plan may dispatch on a later one. Write them exactly as declared: an agent that stamps the dispatch date creates files the deposit gate cannot find, a failure that reads as a missing deliverable rather than a renamed one. (Carried from `executable-502`, where this was the eighth guard dropped from the clone origin and was caught only at the deposit boundary.)
 - **READ-ONLY.** No edit to `LESSONS.md`. No write to any `.db`. No re-label — that is the companion executable's job, and this plan must not pre-empt it.
 - ⚠️ **Invoke every checker by ABSOLUTE path** — they live in `/Users/marklehn/Developer/GitHub/bellows/scripts/`, and shell state does not persist between invocations. A relative invocation after a `cd` reports `can't open file`, which exits non-zero and is easily misread as the mechanism FIRING. The Planner made this exact error repeatedly while authoring this plan.
 - ⚠️ **Demonstrations are SCRATCH-ONLY.** To show a mechanism firing you will construct violating inputs. **Never place a plan-shaped file (`executable-*.md`, `diagnostic-*.md`) under a real `knowledge/decisions/` directory** — the bellows daemon claims AND DISPATCHES it within one second; this has happened live. Build violating specimens under your own scratch directory and run the checkers against those paths.
