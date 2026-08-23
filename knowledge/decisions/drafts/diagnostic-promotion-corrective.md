@@ -43,17 +43,31 @@ Diagnostic-503 produced a promotion set of `V` entries. A cold DISCOVERY seat re
 ## Drafting Cycle
 **Tier:** T1 — triggers fired: **T-7** (the companion executable consumes the corrected set without re-deriving it) and **T-8** (novel: no prior plan grades a promotion set against the classification that produced it). T-5/T-6 do NOT fire — read-only, edits no doctrine, gate, template or contract.
 **Walk register:** `governance/knowledge/research/walk-register-diagnostic-promotion-corrective.md`
-**Walks:** in progress — walks 0-3 run.
+**Walks:** 5 (walks 0-4).
 **Walk 0 (context pin) — REAL, measured 2026-08-23:** newest same-class and clone origin are the same plan, `Done/diagnostic-503.md` (2026-08-23) — the plan this one corrects. This plan replaces text in no existing file, so §2.0's anchor measurements are structurally empty rather than skipped. The measurement that fixed its shape: **`V` is `F` plus exactly three of `R`** — the deposited set corresponds to no class 503 defines — and 503's own PARTLY note on one promoted entry reads "(names the gap this gate fills)", which is the circularity stated in the source and promoted anyway.
 **Direction verdict (after walk 1): PROCEED** — the corrective's angle is the one the DISCOVERY seat's direction finding pointed at; nothing invalidates its origin, mechanism or scope premise.
-- Weak spots:          w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0.
-- Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry; w3 1 folded — instruction 1 / record 0.
-- Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 dry; w3 dry.
-- Integration-record:  w1 2 folded — instruction 2 / record 0; w2 dry; w3 dry.
-- ACID:                w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry.
+- Weak spots:          w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0; w4 dry.
+- Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry; w3 1 folded — instruction 1 / record 0; w4 dry.
+- Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 dry; w3 dry; w4 dry.
+- Integration-record:  w1 2 folded — instruction 2 / record 0; w2 dry; w3 dry; w4 1 folded — instruction 0 / record 1.
+- ACID:                w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry; w4 dry.
 ⚠️ **Walk 0 carries no fold row and that is correct, not an omission:** for this plan walk 0 was a CONTEXT PIN whose output is the measurement that shaped v0 (`V` = `F` plus three of `R`), not a pass over a pre-existing draft. Its guards were authored INTO v0 rather than folded into it. A `cycle_check` run comparing walk 1 against an empty walk 0 reports `yield-rising`; that is the manual entry gate the cadence explicitly excludes from auto-advance (§2: walk 0, walk 1 and the direction verdict), not a convergence signal.
 **Conformance (§5):** `plan_lint` exit **0**; `propagation_check` exit **0**.
-**Cold panel:** not required at T1; scout at the Planner's call.
+**Yields (instruction-class):** 5 / 2 / 2 / 0.
+**Cold panel:** not required at T1. ⚠️ The Planner declines a scout and records why: this corrective exists BECAUSE a cold DISCOVERY seat found the defect it fixes, so the cold reading that matters has already been spent and its finding is the plan's premise. A judgement, not a waiver; the CEO may call one.
+**Closing:** walk 4 met the bar — instruction 0 / record 1: the walk count and per-lens rows lagged a walk. Closing-record re-read run, dry. No restructuring fold. Deposited once.
+
+## Cycle Manifest
+tier: T1
+target: knowledge/research/promotion-corrected-2026-08-23.md
+class: read-only
+reads: /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/learned-promotion-2026-08-23.md, /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/learned-promotion-2026-08-23.tsv, /Users/marklehn/Developer/GitHub/LESSONS.md, /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db, /Users/marklehn/Developer/GitHub/bellows/gates.py
+writes: knowledge/research/promotion-corrected-2026-08-23.md, knowledge/research/promotion-corrected-2026-08-23.tsv
+open_forks: (1) executable-relabel-codified is BLOCKED on this plan's output and must re-read it rather than 503's TSV; (2) the Q bare entries still await a CEO ruling; (3) detect_learned.py:245 still emits `learned` unconditionally
+walks: 4
+yields: 5, 2, 2, 0
+validation: cycle_check=BAR_MET, plan_lint=0_FAIL, propagation_check=0
+N/A
 
 ## MUST-PRESERVE
 
