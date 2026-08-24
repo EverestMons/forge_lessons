@@ -48,11 +48,11 @@
 **Walks:** walk 0 pinned; walk 1 complete (five lenses, sequential, FIVE commits).
 **Walk 0 (context pin) — REAL, measured 2026-08-24:** newest same-class measured by ship date (505, 2026-08-23T19:42:41-05:00, ahead of 502 the same morning). **Anchors:** the two `entry_heading` cells, 4 characters total. **Occurrence counts:** U+2019 = 4 file-wide, all 4 inside those two cells (`D5`). **Last writer of the target lines:** `diagnostic-506`, closed to `Done/` 2026-08-24. **Target sha:** `D7`.
 **Direction verdict (after walk 1): PROCEED.** Tested against the three forcing findings, not judged: (a) `exec-500`'s corrective lesson was folded IN, not invalidated; (b) W1-3 declared the closed-deposit deviation with its cost, and the mechanism is sound and now idempotent-safe; (c) every premise held under re-derivation. None fires.
-- Weak spots:          w1 2 folded.
-- Destruction:         w1 1 folded.
-- Vulnerabilities:     w1 1 folded.
-- Integration-record:  w1 2 folded.
-- ACID:                w1 1 folded — instruction 7 / record 0.
+- Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.
+- Destruction:         w1 1 folded — instruction 1 / record 0.
+- Vulnerabilities:     w1 1 folded — instruction 1 / record 0.
+- Integration-record:  w1 2 folded — instruction 2 / record 0.
+- ACID:                w1 1 folded — instruction 1 / record 0.
 **Cold panel:** computed tier does not require one. Decide at the freeze and record the reasoning.
 **Conformance (§5):** owed — `plan_lint` and `propagation_check` at the deposit resolution before the copy-in.
 **Close:** not reached — the cycle is open. Restored to canonical form when earned.
@@ -93,14 +93,14 @@ N/A
 - **Anything else → the premise genuinely moved. STOP and report what you measured.**
 
 
-**Post-conditions, all asserted after the write and all proven failable against the pre-edit file:**
+**Post-conditions — asserted after the write, and proven failable against the pre-edit file** ⚠️ *(the failability proof is available on the NOT-YET-APPLIED branch only; on the already-applied branch there is no distinct pre-edit state to fail against, and saying so is why the branch split below exists)*:
 1. `entry_heading` values matching exactly one `"## " + heading` line in `LESSONS.md`: **12 → 14.** State both numbers.
 2. U+2019 file-wide: **4 → 0.**
 3. The verdict multiset (MUST-PRESERVE) is **identical** — print it before and after and diff.
 4. ⚠️ **On the NOT-YET-APPLIED branch only** — `git diff --numstat` on the file shows exactly **`2\t2\t<path>`** — ⚠️ **determinate, not a range: entry `123` is data row 9 (file line 10) and entry `330` is data row 12 (file line 13), two distinct rows, so the edit is two insertions and two deletions.** An earlier form of this post-condition offered `1/1` and accepted `2/2` as also correct; a condition that accepts either value asserts nothing. `git diff` must contain **no `\r`** and touch no line but those two.
 5. The file still parses to **14 rows** with the same 14 `entry_id`s.
 
-⚠️⚠️ **THE TWO BRANCHES TAKE DIFFERENT POST-CONDITION SETS, and saying so is not a relaxation — an earlier form of this step required post-condition 4 unconditionally, which the already-applied branch CANNOT satisfy because it writes nothing.** On **NOT-YET-APPLIED**: all five, with (4) reading `2\t2`. On **ALREADY-APPLIED**: (1), (2), (3) and (5) hold on the existing bytes exactly as they would after a write, and **(4) reads `0\t0` — an empty diff is the CORRECT and REQUIRED result there**, because the no-op branch's whole claim is that the file already carries the fix. ⚠️ **State which branch you took before reporting any post-condition**, so a reader can tell an idempotent no-op from a step that silently skipped its work.
+⚠️⚠️ **THE TWO BRANCHES TAKE DIFFERENT POST-CONDITION SETS, and saying so is not a relaxation — an earlier form of this step required post-condition 4 unconditionally, which the already-applied branch CANNOT satisfy because it writes nothing.** On **NOT-YET-APPLIED**: all five as written, with (4) reading `2\t2`. On **ALREADY-APPLIED** the shape changes, and *hold as they would after a write* was too loose to act on — ⚠️ **(1) and (2) are TRANSITIONS (`12 → 14`, `4 → 0`) and there is no transition on a branch that writes nothing.** State them as END STATES instead: **(1) 14 headings matching, (2) 0 U+2019 file-wide**; (3) and (5) are already end-state assertions and are unchanged; and **(4) reads `0\t0` — an empty diff is the CORRECT and REQUIRED result there**, because the no-op branch's whole claim is that the file already carries the fix. ⚠️ **State which branch you took before reporting any post-condition**, so a reader can tell an idempotent no-op from a step that silently skipped its work.
 
 **Also check and REPORT (do not fix):** whether `bare-entry-ruling-2026-08-23.md` carries the same U+2019 drift in its `### <id> — <heading>` section headings. Those headings are explicitly NOT locators (506 keys the pointer assert on the id alone), so drift there is harmless — but the companion's author should know whether it exists.
 
