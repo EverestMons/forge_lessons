@@ -50,7 +50,7 @@
 **Direction verdict (after walk 1): PROCEED.** Tested against the three forcing findings, not judged: (a) `exec-500`'s corrective lesson was folded IN, not invalidated; (b) W1-3 declared the closed-deposit deviation with its cost, and the mechanism is sound and now idempotent-safe; (c) every premise held under re-derivation. None fires.
 - Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.
 - Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry.
-- Vulnerabilities:     w1 1 folded — instruction 1 / record 0.
+- Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0.
 - Integration-record:  w1 2 folded — instruction 2 / record 0.
 - ACID:                w1 1 folded — instruction 1 / record 0.
 **Cold panel:** computed tier does not require one. Decide at the freeze and record the reasoning.
@@ -101,6 +101,8 @@ N/A
 5. The file still parses to **14 rows** with the same 14 `entry_id`s.
 
 ⚠️⚠️ **THE TWO BRANCHES TAKE DIFFERENT POST-CONDITION SETS, and saying so is not a relaxation — an earlier form of this step required post-condition 4 unconditionally, which the already-applied branch CANNOT satisfy because it writes nothing.** On **NOT-YET-APPLIED**: all five as written, with (4) reading `2\t2`. On **ALREADY-APPLIED** the shape changes, and *hold as they would after a write* was too loose to act on — ⚠️ **(1) and (2) are TRANSITIONS (`12 → 14`, `4 → 0`) and there is no transition on a branch that writes nothing.** State them as END STATES instead: **(1) 14 headings matching, (2) 0 U+2019 file-wide**; (3) and (5) are already end-state assertions and are unchanged; and **(4) reads `0\t0` — an empty diff is the CORRECT and REQUIRED result there**, because the no-op branch's whole claim is that the file already carries the fix. ⚠️ **State which branch you took before reporting any post-condition**, so a reader can tell an idempotent no-op from a step that silently skipped its work.
+
+⚠️⚠️ **IF ANY POST-CONDITION FAILS AFTER THE WRITE: do NOT commit, do NOT revert, and do NOT retry.** The three-way classification above guards the START; nothing guarded the finish. Leave the edited file uncommitted in your worktree, report every post-condition's measured value, and raise it under `### Flags for CEO` — `_gate_ceo_flags` turns a non-null flag into a blocking gate failure, which is the intended outcome. **The uncommitted state IS the evidence**: a revert destroys what a reader needs to diagnose, and a retry re-enters the three-way classification from a state that is now neither of the two clean ones. ⚠️ The most likely genuine cause is that one of the fourteen headings changed in `LESSONS.md` between your pre-check and your post-check — say which entry and what you measured, and do not adjust `Q`.
 
 **Also check and REPORT (do not fix):** whether `bare-entry-ruling-2026-08-23.md` carries the same U+2019 drift in its `### <id> — <heading>` section headings. Those headings are explicitly NOT locators (506 keys the pointer assert on the id alone), so drift there is harmless — but the companion's author should know whether it exists.
 
