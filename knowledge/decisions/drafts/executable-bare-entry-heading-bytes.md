@@ -31,11 +31,11 @@
 
 | id | pin | value | probe |
 |---|---|---|---|
-| D1 | rows in the TSV (data rows, excl. header) | **14** | `csv.DictReader(delimiter='\t', quotechar='"')` — ⚠️ the file is quoted-CSV-inside-TSV; a naive split-on-tab does NOT abort, it silently yields still-quoted values |
-| D2 | `entry_heading` values byte-exact against `LESSONS.md` — **BEFORE** | **12** | for each row, count lines equal to `"## " + entry_heading` |
+| D1 | **`R`** — rows in the TSV (data rows, excl. header) | **14** | `csv.DictReader(delimiter='\t', quotechar='"')` — ⚠️ the file is quoted-CSV-inside-TSV; a naive split-on-tab does NOT abort, it silently yields still-quoted values |
+| D2 | **`M`** — `entry_heading` values byte-exact against `LESSONS.md`, BEFORE | **12** | for each row, count lines equal to `"## " + entry_heading` |
 | D3 | …the two that are NOT | **`123`, `330`** | the complement of `D2` |
-| D4 | U+2019 `’` occurrences in the WHOLE file — **BEFORE** | **4** | `raw.count('’')` on the file read as text |
-| D5 | …of those, how many lie in the two target `entry_heading` cells | **4 — ALL of them** | per-cell count across every row and column |
+| D4 | **`A`** — U+2019 `’` occurrences in the WHOLE file, BEFORE | **4** | `raw.count('’')` on the file read as text |
+| D5 | **`A_t`** — of those, how many lie in the two target `entry_heading` cells | **4** — all of them | per-cell count across every row and column |
 | D6 | U+0027 `'` in those two cells — BEFORE | **0** | per-cell count |
 | D7 | `/Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/bare-entry-ruling-2026-08-23.tsv` sha256 — BEFORE | `53a804617370594a0353fb4f56bfce322bdf1653e349a342540a2dd69767c9b5` | `shasum -a 256` — ⚠️ **full digest, not a prefix: an earlier form of this cell was truncated with an ellipsis, which cannot be compared against anything and is the one defect class a pin table exists to prevent** |
 | D8 | file size / line count — BEFORE | **4821 bytes / 15 lines** | `wc -c` / `wc -l` |
@@ -51,10 +51,10 @@
 - Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.
 - Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry.
 - Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0.
-- Integration-record:  w1 2 folded — instruction 2 / record 0.
+- Integration-record:  w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.
 - ACID:                w1 1 folded — instruction 1 / record 0.
 **Cold panel:** computed tier does not require one. Decide at the freeze and record the reasoning.
-**Conformance (§5):** owed — `plan_lint` and `propagation_check` at the deposit resolution before the copy-in.
+**Conformance (§5):** run per lens from walk 1, recorded here with its phase as §5 requires. At **walk 2 lens 4**: `plan_lint` exit **0**, 0 FAIL, PIN-CHECK `kind=sha256 result=ok`; `propagation_check` exit **1** (restated-value divergences, the expected class). ⚠️⚠️ **Until this lens, `propagation_check` was returning exit 2 — *could not run* — because the pin table declared no SYMBOLS in the form its detector (1) requires (`| Dn | **`SYM`** … | **VALUE** |`). Exit 2 is not a clean result and was being read as though the check had passed.** Symbols `R`/`M`/`A`/`A_t` declared on the four pins the plan acts on, after which the detector parses them and runs. Re-run at the deposit path before the copy-in.
 **Close:** not reached — the cycle is open. Restored to canonical form when earned.
 
 ## Cycle Manifest
