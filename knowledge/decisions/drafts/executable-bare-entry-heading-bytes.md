@@ -5,7 +5,7 @@
 **auto_close:** false
 **pause_for_verdict:** after_step_1
 
-**Depends on:** `Done/diagnostic-506.md` and its deposit `knowledge/research/bare-entry-ruling-2026-08-23.tsv` — **this plan CORRECTS two cells of that deposit and changes no verdict.** Newest same-class, MEASURED: `governance/…/Done/executable-505.md`, ship date 2026-08-23T19:42:41-05:00. Corrective precedent: `Done/executable-500.md` (the corrective to 499).
+**Depends on:** `Done/diagnostic-506.md` and its deposit `knowledge/research/bare-entry-ruling-2026-08-23.tsv` — **this plan CORRECTS two cells of that deposit and changes no verdict.** Newest same-class, MEASURED: `/Users/marklehn/Developer/GitHub/governance/knowledge/decisions/Done/executable-505.md`, ship date 2026-08-23T19:42:41-05:00 — ⚠️ **absolute and unelided: an earlier form wrote `governance/…/Done/…`, which resolves to nothing, and it is a GOVERNANCE plan not a lessons-forge one.** This is the identical defect a cold scout caught in `diagnostic-506` (`S0-4`), repeated by the same author one plan later; the two bare `Done/…` references beside it DO resolve, because `506` and `500` both live in this project's `Done/`. Corrective precedent: `Done/executable-500.md` (the corrective to 499).
 
 ## Why this exists
 
@@ -49,9 +49,9 @@
 **Walk 0 (context pin) — REAL, measured 2026-08-24:** newest same-class measured by ship date (505, 2026-08-23T19:42:41-05:00, ahead of 502 the same morning). **Anchors:** the two `entry_heading` cells, 4 characters total. **Occurrence counts:** U+2019 = 4 file-wide, all 4 inside those two cells (`D5`). **Last writer of the target lines:** `diagnostic-506`, closed to `Done/` 2026-08-24. **Target sha:** `D7`.
 **Direction verdict (after walk 1): PROCEED.** Tested against the three forcing findings, not judged: (a) `exec-500`'s corrective lesson was folded IN, not invalidated; (b) W1-3 declared the closed-deposit deviation with its cost, and the mechanism is sound and now idempotent-safe; (c) every premise held under re-derivation. None fires.
 - Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.; w3 1 folded — instruction 1 / record 0.
-- Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry.
-- Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0.
-- Integration-record:  w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.
+- Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry; w3 dry.
+- Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry.
+- Integration-record:  w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0.
 - ACID:                w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0.
 **Cold panel:** computed tier does not require one. Decide at the freeze and record the reasoning.
 **Conformance (§5):** run per lens from walk 1, recorded here with its phase as §5 requires. At **walk 2 lens 4**: `plan_lint` exit **0**, 0 FAIL, PIN-CHECK `kind=sha256 result=ok`; `propagation_check` exit **1** (restated-value divergences, the expected class). ⚠️⚠️ **Until this lens, `propagation_check` was returning exit 2 — *could not run* — because the pin table declared no SYMBOLS in the form its detector (1) requires (`| Dn | **`SYM`** … | **VALUE** |`). Exit 2 is not a clean result and was being read as though the check had passed.** Symbols `R`/`M`/`A`/`A_t` declared on the four pins the plan acts on, after which the detector parses them and runs. Re-run at the deposit path before the copy-in.
