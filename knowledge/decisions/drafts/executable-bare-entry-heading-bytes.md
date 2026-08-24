@@ -27,7 +27,7 @@
 
 ## Numbers discipline
 
-⚠️ **RE-DERIVE every value; if yours differ, yours supersede and you say so.**
+⚠️ **RE-DERIVE every value; if yours differ, yours supersede and you say so.** ⚠️ **And note the two-arm shape this table gives the step, because `exec-500` is this plan's corrective precedent and its lesson was that a single-arm probe is uninterpretable:** `D2` (12 → 14) is the EFFECT arm, and `D4`/post-conditions 3 and 4 are the CONTROL arm that bounds the blast radius — identical verdict multiset, exactly two rows touched. Neither alone would distinguish a correct fix from a broader one.
 
 | id | pin | value | probe |
 |---|---|---|---|
@@ -37,7 +37,7 @@
 | D4 | U+2019 `’` occurrences in the WHOLE file — **BEFORE** | **4** | `raw.count('’')` on the file read as text |
 | D5 | …of those, how many lie in the two target `entry_heading` cells | **4 — ALL of them** | per-cell count across every row and column |
 | D6 | U+0027 `'` in those two cells — BEFORE | **0** | per-cell count |
-| D7 | TSV sha256 — BEFORE | `53a804617370594a0353fb4f…` | `shasum -a 256` |
+| D7 | `/Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/bare-entry-ruling-2026-08-23.tsv` sha256 — BEFORE | `53a804617370594a0353fb4f56bfce322bdf1653e349a342540a2dd69767c9b5` | `shasum -a 256` — ⚠️ **full digest, not a prefix: an earlier form of this cell was truncated with an ellipsis, which cannot be compared against anything and is the one defect class a pin table exists to prevent** |
 | D8 | file size / line count — BEFORE | **4821 bytes / 15 lines** | `wc -c` / `wc -l` |
 
 ⚠️ **`D5` is the measurement that shapes this plan: every typographic apostrophe in the file is already inside the two cells being corrected**, so a file-wide replacement and a cell-scoped one produce identical output HERE. **Do the cell-scoped one anyway** — it stays correct if the file ever gains a legitimate `’` elsewhere, and `D4 → 0` is then a post-condition rather than a coincidence.
@@ -51,6 +51,7 @@
 - Weak spots:          w1 2 folded.
 - Destruction:         w1 1 folded.
 - Vulnerabilities:     w1 1 folded.
+- Integration-record:  w1 2 folded.
 **Cold panel:** computed tier does not require one. Decide at the freeze and record the reasoning.
 **Conformance (§5):** owed — `plan_lint` and `propagation_check` at the deposit resolution before the copy-in.
 **Close:** not reached — the cycle is open. Restored to canonical form when earned.
