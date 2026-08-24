@@ -48,7 +48,7 @@
 **Walks:** walk 0 pinned; walks 1–3 complete (five lenses each, sequential, per-lens commits).
 **Walk 0 (context pin) — REAL, measured 2026-08-24:** newest same-class measured by ship date (505, 2026-08-23T19:42:41-05:00, ahead of 502 the same morning). **Anchors:** the two `entry_heading` cells, 4 characters total. **Occurrence counts:** U+2019 = 4 file-wide, all 4 inside those two cells (`D5`). **Last writer of the target lines:** `diagnostic-506`, closed to `Done/` 2026-08-24. **Target sha:** `D7`.
 **Direction verdict (after walk 1): PROCEED.** Tested against the three forcing findings, not judged: (a) `exec-500`'s corrective lesson was folded IN, not invalidated; (b) W1-3 declared the closed-deposit deviation with its cost, and the mechanism is sound and now idempotent-safe; (c) every premise held under re-derivation. None fires.
-- Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.; w3 1 folded — instruction 1 / record 0.
+- Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0; w4 1 folded — instruction 1 / record 0.
 - Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry; w3 dry.
 - Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry.
 - Integration-record:  w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0.
