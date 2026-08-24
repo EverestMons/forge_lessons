@@ -77,7 +77,7 @@ N/A
 - ⚠️ **The file is QUOTED CSV inside a TSV.** Read and write it with `csv` (`delimiter='\t'`, `quotechar='"'`), and write with **`lineterminator='\n'`** and `QUOTE_MINIMAL` — the default terminator is `\r\n` and would put a stray carriage return on all 14 rows, a whole-file diff for a 4-character fix. ⚠️ **MEASURED, so you need not re-litigate it: under exactly those settings a pure parse-and-rewrite with NO edit is BYTE-IDENTICAL to the original (4,767 characters in, 4,767 out).** The round trip is safe; the settings are what make it safe.
 - ⚠️ **`LESSONS.md` is in the governance ROOT repo** — `/Users/marklehn/Developer/GitHub/LESSONS.md` — read-only for this plan and not in your worktree.
 - **`grep` here is ugrep: `-F` for every literal.** A zero-match `grep -c` prints `0` and EXITS 1 — read the printed count, never the exit status.
-- ⚠️ **Prove each post-condition can FAIL before you edit** — run every assertion against the PRE-edit file and confirm it returns the failing value. `D2 = 12` and `D4 = 4` are exactly that proof; record them.
+- ⚠️ **Prove each post-condition can FAIL before you edit** — run every assertion against the PRE-edit file and confirm it returns the failing value. `D2 = 12` and `D4 = 4` are exactly that proof; record them. ⚠️ **On the NOT-YET-APPLIED branch only** — the already-applied branch has no distinct pre-edit state to fail against, which is why the post-condition set is split by branch at Step 1. An earlier form of this bullet stated the requirement unconditionally, and the fix for it landed only in that Step-1 preamble.
 
 ## STEP 1 — DEV
 
