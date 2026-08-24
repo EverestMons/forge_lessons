@@ -46,6 +46,7 @@
 **Walks:** walk 0 pinned; cycle OPEN.
 **Walk 0 (context pin) — REAL, measured 2026-08-24:** newest same-class measured by ship date (505, 2026-08-23T19:42:41-05:00, ahead of 502 the same morning). **Anchors:** the two `entry_heading` cells, 4 characters total. **Occurrence counts:** U+2019 = 4 file-wide, all 4 inside those two cells (`D5`). **Last writer of the target lines:** `diagnostic-506`, closed to `Done/` 2026-08-24. **Target sha:** `D7`.
 **Direction verdict (after walk 1):** owed.
+- Weak spots:          w1 2 folded.
 **Cold panel:** computed tier does not require one. Decide at the freeze and record the reasoning.
 **Conformance (§5):** owed — `plan_lint` and `propagation_check` at the deposit resolution before the copy-in.
 **Close:** not reached — the cycle is open. Restored to canonical form when earned.
@@ -67,7 +68,7 @@ N/A
 
 - ⚠️⚠️ **EVERY DATE IN THIS PLAN IS A FIXED LITERAL.** The deposit filename carries `2026-08-23` and is NOT to be re-stamped; this plan was authored 2026-08-24 and may dispatch later.
 - ⚠️⚠️ **NO VERDICT MAY CHANGE.** Assert it: the multiset of `(entry_id, class, target_artifact, mechanism, rule1_partly, rule2_circular, verdict, basis)` is IDENTICAL before and after. The only permitted delta is inside two `entry_heading` cells.
-- ⚠️ **The file is QUOTED CSV inside a TSV.** Read and write it with `csv` (`delimiter='\t'`, `quotechar='"'`), and write with **`lineterminator='\n'`** — the default is `\r\n` and would put a stray carriage return on all 14 rows, a whole-file diff for a 4-character fix.
+- ⚠️ **The file is QUOTED CSV inside a TSV.** Read and write it with `csv` (`delimiter='\t'`, `quotechar='"'`), and write with **`lineterminator='\n'`** and `QUOTE_MINIMAL` — the default terminator is `\r\n` and would put a stray carriage return on all 14 rows, a whole-file diff for a 4-character fix. ⚠️ **MEASURED, so you need not re-litigate it: under exactly those settings a pure parse-and-rewrite with NO edit is BYTE-IDENTICAL to the original (4,767 characters in, 4,767 out).** The round trip is safe; the settings are what make it safe.
 - ⚠️ **`LESSONS.md` is in the governance ROOT repo** — `/Users/marklehn/Developer/GitHub/LESSONS.md` — read-only for this plan and not in your worktree.
 - **`grep` here is ugrep: `-F` for every literal.** A zero-match `grep -c` prints `0` and EXITS 1 — read the printed count, never the exit status.
 - ⚠️ **Prove each post-condition can FAIL before you edit** — run every assertion against the PRE-edit file and confirm it returns the failing value. `D2 = 12` and `D4 = 4` are exactly that proof; record them.
@@ -84,7 +85,7 @@ N/A
 1. `entry_heading` values matching exactly one `"## " + heading` line in `LESSONS.md`: **12 → 14.** State both numbers.
 2. U+2019 file-wide: **4 → 0.**
 3. The verdict multiset (MUST-PRESERVE) is **identical** — print it before and after and diff.
-4. `git diff --numstat` on the file shows **1 file changed, 1 insertion, 1 deletion** *(both target cells are on separate rows — if it reports 2/2, that is correct too; state what you measure)*, and `git diff` contains **no `\r`** and no line other than the two data rows.
+4. `git diff --numstat` on the file shows exactly **`2\t2\t<path>`** — ⚠️ **determinate, not a range: entry `123` is data row 9 (file line 10) and entry `330` is data row 12 (file line 13), two distinct rows, so the edit is two insertions and two deletions.** An earlier form of this post-condition offered `1/1` and accepted `2/2` as also correct; a condition that accepts either value asserts nothing. `git diff` must contain **no `\r`** and touch no line but those two.
 5. The file still parses to **14 rows** with the same 14 `entry_id`s.
 
 **Also check and REPORT (do not fix):** whether `bare-entry-ruling-2026-08-23.md` carries the same U+2019 drift in its `### <id> — <heading>` section headings. Those headings are explicitly NOT locators (506 keys the pointer assert on the id alone), so drift there is harmless — but the companion's author should know whether it exists.
