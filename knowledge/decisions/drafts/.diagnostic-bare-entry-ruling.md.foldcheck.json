@@ -1,0 +1,9 @@
+{
+  "plan_lint": {
+    "exit": 0,
+    "signals": [
+      "(o1) WARN: missing path `knowledge/research/bare-entry-ruling-N-N-N.tsv`",
+      "PIN-CHECK: kind=sha256 line=N token=8ba177d0400c\u2026 result=ok"
+    ]
+  }
+}
