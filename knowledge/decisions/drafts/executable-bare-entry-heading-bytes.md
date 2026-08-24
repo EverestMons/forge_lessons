@@ -45,17 +45,17 @@
 ## Drafting Cycle
 **Tier:** T1 computed — **T-2** fires (writes real data: a deposited artifact a downstream executable consumes MECHANICALLY to edit the live register, so a wrong byte here propagates to `LESSONS.md`). T-1 does not fire (two cells, one file). T-5/T-6 do not fire — git-revertible, edits no doctrine, gate, template or contract.
 **Walk register:** `governance/knowledge/research/walk-register-executable-bare-entry-heading-bytes.md`
-**Walks:** walk 0 pinned; walks 1–4 complete (five lenses each, sequential, per-lens commits).
+**Walks:** walk 0 pinned; walks 1–5 complete (five lenses each, sequential, per-lens commits).
 **Walk 0 (context pin) — REAL, measured 2026-08-24:** newest same-class measured by ship date (505, 2026-08-23T19:42:41-05:00, ahead of 502 the same morning). **Anchors:** the two `entry_heading` cells, 4 characters total. **Occurrence counts:** U+2019 = 4 file-wide, all 4 inside those two cells (`D5`). **Last writer of the target lines:** `diagnostic-506`, closed to `Done/` 2026-08-24. **Target sha:** `D7`.
 **Direction verdict (after walk 1): PROCEED.** Tested against the three forcing findings, not judged: (a) `exec-500`'s corrective lesson was folded IN, not invalidated; (b) W1-3 declared the closed-deposit deviation with its cost, and the mechanism is sound and now idempotent-safe; (c) every premise held under re-derivation. None fires.
-- Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0; w4 1 folded — instruction 1 / record 0.
-- Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry; w3 dry; w4 dry.
-- Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry; w4 dry.
-- Integration-record:  w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0; w4 1 folded — instruction 0 / record 1.
-- ACID:                w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry; w4 dry.
-**Cold panel:** computed tier does not require one. Decide at the freeze and record the reasoning.
-**Conformance (§5):** run per lens from walk 1, recorded here with its phase as §5 requires. Last run at **walk 4**: `plan_lint` exit **0**, 0 FAIL, PIN-CHECK `kind=sha256 result=ok`; `propagation_check` exit **1** (restated-value divergences, the expected class); `fold_check` PASS; walk register CONFORMANT (read from STDERR). ⚠️ The phase label is the LAST run, not the first — §5 requires the exit code recorded with the phase it was taken at, and an earlier form of this line still said *walk 2 lens 4* two walks later. ⚠️⚠️ **Until this lens, `propagation_check` was returning exit 2 — *could not run* — because the pin table declared no SYMBOLS in the form its detector (1) requires (`| Dn | **`SYM`** … | **VALUE** |`). Exit 2 is not a clean result and was being read as though the check had passed.** Symbols `R`/`M`/`A`/`A_t` declared on the four pins the plan acts on, after which the detector parses them and runs. Re-run at the deposit path before the copy-in.
-**Close:** not reached — the cycle is open. Restored to canonical form when earned.
+- Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0; w4 1 folded — instruction 1 / record 0; w5 dry.
+- Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry; w3 dry; w4 dry; w5 dry.
+- Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry; w4 dry; w5 dry.
+- Integration-record:  w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0; w3 1 folded — instruction 1 / record 0; w4 1 folded — instruction 0 / record 1; w5 1 folded — instruction 0 / record 1.
+- ACID:                w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0; w3 dry; w4 dry; w5 dry.
+**Cold panel:** ⚠️ **DECIDED AT THE FREEZE — DECLINED, with the reasoning recorded rather than the decision deferred a second time.** The computed tier (T1) does not require one, and the case for spending one here is weak on measured grounds: this plan changes **four characters**, its full mandated procedure was EXECUTED end-to-end in a scratch repo producing exactly the predicted post-conditions (`2\t2`, 0 CRs, 0 U+2019, 14 rows), its blast radius was proven bounded by constructed adversarial variants, and all eight pins re-derive against the live files. It carries **no judgement calls** — unlike `diagnostic-506`, whose panel earned 44 findings because that plan graded fourteen entries. ⚠️ **A judgement, not a waiver: the CEO may call one, and the residual risk is stated plainly — the one thing a cold reader would most likely catch is a wrong premise about the COMPANION's needs, since this plan's whole justification is that the companion's locator requires byte-exact headings.**
+**Conformance (§5):** run per lens from walk 1, recorded here with its phase as §5 requires. Last run at **walk 5 (the close)**: `plan_lint` exit **0**, 0 FAIL, PIN-CHECK `kind=sha256 result=ok`; `propagation_check` exit **1** (restated-value divergences, the expected class); `fold_check` PASS; walk register CONFORMANT (read from STDERR). ⚠️ The phase label is the LAST run, not the first — §5 requires the exit code recorded with the phase it was taken at, and an earlier form of this line still said *walk 2 lens 4* two walks later. ⚠️⚠️ **Until walk 2 lens 4, `propagation_check` was returning exit 2 — *could not run* — because the pin table declared no SYMBOLS in the form its detector (1) requires (`| Dn | **`SYM`** … | **VALUE** |`). Exit 2 is not a clean result and was being read as though the check had passed.** Symbols `R`/`M`/`A`/`A_t` declared on the four pins the plan acts on, after which the detector parses them and runs. Re-run at the deposit path before the copy-in.
+**Closing:** **walk 5 met the bar — instruction 0 / record 1**: one deictic reference in the conformance line that lost its referent when walk 4 re-stamped that line's phase label. Fold-introduced, record-class, and it landed IN the closing record, so the closing-record re-read covers it and the residue list is empty. Five walks, five lenses each, **per-lens commits throughout** — sequential execution is provable from the record rather than attested. No restructuring fold. Instruction-class series **7 → 4 → 2 → 1 → 0**. Closing-record re-read run: it raised three staleness items, all swept here, including the cold-panel decision this line had deferred twice. ⚠️ **The cycle is CLOSED; the DEPOSIT is a separate act.**
 
 ## Cycle Manifest
 tier: T1
@@ -64,10 +64,10 @@ class: governed-tooling
 reads: /Users/marklehn/Developer/GitHub/LESSONS.md, /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/bare-entry-ruling-2026-08-23.tsv, /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/bare-entry-ruling-2026-08-23.md
 writes: knowledge/research/bare-entry-ruling-2026-08-23.tsv
 open_forks: (1) the companion executable is BLOCKED on this correction; (2) 506's findings document may carry the same drift in its `### <id>` section headings — out of scope here, checked and reported by this plan
-walks: open
-yields: open
-validation: owed
-coherence: owed — cycle open
+walks: 5
+yields: 7, 4, 2, 1, 0
+validation: cycle_check=BAR_MET, plan_lint=0_FAIL, fold_check=PASS
+coherence: N/A — the emitter's sentinel; NOT hand-filled, because §3 makes it a COMPUTED field
 N/A
 
 ## MUST-PRESERVE
