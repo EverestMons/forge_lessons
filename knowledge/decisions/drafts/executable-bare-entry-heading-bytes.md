@@ -27,7 +27,7 @@
 
 ## Numbers discipline
 
-⚠️ **RE-DERIVE every value; if yours differ, yours supersede and you say so.** ⚠️ **And note the two-arm shape this table gives the step, because `exec-500` is this plan's corrective precedent and its lesson was that a single-arm probe is uninterpretable:** `D2` (12 → 14) is the EFFECT arm, and `D4`/post-conditions 3 and 4 are the CONTROL arm that bounds the blast radius — identical verdict multiset, exactly two rows touched. Neither alone would distinguish a correct fix from a broader one.
+⚠️⚠️ **TWO DIFFERENT QUANTITIES IN THIS PLAN BOTH EQUAL 14 — `R`, the number of data ROWS, and the number of headings MATCHING after the fix. They are unrelated, and `propagation_check` reports every prose `14` as a restatement of `R` because it cannot tell them apart.** Read every `N/14 matching` as a MATCH count, never as `R`. Said once here rather than qualified at each site. ⚠️ **RE-DERIVE every value; if yours differ, yours supersede and you say so.** ⚠️ **And note the two-arm shape this table gives the step, because `exec-500` is this plan's corrective precedent and its lesson was that a single-arm probe is uninterpretable:** `D2` (12 → 14) is the EFFECT arm, and `D4`/post-conditions 3 and 4 are the CONTROL arm that bounds the blast radius — identical verdict multiset, exactly two rows touched. Neither alone would distinguish a correct fix from a broader one.
 
 | id | pin | value | probe |
 |---|---|---|---|
@@ -48,7 +48,7 @@
 **Walks:** walk 0 pinned; walks 1–2 complete (five lenses each, sequential, five commits each).
 **Walk 0 (context pin) — REAL, measured 2026-08-24:** newest same-class measured by ship date (505, 2026-08-23T19:42:41-05:00, ahead of 502 the same morning). **Anchors:** the two `entry_heading` cells, 4 characters total. **Occurrence counts:** U+2019 = 4 file-wide, all 4 inside those two cells (`D5`). **Last writer of the target lines:** `diagnostic-506`, closed to `Done/` 2026-08-24. **Target sha:** `D7`.
 **Direction verdict (after walk 1): PROCEED.** Tested against the three forcing findings, not judged: (a) `exec-500`'s corrective lesson was folded IN, not invalidated; (b) W1-3 declared the closed-deposit deviation with its cost, and the mechanism is sound and now idempotent-safe; (c) every premise held under re-derivation. None fires.
-- Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.
+- Weak spots:          w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.; w3 1 folded — instruction 1 / record 0.
 - Destruction:         w1 1 folded — instruction 1 / record 0; w2 dry.
 - Vulnerabilities:     w1 1 folded — instruction 1 / record 0; w2 1 folded — instruction 1 / record 0.
 - Integration-record:  w1 2 folded — instruction 2 / record 0; w2 1 folded — instruction 1 / record 0.
