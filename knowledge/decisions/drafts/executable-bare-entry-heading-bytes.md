@@ -50,6 +50,7 @@
 **Direction verdict (after walk 1):** owed.
 - Weak spots:          w1 2 folded.
 - Destruction:         w1 1 folded.
+- Vulnerabilities:     w1 1 folded.
 **Cold panel:** computed tier does not require one. Decide at the freeze and record the reasoning.
 **Conformance (§5):** owed — `plan_lint` and `propagation_check` at the deposit resolution before the copy-in.
 **Close:** not reached — the cycle is open. Restored to canonical form when earned.
@@ -82,7 +83,13 @@ N/A
 
 **Task.** In `knowledge/research/bare-entry-ruling-2026-08-23.tsv`, in the `entry_heading` cell of entries **`123`** and **`330`** ONLY, replace every **U+2019 `’`** with **U+0027 `'`**. Change nothing else.
 
-⚠️ **Do it cell-scoped, not file-wide** — `D5` says the two are equivalent on today's bytes, and the cell-scoped form is the one that stays correct if that stops being true. Re-derive `D5` first; **if it is not 4-of-4, STOP and report** — a `’` living somewhere else means this plan's premise moved.
+⚠️ **Do it cell-scoped, not file-wide** — `D5` says the two are equivalent on today's bytes, and the cell-scoped form is the one that stays correct if that stops being true.
+
+⚠️⚠️ **CLASSIFY THE STARTING STATE THREE WAYS BEFORE WRITING ANYTHING — this step can be RE-DISPATCHED after a transient death, and a two-way check calls the applied state a broken premise.** Measured: after a successful apply the file has **0** U+2019 and **14/14** headings matching, so a re-run that only asks *is `D5` 4-of-4?* answers no and reports *the premise moved*, which is false.
+- **4 U+2019, all in the two target cells, and 12/14 matching → NOT YET APPLIED.** Proceed.
+- **0 U+2019 and 14/14 matching → ALREADY APPLIED.** Report it as an idempotent no-op, write nothing, and let the post-conditions pass on the existing bytes. This is a SUCCESS, not a halt.
+- **Anything else → the premise genuinely moved. STOP and report what you measured.**
+
 
 **Post-conditions, all asserted after the write and all proven failable against the pre-edit file:**
 1. `entry_heading` values matching exactly one `"## " + heading` line in `LESSONS.md`: **12 → 14.** State both numbers.

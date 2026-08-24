@@ -6,7 +6,7 @@
       "(f) WARN: Cycle Manifest validation missing plan_lint= entry",
       "PIN-CHECK: kind=prefix line=N token=53a804617370\u2026 result=ambiguous",
       "WARN: Drafting Cycle block has no **Closing:** line (DRAFTING_CYCLE.md \u00a73)",
-      "WARN: Drafting Cycle block missing lens(es): Vulnerabilities, Integration, ACID (DRAFTING_CYCLE.md \u00a73)",
+      "WARN: Drafting Cycle block missing lens(es): Integration, ACID (DRAFTING_CYCLE.md \u00a73)",
       "WARN: Drafting Cycle closing indicates fold as last event, not a dry lens pass (DRAFTING_CYCLE.md \u00a72)"
     ]
   }
