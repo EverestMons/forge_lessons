@@ -81,8 +81,8 @@ Each entry's status is DERIVED, never chosen:
 - Integration-record:  w1 3 folded — instruction 3 / record 0 (1 is a clone-diff finding: the precedent's heading column would break the executable's locator).
 - ACID:                w1 3 folded — instruction 3 / record 0 (2 fold-introduced: this walk's own f5 and f6).
 **Cold panel:** computed tier does not require one. ⚠️ **Live question at the freeze, not a waiver:** the immediately preceding plan in this exact class — `diagnostic-503` — shipped a promotion set that was wrong in both directions and reached an executable, and its own identity check could not see it. Unlike `504`, this plan's premise came from the Planner's own reading rather than from a cold seat, so no cold reading has been spent on it. Decide at the freeze and record the reasoning either way.
-**Conformance (§5):** owed — `plan_lint` and `propagation_check` run at the deposit PATH before the copy-in.
-**Closing:** owed.
+**Conformance (§5):** first run at walk-1 close (shape-stable), at the DRAFT path — `plan_lint` exit **0**, 0 FAIL; `cycle_check` **CONTINUE**; `propagation_check` exit **1**, 14 divergences, ALL one class — the numeral `14` restated in prose where `Q` is the declared symbol. ⚠️ **Carried into walk 2 with its over-match band pre-classified, not swept blind:** at least two hits are the checker firing on a DIFFERENT quantity that shares the value — `D2` (`learned`) is also 14 — and one is a verbatim quotation of `executable-502`'s own row. ⚠️ **The collision is itself worth carrying: `learned` = 14 and bare = 14, so every unqualified "the 14" in this plan is ambiguous between two different sets.** Re-run at the deposit path before the copy-in.
+**Close:** not reached — the cycle is open. ⚠️ The canonical `Closing:` field name is itself `cycle_check`'s closure token (`CLOSURE_RE`, `cycle_check.py:37`), so an open cycle that carries it as a placeholder escalates `claimed-close-unmet` on every intermediate run. Written in a form that cannot match until it is earned, per §3; restored to canonical form at the close.
 
 ## Cycle Manifest
 tier: T1
