@@ -101,7 +101,7 @@ Each entry's status is DERIVED, never chosen:
 ⚠️ **Walk 7 — the cold panel — is given its OWN lens lines rather than appended to the series above, and the geometry is deliberate (§3).** Appending it put walk 7's folds on a line that also carried w5/w6 `dry` tokens, and `plan_lint`'s last-lens-line check then read the line as dry and FELL SILENT — a WARN vanishing on a record-only edit, which §3 names as the signature of a log satisfying a check on the step's behalf. Split out, the warning returned EARNED, which was the correct state for an open cycle whose last event was a fold. ⚠️ **It has since cleared, also earned: walk 11's ACID lens went dry, so the last lens result line legitimately ends `dry` and §4's check no longer fires. Recorded so the note is not read as describing the present.**
 
 - Weak spots (w7):         9 folded.  ·  w8: 1 folded.  ·  w9: 3 folded.  ·  w10: 2 folded.  ·  w11: 2 folded.  ·  w12: 2 folded (record).  ·  w13: 1 folded (record).
-- Destruction (w7):        3 folded.  ·  w8: 1 folded.  ·  w9: 1 folded.  ·  w10: dry.  ·  w11: dry.  ·  w12: dry.
+- Destruction (w7):        3 folded.  ·  w8: 1 folded.  ·  w9: 1 folded.  ·  w10: dry.  ·  w11: dry.  ·  w12: dry.  ·  w13: dry.
 - Vulnerabilities (w7):    8 folded.  ·  w8: 1 folded.  ·  w9: 1 folded.  ·  w10: dry.  ·  w11: dry.  ·  w12: dry.
 - Integration-record (w7): 14 folded.  ·  w8: 1 folded.  ·  w9: 1 folded.  ·  w10: 1 folded.  ·  w11: 1 folded.  ·  w12: 1 folded (record).
 - ACID (w7):               6 folded.  ·  w8: 1 folded.  ·  w9: 1 folded.  ·  w10: 1 folded.  ·  w11: dry.  ·  w12: dry.
