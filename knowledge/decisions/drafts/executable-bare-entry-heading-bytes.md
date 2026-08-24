@@ -23,6 +23,8 @@
 - **It does NOT normalize apostrophes anywhere as a matching rule.** ⚠️ Normalizing inside a lookup key is what orphaned 40 of 370 corpus rows at `exec-499`; the fix is to make the stored value correct, never to make the comparison lenient.
 - **It does NOT edit `LESSONS.md`.** The register is correct; the deposit is wrong.
 
+⚠️⚠️ **THIS PLAN EDITS A CLOSED PLAN'S DEPOSIT, AND A CODIFIED LESSON SAYS NOT TO — the deviation is declared here rather than discovered by a later reader.** `LESSONS.md:3993` reads: *When a defect is found in a closed artifact, record it in the consuming verdict/register with a pointer to the source; the closed artifact stays byte-stable.* **Three facts distinguish this case, and if you disagree with them the right move is to stop and say so, not to proceed quietly:** **(1)** that lesson's artifact was a census READ BY HUMANS, where a pointer in the consuming verdict reaches the reader; this TSV is consumed MECHANICALLY by a builder, which reads the cell and never the verdict. **(2)** The lesson's own wording bars editing a closed artifact *silently* — this edit has a plan, a drafting cycle, a register, a verdict and a commit. **(3)** The defect is in the LOCATOR itself, the one field whose entire purpose is machine matching, not in a value a reader interprets. ⚠️ **The cost of the strict reading is the thing that settles it: leave the bytes alone and the companion halts on 2 of 14 entries permanently, with a pointer in a verdict that no builder will ever read.**
+
 ## Numbers discipline
 
 ⚠️ **RE-DERIVE every value; if yours differ, yours supersede and you say so.**
@@ -47,6 +49,7 @@
 **Walk 0 (context pin) — REAL, measured 2026-08-24:** newest same-class measured by ship date (505, 2026-08-23T19:42:41-05:00, ahead of 502 the same morning). **Anchors:** the two `entry_heading` cells, 4 characters total. **Occurrence counts:** U+2019 = 4 file-wide, all 4 inside those two cells (`D5`). **Last writer of the target lines:** `diagnostic-506`, closed to `Done/` 2026-08-24. **Target sha:** `D7`.
 **Direction verdict (after walk 1):** owed.
 - Weak spots:          w1 2 folded.
+- Destruction:         w1 1 folded.
 **Cold panel:** computed tier does not require one. Decide at the freeze and record the reasoning.
 **Conformance (§5):** owed — `plan_lint` and `propagation_check` at the deposit resolution before the copy-in.
 **Close:** not reached — the cycle is open. Restored to canonical form when earned.
