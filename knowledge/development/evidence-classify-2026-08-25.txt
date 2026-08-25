@@ -1,0 +1,116 @@
+Evidence — Classify Cycle 2026-08-25 (Plan 530, Step 1)
+=========================================================
+
+PRE-FLIGHT — Single-writer check
+---------------------------------
+get_unclassified_entries read 1: [371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402]
+get_unclassified_entries read 2: [371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402]
+Stable: True
+Count: 32
+in-progress- scan: /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/decisions/in-progress-executable-530.md (this plan only)
+
+PRE-FLIGHT — Numeric pins
+--------------------------
+Existing proposals for W ids (371-402): 0
+M5 total entries: 402
+M2 proposals before: 378
+M10 sentinel 370 hash: a5de9df60370efe301a6487f9c3e38733387a180b011a814bf7cc2912d11f2df
+M11 stale count: 3
+M12 surfaceable base: 25
+
+PRE-FLIGHT — M6 non-terminal triple-set (33 rows)
+---------------------------------------------------
+  id=98 status=stale route=None
+  id=121 status=stale route=None
+  id=130 status=stale route=None
+  id=340 status=accepted route=codify
+  id=342 status=accepted route=codify
+  id=346 status=accepted route=codify
+  id=350 status=accepted route=codify
+  id=352 status=accepted route=codify
+  id=354 status=proposed route=None
+  id=355 status=proposed route=None
+  id=356 status=proposed route=None
+  id=357 status=proposed route=None
+  id=358 status=proposed route=None
+  id=359 status=proposed route=None
+  id=360 status=proposed route=None
+  id=361 status=proposed route=None
+  id=362 status=proposed route=None
+  id=363 status=proposed route=None
+  id=364 status=proposed route=None
+  id=365 status=proposed route=None
+  id=366 status=proposed route=None
+  id=367 status=proposed route=None
+  id=368 status=proposed route=None
+  id=369 status=proposed route=None
+  id=370 status=proposed route=None
+  id=371 status=proposed route=None
+  id=372 status=proposed route=None
+  id=373 status=proposed route=None
+  id=374 status=proposed route=None
+  id=375 status=proposed route=None
+  id=376 status=proposed route=None
+  id=377 status=proposed route=None
+  id=378 status=proposed route=None
+
+PRE-FLIGHT — M8 report shas
+-----------------------------
+b76e3ddd588e7be0437a13295e7e0eaf9ed3fba51428726acec64c8ef57adcd0  reports/lessons-report-2026-08-12.md
+7cfd7904c849197645300ea8b0c83078b4d3ebc997a5e85be70eaa2f29e7d7a5  reports/lessons-report-2026-08-13.md
+f1807cf266b369541ce5ae56f17e83966e354dd36d0ac8daa7ec73d4ec454c85  reports/lessons-report-2026-08-14.md
+b21281169ac1a138ade427d338c90823382d03cb69800234533d5e86a87d991d  reports/lessons-report-2026-08-15.md
+7f9b283bf42a31eb9fca9fb97121cad1a5dfc654a9fc5a8aa06e5b3dcafa363e  reports/lessons-report-2026-08-19.md
+Today's report: ABSENT
+
+CLASSIFICATION — All 32 proposals
+-----------------------------------
+insert_proposal(conn, 371, 'governance_rule', ..., 'high', route=None) → 379
+insert_proposal(conn, 372, 'governance_rule', ..., 'high', route=None) → 380
+insert_proposal(conn, 373, 'governance_rule', ..., 'high', route=None) → 381
+insert_proposal(conn, 374, 'instrumentation', ..., 'high', route=None) → 382
+insert_proposal(conn, 375, 'governance_rule', ..., 'high', route=None) → 383
+insert_proposal(conn, 376, 'instrumentation', ..., 'high', route=None) → 384
+insert_proposal(conn, 377, 'governance_rule', ..., 'high', route=None) → 385
+insert_proposal(conn, 378, 'governance_rule', ..., 'high', route=None) → 386
+insert_proposal(conn, 379, 'instrumentation', ..., 'medium', route=None) → 387
+insert_proposal(conn, 380, 'structural', ..., 'high', route=None) → 388
+insert_proposal(conn, 381, 'governance_rule', ..., 'high', route=None) → 389
+insert_proposal(conn, 382, 'instrumentation', ..., 'high', route=None) → 390
+insert_proposal(conn, 383, 'structural', ..., 'high', route=None) → 391
+insert_proposal(conn, 384, 'instrumentation', ..., 'high', route=None) → 392
+insert_proposal(conn, 385, 'instrumentation', ..., 'high', route=None) → 393
+insert_proposal(conn, 386, 'governance_rule', ..., 'high', route=None) → 394
+insert_proposal(conn, 387, 'governance_rule', ..., 'high', route=None) → 395
+insert_proposal(conn, 388, 'governance_rule', ..., 'high', route=None) → 396
+insert_proposal(conn, 389, 'instrumentation', ..., 'high', route=None) → 397
+insert_proposal(conn, 390, 'governance_rule', ..., 'high', route=None) → 398
+insert_proposal(conn, 391, 'governance_rule', ..., 'high', route=None) → 399
+insert_proposal(conn, 392, 'instrumentation', ..., 'high', route=None) → 400
+insert_proposal(conn, 393, 'structural', ..., 'high', route=None) → 401
+insert_proposal(conn, 394, 'structural', ..., 'high', route=None) → 402
+insert_proposal(conn, 395, 'structural', ..., 'high', route=None) → 403
+insert_proposal(conn, 396, 'instrumentation', ..., 'high', route=None) → 404
+insert_proposal(conn, 397, 'structural', ..., 'high', route=None) → 405
+insert_proposal(conn, 398, 'instrumentation', ..., 'high', route=None) → 406
+insert_proposal(conn, 399, 'governance_rule', ..., 'high', route=None) → 407  [AUTHOR-CONFLICT]
+insert_proposal(conn, 400, 'structural', ..., 'high', route=None) → 408  [AUTHOR-CONFLICT] (note: structural counted above but 6 not 7 since entry 393 is structural)
+insert_proposal(conn, 401, 'structural', ..., 'high', route=None) → 409  [AUTHOR-CONFLICT]
+insert_proposal(conn, 402, 'governance_rule', ..., 'high', route=None) → 410  [AUTHOR-CONFLICT]
+conn.commit() — single commit after all 32 inserts
+
+POST-CONDITIONS (fresh read-only connection)
+----------------------------------------------
+M1 (inversion): get_unclassified_entries = [] — PASS
+M2: total proposals = 410, K = 32 — PASS (K >= 32)
+M3: new proposals with non-NULL route = 0 — PASS
+M4: new proposals with status != proposed = 0 — PASS
+M5: total entries = 402 — PASS
+M6: non-terminal set = 33 rows, SET-IDENTICAL to pre-flight — PASS
+M7: AUTHOR-CONFLICT markers on 2026-08-25 entries = 4 — PASS
+M10: sentinel 370 hash = a5de9df60370efe301a6487f9c3e38733387a180b011a814bf7cc2912d11f2df — PASS
+M11: stale count = 3 — PASS
+M12: surfaceable = 57 — RECORDED (25 + 32)
+M13: new duplicate-category proposals = 0 — PASS
+
+ALL POST-CONDITIONS PASSED.
