@@ -1,0 +1,125 @@
+Evidence — QA Classify Cycle 2026-08-25 (Plan 530, Step 3)
+==========================================================
+
+QA VERIFICATION — Fresh read-only connection
+---------------------------------------------
+Database: /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db (mode=ro)
+
+M1 — Unclassified entries (the inversion):
+  get_unclassified_entries(conn) = []
+  PASS: 0 unclassified
+
+M2 — Total proposals:
+  SELECT COUNT(*) FROM lesson_proposals = 410
+  K = 32 (410 - 378), K >= 32: True
+  RECORDED
+
+M3 — Route on new proposals (id > 378):
+  SELECT COUNT(*) FROM lesson_proposals WHERE id > 378 AND route IS NOT NULL = 0
+  PASS: all NULL
+
+M4 — Status on new proposals (id > 378):
+  SELECT COUNT(*) FROM lesson_proposals WHERE id > 378 AND status <> 'proposed' = 0
+  PASS: all 'proposed'
+
+M5 — Corpus entries:
+  SELECT COUNT(*) FROM lesson_entries = 402
+  PASS: unchanged
+
+M6 — Pre-existing non-terminal triple-set (33 rows, SET-IDENTICAL to Step 1 pre-flight):
+  id=98 status=stale route=None
+  id=121 status=stale route=None
+  id=130 status=stale route=None
+  id=340 status=accepted route=codify
+  id=342 status=accepted route=codify
+  id=346 status=accepted route=codify
+  id=350 status=accepted route=codify
+  id=352 status=accepted route=codify
+  id=354 status=proposed route=None
+  id=355 status=proposed route=None
+  id=356 status=proposed route=None
+  id=357 status=proposed route=None
+  id=358 status=proposed route=None
+  id=359 status=proposed route=None
+  id=360 status=proposed route=None
+  id=361 status=proposed route=None
+  id=362 status=proposed route=None
+  id=363 status=proposed route=None
+  id=364 status=proposed route=None
+  id=365 status=proposed route=None
+  id=366 status=proposed route=None
+  id=367 status=proposed route=None
+  id=368 status=proposed route=None
+  id=369 status=proposed route=None
+  id=370 status=proposed route=None
+  id=371 status=proposed route=None
+  id=372 status=proposed route=None
+  id=373 status=proposed route=None
+  id=374 status=proposed route=None
+  id=375 status=proposed route=None
+  id=376 status=proposed route=None
+  id=377 status=proposed route=None
+  id=378 status=proposed route=None
+  SET IDENTITY: True (compared against Step 1 evidence-classify-2026-08-25.txt pre-flight capture)
+
+M7 — AUTHOR-CONFLICT markers:
+  SELECT COUNT(DISTINCT lp.entry_id) FROM lesson_proposals lp JOIN lesson_entries le ON lp.entry_id = le.id WHERE lp.id > 378 AND le.entry_date = '2026-08-25' AND lp.reasoning LIKE '%[AUTHOR-CONFLICT]%' = 4
+  PASS: 4 distinct entry_ids
+
+M8 — Five pinned report shas:
+  b76e3ddd588e7be0437a13295e7e0eaf9ed3fba51428726acec64c8ef57adcd0  reports/lessons-report-2026-08-12.md — MATCH
+  7cfd7904c849197645300ea8b0c83078b4d3ebc997a5e85be70eaa2f29e7d7a5  reports/lessons-report-2026-08-13.md — MATCH
+  f1807cf266b369541ce5ae56f17e83966e354dd36d0ac8daa7ec73d4ec454c85  reports/lessons-report-2026-08-14.md — MATCH
+  b21281169ac1a138ade427d338c90823382d03cb69800234533d5e86a87d991d  reports/lessons-report-2026-08-15.md — MATCH
+  7f9b283bf42a31eb9fca9fb97121cad1a5dfc654a9fc5a8aa06e5b3dcafa363e  reports/lessons-report-2026-08-19.md — MATCH
+  PASS: all five byte-identical
+
+M9 — Today's report:
+  reports/lessons-report-2026-08-25.md exists (47150 bytes)
+  Total proposals: 57 (25 backlog + 32 new)
+  PASS
+
+M10 — Sentinel entry 370:
+  sha256(raw_content) = a5de9df60370efe301a6487f9c3e38733387a180b011a814bf7cc2912d11f2df
+  PASS: unchanged
+
+M11 — Stale count:
+  SELECT COUNT(*) FROM lesson_proposals WHERE status='stale' = 3
+  PASS: 3, unchanged
+
+M12 — Surfaceable:
+  SELECT COUNT(*) FROM lesson_proposals WHERE status IN ('proposed','ambiguous') = 57
+  RECORDED
+
+M13 — New duplicate-category proposals:
+  SELECT COUNT(*) FROM lesson_proposals WHERE id > 378 AND category = 'duplicate' = 0
+  PASS: 0
+
+DISPOSITION-line count:
+  grep -cF 'DISPOSITION | entry=' knowledge/development/dev-log-classify-2026-08-25.md = 32
+  PASS: matches W=32
+
+Targeted tests:
+  python3 -m pytest src/test_lessons_forge.py -q
+  63 passed in 0.14s
+  PASS: 63 tests, 0 failures
+
+BACKLOG RENDERING IN REPORT (M9 — Plan C routing evidence)
+------------------------------------------------------------
+The report at reports/lessons-report-2026-08-25.md shows 57 total proposals.
+The 25-proposal backlog (ids 354-378, from the 08-19 classify cycle) renders across dates:
+  08-19: 12 proposals (e.g. "The sibling-sweep discipline has a measured floor", "The last fold round before a deposit has no executor", "A cold seat's proposed FIX is an unexecuted hypothesis", "A cross-step carrier cannot live inside the commit whose hash it carries", ...)
+  08-18: 10 proposals (e.g. "A CEO decision folded into a plan is an unread fold round", "Price a finding's severity against evidence, not against how alarming it reads", ...)
+  08-16: 5 proposals
+  05-22: 3 proposals, 05-30: 1 proposal, 05-20: 1 proposal
+  (subtotal minus overlap with new batch = 25 backlog entries)
+
+Sample backlog rendering (from report lines 82-87):
+  ### 2026-08-19: The sibling-sweep discipline has a measured floor — when pre-existing yield hits zero while total yield does not fall, stop walking and run a mechanical check [tag: drafting-cycle]
+  - **Suggested action:** Add mechanical-check trigger to DRAFTING_CYCLE.md: when pre-existing-class yield is 0 on a walk AND total yield did not fall, stop walking and run the propagation check.
+  - **Reasoning:** Entry measures: "fourteen instances of one class survived eleven walks, a mechanical literal sweep, and a three-seat cold panel." [...] [AUTHOR-CONFLICT] — entry dated 2026-08-19 [...] [DEDUP] [...]
+  - **Confidence:** high
+
+The 32 new proposals (ids 379-410) render across dates: 08-24 (10), 08-25 (4), 08-21 (4), 08-23 (4), 08-22 (3), 08-19 (7).
+
+All 57 proposals visible in report. Backlog is untouched and surfaced for Gate 1's non-author review.
