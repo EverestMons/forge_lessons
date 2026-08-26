@@ -97,7 +97,7 @@ PASSED — SELF-CHECK PASSED — all evidence files present, no hedging keywords
 ## Cycle Manifest
 tier: T1
 target: lessons-forge/lessons-forge.db
-class: register-writing
+class: shop-infra
 reads: /Users/marklehn/Developer/GitHub/LESSONS.md, /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db, /Users/marklehn/Developer/GitHub/lessons-forge/src/lessons_forge.py
 writes: lessons-forge.db (untracked), knowledge/development/dev-log-cycle-w3-2026-08-26.md, reports/lessons-report-2026-08-26.md, knowledge/qa/evidence/forge-cycle-w3-2026-08-26/probes-raw.txt, knowledge/qa/evidence/forge-cycle-w3-2026-08-26/qa-receipt.md
 open_forks: Gate 1 (outside this plan, split by authorship: the 08-25 proposal → this Planner as non-author; the two 08-26 proposals → the CEO); Gate 2 codification for whatever Gate 1 accepts
