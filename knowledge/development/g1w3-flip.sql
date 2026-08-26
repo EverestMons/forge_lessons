@@ -1,0 +1,10 @@
+BEGIN IMMEDIATE;
+CREATE TEMP TABLE g_pre(x INTEGER CHECK(x=3));
+INSERT INTO g_pre SELECT COUNT(*) FROM lesson_proposals WHERE id IN (411,412,413) AND status='proposed' AND route IS NULL;
+UPDATE lesson_proposals SET status='accepted', route='codify', status_updated_at=strftime('%Y-%m-%dT%H:%M:%SZ','now'), status_updated_by='planner' WHERE id = 411 AND status='proposed';
+UPDATE lesson_proposals SET status='accepted', route='codify', status_updated_at=strftime('%Y-%m-%dT%H:%M:%SZ','now'), status_updated_by='ceo' WHERE id IN (412,413) AND status='proposed';
+SELECT 'CHANGES_F='||changes();
+CREATE TEMP TABLE g_post(x INTEGER CHECK(x=0));
+INSERT INTO g_post SELECT COUNT(*) FROM lesson_proposals WHERE id IN (411,412,413) AND NOT (status='accepted' AND route='codify');
+SELECT 'ACC='||COUNT(*) FROM lesson_proposals WHERE status='accepted';
+COMMIT;
