@@ -1,0 +1,33 @@
+Gate-1 Routing W=3 — QA Probes (fresh connection)
+Date: 2026-08-26
+Plan: 557
+
+=== M1 — per-row state (band 411,412,413) ===
+411|accepted|codify|planner|2026-08-26T16:57:46Z
+412|accepted|codify|ceo|2026-08-26T16:57:46Z
+413|accepted|codify|ceo|2026-08-26T16:57:46Z
+
+=== M2 — stamps ===
+411|planner|2026-08-26T16:57:46Z
+412|ceo|2026-08-26T16:57:46Z
+413|ceo|2026-08-26T16:57:46Z
+All three status_updated_at values: 2026-08-26T16:57:46Z (identical)
+
+=== M3 — triple-set identity (id <= 410) ===
+Hash (md5 of id|status|COALESCE(route,'') rows, ordered by id): bf94b39d597998b1bfebeeab303d833a
+Dev-log pre-flip hash: bf94b39d597998b1bfebeeab303d833a
+Dev-log post-flip hash: bf94b39d597998b1bfebeeab303d833a
+Result: SET-IDENTICAL — no rows in id <= 410 were modified.
+
+=== M4 — counts ===
+P=413
+accepted=3
+
+=== Flip replay abort ===
+Command: sqlite3 -bail /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db ".timeout 5000" ".read $(pwd)/knowledge/development/g1w3-flip.sql"
+Output: Runtime error near line 3: CHECK constraint failed: x=3 (19)
+Exit code: 1
+Post-abort re-select (band unchanged):
+411|accepted|codify|planner|2026-08-26T16:57:46Z
+412|accepted|codify|ceo|2026-08-26T16:57:46Z
+413|accepted|codify|ceo|2026-08-26T16:57:46Z
