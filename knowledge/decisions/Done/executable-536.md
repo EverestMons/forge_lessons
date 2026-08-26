@@ -208,12 +208,36 @@ Read the plan at knowledge/decisions/in-progress-executable-<id>.md (the daemon 
 - Integration-record:  w2 1 folded — record-class: the clone-diff's artefact pass had not named the origin's statement-3 guard exemption as accounted-for; one sentence added above so a later reader does not re-import the exemption.
 - ACID:                w2 dry.
 - **Walk 2 total: 2 findings, 2 folded — 1 instruction-class (the unreachable D3 branch), 1 record-class, both fold/clone-introduced, 0 HIGH. Three lenses dry. ⚠️ The instruction-class finding re-opens the walk — the bar is NOT met at walk 2.**
-- Walk 3 — mechanical arm EXECUTED (not read): the four payload declarations AND the four SQL IN-lists extracted from this file and diffed against the authoring-time verified partition — byte-identical, held ids absent from every IN-list, exactly 2 H2 STEP headers (`WALK3-MECH OK`, 2026-08-25). Read arm: 1 folded — **instruction-class:** Q0.2's unscoped proposed-count conflated a verdict-window write to THIS batch with a concurrent cycle's new proposals at ids > 410, failing a correct state; range-scoped to `BETWEEN 354 AND 410`. Other four lenses dry on the read.
-- **Walk 3 total: 1 finding, 1 folded — instruction-class → the bar is NOT met at walk 3; walk 4 owed.**
-- Walk 4 — the confirming pass over walks 2–3's folds: the D3 replacement re-derived against A0's redo branch (consistent — HALT precedes D3 on every post-COMMIT death); Q0.2's scope re-derived against QA row 1's set checks (the batch guard survives the scoping); a leftover sweep for un-adapted origin fragments (`already-committed`, `must print 0`, `A1.4`, orphan `41`/`274` literals) found only legitimate citations; A0.1's `2|378|389` triple re-derived (for exactly two rows MIN/MAX identifies the set, and the GROUP BY signature is the non-eyeball check). **All five lenses dry on the instruction stream; 0 findings.**
+**Walk 3** — the surface was walks 1–2's folds, plus an EXECUTED mechanical arm (not a read): the four payload declarations AND the four SQL IN-lists extracted from this file and diffed against the authoring-time verified partition — byte-identical, held ids absent from every IN-list, exactly 2 H2 STEP headers (`WALK3-MECH OK`, 2026-08-25).
+- Weak spots:          w3 1 folded — **1/1 pre-existing**, instruction-class. ⚠️ Q0.2's unscoped proposed-count conflated a verdict-window write to THIS batch with a concurrent cycle's new proposals at ids > 410 — a check that fails a correct state; range-scoped to `BETWEEN 354 AND 410`, with QA row 1's set checks still guarding the batch.
+- Destruction:         w3 dry.
+- Vulnerabilities:     w3 dry.
+- Integration-record:  w3 dry.
+- ACID:                w3 dry.
+- **Walk 3 total: 1 finding, 1 folded — instruction 1 / record 0. The bar is NOT met at walk 3; walk 4 owed.**
+
+**Walk 4** — the confirming pass over walks 2–3's folds.
+- Weak spots:          w4 dry — the leftover sweep for un-adapted origin fragments (`already-committed`, `must print 0`, `A1.4`, orphan `41`/`274` literals) found only legitimate citations.
+- Destruction:         w4 dry — the D3 replacement re-derived against A0's redo branch: HALT precedes D3 on every post-COMMIT death; no state reaches D3 with prior Scope commits.
+- Vulnerabilities:     w4 dry — Q0.2's new scope re-derived against QA row 1's set checks; the batch guard survives the scoping.
+- Integration-record:  w4 dry — A0.1's `2|378|389` triple re-derived: for exactly two rows MIN/MAX identifies the set, and the GROUP BY signature is the non-eyeball check.
+- ACID:                w4 dry.
+- **Walk 4 total: 0 findings — instruction 0 / record 0, ALL FIVE LENSES DRY.**
 
 **Closing:** ✅ **BAR MET at walk 4 — a dry confirming pass, all five lenses, after two consecutive instruction-class walks.** The §2.7 closing re-read ran after this record was written: it re-derived the walk arithmetic (w1 5/5 pre-existing; w2 2 folded, 1 instruction; w3 1 instruction + executed mechanical arm; w4 0) and found no instruction-stream defect; the one candidate it raised — whether QA row 5's higher-is-not-a-failure clause could mask a concurrent forge code change — is answered by row 7 (nothing else moved) and Scope (no code files), and is recorded here rather than folded.
 
-**Conformance (§5):** `plan_lint` run at the DEPOSIT path resolution (`lessons-forge/knowledge/decisions/`) under a `lintmirror-` name (the admission-predicate-verified non-claimable form), exit code recorded pre-deposit. Any warning beyond the known-benign test-mention class is unexplained → do not deposit.
+**Conformance (§5):** `plan_lint` run at the DEPOSIT path resolution (`lessons-forge/knowledge/decisions/`) under a `lintmirror-` name (the admission-predicate-verified non-claimable form) — exit 0, zero warnings after the `**Closing:**` token fix its first run caught. ⚠️ **Honest record: the FIRST deposit of this plan was depositor-held `cycle_check:ESCALATE:claimed-close-unmet`** — walks 3–4 were written as prose bullets the lens-line parser cannot read (the probe-must-match-representation class, on the Planner's own record). The walks' substance was performed before the hold; the record was rewritten in canonical lens-line form and `cycle_check` re-run to an earned **BAR_MET** (2026-08-25). Any other verdict at re-deposit is unexplained → do not release.
 
 **Fold-and-deposit exactly once.**
+
+## Cycle Manifest
+tier: T1
+target: lessons-forge.db
+class: shop-infra
+reads: /Users/marklehn/Developer/GitHub/lessons-forge/src/lessons_forge.py, /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db, /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/research/draft-gate1-routing-2026-08-11.md, /Users/marklehn/Developer/GitHub/gate1-packet-2026-08-25.md
+writes: lessons-forge.db, knowledge/development/gate1-routing-dev-log-2026-08-25.md, knowledge/development/gate1-pre-dump-2026-08-25.txt, knowledge/development/gate1-post-dump-2026-08-25.txt, knowledge/qa/gate1-route-57-qa-2026-08-25.md, knowledge/qa/evidence/gate1-route-57/pytest_full.txt, knowledge/qa/evidence/gate1-route-57/routing-verification.txt, knowledge/qa/evidence/gate1-route-57/diff-audit.txt
+open_forks: proposals 378/389 HELD proposed — the per-project knowledge-home consolidation fork, surfaced to the CEO in gate1-packet-2026-08-25.md, deliberately not decided by this plan
+walks: 4
+yields: 5, 2, 1, 0
+validation: cycle_check=BAR_MET, plan_lint=0_FAIL, fold_check=N/A
+coherence: N/A
