@@ -1,0 +1,74 @@
+== Row 1(a): accepted|codify id SET ==
+
+DB query: SELECT GROUP_CONCAT(id) FROM lesson_proposals WHERE status='accepted' AND route='codify' AND id BETWEEN 354 AND 410 ORDER BY id;
+Result: 354,355,361,364,365,366,368,370,372,373,379,383,384,385,386,387,390,393,395,401,406,407,409
+
+CODIFY-23 payload: 354,355,361,364,365,366,368,370,372,373,379,383,384,385,386,387,390,393,395,401,406,407,409
+
+Symmetric difference: set() (EMPTY)
+
+== Row 1(b): rejected id SET (route IS NULL) ==
+
+DB query: SELECT GROUP_CONCAT(id) FROM lesson_proposals WHERE status='rejected' AND route IS NULL AND id BETWEEN 354 AND 410 ORDER BY id;
+Result: 356,357,358,359,362,363,367,374,375,376,377,380,381,382,392,394,396,397,398,399,400,404,410
+
+REJECT-23 payload: 356,357,358,359,362,363,367,374,375,376,377,380,381,382,392,394,396,397,398,399,400,404,410
+
+Symmetric difference: set() (EMPTY)
+
+== Row 1(c): reference id SETs ==
+
+DB query (reference|reference): SELECT GROUP_CONCAT(id) FROM lesson_proposals WHERE status='reference' AND route='reference' AND id BETWEEN 354 AND 410 ORDER BY id;
+Result: 388,391,402,403,405,408
+
+REFREF-6 payload: 388,391,402,403,405,408
+
+Symmetric difference: set() (EMPTY)
+
+DB query (reference|backlog): SELECT GROUP_CONCAT(id) FROM lesson_proposals WHERE status='reference' AND route='backlog' AND id BETWEEN 354 AND 410 ORDER BY id;
+Result: 360,369,371
+
+REFBACK-3 payload: 360,369,371
+
+Symmetric difference: set() (EMPTY)
+
+== Row 1(d): status_updated_by and status_updated_at ==
+
+Transaction timestamp from dev log: 2026-08-25T22:58:03Z
+
+DB query: SELECT COUNT(*) FROM lesson_proposals WHERE id BETWEEN 354 AND 410 AND id NOT IN (378,389) AND status_updated_by='planner' AND status_updated_at='2026-08-25T22:58:03Z';
+Result: 55
+
+DB query (mismatches): SELECT COUNT(*) FROM lesson_proposals WHERE id BETWEEN 354 AND 410 AND id NOT IN (378,389) AND (status_updated_by != 'planner' OR status_updated_at != '2026-08-25T22:58:03Z' OR status_updated_by IS NULL OR status_updated_at IS NULL);
+Result: 0
+
+All 55 routed rows carry status_updated_by='planner' and status_updated_at='2026-08-25T22:58:03Z'.
+
+== Row 2: held rows 378 and 389 ==
+
+DB query: SELECT id, status, COALESCE(route,'-'), COALESCE(status_updated_by,'-'), COALESCE(status_updated_at,'-'), COALESCE(target_artifact,'-') FROM lesson_proposals WHERE id IN (378,389) ORDER BY id;
+
+Result:
+378|proposed|-|-|-|PLANNER_TEMPLATE.md
+389|proposed|-|-|-|-
+
+Pre-dump values (from committed gate1-pre-dump-2026-08-25.txt):
+378|proposed|-|-|-|PLANNER_TEMPLATE.md
+389|proposed|-|-|-|-
+
+All six columns byte-identical between pre-dump and live DB for both held rows.
+
+== Row 6: DB was not committed ==
+
+git log --name-only over Step 1 commit (b2fccd2):
+  knowledge/development/gate1-post-dump-2026-08-25.txt
+  knowledge/development/gate1-pre-dump-2026-08-25.txt
+  knowledge/development/gate1-routing-dev-log-2026-08-25.md
+
+No lessons-forge.db in any commit on this branch.
+
+git ls-files --error-unmatch lessons-forge.db:
+  error: pathspec 'lessons-forge.db' did not match any file(s) known to git
+  Did you forget to 'git add'?
+
+DB remains untracked.

@@ -1,0 +1,138 @@
+== Row 3: untouched population ==
+
+diff knowledge/development/gate1-pre-dump-2026-08-25.txt knowledge/development/gate1-post-dump-2026-08-25.txt
+
+Changed rows (content differs): 55
+Changed lines (paired old/new): 112
+Unchanged rows in diff block: {378} (row 378 appears in block 354,388c354,388 but content is identical)
+Foreign ids (changed but not in any payload set): set() (NONE)
+Target artifact changes: set() (NONE)
+
+All 55 changed rows belong to the four payload sets (CODIFY-23, REJECT-23, REFREF-6, REFBACK-3).
+Zero foreign ids. Zero target_artifact changes.
+
+Full diff output:
+354,388c354,388
+< 354|proposed|-|-|-|DRAFTING_CYCLE.md
+< 355|proposed|-|-|-|-
+< 356|proposed|-|-|-|-
+< 357|proposed|-|-|-|-
+< 358|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 359|proposed|-|-|-|DRAFTING_CYCLE.md
+< 360|proposed|-|-|-|plan_lint.py
+< 361|proposed|-|-|-|DRAFTING_CYCLE.md
+< 362|proposed|-|-|-|PANEL_SEAT_TEMPLATE.md
+< 363|proposed|-|-|-|-
+< 364|proposed|-|-|-|-
+< 365|proposed|-|-|-|-
+< 366|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 367|proposed|-|-|-|-
+< 368|proposed|-|-|-|-
+< 369|proposed|-|-|-|-
+< 370|proposed|-|-|-|-
+< 371|proposed|-|-|-|-
+< 372|proposed|-|-|-|-
+< 373|proposed|-|-|-|-
+< 374|proposed|-|-|-|DRAFTING_CYCLE.md
+< 375|proposed|-|-|-|DRAFTING_CYCLE.md
+< 376|proposed|-|-|-|PANEL_SEAT_TEMPLATE.md
+< 377|proposed|-|-|-|-
+< 378|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 379|proposed|-|-|-|DRAFTING_CYCLE.md
+< 380|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 381|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 382|proposed|-|-|-|-
+< 383|proposed|-|-|-|DRAFTING_CYCLE.md
+< 384|proposed|-|-|-|-
+< 385|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 386|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 387|proposed|-|-|-|-
+< 388|proposed|-|-|-|-
+---
+> 354|accepted|codify|planner|2026-08-25T22:58:03Z|DRAFTING_CYCLE.md
+> 355|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 356|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 357|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 358|rejected|-|planner|2026-08-25T22:58:03Z|PLANNER_TEMPLATE.md
+> 359|rejected|-|planner|2026-08-25T22:58:03Z|DRAFTING_CYCLE.md
+> 360|reference|backlog|planner|2026-08-25T22:58:03Z|plan_lint.py
+> 361|accepted|codify|planner|2026-08-25T22:58:03Z|DRAFTING_CYCLE.md
+> 362|rejected|-|planner|2026-08-25T22:58:03Z|PANEL_SEAT_TEMPLATE.md
+> 363|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 364|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 365|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 366|accepted|codify|planner|2026-08-25T22:58:03Z|PLANNER_TEMPLATE.md
+> 367|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 368|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 369|reference|backlog|planner|2026-08-25T22:58:03Z|-
+> 370|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 371|reference|backlog|planner|2026-08-25T22:58:03Z|-
+> 372|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 373|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 374|rejected|-|planner|2026-08-25T22:58:03Z|DRAFTING_CYCLE.md
+> 375|rejected|-|planner|2026-08-25T22:58:03Z|DRAFTING_CYCLE.md
+> 376|rejected|-|planner|2026-08-25T22:58:03Z|PANEL_SEAT_TEMPLATE.md
+> 377|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 378|proposed|-|-|-|PLANNER_TEMPLATE.md
+> 379|accepted|codify|planner|2026-08-25T22:58:03Z|DRAFTING_CYCLE.md
+> 380|rejected|-|planner|2026-08-25T22:58:03Z|PLANNER_TEMPLATE.md
+> 381|rejected|-|planner|2026-08-25T22:58:03Z|PLANNER_TEMPLATE.md
+> 382|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 383|accepted|codify|planner|2026-08-25T22:58:03Z|DRAFTING_CYCLE.md
+> 384|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 385|accepted|codify|planner|2026-08-25T22:58:03Z|PLANNER_TEMPLATE.md
+> 386|accepted|codify|planner|2026-08-25T22:58:03Z|PLANNER_TEMPLATE.md
+> 387|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 388|reference|reference|planner|2026-08-25T22:58:03Z|-
+390,410c390,410
+< 390|proposed|-|-|-|-
+< 391|proposed|-|-|-|-
+< 392|proposed|-|-|-|-
+< 393|proposed|-|-|-|-
+< 394|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 395|proposed|-|-|-|-
+< 396|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 397|proposed|-|-|-|-
+< 398|proposed|-|-|-|-
+< 399|proposed|-|-|-|DRAFTING_CYCLE.md
+< 400|proposed|-|-|-|-
+< 401|proposed|-|-|-|-
+< 402|proposed|-|-|-|-
+< 403|proposed|-|-|-|-
+< 404|proposed|-|-|-|-
+< 405|proposed|-|-|-|-
+< 406|proposed|-|-|-|-
+< 407|proposed|-|-|-|PLANNER_TEMPLATE.md
+< 408|proposed|-|-|-|-
+< 409|proposed|-|-|-|-
+< 410|proposed|-|-|-|-
+---
+> 390|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 391|reference|reference|planner|2026-08-25T22:58:03Z|-
+> 392|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 393|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 394|rejected|-|planner|2026-08-25T22:58:03Z|PLANNER_TEMPLATE.md
+> 395|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 396|rejected|-|planner|2026-08-25T22:58:03Z|PLANNER_TEMPLATE.md
+> 397|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 398|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 399|rejected|-|planner|2026-08-25T22:58:03Z|DRAFTING_CYCLE.md
+> 400|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 401|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 402|reference|reference|planner|2026-08-25T22:58:03Z|-
+> 403|reference|reference|planner|2026-08-25T22:58:03Z|-
+> 404|rejected|-|planner|2026-08-25T22:58:03Z|-
+> 405|reference|reference|planner|2026-08-25T22:58:03Z|-
+> 406|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 407|accepted|codify|planner|2026-08-25T22:58:03Z|PLANNER_TEMPLATE.md
+> 408|reference|reference|planner|2026-08-25T22:58:03Z|-
+> 409|accepted|codify|planner|2026-08-25T22:58:03Z|-
+> 410|rejected|-|planner|2026-08-25T22:58:03Z|-
+
+== Row 4: dumps are the committed ones ==
+
+diff <(git show HEAD:knowledge/development/gate1-pre-dump-2026-08-25.txt) knowledge/development/gate1-pre-dump-2026-08-25.txt
+PRE-DUMP: MATCH (byte-for-byte identical)
+
+diff <(git show HEAD:knowledge/development/gate1-post-dump-2026-08-25.txt) knowledge/development/gate1-post-dump-2026-08-25.txt
+POST-DUMP: MATCH (byte-for-byte identical)
