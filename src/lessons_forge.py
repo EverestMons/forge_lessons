@@ -49,7 +49,7 @@ def _normalize_for_hash(raw_content: str) -> str:
     return "\n".join(lines)
 
 
-_STATUS_TARGET_MARKER_RE = re.compile(r'\s*\[(?:status|target):[^\]]*\]', re.IGNORECASE)
+_STATUS_TARGET_MARKER_RE = re.compile(r'\s*\[(?:status|target|project):[^\]]*\]', re.IGNORECASE)
 
 
 def _key_heading(heading: str) -> str:

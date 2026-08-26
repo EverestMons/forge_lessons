@@ -1596,6 +1596,21 @@ def test_key_heading_preserves_tag_markers():
     assert _key_heading(heading_mixed) == "2026-04-10 — Lesson [tag: governance]"
 
 
+def test_key_heading_strips_project_marker():
+    """[project: ...] is identity-invisible: new-entry keys are stable and
+    retro-tagging an existing entry does not change its ingest key."""
+    tagged = "2026-08-26 — Lesson [tag: x] [project: invoice-pulse]"
+    assert _key_heading(tagged) == "2026-08-26 — Lesson [tag: x]"
+    multi = "2026-08-26 — Lesson [tag: x] [project: invoice-pulse, anvil]"
+    assert _key_heading(multi) == "2026-08-26 — Lesson [tag: x]"
+
+
+def test_key_heading_strips_project_with_status_and_target():
+    """project composes with the existing stripped markers in any order."""
+    mixed = "2026-08-26 — L [project: anvil] [status: pending] [target: X]"
+    assert _key_heading(mixed) == "2026-08-26 — L"
+
+
 def test_heading_with_markers_correct_heading_title():
     """(d) A heading with markers still yields the correct heading_title at site 3."""
     conn = _setup()
