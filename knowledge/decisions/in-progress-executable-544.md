@@ -114,7 +114,7 @@ PASSED — SELF-CHECK PASSED — all evidence files present, no hedging keywords
 ## Cycle Manifest
 tier: T1
 target: lessons-forge/knowledge/glossary.md
-class: shop-infra
+class: app-feature
 reads: /Users/marklehn/Developer/GitHub/lessons-forge/knowledge/glossary.md, /Users/marklehn/Developer/GitHub/GLOSSARY.md, /Users/marklehn/Developer/GitHub/bellows/knowledge/decisions/Done/executable-543.md
 writes: knowledge/glossary.md, knowledge/dev-logs/lf-glossary-pointer-dev-2026-08-26.md, knowledge/qa/evidence/lf-glossary-pointer-2026-08-26/probes-raw.txt, knowledge/qa/evidence/lf-glossary-pointer-2026-08-26/qa-receipt.md
 open_forks: the three grandfathered migrations + their CLAUDE.md re-points (own plans); ELUVIAN_PATH.md L131 (rides the wrap); the project-tag-on-lessons ruling (awaiting the CEO)
