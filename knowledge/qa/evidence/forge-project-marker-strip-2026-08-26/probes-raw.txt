@@ -1,0 +1,17 @@
+=== PROBE: status|target|project in committed lessons_forge.py ===
+1
+
+=== PROBE: status|target): in committed lessons_forge.py (must be 0) ===
+0
+
+=== PROBE: test_key_heading_strips_project_marker in committed test file ===
+1
+
+=== PROBE: test_key_heading_strips_project_with_status_and_target in committed test file ===
+1
+
+=== CMP: committed vs live src/lessons_forge.py ===
+exit: 0
+
+=== CMP: committed vs live src/test_lessons_forge.py ===
+exit: 0
