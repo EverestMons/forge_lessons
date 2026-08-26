@@ -1,0 +1,18 @@
+QA Probes — forge-cycle-w3-2026-08-26
+Fresh read-only connection to /Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db
+
+M2 (unclassified): 0
+M3 (proposal count): 413
+M4 (new non-proposed, id > 410): 0
+M6 (entry count): 405
+M7 (AUTHOR-CONFLICT markers, entry_date='2026-08-26'): 2
+M5 (triple count ids<=410): 410
+M5 status distribution: implemented:311, reference:29, rejected:38, stale:3, superseded:29
+M5 route distribution: None:156, backlog:10, codify:224, reference:20
+M5 (set-identical vs dev log): True
+M8 (corpus sha256): f80937e06472600872c2a4b36fddc1d03471e8d6cba7ae90cae2f0368db7ed4f
+M9 (08-25 sha256): 0984fdd3521e682c3c0a4cba0c604122a58ee872232640dd4e5b370879a688c7
+M9 (08-19 sha256): 7f9b283bf42a31eb9fca9fb97121cad1a5dfc654a9fc5a8aa06e5b3dcafa363e
+M10 (report sha256): 3c8362d2191da39ec3887ea1557aec4578fcc0db4dc23ac923b265bc5fdbad37
+M10 (exists): yes
+M10 (distinct from M9): yes
