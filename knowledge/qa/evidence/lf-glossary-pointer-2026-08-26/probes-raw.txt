@@ -1,0 +1,55 @@
+QA probes — lf-glossary-pointer (plan 544, Step 2)
+Date: 2026-08-26
+CAPTURE_COMMIT: fa16f6b
+
+=== Item 1 — committed extraction probes ===
+
+Source: git show fa16f6b:knowledge/glossary.md > /private/tmp/lf-glossary-pointer-extraction.md
+
+Probe: grep -cF "RETIRED"
+Result: 1
+
+Probe: grep -c "^## " (regex form)
+Result: 0
+
+Probe: grep -cF "[project: lessons-forge]"
+Result: 2
+
+Probe: grep -cF "plans 542 + 543"
+Result: 1
+
+Probe: wc -l
+Result: 9
+Dev note recorded: 9
+Match: YES
+
+Probe: cmp extraction vs live knowledge/glossary.md
+Result: exit 0 (CMP_OK — no drift)
+
+=== Item 2 — completeness proof re-run (CHECK-ONLY) ===
+
+Source (pre-retirement): git show fa16f6b^:knowledge/glossary.md
+Source (central): /Users/marklehn/Developer/GitHub/GLOSSARY.md
+
+Old glossary terms: ['Gate 1 (routing)', 'DISPOSITION line']
+Central [project: lessons-forge] terms: ['Gate 1 (routing)', 'DISPOSITION line']
+
+MATCH Gate 1 (routing)
+MATCH DISPOSITION line
+
+CHECK-ONLY completeness proof: PASSED
+
+=== Item 3 — commit hygiene ===
+
+git show fa16f6b --numstat --format=
+21	0	knowledge/dev-logs/lf-glossary-pointer-dev-2026-08-26.md
+8	9	knowledge/glossary.md
+(exactly 2 files)
+
+git rev-parse --show-toplevel
+/Users/marklehn/Developer/GitHub/lessons-forge/.bellows-worktrees/544
+
+git reflog -n 4:
+d5872e7 HEAD@{0}: reset: moving to HEAD
+d5872e7 HEAD@{1}:
+Amend count: 0
