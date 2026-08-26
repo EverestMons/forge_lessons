@@ -1,0 +1,25 @@
+== Check 2: UNTOUCHED POPULATION ==
+
+diff knowledge/development/gate1-heldpair-pre-dump-2026-08-25.txt knowledge/development/gate1-heldpair-post-dump-2026-08-25.txt
+
+378c378
+< 378|proposed|-|-|-|PLANNER_TEMPLATE.md
+---
+> 378|accepted|codify|ceo|2026-08-26T00:41:39Z|PLANNER_TEMPLATE.md
+389c389
+< 389|proposed|-|-|-|-
+---
+> 389|accepted|codify|ceo|2026-08-26T00:41:39Z|-
+
+Changed rows: 2 (378, 389)
+Changed lines: 4 (2 old, 2 new)
+Foreign ids changed: 0
+target_artifact changes: 0 (378 retains PLANNER_TEMPLATE.md, 389 retains -)
+
+== Check 3: DUMPS ARE THE COMMITTED ONES ==
+
+diff <(git show HEAD:knowledge/development/gate1-heldpair-pre-dump-2026-08-25.txt) knowledge/development/gate1-heldpair-pre-dump-2026-08-25.txt
+Result: no difference — PRE-DUMP: MATCH
+
+diff <(git show HEAD:knowledge/development/gate1-heldpair-post-dump-2026-08-25.txt) knowledge/development/gate1-heldpair-post-dump-2026-08-25.txt
+Result: no difference — POST-DUMP: MATCH

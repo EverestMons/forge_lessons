@@ -1,0 +1,37 @@
+== Check 1: THE WRITE LANDED ==
+
+Query: SELECT id, status, COALESCE(route,'-'), COALESCE(status_updated_by,'-'), COALESCE(status_updated_at,'-'), COALESCE(target_artifact,'-') FROM lesson_proposals WHERE id IN (378,389) ORDER BY id;
+
+378|accepted|codify|ceo|2026-08-26T00:41:39Z|PLANNER_TEMPLATE.md
+389|accepted|codify|ceo|2026-08-26T00:41:39Z|-
+
+Both rows: status=accepted, route=codify, status_updated_by=ceo
+Row 378 status_updated_at: 2026-08-26T00:41:39Z
+Row 389 status_updated_at: 2026-08-26T00:41:39Z
+Dev log recorded :TS: 2026-08-26T00:41:39Z
+All three match: YES
+
+Query: SELECT COUNT(*) FROM lesson_proposals WHERE status='accepted' AND route='codify';
+Result: 30
+
+Global accepted|codify count: 30 (matches plan arithmetic 28 + 2 = 30)
+
+== Check 5: THE DB WAS NOT COMMITTED ==
+
+Step 1 commit (555b298) files:
+  knowledge/development/gate1-heldpair-dev-log-2026-08-25.md
+  knowledge/development/gate1-heldpair-post-dump-2026-08-25.txt
+  knowledge/development/gate1-heldpair-pre-dump-2026-08-25.txt
+No lessons-forge.db present.
+
+Deposit commit (022bf3c) files:
+  knowledge/decisions/Done/executable-536.md
+  knowledge/decisions/hold-executable-gate1-route-heldpair.hold.json
+  knowledge/decisions/hold-executable-gate1-route-heldpair.md
+No lessons-forge.db present.
+
+git ls-files --error-unmatch lessons-forge.db:
+  error: pathspec 'lessons-forge.db' did not match any file(s) known to git
+  EXIT: 1
+
+DB is untracked: CONFIRMED
