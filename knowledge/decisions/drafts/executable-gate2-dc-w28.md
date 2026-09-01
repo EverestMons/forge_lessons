@@ -229,7 +229,7 @@ PASSED — SELF-CHECK PASSED — all evidence files present, no hedging keywords
 
 **Freeze checklist (the 538 form):** (0) builder-hash currency — on-disk builder == its committed blob; (1) faithful-mirror `plan_lint` at the deposit-path resolution expecting the pre-classified advisory set only ((o2) worktree-relative deposit paths, the 100007 form); (2) A0-fresh re-verify (pin + porcelain + flip-state) immediately before the deposit move; (3) `id_sequence` read AT deposit (read-only); (4) receipt BEFORE ready-staging (R-F3); (5) post-move `ls` of the deposited path; (6) C8 serialized-dispatch re-verified.
 
-**Conformance (§5):** first run at walk 0 (shape-stability, before any adversarial pass) and re-run after every walk; LAST run (walk 2 close): `plan_lint` exit 0 / 0 FAIL at the faithful mirror — expected WARN set (o2)×6 worktree-relative deposits, (r)×10 Task-C probe constants, (q)×1 scratch sha, (f)×1 the `<declare>` validation placeholder, plus the two walk-in-progress structural WARNs (closing indicates fold; no `**Closing:**` line) that the close clears; `propagation_check` exit 1 — six residual hits classified in register f6 (four value collisions, two mechanism-site expectations); `cycle_check` CONTINUE. The freeze re-runs all three and this line is corrected from the measured set before deposit.
+**Conformance (§5):** first run at walk 0 (shape-stability, before any adversarial pass) and re-run after every walk; LAST run (walk 2 close): `plan_lint` exit 0 / 0 FAIL at the faithful mirror — expected WARN set (o2)×6 worktree-relative deposits, (r)×10 Task-C probe constants, (q)×1 scratch sha, (f)×1 the `<declare>` validation placeholder, plus the two walk-in-progress structural WARNs (closing indicates fold; no Closing line yet — ⚠️ named by description, never by its literal token: `cycle_check`'s closure regex reads that token ANYWHERE in this block as a closure claim and escalates `claimed-close-unmet`, measured at walk 2) that the close clears; `propagation_check` exit 1 — six residual hits classified in register f6 (four value collisions, two mechanism-site expectations); `cycle_check` CONTINUE. The freeze re-runs all three and this line is corrected from the measured set before deposit.
 
 **Direction verdict (after walk 1): PROCEED.** Tested, not judged — no finding from the author's walk 0, either scout, or walk 1 invalidates the clone origin (538), the mechanism (the builder, re-proven after every fold), or a scope-licensing premise (no gate edit owed; no target line owned by a halted or in-flight plan; C8).
 
@@ -243,9 +243,9 @@ PASSED — SELF-CHECK PASSED — all evidence files present, no hedging keywords
 - Weak spots:          w2 2 folded — instruction 2 / record 0 (an ellipsis inside the RE-ENTRY(complete) re-derive command — an instruction no agent can execute as written, introduced by walk 1's lens-2 fold; QA Item 1 said "against THAT path" while every Task-C probe now spells the live path — the substitution named)
 - Destruction:         w2 dry
 - Vulnerabilities:     w2 dry (Task C's double-quoted tokens measured: none contains `$`, a backtick or a double quote — the header's claim is true)
-- Integration-record:  w2 1 folded — instruction 0 / record 1 (the conformance line still described the walk-0 run as "first run" and deferred the last run to the freeze — now reads the last run)
+- Integration-record:  w2 2 folded — instruction 1 / record 1 (the conformance line's rewrite quoted the closing token literally and `cycle_check` read it as a closure claim → ESCALATE:claimed-close-unmet, caught by the post-walk consumer run, token replaced by a description; and the line still described the walk-0 run as "first run" and deferred the last run to the freeze — now reads the last run)
 - ACID:                w2 dry
-- **Walk 2 total: 3 findings, 3 folded — instruction 2 / record 1; 1 of 3 fold-introduced. The bar is NOT met (instruction 2); walk 3 follows.**
+- **Walk 2 total: 4 findings, 4 folded — instruction 3 / record 1; 2 of 4 fold-introduced. The bar is NOT met (instruction 3); walk 3 follows.** (The fourth, found by the post-walk consumer run: the conformance line quoted the closing token literally and `cycle_check` escalated on it — the E1 rule catching its own plan again.)
 
 **Cold panel:** FULL form — scout at walk 0, then DISCOVERY, EXECUTION, CAPSTONE; seat findings and folds recorded on the walk register at their phase rows in the eight-column form; a further capstone pass fires if the capstone's own report produces folds.
 
@@ -257,6 +257,6 @@ reads: /Users/marklehn/Developer/eluvian-governance/DRAFTING_CYCLE.md, /Users/ma
 writes: /Users/marklehn/Developer/eluvian-governance/DRAFTING_CYCLE.md, knowledge/development/dev-log-gate2-dc-w28-2026-09-01.md, knowledge/development/g2dcw28-flip.sql, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/flip-capture.txt, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/qa-receipt.md, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/probes-raw.txt, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/full-suite-gate2-dc-w28.txt, lessons-forge.db, pre-g2dcw28-HHMMSS.db
 open_forks: none — the twelve remaining accepted rows are the PT tranche, thread 76
 walks: 2
-yields: 6, 3
+yields: 6, 4
 validation: <declare>
 coherence: N/A
