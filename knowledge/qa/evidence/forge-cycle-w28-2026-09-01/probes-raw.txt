@@ -1,0 +1,109 @@
+=== QA PROBES — forge-cycle-w28-2026-09-01 ===
+Date: 2026-09-01
+Worktree: /Users/marklehn/Developer/forge_lessons/.bellows-worktrees/100007
+DB: /Users/marklehn/Developer/forge_lessons/lessons-forge.db (read-only connection)
+MAXE_pre=405, MAXE_post=433, MAXP_pre=413
+
+=== M2 (unclassified entries) ===
+Result: []
+Count: 0 (expected 0 — inversion confirmed)
+
+=== M3 (proposal histogram after classify) ===
+  implemented: 314
+  proposed: 28
+  reference: 29
+  rejected: 38
+  stale: 3
+  superseded: 29
+Total: 441 = 413 + K; K = 28 (expected K=28) ✓
+
+=== M4 (new band route/status check) ===
+SELECT COUNT(*) FROM lesson_proposals WHERE id > 413 AND (route IS NOT NULL OR status <> 'proposed')
+Count: 0 (expected 0) ✓
+
+=== M17 (pairing checks) ===
+M17a — entries with >1 new proposal:
+SELECT entry_id, COUNT(*) FROM lesson_proposals WHERE id > 413 GROUP BY entry_id HAVING COUNT(*) > 1
+Result: [] (expected []) ✓
+
+M17b — new proposals outside entry band 406–433:
+SELECT COUNT(*) FROM lesson_proposals WHERE id > 413 AND entry_id NOT BETWEEN 406 AND 433
+Result: 0 (expected 0) ✓
+
+=== M5 (triple-set SET-IDENTITY for ids <= 413) ===
+Current count: 413 (step2 pre-flight count: 413) ✓
+First 3: [(1, 'implemented', None), (2, 'implemented', None), (3, 'implemented', None)]
+Last 3: [(411, 'implemented', 'codify'), (412, 'implemented', 'codify'), (413, 'implemented', 'codify')]
+Step2 pre-flight first 3: [(1, 'implemented', None), (2, 'implemented', None), (3, 'implemented', None)]
+Step2 pre-flight last 3: [(411, 'implemented', 'codify'), (412, 'implemented', 'codify'), (413, 'implemented', 'codify')]
+SET-IDENTITY: CONFIRMED — only INSERTs of id>413 occurred; no pre-existing row modified ✓
+
+=== M6 (entry count and band) ===
+COUNT: 433, MAX(id): 433 (expected 433, 433) ✓
+Band count: 28 (ids 406–433, contiguous) ✓
+Date range: 2026-08-26 to 2026-09-01 ✓
+Full band:
+  id=406 date=2026-08-26 heading=2026-08-26: A verification instrument's DEFAULTS are part of
+  id=407 date=2026-08-26 heading=2026-08-26: A plan authored on one machine carries its layou
+  id=408 date=2026-08-26 heading=2026-08-26: A live canary must be fired in the STATE the too
+  id=409 date=2026-08-26 heading=2026-08-26: A ruling amended MID-CYCLE moves the artifact it
+  id=410 date=2026-08-27 heading=2026-08-27: A test written by the author of the code inherit
+  id=411 date=2026-08-27 heading=2026-08-27: EARNABILITY IS NOT DISCRIMINATION — a suite that
+  id=412 date=2026-08-27 heading=2026-08-27: VALIDATE-THEN-WRITE IS NOT ALL-OR-NOTHING — a sa
+  id=413 date=2026-08-27 heading=2026-08-27: A DORMANT CLASSIFICATION BECOMES POLICY the mome
+  id=414 date=2026-08-27 heading=2026-08-27: A STOP ARM must key on the claim that would make
+  id=415 date=2026-08-27 heading=2026-08-27: Jointly-sufficient guards are individually UN-mu
+  id=416 date=2026-08-27 heading=2026-08-27: A CHECK WHOSE TWO OPERANDS COME FROM THE SAME SO
+  id=417 date=2026-08-27 heading=2026-08-27: BEFORE OPTIMIZING A SYSTEM'S LIFECYCLE, CONFIRM
+  id=418 date=2026-08-27 heading=2026-08-27: ROUTE A QUESTION BY WHETHER A COMMAND CAN ANSWER
+  id=419 date=2026-08-27 heading=2026-08-27: A SHIPPED ARTIFACT IS A POOR TEACHER ABOUT ITS O
+  id=420 date=2026-08-27 heading=2026-08-27: PROVING A GUARD COVERS A RULE REQUIRES VIOLATING
+  id=421 date=2026-08-27 heading=2026-08-27: A DOCTRINE EDIT RIDING A CODE PLAN IMPOSES THE D
+  id=422 date=2026-08-27 heading=2026-08-27: A DETECTOR'S FIRE COUNT IS A RATIO — measure how
+  id=423 date=2026-08-27 heading=2026-08-27: WHEN A DATUM IS OPTIONAL, ITS CONSUMERS WILL SIL
+  id=424 date=2026-08-30 heading=2026-08-30: WHEN ONE DEFECT CLASS FIRES ON CONSECUTIVE REVIE
+  id=425 date=2026-08-31 heading=2026-08-31: AN EMPTY DIRECTORY SATISFIES A PATH CHECK, AND `
+  id=426 date=2026-08-31 heading=2026-08-31: A VARIABLE YOUR HARNESS INJECTS IS NOT PRESENT F
+  id=427 date=2026-08-31 heading=2026-08-31: ENABLING A WATCHER OVER A DIRECTORY RETROACTIVEL
+  id=428 date=2026-08-31 heading=2026-08-31: ⛔ CORRECTS THE ENTRY ABOVE — `is_runnable_plan`
+  id=429 date=2026-08-31 heading=2026-08-31: A NORMATIVE DOCUMENT'S WORKED EXAMPLE IS NOT A K
+  id=430 date=2026-09-01 heading=2026-09-01: EXECUTING A PLAN'S COMMANDS IS NOT EXECUTING THE
+  id=431 date=2026-09-01 heading=2026-09-01: A POST-CONDITION BUILT ON A HAND-ENUMERATED LIST
+  id=432 date=2026-09-01 heading=2026-09-01: A LOSSLESS REORDER PRESERVES TRUTH AND DESTROYS
+  id=433 date=2026-09-01 heading=2026-09-01: A WORK POOL DEFINED BY A TAGGING CONVENTION MEAS
+
+=== M7 (AUTHOR-CONFLICT markers — both directions) ===
+M7(i) — conflict entry_ids (via proposals): [430, 431, 432, 433]
+M7(i) — 2026-09-01 entry ids in band: [430, 431, 432, 433]
+M7(i) sets equal: True; count = 4 = 4 ✓
+
+M7(ii) — AUTHOR-CONFLICT on non-2026-09-01 entries: [] (expected []) ✓
+
+=== M11 (content_hash for entries <= MAXE_pre=405) ===
+Total count: 405 (expected 405) ✓
+Entry 347 hash: 8074f58c13c75e2a6ce5ddcac51bc9d811d503e7985d6586e283c8726fcb1d1b
+  expected prefix: 8074f58c13c75e2a6ce5 ✓
+Entry 398 hash: 3ccad66aec088b633e98c6e385ef624d9110e89c2b6abf35e49a3813426c188e
+  expected prefix: 3ccad66aec088b633e98 ✓
+Remaining 403 entries: unchanged vs step1 pre-flight (ingest only updated 347 and 398) ✓
+
+=== M12 (stale proposals) ===
+SELECT COUNT(*) FROM lesson_proposals WHERE status='stale'
+Count: 3 (expected 3) ✓
+
+=== M16 (new duplicate proposals) ===
+SELECT COUNT(*) FROM lesson_proposals WHERE id > 413 AND category='duplicate'
+Count: 0 (expected 0) ✓
+
+=== M8 (LESSONS.md sha and entry count) ===
+sha256: f4b732f1c6bb2fa113bc0a9dc446f69e026abb4be74709a5345ddd2565dc6112  /Users/marklehn/Developer/eluvian-governance/LESSONS.md
+Expected prefix: f4b732f1c6bb2fa113bc ✓
+Parsed entries: 376 (expected 376) ✓
+REGISTER BYTE-UNCHANGED — this plan read, never wrote ✓
+
+=== M15 (DISPOSITION lines in Step 2 dev log) ===
+/usr/bin/grep -cF 'DISPOSITION | entry=' knowledge/development/dev-log-classify-w28-2026-09-01.md
+Count: 28 (expected 28) ✓
+
+=== SUMMARY ===
+All probes PASS. No deviations from plan pins.
