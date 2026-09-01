@@ -240,6 +240,12 @@ PASSED — SELF-CHECK PASSED — all evidence files present, no hedging keywords
 - Integration-record:  w1 1 folded — instruction 0 / record 1 (the walk-0 paragraph still said "three mutants" and "scout: convened" after seven captured mutants and two scouts — brought to the record)
 - ACID:                w1 1 folded — instruction 1 / record 0 (atomicity across two repositories: RE-ENTRY(doctrine landed) skipped D-2, so a death between the governance commit and the worktree commit would have left E-c appending to a dev log that never existed)
 - **Walk 1 total: 6 findings, 6 folded — instruction 5 / record 1; 0 of 6 fold-introduced (all pre-existing-v0, invisible to two lens-4 scouts because none is an integration question).**
+- Weak spots:          w2 2 folded — instruction 2 / record 0 (an ellipsis inside the RE-ENTRY(complete) re-derive command — an instruction no agent can execute as written, introduced by walk 1's lens-2 fold; QA Item 1 said "against THAT path" while every Task-C probe now spells the live path — the substitution named)
+- Destruction:         w2 dry
+- Vulnerabilities:     w2 dry (Task C's double-quoted tokens measured: none contains `$`, a backtick or a double quote — the header's claim is true)
+- Integration-record:  w2 1 folded — instruction 0 / record 1 (the conformance line still described the walk-0 run as "first run" and deferred the last run to the freeze — now reads the last run)
+- ACID:                w2 dry
+- **Walk 2 total: 3 findings, 3 folded — instruction 2 / record 1; 1 of 3 fold-introduced. The bar is NOT met (instruction 2); walk 3 follows.**
 
 **Cold panel:** FULL form — scout at walk 0, then DISCOVERY, EXECUTION, CAPSTONE; seat findings and folds recorded on the walk register at their phase rows in the eight-column form; a further capstone pass fires if the capstone's own report produces folds.
 
@@ -250,7 +256,7 @@ class: shop-infra
 reads: /Users/marklehn/Developer/eluvian-governance/DRAFTING_CYCLE.md, /Users/marklehn/Developer/eluvian-governance/governance/knowledge/decisions/drafts/build-gate2-dc-w28-2026-09-01.py, /Users/marklehn/Developer/forge_lessons/lessons-forge.db, /Users/marklehn/Developer/eluvian-governance/gate1-packet-2026-09-01.md, /Users/marklehn/Developer/eluvian-governance/governance/knowledge/decisions/Done/executable-538.md, /Users/marklehn/Developer/forge_lessons/knowledge/decisions/Done/executable-100007.md, /Users/marklehn/Developer/bellows/knowledge/decisions/halted-executable-100006.md, /Users/marklehn/Developer/eluvian-governance/RULE_20_SELF_CHECK_BLOCK.md
 writes: /Users/marklehn/Developer/eluvian-governance/DRAFTING_CYCLE.md, knowledge/development/dev-log-gate2-dc-w28-2026-09-01.md, knowledge/development/g2dcw28-flip.sql, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/flip-capture.txt, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/qa-receipt.md, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/probes-raw.txt, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/full-suite-gate2-dc-w28.txt, lessons-forge.db, pre-g2dcw28-HHMMSS.db
 open_forks: none — the twelve remaining accepted rows are the PT tranche, thread 76
-walks: 1
-yields: 6
+walks: 2
+yields: 6, 3
 validation: <declare>
 coherence: N/A
