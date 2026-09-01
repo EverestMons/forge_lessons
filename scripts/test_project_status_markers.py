@@ -160,3 +160,23 @@ def test_snapshot_loader_decodes_unistr(tmp_path):
     path = psm.load_snapshot(str(sql))
     con = sqlite3.connect(path)
     assert con.execute("select source_heading from lesson_entries").fetchone()[0] == "2026-05-01: café  [tag: a]"
+
+
+def test_discovery_uses_env_and_skips_zero_byte_candidates(setup, monkeypatch, tmp_path):
+    lessons, db = setup
+    decoy = tmp_path / "decoy.db"
+    decoy.write_bytes(b"")
+    monkeypatch.setattr(psm, "DB_CANDIDATES", [decoy, db])
+    monkeypatch.delenv("LESSONS_FORGE_DB", raising=False)
+    assert psm.discover_db() == db
+    monkeypatch.setenv("ELUVIAN_WRAP_ROOT", str(lessons.parent))
+    assert psm.discover_lessons() == lessons
+    assert psm.main(["--apply"]) == 0
+    assert markers(lessons) == ["reference", "implemented", "rejected", "pending", "proposed"]
+
+
+def test_no_db_anywhere_exits_3(setup, monkeypatch, tmp_path):
+    lessons, db = setup
+    monkeypatch.setattr(psm, "DB_CANDIDATES", [tmp_path / "absent.db"])
+    monkeypatch.delenv("LESSONS_FORGE_DB", raising=False)
+    assert psm.main(["--lessons", str(lessons)]) == 3
