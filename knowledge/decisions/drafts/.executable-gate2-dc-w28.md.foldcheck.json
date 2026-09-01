@@ -3,7 +3,6 @@
     "exit": 0,
     "signals": [
       "(f) WARN: Cycle Manifest stanza contains <declare> placeholder(s) \u2014 incomplete template",
-      "(o1) WARN: missing path `governance/knowledge/research/mutants-gate2-dc-w28-N-N-N.txt`",
       "(o2) WARN: Deposits entry `knowledge/development/dev-log-gate2-dc-w28-N-N-N.md` is not project-prefixed or absolute",
       "(o2) WARN: Deposits entry `knowledge/development/g2dcw28-flip.sql` is not project-prefixed or absolute",
       "(o2) WARN: Deposits entry `knowledge/qa/evidence/gate2-dc-w28-N-N-N/flip-capture.txt` is not project-prefixed or absolute",
@@ -15,7 +14,7 @@
       "PIN-CHECK: kind=sha256 line=N token=38e8978e7965\u2026 result=missing-file",
       "PIN-CHECK: kind=sha256 line=N token=920e5038a55f\u2026 result=ok",
       "WARN: Drafting Cycle block has no **Closing:** line (DRAFTING_CYCLE.md \u00a73)",
-      "WARN: Drafting Cycle block missing lens(es): Weak spots, Vulnerabilities, Integration, ACID (DRAFTING_CYCLE.md \u00a73)"
+      "WARN: Drafting Cycle closing indicates fold as last event, not a dry lens pass (DRAFTING_CYCLE.md \u00a72)"
     ]
   }
 }
