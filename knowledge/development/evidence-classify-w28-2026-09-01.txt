@@ -1,0 +1,68 @@
+=== EVIDENCE: classify W=28 2026-09-01 — raw SELECT outputs ===
+
+M2 get_unclassified_entries: []
+M2 count: 0  (expected 0)
+
+M3 after — proposal status histogram:
+  implemented: 314
+  proposed: 28
+  reference: 29
+  rejected: 38
+  stale: 3
+  superseded: 29
+  TOTAL: 441  K=28
+  MAX(id): 441
+
+M4 new proposals with route!=NULL or status!='proposed': 0  (expected 0)
+
+M17a duplicate entry_ids in new band: []  (expected [])
+M17b out-of-band entry_ids: 0  (expected 0)
+
+M5 triple-set count (ids <= 413): 413  (expected 413)
+M5 first 5: [(1, 'implemented', None), (2, 'implemented', None), (3, 'implemented', None), (4, 'implemented', None), (5, 'implemented', None)]
+M5 last 5: [(409, 'implemented', 'codify'), (410, 'rejected', None), (411, 'implemented', 'codify'), (412, 'implemented', 'codify'), (413, 'implemented', 'codify')]
+M5 SET-IDENTICAL: CONFIRMED (insert_proposal adds only rows with id > 413)
+
+M6 COUNT: 433, MAX(id): 433  (expected 433, 433)
+
+M7 entries dated 2026-09-01 in band: [430, 431, 432, 433]
+M7 proposals with AUTHOR-CONFLICT marker (by entry_id): [430, 431, 432, 433]
+M7 direction i set-equal: True
+M7 direction ii (wrong-date): []  (expected [])
+
+M12 stale proposals: 3  (expected 3)
+
+M16 new duplicate proposals: 0  (expected 0)
+
+M8 register sha: f4b732f1c6bb2fa113bc0a9dc446f69e026abb4be74709a5345ddd2565dc6112  /Users/marklehn/Developer/eluvian-governance/LESSONS.md
+M8 prefix f4b732f1c6bb2fa113bc: MATCHES plan pin
+
+=== New proposals (id > 413) — full list ===
+  id=414 entry_id=406 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=415 entry_id=407 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=416 entry_id=408 cat=governance_rule conf=medium status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=417 entry_id=409 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=418 entry_id=410 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=419 entry_id=411 cat=instrumentation conf=medium status=proposed route=None layer=governance artifact=None
+  id=420 entry_id=412 cat=structural conf=high status=proposed route=None layer=structure artifact=None
+  id=421 entry_id=413 cat=governance_rule conf=medium status=proposed route=None layer=governance artifact=None
+  id=422 entry_id=414 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=423 entry_id=415 cat=instrumentation conf=medium status=proposed route=None layer=governance artifact=None
+  id=424 entry_id=416 cat=structural conf=high status=proposed route=None layer=structure artifact=None
+  id=425 entry_id=417 cat=governance_rule conf=medium status=proposed route=None layer=governance artifact=None
+  id=426 entry_id=418 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=427 entry_id=419 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=428 entry_id=420 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=429 entry_id=421 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=430 entry_id=422 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=None
+  id=431 entry_id=423 cat=governance_rule conf=medium status=proposed route=None layer=governance artifact=None
+  id=432 entry_id=424 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=433 entry_id=425 cat=structural conf=high status=proposed route=None layer=structure artifact=None
+  id=434 entry_id=426 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=None
+  id=435 entry_id=427 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=None
+  id=436 entry_id=428 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=437 entry_id=429 cat=governance_rule conf=medium status=proposed route=None layer=governance artifact=DRAFTING_CYCLE.md
+  id=438 entry_id=430 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=439 entry_id=431 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=None
+  id=440 entry_id=432 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=441 entry_id=433 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=None
