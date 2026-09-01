@@ -9,9 +9,9 @@
       "(o2) WARN: Deposits entry `knowledge/qa/evidence/gate2-dc-w28-N-N-N/full-suite-gate2-dc-w28.txt` is not project-prefixed or absolute",
       "(o2) WARN: Deposits entry `knowledge/qa/evidence/gate2-dc-w28-N-N-N/probes-raw.txt` is not project-prefixed or absolute",
       "(o2) WARN: Deposits entry `knowledge/qa/evidence/gate2-dc-w28-N-N-N/qa-receipt.md` is not project-prefixed or absolute",
-      "(q) WARN: line=N sha256 pin 38e8978e7965\u2026 file missing: <scratch>/DC-out.md",
+      "(q) WARN: line=N sha256 pin 3a84137ed366\u2026 file missing: /tmp/g2dcw28-scratch/DC-out.md",
       "(r) WARN: line=N probe constant without a supersede-class clause within 2 lines \u2014 a wrong authored number here HARD-FAILS a correct state (the N class); add measure-record-supersede language or verify the constant is structural",
-      "PIN-CHECK: kind=sha256 line=N token=38e8978e7965\u2026 result=missing-file",
+      "PIN-CHECK: kind=sha256 line=N token=3a84137ed366\u2026 result=missing-file",
       "PIN-CHECK: kind=sha256 line=N token=920e5038a55f\u2026 result=ok",
       "WARN: Drafting Cycle block has no **Closing:** line (DRAFTING_CYCLE.md \u00a73)",
       "WARN: Drafting Cycle closing indicates fold as last event, not a dry lens pass (DRAFTING_CYCLE.md \u00a72)"
