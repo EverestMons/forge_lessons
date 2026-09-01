@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 """
+⚠️ SUPERSEDED FOR MARKER WRITES (CEO decision 2026-09-01): the `[status:]` marker
+now carries `lesson_proposals.status` verbatim, projected by
+`scripts/project_status_markers.py`. This detector's `proposed_status` values
+(`pending` / `learned` / `unknown`) are the retired three-value file vocabulary;
+use its PASS/FAIL detector verdicts as evidence for a DB status transition
+(proposed -> implemented), never as a marker to write.
+
 Retirement detector for LESSONS.md — determines which entries have been
 codified into their target governance artifacts.
 
