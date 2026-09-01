@@ -30,4 +30,6 @@ Execute investigation, deposit findings to `knowledge/research/`. Move to Done (
 
 ## Database Files
 
-`lessons-forge.db` is local operational state, untracked as of 2026-06-12 (shop policy). On a fresh clone, recover by copying from an existing machine or regenerating via the pipeline. The `-shm` and `-wal` companions are never committed.
+`lessons-forge.db` is local operational state, untracked as of 2026-06-12 (shop policy). The `-shm` and `-wal` companions are never committed.
+
+**Home (CEO decision 2026-09-01): the Mac mini**, at `<repo>/lessons-forge.db` — the same host as the tuyere production database. There is exactly ONE live copy; every other checkout is database-less. Migrated 2026-09-01 from the shop MacBook by restoring `knowledge/research/corpus-snapshot-2026-09-01.sql` and proving equality with `scripts/fingerprint_db.py` (row-level SHA-256 over both tables, identical on both machines: `9d9fa77d…5330`). Snapshots deposited under `knowledge/research/` are the backup channel. Every path default resolves through `src/paths.py` (`ELUVIAN_WRAP_ROOT`, `LESSONS_FORGE_DB` override); nothing names a machine layout literally. A 0-byte `.db` at any candidate path is a decoy from a misdirected `sqlite3` call — delete it.

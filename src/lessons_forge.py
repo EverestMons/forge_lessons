@@ -329,8 +329,8 @@ def detect_duplicates(conn: sqlite3.Connection, entry_ids: list[int],
         conn: SQLite connection with lesson_entries table populated.
         entry_ids: List of lesson_entries.id values to check. May be empty.
         reference_files: List of absolute paths to reference files to scan.
-            Defaults to ["/Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md"]
-            if None.
+            Defaults to [src.paths.planner_template()] (the governance root's
+            PLANNER_TEMPLATE.md on this machine's layout) if None.
 
     Returns:
         List of dicts, one per matched entry:
@@ -340,7 +340,9 @@ def detect_duplicates(conn: sqlite3.Connection, entry_ids: list[int],
         return []
 
     if reference_files is None:
-        reference_files = ["/Users/marklehn/Developer/GitHub/PLANNER_TEMPLATE.md"]
+        from src.paths import planner_template
+        pt = planner_template()
+        reference_files = [str(pt)] if pt else []
 
     # Cache reference file contents and structured tag sets (read each file once)
     ref_contents: dict[str, str] = {}
@@ -423,9 +425,12 @@ def detect_duplicates(conn: sqlite3.Connection, entry_ids: list[int],
 
 
 def run_full_lessons_cycle(conn: sqlite3.Connection,
-                           lessons_md_path: str = "/Users/marklehn/Developer/GitHub/LESSONS.md") -> dict:
+                           lessons_md_path: str | None = None) -> dict:
     """
     Execute the deterministic steps of a Lessons Forge cycle.
+
+    lessons_md_path defaults to src.paths.lessons_md() — the governance root's
+    LESSONS.md resolved for this machine's layout (ELUVIAN_WRAP_ROOT wins).
 
     Per ADR-002 (amended 2026-04-23), this function runs:
       1. parse_lessons_md(lessons_md_path) — segment LESSONS.md into entries
@@ -464,6 +469,12 @@ def run_full_lessons_cycle(conn: sqlite3.Connection,
             whose parent entry changed (flagged, not staled)
           - cycle_timestamp: str — ISO 8601 UTC timestamp of cycle execution
     """
+    if lessons_md_path is None:
+        from src.paths import lessons_md
+        resolved = lessons_md()
+        if resolved is None:
+            raise FileNotFoundError("LESSONS.md not found: set ELUVIAN_WRAP_ROOT or pass lessons_md_path")
+        lessons_md_path = str(resolved)
     cycle_timestamp = datetime.now(timezone.utc).isoformat()
 
     # Step 1: parse

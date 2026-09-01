@@ -26,14 +26,14 @@ import re
 import sqlite3
 import sys
 
-DEFAULT_DB = "/Users/marklehn/Developer/GitHub/lessons-forge/lessons-forge.db"
-DEFAULT_LESSONS = "/Users/marklehn/Developer/GitHub/LESSONS.md"
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from src import paths as _paths  # noqa: E402
+
+# Layout-independent defaults (2026-09-01): resolved by src/paths.py, never literal.
+DEFAULT_DB = str(_paths.db_path() or _paths.db_candidates()[0])
+DEFAULT_LESSONS = str(_paths.lessons_md() or "LESSONS.md")
 DEFAULT_EXPECTED_COUNT = 370
-DEFAULT_ROOTS = [
-    "/Users/marklehn/Developer/GitHub",
-    "/Users/marklehn/Developer/GitHub/bellows",
-    "/Users/marklehn/Developer/GitHub/forge",
-]
+DEFAULT_ROOTS = [str(r) for r in _paths.artifact_roots()]
 
 STOP_LIST = frozenset({
     "should", "never", "always", "bellows", "planner", "every",

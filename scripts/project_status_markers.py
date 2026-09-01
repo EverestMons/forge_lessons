@@ -51,12 +51,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.lessons_forge import parse_lessons_md, _key_heading  # noqa: E402
 
-REPO = Path(__file__).resolve().parent.parent
+from src import paths as _paths  # noqa: E402
+
+REPO = _paths.REPO
 DB_CANDIDATES = [REPO / "lessons-forge.db", REPO / "data" / "lessons-forge.db"]
 
 
 def discover_db() -> Path | None:
-    """The live DB: $LESSONS_FORGE_DB, else the first non-empty candidate in the repo."""
+    """The live DB: $LESSONS_FORGE_DB, else the first non-empty candidate (src/paths.py rule)."""
     env = os.environ.get("LESSONS_FORGE_DB")
     cands = ([Path(env)] if env else []) + DB_CANDIDATES
     for c in cands:
@@ -66,13 +68,8 @@ def discover_db() -> Path | None:
 
 
 def discover_lessons() -> Path | None:
-    """LESSONS.md: $ELUVIAN_WRAP_ROOT/LESSONS.md, else the repo's parent (shop layout)."""
-    env = os.environ.get("ELUVIAN_WRAP_ROOT")
-    cands = ([Path(env) / "LESSONS.md"] if env else []) + [REPO.parent / "LESSONS.md"]
-    for c in cands:
-        if c.is_file():
-            return c
-    return None
+    """LESSONS.md on this machine's layout (src/paths.py: ELUVIAN_WRAP_ROOT, parent, sibling governance)."""
+    return _paths.lessons_md()
 
 HEADING_RE = re.compile(r"^## (20\d\d.+)$")
 STATUS_RE = re.compile(r"\s*\[status:\s*[a-z-]+\]", re.IGNORECASE)
