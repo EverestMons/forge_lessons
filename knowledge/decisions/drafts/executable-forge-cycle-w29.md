@@ -158,7 +158,7 @@
 - ACID:                w2 dry — instruction 0 / record 0 — unchanged
 - **Walk 2 total: 0 findings — instruction 0 / record 0, ALL FIVE LENSES DRY.** Instruction series 1 → 0.
 
-**Conformance (§5):** first run at walk 0 (on v0) and re-run after walk 1's fold and at the freeze: `plan_lint` exit 0 / 0 FAIL at the faithful mirror — expected WARN set (o2)×7 (worktree-relative deposits, the parent's form); `cycle_check` BAR_MET; `fold_check` baseline re-saved at each intended change with a note; `propagation_check` exit 0.
+**Conformance (§5):** first run at walk 0 (on v0) and re-run after walk 1's fold and at the freeze: `plan_lint` exit 0 / 0 FAIL at the faithful mirror — expected WARN set (o2)×7 (worktree-relative deposits, the parent's form); `cycle_check` BAR_MET; `fold_check` baseline re-saved at each intended change with a note; ~~`propagation_check` exit 0~~ **RETRACTED 2026-09-02 (after plan C's capstone CP-2):** the checker EXITED 2 — "no symbol declarations parsed — detector (1) cannot run" — at every checkpoint; this plan's pin table carries no bold `**VALUE**` rows, so the tool could not run and the Planner recorded the empty grep of its output as a clean result — an attestation written from intention, the 2026-08-13 class. Recorded as: propagation_check NOT RUN (exit 2), the class it detects unmeasured on this plan.
 
 **Closing:** ✅ **BAR MET — walk 2 dry (all five lenses) after walk 1's one fold; T1, no panel owed, none convened.** Substrate present (the register's rows entered from captured output and committed at the freeze; `fold_check` baseline). The closing-record re-read (§2.7) ran against this block, the register and the emitted manifest at the freeze.
 
