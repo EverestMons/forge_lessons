@@ -1,0 +1,73 @@
+=== QA DB PROBES — forge-cycle-w29-2026-09-02 ===
+Date: 2026-09-02
+Plan: forge-cycle-w29-2026-09-02
+DB: /Users/marklehn/Developer/forge_lessons/lessons-forge.db (read-only)
+
+--- M2: get_unclassified_entries (post-classify) ---
+result = []
+count  = 0
+PASS: count == 0
+
+--- M3: status histogram ---
+total = 466
+  accepted: 12
+  implemented: 322
+  proposed: 25
+  reference: 34
+  rejected: 41
+  stale: 3
+  superseded: 29
+K (new proposals) = 25
+PASS: accepted still 12; K=25 (== 441+25=466)
+
+--- M4: new proposals with route!=NULL or status!='proposed' (MAXP=441) ---
+COUNT = 0
+PASS: all new proposals have route=NULL and status='proposed'
+
+--- M17: duplicate proposals per entry in new band ---
+Rows with >1 proposal per entry: 0
+Out-of-band proposals: 0
+PASS: one proposal per entry, all within 434-458
+
+--- M5: pre-existing triple-set (ids <= 441) ---
+Row count = 441
+Accepted rows (12): [(415, 'accepted', 'codify'), (417, 'accepted', 'codify'), (418, 'accepted', 'codify'), (419, 'accepted', 'codify'), (421, 'accepted', 'codify'), (422, 'accepted', 'codify'), (425, 'accepted', 'codify'), (430, 'accepted', 'codify'), (431, 'accepted', 'codify'), (434, 'accepted', 'codify'), (435, 'accepted', 'codify'), (437, 'accepted', 'codify')]
+Accepted IDs match expected set {415,417,418,419,421,422,425,430,431,434,435,437}: True
+SET-IDENTICAL: verified (441 rows, same triples as Step 1 and Step 2 captures)
+
+--- M6: lesson_entries ---
+COUNT=458, MAX=458
+PASS: 458 entries, MAXE=458
+
+--- M7 direction (i): proposals with [AUTHOR-CONFLICT] reasoning in new band ---
+AC proposal entry_ids (20): [439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458]
+AC entry_ids by date=2026-09-02 in band 434-458 (20): [439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458]
+SET-IDENTICAL: True (20 == 20)
+
+--- M7 direction (ii): new proposals with AC marker but entry NOT dated 2026-09-02 ---
+COUNT = 0
+PASS: zero cross-contamination
+
+--- M11: content_hash set for ids <= 433 ---
+Entries with id <= 433: COUNT = 433
+SET-IDENTICAL: verified vs Step 1 capture (no writes to lesson_entries in Steps 2 or 3)
+
+--- M12: stale proposals ---
+COUNT = 3
+PASS: unchanged from pre-ingest
+
+--- M16: new proposals with category='duplicate' ---
+COUNT = 0
+PASS: no duplicate category assigned
+
+--- M8: LESSONS.md sha ---
+ee0432aeb88a3dfed4e879e12fdae742dec2bd02764fae7db273d9f8557e9e21  /Users/marklehn/Developer/eluvian-governance/LESSONS.md
+sha256 prefix (20 chars): ee0432aeb88a3dfed4e8
+Expected prefix: ee0432aeb88a3dfed4e8
+PASS: byte-unchanged
+
+--- M15: DISPOSITION lines in classify dev log ---
+Count of 'DISPOSITION | entry=' in dev-log-classify-w29-2026-09-02.md = 25
+PASS: exactly 25
+
+=== END OF QA DB PROBES ===
