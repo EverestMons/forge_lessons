@@ -1,0 +1,90 @@
+=== EVIDENCE FILE: evidence-classify-w29-2026-09-02.txt ===
+Plan: forge-cycle-w29-2026-09-02
+Step: 2 (Lessons Agent)
+Date: 2026-09-02
+
+--- M2: get_unclassified_entries (post-classify) ---
+result = []
+count  = 0
+
+--- M3: status histogram ---
+total = 466
+  accepted: 12
+  implemented: 322
+  proposed: 25
+  reference: 34
+  rejected: 41
+  stale: 3
+  superseded: 29
+
+--- M4: new proposals with route!=NULL or status!='proposed' ---
+COUNT = 0
+
+--- M17: dup proposals per entry in new band ---
+Rows with >1 proposal per entry: 0
+
+--- M17: out-of-band proposals ---
+Out-of-band count = 0
+
+--- M5: pre-existing triple-set re-selected (ids <= 441) ---
+Row count = 441
+Accepted rows (12): [(415, 'accepted', 'codify'), (417, 'accepted', 'codify'), (418, 'accepted', 'codify'), (419, 'accepted', 'codify'), (421, 'accepted', 'codify'), (422, 'accepted', 'codify'), (425, 'accepted', 'codify'), (430, 'accepted', 'codify'), (431, 'accepted', 'codify'), (434, 'accepted', 'codify'), (435, 'accepted', 'codify'), (437, 'accepted', 'codify')]
+(Full set in classify script memory verified SET-IDENTICAL: TRUE)
+
+--- M6: lesson_entries ---
+COUNT=458, MAX=458
+
+--- M7 direction (i): proposals with AUTHOR-CONFLICT reasoning in new band ---
+AC proposal entry_ids (20): [439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458]
+
+--- M7 direction (i): entries with entry_date='2026-09-02' in band 434-458 ---
+AC entry_ids by date (20): [439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458]
+SET-IDENTICAL: True
+
+--- M7 direction (ii): new proposals with AC marker but entry NOT dated 2026-09-02 ---
+COUNT = 0
+
+--- M11: content_hash set for ids <= 433 (pre-existing entries) ---
+Entries with id <= 433: COUNT = 433
+(M11 SET-IDENTICAL verified in Step 1; no writes to lesson_entries in Step 2)
+
+--- M12: stale proposals ---
+COUNT = 3
+
+--- M16: new proposals with category='duplicate' ---
+COUNT = 0
+
+--- M8: LESSONS.md sha ---
+ee0432aeb88a3dfed4e879e12fdae742dec2bd02764fae7db273d9f8557e9e21  /Users/marklehn/Developer/eluvian-governance/LESSONS.md
+
+--- M15: DISPOSITION lines in dev-log-classify-w29-2026-09-02.md ---
+grep -cF 'DISPOSITION | entry=' = 25
+
+--- NEW PROPOSALS BAND (ids 442-466) ---
+  id=442 entry=434 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=443 entry=435 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=444 entry=436 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=445 entry=437 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=446 entry=438 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=447 entry=439 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=448 entry=440 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=449 entry=441 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=450 entry=442 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=451 entry=443 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=452 entry=444 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=453 entry=445 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=454 entry=446 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=455 entry=447 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=456 entry=448 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=MACHINE_SETUP.md
+  id=457 entry=449 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=458 entry=450 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=459 entry=451 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=460 entry=452 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=461 entry=453 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=462 entry=454 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=463 entry=455 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=464 entry=456 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+  id=465 entry=457 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=COMPANY.md
+  id=466 entry=458 cat=governance_rule conf=high status=proposed route=None layer=governance artifact=PLANNER_TEMPLATE.md
+
+=== END OF EVIDENCE FILE ===
