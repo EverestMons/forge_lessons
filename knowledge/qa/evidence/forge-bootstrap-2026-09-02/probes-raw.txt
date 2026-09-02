@@ -1,0 +1,72 @@
+=== QA PROBES — forge-bootstrap-2026-09-02 ===
+Date: Wed Sep  2 00:56:52 CDT 2026
+
+=== ITEM 1 — FORGE COMMIT ===
+--- git show --stat HEAD --format= ---
+ CLAUDE.md                                          |  4 ++
+ .../dev-log-forge-bootstrap-2026-09-02.md          | 82 ++++++++++++++++++++++
+ scripts/bootstrap.sh                               | 12 ++++
+ 3 files changed, 98 insertions(+)
+
+--- EXEC_BIT test ---
+EXEC_BIT
+
+--- bash -n syntax check ---
+syntax=0
+
+--- Interpreter section count ---
+1
+(expected: 1)
+
+=== ITEM 2 — GOVERNANCE COMMIT + P6 TOKENS ===
+--- governance log -1 for MACHINE_SETUP.md ---
+18d3559 [100016] MACHINE_SETUP v1.1: forge bootstrap (thread 79), the daemon's missing variable, the shop's interpreter, the hooks-install act
+
+--- P6 token greps ---
+1
+(expected: 1)
+1
+(expected: 1)
+1
+(expected: 1)
+1
+(expected: 1)
+1
+(expected: 1)
+1
+(expected: 1)
+0
+(expected: 0)
+
+--- governance porcelain (must be empty) ---
+(above empty = OK)
+
+=== ITEM 3 — BOOTSTRAP T-3 (QA's own scratch) ===
+--- First run (standard PATH) ---
+interpreter: /opt/homebrew/bin/python3.12 (Python 3.12.14)
+venv: /tmp/fb-qa-100016/.venv (Python 3.12.14)
+........................................................................ [ 90%]
+........                                                                 [100%]
+80 passed in 0.22s
+exit=0
+VENV_CREATED
+
+--- Second run (idempotence) ---
+interpreter: /opt/homebrew/bin/python3.12 (Python 3.12.14)
+venv: /tmp/fb-qa-100016/.venv (Python 3.12.14)
+........................................................................ [ 90%]
+........                                                                 [100%]
+80 passed in 0.15s
+exit=0
+
+--- Third run (adversarial: PATH=/usr/bin:/bin, no Homebrew) ---
+interpreter: /usr/bin/python3 (Python 3.9.6)
+WARNING: You are using pip version 21.2.4; however, version 26.0.1 is available.
+You should consider upgrading via the '/private/tmp/fb-qa-nohb-100016/.venv/bin/python -m pip install --upgrade pip' command.
+venv: /tmp/fb-qa-nohb-100016/.venv (Python 3.9.6)
+........................................................................ [ 90%]
+........                                                                 [100%]
+80 passed in 0.24s
+exit=0
+VENV_CREATED_NOHB
+
