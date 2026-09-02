@@ -1,0 +1,16 @@
+{
+  "plan_lint": {
+    "exit": 0,
+    "signals": [
+      "(o2) WARN: Deposits entry `knowledge/development/dev-log-classify-w29-N-N-N.md` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `knowledge/development/dev-log-ingest-w29-N-N-N.md` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `knowledge/development/evidence-classify-w29-N-N-N.txt` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `knowledge/qa/evidence/forge-cycle-w29-N-N-N/full-suite-forge-cycle-w29.txt` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `knowledge/qa/evidence/forge-cycle-w29-N-N-N/probes-raw.txt` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `knowledge/qa/evidence/forge-cycle-w29-N-N-N/qa-receipt.md` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `reports/lessons-report-N-N-N.md` is not project-prefixed or absolute",
+      "PIN-CHECK: kind=prefix line=N token=8f61939d22de\u2026 result=ambiguous",
+      "PIN-CHECK: kind=prefix line=N token=ee0432aeb88a\u2026 result=ambiguous"
+    ]
+  }
+}
