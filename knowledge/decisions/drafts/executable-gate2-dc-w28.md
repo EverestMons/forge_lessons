@@ -276,5 +276,5 @@ writes: /Users/marklehn/Developer/eluvian-governance/DRAFTING_CYCLE.md, knowledg
 open_forks: none — the twelve remaining accepted rows are the PT tranche, thread 76
 walks: 4
 yields: 6, 3, 1, 0
-validation: cycle_check=BAR_MET, plan_lint=0_FAIL, fold_check=N/A
-coherence: 3/4 walks have register rows
+validation: cycle_check=BAR_MET, plan_lint=0_FAIL, fold_check=PASS
+coherence: 4/4 walks have register rows
