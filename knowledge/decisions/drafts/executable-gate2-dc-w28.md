@@ -254,7 +254,18 @@ PASSED — SELF-CHECK PASSED — all evidence files present, no hedging keywords
 - ACID:                w3 dry — EXECUTED: consistency of the capture across the flip (identical pre/post), durability by the fresh read-back, isolation by `BEGIN IMMEDIATE` + `.timeout 5000`, atomicity by the structural `g_pre` abort leaving nothing written
 - **Walk 3 total: 1 finding, 1 folded — instruction 1 / record 0; 0 of 1 fold-introduced (pre-existing-v0, invisible to every read pass and both scouts; visible only to the gate itself). The bar is NOT met (instruction 1).** ⚠️ **§2.6's lens-4 signal has FIRED: lens 4 returned pre-existing findings on walks 1 AND 2 — the panel convenes NOW (early-fire discharges the panel obligation; the cycle then closes only on a FULLY dry walk).**
 
-**Cold panel:** FULL form — scout at walk 0, then DISCOVERY, EXECUTION, CAPSTONE; seat findings and folds recorded on the walk register at their phase rows in the eight-column form; a further capstone pass fires if the capstone's own report produces folds.
+- Weak spots:          w4 dry — instruction 0 / record 0 — the closing walk over the artifact as folded by every seat: the two re-entry arms read as a set (probe first, HALT dominates, repairs after; "uncommitted" defined once), the D-1/D-2 compounds never leave the worktree, every path literal
+- Destruction:         w4 dry — instruction 0 / record 0 — EXECUTED on the live state: A0 keys (0)–(4) select FRESH exactly (date 2026-09-01; P1; porcelain empty; digests equal `32735bb1…`; no slug; eight `accepted|codify` with the two stamps); the three re-entry paths absent from the tree and from `git log --all` (0 preserved refs; the `--source` positive control prints `refs/heads/main`)
+- Vulnerabilities:     w4 dry — instruction 0 / record 0 — no new command since walk 3's execution and the EXECUTION seat's 82; the folded arms add one probe form (`--source`) executed here; `cycle_check`'s closure regex measured absent from this block
+- Integration-record:  w4 dry — instruction 0 / record 0 — the record additions below are the close's own (this walk's lines, the panel summary, the Closing line) and are read by the closing-record re-read; every count in this block re-derived from the register at close (walks 6/4/1/0; seats 25+21+5+4+5)
+- ACID:                w4 dry — instruction 0 / record 0 — the accepted requirement set walked as pairs by the capstone (0 jointly unsatisfiable) and unchanged since
+- **Walk 4 total: 0 findings — instruction 0 / record 0, ALL FIVE LENSES DRY.** Instruction series **5 → 3 → 1 → 0**.
+
+**Cold panel (FULL form, a self-escalation over a passing proxy; meter opened at convene 2026-09-01T23:11:54Z):** scout ×2 at walk 0 (Air pathway 13 / local 12, 19 distinct, 0 HIGH), DISCOVERY ×2 (Air 8 / local 13, 20 distinct, 1 HIGH — Task D's `cd`), EXECUTION (local, 5, 82 commands), CAPSTONE (local, 4, 88 probes × 26 folds), a further capstone pass on the capstone's fold set (local, 5 LOW); every finding author-verified and folded; seat costs where visible: 223,487 / 348,965 / 234,832 / 382,610 / 136,191 tokens (the two Air seats not metered from that side) — comparison row against the standing baselines: 538's full-form panel ran scout 9 / discovery 18 / execution 2 / capstone 9; this panel's yield is higher at every seat and its HIGH count (1) lower, on a plan with the untested cross-repo topology the escalation was bought for. Seat findings and folds are on the walk register at their phase rows in the eight-column form.
+
+**Closing:** ✅ **BAR MET — walk 4 dry (all five lenses), after the early-fired full panel (five seats, 46 findings, all folded) and a further capstone pass whose five folds this walk read.** The register is CONFORMANT at every phase, every phase has its commit in both repositories, the `fold_check` baseline is CLEAN, and the substrate is present — the close is therefore AUTO-eligible under §2's cadence; the manifest below is emitted by `cycle_check --emit-manifest` at this close, never hand-typed.
+
+**Fold-and-deposit exactly once.**
 
 ## Cycle Manifest
 tier: T2
@@ -263,7 +274,7 @@ class: shop-infra
 reads: /Users/marklehn/Developer/eluvian-governance/DRAFTING_CYCLE.md, /Users/marklehn/Developer/eluvian-governance/governance/knowledge/decisions/drafts/build-gate2-dc-w28-2026-09-01.py, /Users/marklehn/Developer/forge_lessons/lessons-forge.db, /Users/marklehn/Developer/eluvian-governance/gate1-packet-2026-09-01.md, /Users/marklehn/Developer/eluvian-governance/governance/knowledge/decisions/Done/executable-538.md, /Users/marklehn/Developer/forge_lessons/knowledge/decisions/Done/executable-100007.md, /Users/marklehn/Developer/bellows/knowledge/decisions/halted-executable-100006.md, /Users/marklehn/Developer/eluvian-governance/RULE_20_SELF_CHECK_BLOCK.md
 writes: /Users/marklehn/Developer/eluvian-governance/DRAFTING_CYCLE.md, knowledge/development/dev-log-gate2-dc-w28-2026-09-01.md, knowledge/development/g2dcw28-flip.sql, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/flip-capture.txt, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/qa-receipt.md, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/probes-raw.txt, knowledge/qa/evidence/gate2-dc-w28-2026-09-01/full-suite-gate2-dc-w28.txt, lessons-forge.db, pre-g2dcw28-YYYYMMDD_HHMMSS.db
 open_forks: none — the twelve remaining accepted rows are the PT tranche, thread 76
-walks: 3
-yields: 6, 4, 1
-validation: <declare>
-coherence: N/A
+walks: 4
+yields: 6, 3, 1, 0
+validation: cycle_check=BAR_MET, plan_lint=0_FAIL, fold_check=N/A
+coherence: 3/4 walks have register rows
