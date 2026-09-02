@@ -118,4 +118,59 @@ All probes run against `/Users/marklehn/Developer/eluvian-governance/DRAFTING_CY
 
 ---
 
-<!-- Task E appended below after flip -->
+## Task E — Corpus Flip
+
+### E-a — Evidence Dir + Backup
+
+- Evidence dir created: `knowledge/qa/evidence/gate2-dc-w28-2026-09-01/`
+- No prior backup found.
+- Backup created: `/Users/marklehn/Developer/forge_lessons/pre-g2dcw28-20260902_002313.db`
+- Backup integrity (file URI + immutable=1):
+  ```
+  ok
+  BKTOT=441
+  BK=8
+  ```
+  P10 ✓
+
+### E-a2 — Pre-Flight (Rollback-Guarded)
+
+```
+PRE_F=8
+ACC=20
+IMPL=314
+MAXID=441
+```
+P8 ✓
+
+### E-b — Flip Sentinels
+
+Ran: `cd "$(git rev-parse --show-toplevel)" && sqlite3 -bail /Users/marklehn/Developer/forge_lessons/lessons-forge.db ".timeout 5000" ".read knowledge/development/g2dcw28-flip.sql"`
+
+```
+PRE_F=8
+CHANGES_F=8
+EXCL_F=8
+ACC_POST=12
+IMPL_POST=322
+```
+P9 ✓ | Capture: 433 lines ✓
+
+### E-c — Post-COMMIT Read-Back (Fresh Connection, Read-Only)
+
+```
+426|implemented|codify|ceo|2026-09-02T00:23:40Z
+427|implemented|codify|ceo|2026-09-02T00:23:40Z
+428|implemented|codify|ceo|2026-09-02T00:23:40Z
+429|implemented|codify|ceo|2026-09-02T00:23:40Z
+432|implemented|codify|ceo|2026-09-02T00:23:40Z
+439|implemented|codify|ceo|2026-09-02T00:23:40Z
+440|implemented|codify|ceo|2026-09-02T00:23:40Z
+441|implemented|codify|ceo|2026-09-02T00:23:40Z
+```
+
+All 8: `implemented|codify|ceo` with stamp `2026-09-02T00:23:40Z` NOT IN (`2026-09-01T22:03:28Z`, `2026-09-01T21:58:31Z`) ✓
+
+Capture line count: `433 knowledge/qa/evidence/gate2-dc-w28-2026-09-01/flip-capture.txt` ✓
+
+**Status: Complete**
