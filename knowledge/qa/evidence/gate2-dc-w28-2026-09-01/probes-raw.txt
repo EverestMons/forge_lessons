@@ -1,0 +1,180 @@
+=== Item 1: Task C battery against committed extraction /tmp/g2dcw28-HEAD-DC.md ===
+=== CAPTURE_COMMIT: 9976238e7ba12b688afad7e08a030fa6545a2b4b ===
+
+--- E1 probes ---
+1
+1
+--- E2 probes ---
+1
+1
+--- E3 probe ---
+1
+--- E4 probes ---
+1
+1
+1
+1
+--- E5 probes ---
+1
+1
+--- E6 probes ---
+1
+1
+1
+--- E7 probes ---
+1
+1
+--- E8 probe ---
+1
+--- E9 probe ---
+1
+
+--- Eight scout/panel-folded clauses (each == 1) ---
+1
+1
+1
+1
+1
+1
+1
+1
+
+--- Eight provenance tags (each == 1) ---
+1
+1
+1
+1
+1
+1
+1
+1
+1
+
+--- Version line probes ---
+1
+0
+--- History row probes ---
+1
+1
+--- P6/P7 probes ---
+     369 /tmp/g2dcw28-HEAD-DC.md
+     172
+3a84137ed3669de1d690c4b22b57b158c3387792b12902de6be0aa34f8c63a77  /tmp/g2dcw28-HEAD-DC.md
+
+=== Item 2: C1 byte-identity ===
+builder_exit=0 (from above run)
+cmp_exit=0 (byte-identical)
+
+=== Item 3: C4/C5 commit numstats ===
+--- CAPTURE_COMMIT numstat (should be 1 row, DRAFTING_CYCLE.md 12 added / 6 removed) ---
+12	6	DRAFTING_CYCLE.md
+
+--- Forge worktree commits: subjects matching Step 1 pattern ---
+dee85c9723c3caebc7c37e4042a2a28fff421cfe [100008] gate2-dc-w28: the eight flip implemented — sentinels, capture, read-back
+3bc03c985a6dce4973630ed50e534c75c151d1b7 [100008] gate2-dc-w28: doctrine landed at governance 9976238 — dev log
+80153a570894d9de2eed19d043d871e650b80f24 drafting(gate2-dc-w28-2026-09-01): Closing line count corrected from the register (seven seat runs, 60 findings; strike form); baseline
+8902b8bfb47bf00bce45321a842bbc3beea208c2 drafting(gate2-dc-w28-2026-09-01): manifest re-emitted after the walk-4 register landed (coherence 4/4)
+ab2d0e0955877a783c19b98ab7906998ee54b17b drafting(gate2-dc-w28-2026-09-01): walk 4 close — five dry lens lines, panel summary + meter, Closing (BAR MET), first emitted manifest, baseline
+bf96988f5734226d71412d527c07f3a8a463cc6e drafting(gate2-dc-w28-2026-09-01): further capstone folds — both re-entry arms probe three ways with --source and the preserved-ref HALT leading the tail; counts dated; 643/683 with method
+9c06514a6d116c3e2a2e519b745345dbfa66f166 drafting(gate2-dc-w28-2026-09-01): CAPSTONE folds — scope_check class width stated, eight apostrophe tokens, Conformance line at capstone close, preserved-branch HALT arm
+e2d0af9aaf8cc084dd5d74cdcf2fbdf4689b1556 drafting(gate2-dc-w28-2026-09-01): EXECUTION folds — re-derive mkdir -p, Item 2 rm -f + builder_exit, (14)/decoy conditions, WAL sidecar note, hedging-reader scopes; CEO release authorization recorded
+8ce82cb227d68e070b60a2fb20fb4d8ff23fc8ad drafting(gate2-dc-w28-2026-09-01): Item 5 qualifier (propagation back to the classified six); baseline
+3790e252d7aaf207ee4e2748c063812ea72498c4 drafting(gate2-dc-w28-2026-09-01): DISCOVERY seat ×2 folds (plan) — D-1 never cd (git -C, HIGH), A0 date guard, digest-only builder compare, backup path printed, worktree-teardown re-entry (flip.sql re-write, three-place probe), forge no-amend proof made falsifiable, window-tolerant accepted count, eight fold-text Task-C probes, module described not named, P5/P7 re-pinned
+cf26871e018a68c652a786b6a57d1dc3f09646e8 drafting(gate2-dc-w28-2026-09-01): walk 3 close — execution lens lines, walks 3 / yields 6, 4, 1; panel convenes on the lens-4 signal
+ca45a1f1c26f95278a7b3c233fcc5eb0e7b6c68d drafting(gate2-dc-w28-2026-09-01): walk 3 lens 3 — TREE_OK probe tests directories: a source filename in step text silently widens scope_check (measured by gates.check on a simulated step)
+3999b830499d3b17d3b69f8fca375b4f992480f3 drafting(gate2-dc-w28-2026-09-01): walk 2 close — closure token removed from the conformance line (cycle_check false positive), totals 4 (3/1), walks 2 / yields 6, 4; baseline
+bc335f7aac01e8fafc27a082b4332dd5b4ceab36 drafting(gate2-dc-w28-2026-09-01): walk 2 close — lens lines, walks 2 / yields 6, 3; baseline
+abb6f821d3f335a3a8c15f3dec0f808979028448 drafting(gate2-dc-w28-2026-09-01): walk 2 lens 4 — conformance line reads the LAST run, not the first
+2281b6f2013137091884fd2bc227afe365077dac drafting(gate2-dc-w28-2026-09-01): walk 2 lens 1 — the re-derive command spelled out (no ellipsis in a command); QA Item 1 names the path substitution
+1c1e02a4033e3bf051817b2b393fe21c44634c8b drafting(gate2-dc-w28-2026-09-01): walk 1 close — lens lines + PROCEED verdict, walks 1 / yields 6, two propagation qualifiers re-sited, capture path absolute, baseline
+176d5be002b68d9beff1f58aa3448bfd9ba5608d drafting(gate2-dc-w28-2026-09-01): walk 1 lens 5 (ACID) — RE-ENTRY(doctrine landed) performs D-2 when the dev log never landed (atomicity across two repositories)
+dcf1d65ef41a3f5be50e5c78248f4528c9400b35 drafting(gate2-dc-w28-2026-09-01): walk 1 lens 4 (integration-record) — walk-0 wording brought to the record (seven-mutant capture; two scouts, 19 distinct findings folded)
+95aaaae314f4cf1a0973f072262b9cf7b02754b6 drafting(gate2-dc-w28-2026-09-01): walk 1 lens 3 (vulnerabilities) — Task C tokens double-quoted: four carry apostrophes
+e87c85e2234efabc38bd3f15b1b0fc9065b35a03 drafting(gate2-dc-w28-2026-09-01): walk 1 lens 2 (destruction) — RE-ENTRY(complete) can re-derive a missing capture read-only (it excludes the flipped rows)
+091e7aa8f32c6cdeda1bba8f773bc038bfba48c6 drafting(gate2-dc-w28-2026-09-01): walk 1 lens 1 (weak spots) — shell state does not persist: every governance path literal, fixed scratch dir; QA Item 2 pins the builder blob at CAPTURE_COMMIT
+a7fe72623d76d1ebb4c29edad04891361a77f4ce drafting(gate2-dc-w28-2026-09-01): walk 0 scout folds — provenance as the record has it, applied-uncommitted RE-ENTRY arm + D-1 refusal clause, validation <declare>, yields 8, self-escalation over a passing proxy, P5/P7 re-pinned, content-smuggling class named
+de3c2c9172c00f8f3e681ab2e933ea1e29ebe65f drafting(gate2-dc-w28-2026-09-01): walk 0 — plan v0 (clone of 538, forge-worktree + governance-root two-repo shape), fold_check baseline
+
+--- doctrine landed count (expect 1) ---
+1
+--- flip implemented count (expect 1) ---
+1
+
+--- Dev log commit numstat (expect 1 file, dev log) ---
+121	0	knowledge/development/dev-log-gate2-dc-w28-2026-09-01.md
+
+--- Flip + capture + sql commit numstat (expect 3 files) ---
+56	1	knowledge/development/dev-log-gate2-dc-w28-2026-09-01.md
+13	0	knowledge/development/g2dcw28-flip.sql
+433	0	knowledge/qa/evidence/gate2-dc-w28-2026-09-01/flip-capture.txt
+
+--- Governance reflog amend count (whole reflog, expect 0) ---
+0
+
+=== Item 4: Gate-neutrality sweep ===
+--- New tokens in plan_lint.py (each should be 0) ---
+0
+0
+0
+0
+0
+0
+0
+0
+0
+--- New tokens in gates.py (each should be 0) ---
+0
+0
+0
+0
+0
+0
+0
+0
+0
+--- Positive controls ---
+Rule 20 in plan_lint.py (expect > 0):
+3
+cycle_tier in plan_lint.py (expect > 0):
+7
+
+=== Item 5: C7 flip re-verify (POST-COMMIT fresh-connection read) ===
+--- Per-id read for the 8 flipped proposals ---
+426|implemented|codify|ceo|2026-09-02T00:23:40Z
+427|implemented|codify|ceo|2026-09-02T00:23:40Z
+428|implemented|codify|ceo|2026-09-02T00:23:40Z
+429|implemented|codify|ceo|2026-09-02T00:23:40Z
+432|implemented|codify|ceo|2026-09-02T00:23:40Z
+439|implemented|codify|ceo|2026-09-02T00:23:40Z
+440|implemented|codify|ceo|2026-09-02T00:23:40Z
+441|implemented|codify|ceo|2026-09-02T00:23:40Z
+
+--- Categories of the 8 proposals ---
+426|governance_rule
+427|governance_rule
+428|governance_rule
+429|governance_rule
+432|governance_rule
+439|governance_rule
+440|governance_rule
+441|governance_rule
+
+--- accepted count (expect 12 or less if thread-76 flipped in window) ---
+ACC=12
+
+--- Remaining accepted rows by id and target ---
+Error: in prepare, no such column: target
+  SELECT id||'|'||target FROM lesson_proposals WHERE status='accepted' ORDER BY 
+                  ^--- error here
+
+--- implemented count (expect 322) ---
+IMPL=322
+
+--- NEWROWS (informational) ---
+NEWROWS=0
+
+=== Item 5 (cont): capture re-run 433 lines, diff empty ===
+
+=== Item 7: Corpus preservation ===
+PROPOSALS=441
+ENTRIES=433
