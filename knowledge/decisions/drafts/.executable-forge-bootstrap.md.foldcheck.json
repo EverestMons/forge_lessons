@@ -1,0 +1,17 @@
+{
+  "plan_lint": {
+    "exit": 0,
+    "signals": [
+      "(o2) WARN: Deposits entry `CLAUDE.md` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `knowledge/development/dev-log-forge-bootstrap-N-N-N.md` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `knowledge/qa/evidence/forge-bootstrap-N-N-N/full-suite-forge-bootstrap.txt` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `knowledge/qa/evidence/forge-bootstrap-N-N-N/probes-raw.txt` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `knowledge/qa/evidence/forge-bootstrap-N-N-N/qa-receipt.md` is not project-prefixed or absolute",
+      "(o2) WARN: Deposits entry `scripts/bootstrap.sh` is not project-prefixed or absolute",
+      "PIN-CHECK: kind=prefix line=N token=6d8cb99dec61\u2026 result=ambiguous",
+      "PIN-CHECK: kind=prefix line=N token=f1f0987fd6f1\u2026 result=ambiguous",
+      "WARN: step 1 mentions tests but declares no test scope",
+      "WARN: step 2 mentions tests but declares no test scope"
+    ]
+  }
+}

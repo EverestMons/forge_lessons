@@ -180,7 +180,7 @@ class: shop-infra
 reads: /Users/marklehn/Developer/forge_lessons/requirements.txt, /Users/marklehn/Developer/forge_lessons/.gitignore, /Users/marklehn/Developer/forge_lessons/CLAUDE.md, /Users/marklehn/Developer/eluvian-governance/MACHINE_SETUP.md, /Users/marklehn/Developer/forge_lessons/knowledge/decisions/Done/executable-100008.md
 writes: scripts/bootstrap.sh, CLAUDE.md, /Users/marklehn/Developer/eluvian-governance/MACHINE_SETUP.md, knowledge/development/dev-log-forge-bootstrap-2026-09-02.md, knowledge/qa/evidence/forge-bootstrap-2026-09-02/qa-receipt.md, knowledge/qa/evidence/forge-bootstrap-2026-09-02/probes-raw.txt, knowledge/qa/evidence/forge-bootstrap-2026-09-02/full-suite-forge-bootstrap.txt
 open_forks: whether the shop's bellows checkout should also get a bootstrap (its interpreter is the system python3 — a MACHINE_SETUP question for the CEO, not this plan's)
-walks: 0
-yields: 0
-validation: cycle_check=PENDING, plan_lint=PENDING, fold_check=PENDING
-coherence: 0/0 walks have register rows
+walks: 2
+yields: 2, 0
+validation: cycle_check=BAR_MET, plan_lint=0_FAIL, fold_check=PASS
+coherence: 2/2 walks have register rows
