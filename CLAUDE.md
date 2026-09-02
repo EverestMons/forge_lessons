@@ -4,6 +4,10 @@
 
 This project follows the Eluvian execution protocol defined in `PLANNER_TEMPLATE.md § Execution Model`. The full specification for RUN EXE, RUN DIAG, execution claiming (`in-progress-` prefix), cross-plan dependencies, and priority ordering lives there. Key points repeated here for agent convenience:
 
+### Interpreter
+
+This project's suite runs under its own venv: `scripts/bootstrap.sh` creates `.venv` (`python3.12` where present, else `python3`), installs `requirements.txt` and runs `src scripts` once — MACHINE_SETUP.md §2 (thread 79). Until a machine has run it, the bellows interpreter is the pinned fallback: `/…/bellows/.venv/bin/python -m pytest src scripts -q` from the forge checkout. Plans name the interpreter they run under.
+
 ### RUN EXE
 Scan `knowledge/decisions/` for `executable-` files. Skip `in-progress-` and `Done/`. **BEFORE executing, RENAME the file:**
 ```python
