@@ -9,3 +9,4 @@ __pycache__/
 .bellows-worktrees/
 .bellows-cache/
 .vexp/
+*.db.retired-*
