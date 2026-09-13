@@ -1,0 +1,54 @@
+# evidence-classify-w30a-2026-09-12.txt
+# Raw SQL outputs of post-conditions for batch A
+
+=== M2 — unclassified entries ===
+COUNT: 81
+FIRST 5: [500, 501, 502, 503, 504]
+LAST 5: [576, 577, 578, 579, 580]
+CHECK: True — exactly batches B+C (500-580)
+
+=== M3 — proposal status histogram ===
+  accepted: 23
+  implemented: 334
+  proposed: 41
+  reference: 35
+  rejected: 42
+  stale: 3
+  superseded: 29
+  TOTAL: 507
+  accepted (verified): 23
+
+=== M4 — new proposals with route!=NULL or status!='proposed' ===
+COUNT: 0
+
+=== M17 — pairing check ===
+M17a (entries with >1 new proposal): []
+M17b (new proposals out of band): 0
+
+=== M5 — pre-existing triple-set (id <= 466) ===
+COUNT: 466
+ACCEPTED COUNT: 23
+FIRST 5 ROWS: [(1, 'implemented', None), (2, 'implemented', None), (3, 'implemented', None), (4, 'implemented', None), (5, 'implemented', None)]
+LAST 5 ROWS: [(462, 'accepted', 'codify'), (463, 'accepted', 'codify'), (464, 'accepted', 'codify'), (465, 'reference', 'reference'), (466, 'accepted', 'codify')]
+
+=== M6 — entry count ===
+COUNT: 580, MAX(id): 580
+
+=== M7 — AUTHOR-CONFLICT markers (batch A range 459-499) ===
+Direction 1 (date>=2026-09-04 missing [AUTHOR-CONFLICT]): []
+Direction 2 (date<2026-09-04 with [AUTHOR-CONFLICT]): []
+Count with AUTHOR-CONFLICT (expected 27): 27
+
+=== M12 — stale proposals ===
+COUNT: 3
+
+=== M16 — new duplicate proposals ===
+COUNT: 0
+
+=== M8 — register sha and entry count ===
+SHA256: 0c99d2073e5072f8305826320ebb0b322cffbe97f5905c719dbedf565e2cb50e  /Users/marklehn/Developer/eluvian-governance/LESSONS.md
+Parsed entries: 523
+
+=== M15 — DISPOSITION line count ===
+grep count: 41
+
