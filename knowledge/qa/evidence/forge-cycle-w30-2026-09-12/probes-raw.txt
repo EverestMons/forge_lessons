@@ -1,0 +1,59 @@
+=== probes-raw.txt — forge-cycle-w30-2026-09-12 QA ===
+
+--- M2: unclassified entries ---
+unclassified count: 0
+unclassified ids: []
+
+--- M3: proposal status histogram ---
+  accepted: 23
+  implemented: 334
+  proposed: 122
+  reference: 35
+  rejected: 42
+  stale: 3
+  superseded: 29
+  TOTAL: 588
+
+--- M4: new-proposal band check (route NOT NULL or status != proposed) ---
+bad new proposals: 0
+
+--- M17: new-proposal/entry pairing ---
+multi-proposal entries: []
+out-of-band proposals: 0
+K (new proposal count): 122
+
+--- M5: pre-existing proposal triple-set (id <= 466) ---
+count: 466
+accepted proposals: [(442, 'accepted', 'codify'), (443, 'accepted', 'codify'), (444, 'accepted', 'codify'), (445, 'accepted', 'codify'), (446, 'accepted', 'codify'), (447, 'accepted', 'codify'), (448, 'accepted', 'codify'), (449, 'accepted', 'codify'), (450, 'accepted', 'codify'), (451, 'accepted', 'codify'), (452, 'accepted', 'codify'), (453, 'accepted', 'codify'), (454, 'accepted', 'codify'), (455, 'accepted', 'codify'), (456, 'accepted', 'codify'), (458, 'accepted', 'codify'), (459, 'accepted', 'codify'), (460, 'accepted', 'codify'), (461, 'accepted', 'codify'), (462, 'accepted', 'codify'), (463, 'accepted', 'codify'), (464, 'accepted', 'codify'), (466, 'accepted', 'codify')]
+SET-IDENTICAL check: 466 rows, accepted still 23 => True
+
+--- M6: lesson_entries count and max ---
+count: 580   max_id: 580
+
+--- M7: AUTHOR-CONFLICT markers (both directions) ---
+(i) proposals with [AUTHOR-CONFLICT]: 108
+(i) entries with date >= 2026-09-04: 108
+(i) sets equal: True
+(ii) early-date proposals with [AUTHOR-CONFLICT]: 0
+
+--- M11: content hash check (3 updated entries 98, 106, 368 vs parser) ---
+entry 98: db_hash=146c08d3a1c1373ce787278a0c44a99a... parser_hash=146c08d3a1c1373ce787278a0c44a99a... MATCH=True
+entry 106: db_hash=401f70ee4ec5a95d9ae0af56c0e9c81e... parser_hash=401f70ee4ec5a95d9ae0af56c0e9c81e... MATCH=True
+entry 368: db_hash=4f56e1aa75860d54a65dc594774fa1d3... parser_hash=4f56e1aa75860d54a65dc594774fa1d3... MATCH=True
+
+--- M12: stale proposals ---
+stale count: 3
+
+--- M16: duplicate category proposals in new band ---
+duplicate proposals in band: 0
+
+--- M8: LESSONS.md sha and parse count ---
+sha256: 0c99d2073e5072f8305826320ebb0b322cffbe97f5905c719dbedf565e2cb50e  /Users/marklehn/Developer/eluvian-governance/LESSONS.md
+parsed entry count: 523
+
+--- M15: DISPOSITION lines in classify dev logs ---
+batch A: 41 DISPOSITION lines
+batch B: 41 DISPOSITION lines
+batch C: 40 DISPOSITION lines
+
+=== probes complete ===
