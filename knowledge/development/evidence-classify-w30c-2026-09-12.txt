@@ -1,0 +1,34 @@
+=== EVIDENCE-CLASSIFY-W30C-2026-09-12 ===
+
+M2 — get_unclassified_entries: []
+
+M3 — total proposals: 588
+  accepted: 23
+  implemented: 334
+  proposed: 122
+  reference: 35
+  rejected: 42
+  stale: 3
+  superseded: 29
+
+M4 — new proposals with route not NULL or status != proposed: 0
+
+M17a — entries with multiple new proposals: []
+M17b — new proposals outside entry band: 0
+
+M5 — triple count (ids <= 466): 466
+M5 — SET-IDENTICAL vs Step 1 capture: True
+
+M6 — entries count: 580, MAX(id): 580
+
+M7 — total new proposals with [AUTHOR-CONFLICT]: 108
+M7 direction 1 — marked entry count: 108, dated entry count: 108, sets equal: True
+M7 direction 2 — early-dated proposals with marker: 0
+
+M12 — stale proposals: 3
+
+M16 — new duplicate proposals: 0
+
+M8 — sha256 LESSONS.md: 0c99d2073e5072f8305826320ebb0b322cffbe97f5905c719dbedf565e2cb50e  /Users/marklehn/Developer/eluvian-governance/LESSONS.md
+
+M15 — DISPOSITION line count in dev-log-classify-w30c: 40
